@@ -1,0 +1,8 @@
+= Introduction =
+Java Matrix Benchmark is a tool for evaluating different Java matrix libraries for speed and stability.  It is designed to rigorously test the libraries and produce accurate stable results.  The tests are designed such that they can be run on a variety of platforms with no modification.  All operations are tested against a variety of different randomly generated matrices, from very small to very large.
+
+The accuracy of each libraries' runtime performance is ensured through a variety of techniques.  Tests are done in such a way that the benchmark does not add any overhead that could slow down the library being tested.  The number of trials and memory allocated is dynamically computed, allowing it to be run on both older and newer computers.  The effects of runtime optimizations done by the JavaVM are taken in account.
+
+How fast a library runs does not mater if its results are incorrect.  Tests are performed that evaluate each libraries correctness and its stability against nearly singular matrices.
+
+The results of the tests are saved to disk and can also be plotted, with PDF documents generated showing the results.
