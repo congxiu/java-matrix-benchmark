@@ -12,7 +12,7 @@ For a description of what these benchmarks are go to the [PerformanceBenchmarks]
 Links to the results:
   * [BenchmarkPentiumM#Basic_Operation_Results Basic Operations]
   * [BenchmarkPentiumM#Solving_Linear_Systems Solving Linear Systems]
-  * [BenchmarkPentiumM#Matrix_Decompositions Matrix Decompositons]
+  * [BenchmarkPentiumM#Matrix_Decompositions Matrix Decompositions]
 
 =Basic Operation Results=
 
