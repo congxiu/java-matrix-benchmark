@@ -1,0 +1,46 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Several different 
+
+= Libraries Summary =
+
+|| Name || Version         || Multi-Threaded || Physical Transpose ||
+|| EJML ||  0.7            ||       || true  ||
+|| Colt ||  1.2            || true  ||       ||
+|| Commons Math || 2.0     ||       || true  ||
+|| Jama || 1.0.2           ||       || true  ||
+|| JScience || 4.3         || true  || true  ||
+|| MTJ || 0.9.12           ||       || true  ||
+|| OjAlgo || 28.26         || true  ||       ||
+|| Parallel Colt || 0.9.1  || true  ||       ||
+|| UJMP || 0.2.3           ||       || true  ||
+
+= Operations Tested =
+
+== Basic Operations ==
+
+|| Operation || Description ||
+|| {{{C = α * B}}} || Scaling ||
+|| {{{C = A + B}}} || Addition ||
+|| {{{C = A * B}}} || Matrix multiplication ||
+|| C = A<sup>T</sup> {{{*}}} B || Transpose then multiplication. ||
+|| Det(A) || Determinant ||
+|| C = A<sup>T</sup> || Transpose ||
+|| C = inv(A) || Invert ||
+
+== Linear Solving ==
+
+|| Operation || Description ||
+|| {{{A*x = b}}} where m=n|| Solving for x when A is a square non-singular matrix.||
+|| {{{A*x = b}}} where m>n|| Solving for x when it is an overdetermined system.||
+
+== Decompositions ==
+
+|| Operation || Description ||
+|| LU || Square non-singular matrices. ||
+|| Cholesky || Square positive definite matrices. ||
+|| QR || Rectangular matrices where m > n ||
+|| SVD || Square matrix. ||
+|| Eigen || Symmetric square matrix. ||
