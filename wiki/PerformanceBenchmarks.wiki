@@ -20,9 +20,7 @@ This is how the benchmark was configured.  See the code for an explanation of th
 
 Below is a summary of each of the libraries that were tested.  The columns indicates features of each libraries implementations that are important for understanding the results.
 
-|| Name || Version         || Multi-Threaded || Physical  || Cached  || In-Place ||
-||      ||                 ||                || Transpose || Results ||          ||
----
+|| Name || Version         || Multi-Threaded || Physical <br> Transpose || Cached <br> Results || In-Place ||
 || EJML ||  0.7            ||       || True  ||      ||      ||
 || Colt ||  1.2            || True  ||       ||      || True ||
 || Commons Math || 2.0     ||       || True  ||      ||      ||
