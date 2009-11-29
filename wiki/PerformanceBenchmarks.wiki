@@ -49,7 +49,7 @@ When computing a decomposition of a matrix not all the results are needed all th
 === In-Place ====
 An in-place operation is an operation which modifies one of the original matrices instead of storing the results in another matrix.  Most libraries provide methods for the later, which is what this benchmark evaluated.  If a library only provides an in-place method, then a copy of the original matrix is created.  This will degrade performance for small matrices.  If a library is flagged as in-place above, then for at least one operation only an in-place variant was provided.
 
-Affected operators are scale and add in Colt, Parallel Colt and MTJ libraries.
+Effected operators are 'scale' and 'add' in Colt, Parallel Colt and MTJ libraries.
 
 = Operations Tested =
 
