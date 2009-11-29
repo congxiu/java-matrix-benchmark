@@ -13,16 +13,17 @@ Links to the results:
 
 =Basic Operation Results=
 
-|| http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/add.png || http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/scale.png ||
-|| http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/mult.png || http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/multTranA.png ||
-|| http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/det.png || http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/tran.png ||
-|| http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/inv.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/multTranA.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/tran.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/inv.png ||
 
 =Solving Linear Systems=
 
-|| http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/solve.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/solveOver.png||
 
 =Matrix Decompositions=
 
-|| http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/cholesky.png || http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/LU.png ||
-|| http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/QR.png || http://efficient-java-matrix-library.googlecode.com/svn/wiki/BenchmarkQ9400.attach/svd.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/LU.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/svd.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/EigSymm.png ||
