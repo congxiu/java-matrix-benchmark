@@ -1,21 +1,5 @@
 #summary Summary of performance benchmarks.
 
-= Introduction =
-
-The following is a summary what was evaluated and why.
-
-= Java Matrix Benchmark Settings =
-
-This is how the benchmark was configured.  See the code for an explanation of these settings.
-
-|| Setting || Value ||
-|| numBlockTrials || 5 ||
-|| numBlocks || 5 ||
-|| TRIAL_TIME || 3000 ||
-|| memorySlaveBase || 10 ||
-|| memorySlaveScale || 8 ||
-|| randizeOrder || true ||
-
 = Libraries Summary =
 
 Below is a summary of each of the libraries that were tested.  The columns indicates features of each libraries implementations that are important for understanding the results.
