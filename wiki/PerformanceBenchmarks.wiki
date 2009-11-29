@@ -20,7 +20,7 @@ This is how the benchmark was configured.  See the code for an explanation of th
 
 Below is a summary of each of the libraries that were tested.  The columns indicates features of each libraries implementations that are important for understanding the results.
 
-|| Name || Version         || Multi-Threaded || Physical Transpose || Cached Results || In-place ||
+|| Name || Version         || Multi-Threaded || Physical Transpose || Cached Results || In-Place ||
 || EJML ||  0.7            ||       || True  ||      ||      ||
 || Colt ||  1.2            || True  ||       ||      || True ||
 || Commons Math || 2.0     ||       || True  ||      ||      ||
@@ -47,7 +47,7 @@ The work around for this issue is to tell the library to forget its past results
 When computing a decomposition of a matrix not all the results are needed all the time or the results need to be extracted from a partial solution.  Many of the libraries will postpone some computations until the full solution has been requested.  As a way around this issue the full decomposition is requested from all libraries.  This will not bias the results, but libraries with this feature might run faster in real-world applications.
 
 === In-Place ====
-An in-place operation is an operation which modifies one of the original matrices instead of storing the results in another matrix.  Most libraries provide methods for the later, which is what this benchmark tests.  If a library only provides in-place methods a copy of the original matrix is created.  This will degrade performance for small matrices.  If a library is flagged as in-place above, then for some operations only an in-place variant was provided.
+An in-place operation is an operation which modifies one of the original matrices instead of storing the results in another matrix.  Most libraries provide methods for the later, which is what this benchmark evaluated.  If a library only provides an in-place method, then a copy of the original matrix is created.  This will degrade performance for small matrices.  If a library is flagged as in-place above, then for at least one operation only an in-place variant was provided.
 
 = Operations Tested =
 
