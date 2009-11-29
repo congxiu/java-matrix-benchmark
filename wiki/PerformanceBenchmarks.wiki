@@ -5,7 +5,10 @@
 The following is a summary what was evaluated and why.  To skip all of this and see the plots click on the links below:
 
 
+
 = Java Matrix Benchmark Settings =
+
+This is how the benchmark was configured.  See the code for an explanation of these settings.
 
 || Setting || Value ||
 || numBlockTrials || 5 ||
@@ -16,6 +19,8 @@ The following is a summary what was evaluated and why.  To skip all of this and 
 || randizeOrder || true ||
 
 == Libraries Summary ==
+
+Here are the libraries that were tested.
 
 || Name || Version         || Multi-Threaded || Physical Transpose ||
 || EJML ||  0.7            ||       || true  ||
@@ -43,7 +48,7 @@ Matrix transpose is primarily handled in two ways by the libraries.  In some it 
 || {{{C = A + B}}} || Addition ||
 || {{{C = A * B}}} || Matrix multiplication ||
 || C = A<sup>T</sup> {{{*}}} B || Transpose then multiplication. ||
-|| Det(A) || Determinant ||
+|| det(A) || Determinant ||
 || C = A<sup>T</sup> || Physical transpose ||
 || C = inv(A) || Invert ||
 
