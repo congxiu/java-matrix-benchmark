@@ -41,9 +41,7 @@ Three primary types of operations are tested; basic, solving, and decompositions
 
 == Basic Operations ==
 
-The following are several common operations used in linear algebra.  There are many different permutations on these that some libraries support.  Testing them all is not of practical value.
-
-Matrix transpose is primarily handled in two ways by the libraries.  In some it is a physical transpose where a new matrix is created and the transpose written to it.  In others a matrix is just flagged as being transposed.  The transpose benchmark only tested a physical transpose.  However, to test the merits of flagging a library as being transposed, a transpose then multiplication operation was also tested.
+The following are several common operations used in linear algebra.  There are many different permutations on these that some libraries support.  For sake of brevity, only a few have been tested.
 
 || Operation || Description ||
 || {{{C = α * B}}} || Scaling ||
@@ -64,13 +62,7 @@ Most libraries provided ways to solve for linear systems.  Typically there are d
 
 == Decompositions ==
 
-Internally how each library performed decompositions varied significantly.  For example,
-some out extract all the decomposed matrices at once, while others would only extract
-them upon request.  To overcome this problem all of the decompositions tests would first
-request that they decompose the matrix, then extract each of the decomposed matrices.
-
-One could argue that extracting the decomposed matrices is often an unnecessary.  While
-true, one would also need to understand the internals of how the algorithm worked to avoid doing so.  
+After each library performs a decomposition the decomposed matrices are then requested.  *NOTE: this is only done for SVD and eigen right now.*
 
 || Operation || Description ||
 || LU || Square non-singular matrices. ||
