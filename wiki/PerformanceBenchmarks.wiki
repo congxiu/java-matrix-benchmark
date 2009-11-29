@@ -43,6 +43,8 @@ Three primary types of operations are tested; basic, solving, and decompositions
 
 The following are several common operations used in linear algebra.  There are many different permutations on these that some libraries support.  For sake of brevity, only a few have been tested.
 
+The transpose then multiply test is included to allow libraries that do not do a physical transpose to demonstrate their transpose performance.
+
 || Operation || Description ||
 || {{{C = α * B}}} || Scaling ||
 || {{{C = A + B}}} || Addition ||
