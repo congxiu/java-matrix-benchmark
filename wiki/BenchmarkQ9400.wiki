@@ -1,4 +1,7 @@
 #summary Benchmark results for Q9400 Vista 64
+
+For a description of what these benchmarks are go to the [PerformanceBenchmarks] page.
+
 =Test Environment =
 
 || Date || November 29, 2009 ||
