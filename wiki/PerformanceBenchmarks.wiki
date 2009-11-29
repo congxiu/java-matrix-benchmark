@@ -29,7 +29,7 @@ Here are the libraries that were tested.
 || Colt ||  1.2            || true  ||       ||
 || Commons Math || 2.0     ||       || true  ||
 || Jama || 1.0.2           ||       || true  ||
-|| JScience || 4.3         || true  || true  ||
+|| JScience || 4.3         || true  ||       ||
 || MTJ || 0.9.12           ||       || true  ||
 || OjAlgo || 28.26         || true  ||       ||
 || Parallel Colt || 0.9.1  || true  ||       ||
