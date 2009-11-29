@@ -2,9 +2,20 @@
 
 = Introduction =
 
-Several different 
+The following is a summary what was evaluated and why.  To skip all of this and see the plots click on the links below:
 
-= Libraries Summary =
+
+= Java Matrix Benchmark Settings =
+
+|| Setting || Value ||
+|| numBlockTrials || 5 ||
+|| numBlocks || 5 ||
+|| TRIAL_TIME || 3000 ||
+|| memorySlaveBase || 10 ||
+|| memorySlaveScale || 8 ||
+|| randizeOrder || true ||
+
+== Libraries Summary ==
 
 || Name || Version         || Multi-Threaded || Physical Transpose ||
 || EJML ||  0.7            ||       || true  ||
@@ -19,7 +30,13 @@ Several different
 
 = Operations Tested =
 
+Three primary types of operations are tested; basic, solving, and decompositions.  If a library did not support one of the operations it was simply omitted from that test.
+
 == Basic Operations ==
+
+The following are several common operations used in linear algebra.  There are many different permutations on these that some libraries support.  Testing them all is not of practical value.
+
+Matrix transpose is primarily handled in two ways by the libraries.  In some it is a physical transpose where a new matrix is created and the transpose written to it.  In others a matrix is just flagged as being transposed.  The transpose benchmark only tested a physical transpose.  However, to test the merits of flagging a library as being transposed, a transpose then multiplication operation was also tested.
 
 || Operation || Description ||
 || {{{C = α * B}}} || Scaling ||
@@ -27,16 +44,26 @@ Several different
 || {{{C = A * B}}} || Matrix multiplication ||
 || C = A<sup>T</sup> {{{*}}} B || Transpose then multiplication. ||
 || Det(A) || Determinant ||
-|| C = A<sup>T</sup> || Transpose ||
+|| C = A<sup>T</sup> || Physical transpose ||
 || C = inv(A) || Invert ||
 
 == Linear Solving ==
+
+Most libraries provided ways to solve for linear systems.  Typically there are different algorithms used when a square system is being solved for versus an overdetermined system.  Thus there are two benchmarks.
 
 || Operation || Description ||
 || {{{A*x = b}}} where m=n|| Solving for x when A is a square non-singular matrix.||
 || {{{A*x = b}}} where m>n|| Solving for x when it is an overdetermined system.||
 
 == Decompositions ==
+
+Internally how each library performed decompositions varied significantly.  For example,
+some out extract all the decomposed matrices at once, while others would only extract
+them upon request.  To overcome this problem all of the decompositions tests would first
+request that they decompose the matrix, then extract each of the decomposed matrices.
+
+One could argue that extracting the decomposed matrices is often an unnecessary.  While
+true, one would also need to understand the internals of how the algorithm worked to avoid doing so.  
 
 || Operation || Description ||
 || LU || Square non-singular matrices. ||
