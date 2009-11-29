@@ -2,11 +2,7 @@
 
 = Introduction =
 
-The following is a summary what was evaluated and why.  To skip all of this and see the plots click on the links below:
-
-|| Processor || Num CPUs || Year Made || Link ||
-|| Intel Q9400  || 4 || 2008 || [BenchmarkQ9400]  ||
-|| Pentium M || 1 || 2005? || [BenchmarkPentiumM] ||
+The following is a summary what was evaluated and why.
 
 = Java Matrix Benchmark Settings =
 
