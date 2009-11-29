@@ -18,15 +18,15 @@ Links to the results:
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/scale.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/multTranA.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/tran.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/inv.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/tran.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/inv.png ||
 
 =Solving Linear Systems=
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/solveOver.png||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/solveOver.png||
 
 =Matrix Decompositions=
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/LU.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/svd.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkQ9400.attach/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/LU.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/svd.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/BenchmarkPentiumM.attach/EigSymm.png ||
