@@ -58,9 +58,9 @@ The transpose then multiply test is included to allow libraries that do not do a
 
 Most libraries provided ways to solve for linear systems.  Typically there are different algorithms used when a square system is being solved for versus an overdetermined system.  Thus there are two benchmarks.
 
-|| Operation || Description ||
-|| x = A<sup>-1</sup>b where m=n|| Solving for x when A is a square non-singular matrix. A = (m x m), b = (m x 2m)||
-|| x = A<sup>-1</sup>b where m>n|| Solving for x when it is an overdetermined system.A = (3m x m), b = (3m x 2m ||
+|| Operation || Description || Matrix Dimension ||
+|| x = A<sup>-1</sup>b where m=n|| Solving for x when A is a square non-singular matrix.|| A = (m x m), b = (m x 2m)||
+|| x = A<sup>-1</sup>b where m>n|| Solving for x when it is an overdetermined system. || A = (3m x m), b = (3m x 2m ||
 
 == Decompositions ==
 
