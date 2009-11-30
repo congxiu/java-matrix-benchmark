@@ -51,7 +51,7 @@ The transpose then multiply test is included to allow libraries that do not do a
 || {{{C = A * B}}} || Matrix multiplication. || A = (m x m), B=(m x m)||
 || C = A<sup>T</sup> {{{*}}} B || Transpose then multiplication. || A = (m x m), B=(m x m) ||
 || det(A) || Determinant || A = (m x m) ||
-|| C = A<sup>T</sup> || Physical transpose. || A = (m/2 x m) ||
+|| C = A<sup>T</sup> || Physical transpose. || A = (m x m) ||
 || C = inv(A) || Invert. || A = (m x m)||
 
 == Linear Solving ==
