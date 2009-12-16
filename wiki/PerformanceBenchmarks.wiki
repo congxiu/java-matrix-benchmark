@@ -1,19 +1,33 @@
 #summary Summary of performance benchmarks.
 
-= Libraries Summary =
+= Introduction =
+The libraries shown below were tested for runtime performance in several different operations.  The tested operations were primarily selected based on how commonly they are used or to show off the potential advantages or disadvantages of library design issues.
+
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.0     ||
+|| EJML ||  0.7            ||
+|| Jama || 1.0.2           ||
+|| JScience || 4.3         ||
+|| MTJ || 0.9.12           || 
+|| OjAlgo || 28.26         || 
+|| Parallel Colt || 0.9.1  ||
+|| UJMP || 0.2.3           ||
+
+= Library Design Summary =
 
 Below is a summary of each of the libraries that were tested.  The columns indicates features of each libraries implementations that are important for understanding the results.
 
-|| Name || Version         || Multi-Threaded || Physical <br> Transpose || Cached <br> Results || In-Place ||
-|| EJML ||  0.7            ||       || True  ||      ||      ||
-|| Colt ||  1.2            || True  ||       ||      || True ||
-|| Commons Math || 2.0     ||       || True  ||      ||      ||
-|| Jama || 1.0.2           ||       || True  ||      ||      ||
-|| JScience || 4.3         || True  ||       ||      ||      ||
-|| MTJ || 0.9.12           ||       || True  ||      || True ||
-|| OjAlgo || 28.26         || True  ||       || True ||      ||
-|| Parallel Colt || 0.9.1  || True  ||       ||      || True ||
-|| UJMP || 0.2.3           ||       || True  ||      ||      ||
+|| Name || Multi-Threaded || Physical <br> Transpose || Cached <br> Results || In-Place ||
+|| Colt || True           ||       ||      || True ||
+|| Commons Math ||        || True  ||      ||      ||
+|| EJML ||                || True  ||      ||      ||
+|| Jama ||                || True  ||      ||      ||
+|| JScience || True       ||       ||      ||      ||
+|| MTJ ||                 || True  ||      || True ||
+|| OjAlgo || True         ||       || True ||      ||
+|| Parallel Colt || True  ||       ||      || True ||
+|| UJMP ||                || True  ||      ||      ||
 
 == Benchmark/Library Design Issues ==
 
@@ -36,6 +50,20 @@ An in-place operation is an operation which modifies one of the original matrice
 Effected operators are 'scale' and 'add' in Colt, Parallel Colt and MTJ libraries.
 
 = Operations Tested =
+
+= Library Functionality Summary =
+
+|| Name  || Scale || Add || Mult || Tran || Det || Inv || Chol || LU || QR || SVD || Eigen ||
+|| Colt          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| Commons Math  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| EJML          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||     || 
+|| Jama          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| JScience      ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||     ||     ||     || 
+|| MTJ           ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| OjAlgo        ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| Parallel Colt ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| UJMP          ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  ||     ||     ||  Y  ||     ||     || 
+
 
 Three primary types of operations are tested; basic, solving, and decompositions.  If a library did not support one of the operations it was simply omitted from that test.
 
