@@ -54,14 +54,14 @@ Effected operators are 'scale' and 'add' in Colt, Parallel Colt and MTJ librarie
 = Library Functionality Summary =
 
 || Name  || Scale || Add || Mult || Tran || Det || Inv || Chol || LU || QR || SVD || Eigen ||
-|| Colt          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
-|| Commons Math  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
-|| EJML          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||     || 
-|| Jama          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| Colt          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
+|| Commons Math  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
+|| EJML          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||     || 
+|| Jama          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
 || JScience      ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||     ||     ||     || 
-|| MTJ           ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
-|| OjAlgo        ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
-|| Parallel Colt ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  || 
+|| MTJ           ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  ||  Y  ||  Y  ||  Y  ||  Y    ||  Y  || 
+|| OjAlgo        ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
+|| Parallel Colt ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y    ||  Y  || 
 || UJMP          ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  ||     ||     ||  Y  ||     ||     || 
 
 
