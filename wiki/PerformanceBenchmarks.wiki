@@ -5,7 +5,7 @@ Several libraries were tested for runtime performance in several different opera
 
 Click here for a list of [EvaluatedLibraries evaluated libaries]
 
-= Library Functionality Summary =
+= Evaluated Operations =
 
 Three primary types of operations are tested; basic, solving, and decompositions.  If a library did not support one of the operations it was simply omitted from that test.
 
