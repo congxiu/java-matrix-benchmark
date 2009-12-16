@@ -1,0 +1,69 @@
+#summary Description of all the libraries that were evaluated.
+
+= Introduction =
+
+The following libraries were evaluated.
+
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.0     ||
+|| EJML ||  0.7            ||
+|| Jama || 1.0.2           ||
+|| JScience || 4.3         ||
+|| MTJ || 0.9.12           || 
+|| OjAlgo || 28.26         || 
+|| Parallel Colt || 0.9.1  ||
+|| UJMP || 0.2.3           ||
+
+= Supported Operation Summary =
+
+|| Name  || Scale || Add || Mult || Tran || Det || Inv || Chol || LU || QR || SVD || Eigen ||
+|| Colt          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
+|| Commons Math  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
+|| EJML          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||     || 
+|| Jama          ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
+|| JScience      ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||     ||     ||     ||     || 
+|| MTJ           ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  ||  Y  ||  Y  ||  Y  ||  Y    ||  Y  || 
+|| OjAlgo        ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y   ||  Y  || 
+|| Parallel Colt ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y  ||  Y    ||  Y  || 
+|| UJMP          ||  Y  ||  Y  ||  Y  ||  Y  ||     ||  Y  ||     ||     ||  Y  ||  Y   ||     || 
+
+
+
+= Design Summary =
+
+
+Below is a summary of each of the libraries that were tested.  The columns indicates features of each libraries implementations that are important for understanding the results.
+
+|| Name || Multi-Threaded || Physical <br> Transpose || Cached <br> Results || In-Place ||
+|| Colt || True           ||       ||      || True ||
+|| Commons Math ||        || True  ||      ||      ||
+|| EJML ||                || True  ||      ||      ||
+|| Jama ||                || True  ||      ||      ||
+|| JScience || True       ||       ||      ||      ||
+|| MTJ ||                 || True  ||      || True ||
+|| OjAlgo || True         ||       || True ||      ||
+|| Parallel Colt || True  ||       ||      || True ||
+|| UJMP ||                || True  ||      ||      ||
+
+
+= Benchmarking Issues =
+
+One problem that is encountered when benchmarking linear algebra libraries, is that they often do not implement the exact same operation.  Often times some massaging is required before they will produce the desired results.  Here are some issues that were encounter 1) how transpose is performed, 2) caching of results, 3) only computing partial decompositions, 4) only providing in-place operations.
+
+=== Transpose ===
+Libraries whose algorithms operate with accessors instead of the raw data can simply mark a matrix as being transposed.  When a get(x,y) function is called it internally swaps the x and y if it has been flagged. A library that physically transposes a matrix moves the memory around and no check needs to be done to see if it has been transposed.  For the transpose benchmark, libraries that do not perform a physical transpose are omitted.
+
+=== Caching ===
+If a matrix has not changed, then there is no need to recompute expensive operations on that matrix.  This can make things simpler for a developer, but increases the memory requirements of the library and its complexity.  It can also wreck havoc on benchmarks, since what is supposed to be measured is its performance at computing an operation.  
+
+The work around for this issue is to tell the library to forget its past results. For small matrices this might effect the results, for larger ones the performance will be insignificantly degraded.
+
+=== Partial Decompositions ===
+When computing a decomposition of a matrix, not all the results are needed all the time.  Many of the libraries will postpone some computations until the full solution has been requested.  As a way around this issue the full decomposition is requested from all libraries.  This will not bias the results, but libraries with this feature might run faster in real-world applications.
+
+=== In-Place ====
+An in-place operation is an operation which modifies one of the original matrices instead of storing the results in another matrix.  Most libraries provide methods for the later, which is what this benchmark evaluated.  If a library only provides an in-place method, then a copy of the original matrix is created.  This will degrade performance for small matrices.  If a library is flagged as in-place above, then for at least one operation only an in-place variant was provided.
+
+
+Effected operators are 'scale' and 'add' in Colt, Parallel Colt and MTJ libraries.
