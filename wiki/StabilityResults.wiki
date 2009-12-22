@@ -1,0 +1,47 @@
+#summary Stability Benchmark Results
+
+= Test Environment =
+
+Date
+library versions
+Java version
+
+= Small Matrices =
+
+== Linear Solve ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="5"> Over Flow </TH><TH colspan="5"> Nearly Singular</TH></TR>
+<TR><TH/><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>JAMA</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.042</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.046</TD><TD></TD><TD> 4.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+307</TD><TD> 0.910</TD><TD></TD><TD> 0.032</TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>1.0e+308</TD><TD> 0.816</TD><TD></TD><TD> 0.030</TD><TD></TD><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.046</TD><TD></TD><TD> 4.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.046</TD><TD></TD><TD> 7.5e-13</TD><TD></TD><TD></TD><TD> 0.040</TD><TD> 0.960</TD></TR>
+<TR><TH>Colt</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.042</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.042</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+</TABLE>
+
+== Least Squares Solve ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="5"> Over Flow </TH><TH colspan="5"> Nearly Singular</TH></TR>
+<TR><TH/><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>JAMA</TH><TD>Infinity</TD><TD> 0.128</TD><TD></TD><TD></TD><TD></TD><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+155</TD><TD> 0.010</TD><TD></TD><TD> 0.966</TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 0.994</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>Infinity</TD><TD> 0.110</TD><TD></TD><TD></TD><TD></TD><TD> 5.4e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
+<TR><TH>CommMath</TH><TD>1.0e+155</TD><TD> 0.832</TD><TD></TD><TD> 0.168</TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD>Infinity</TD><TD> 0.128</TD><TD></TD><TD></TD><TD></TD><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD> 1.0e+00</TD><TD></TD><TD> 0.962</TD><TD></TD><TD></TD><TD> 1.0e+00</TD><TD></TD><TD> 0.950</TD><TD> 0.050</TD><TD></TD></TR>
+</TABLE>
+
+== Singular Value Decomposition ==
+
+== Eigen Value Decomposition ==
+
+= Medium Matrices =
+
+= Large Matrices =
