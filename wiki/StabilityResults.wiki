@@ -1,13 +1,32 @@
 #summary Stability Benchmark Results
 
-= Test Environment =
+= Test Setup =
 
-Date
-library versions
-Java version
+Test environment:
+|| Date || 2009/12/21 ||
+|| Java Version || ||
+|| OS || Ubuntu 9.10 ||
+|| CPU || Quad Core 6600 ||
+
+Tested Libraries:
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.0     ||
+|| EJML ||  0.7            ||
+|| Jama || 1.0.2           ||
+|| JScience || 4.3         ||
+|| MTJ || 0.9.12           || 
+|| OjAlgo || 28.29         || 
+|| Parallel Colt || 0.9.1  ||
+|| UJMP || 0.2.3           ||
+
+Test Configuration
+||  || Min || Max || Trials ||
+|| Small || 2 || 20 ||  1000 ||
+|| Medium || 100 || 200 ||  ||
+|| Large || 1000 || 1500 || ||
 
 = Small Matrices =
-
 == Linear Solve ==
 
 <TABLE border="1" cellpadding="5">
