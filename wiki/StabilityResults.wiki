@@ -4,7 +4,7 @@
 
 Test environment:
 || Date || 2009/12/21 ||
-|| Java Version || ||
+|| Java Version || 1.7 pre ||
 || OS || Ubuntu 9.10 ||
 || CPU || Quad Core 6600 ||
 
@@ -21,43 +21,59 @@ Tested Libraries:
 || UJMP || 0.2.3           ||
 
 Test Configuration
-||  || Min || Max || Trials ||
-|| Small || 2 || 20 ||  1000 ||
-|| Medium || 100 || 200 ||  ||
-|| Large || 1000 || 1500 || ||
+||  || Min || Max || Solve Trials || Svd Trials ||
+|| Small || 2 || 20 ||  1000 || ||
+|| Medium || 100 || 200 ||  || ||
+|| Large || 1000 || 1500 || || ||
 
 = Small Matrices =
 == Linear Solve ==
 
 <TABLE border="1" cellpadding="5">
-<TR><TH></TH><TH colspan="5"> Over Flow </TH><TH colspan="5"> Nearly Singular</TH></TR>
+<TR><TH></TH><TH colspan="5"> Overflow </TH><TH colspan="5"> Nearly Singular</TH></TR>
 <TR><TH/><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
-<TR><TH>JAMA</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.042</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
-<TR><TH>MTJ</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.046</TD><TD></TD><TD> 4.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD>1.0e+307</TD><TD> 0.910</TD><TD></TD><TD> 0.032</TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD>1.0e+308</TD><TD> 0.816</TD><TD></TD><TD> 0.030</TD><TD></TD><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
-<TR><TH>JScience</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.046</TD><TD></TD><TD> 4.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
-<TR><TH>CommMath</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.046</TD><TD></TD><TD> 7.5e-13</TD><TD></TD><TD></TD><TD> 0.040</TD><TD> 0.960</TD></TR>
-<TR><TH>Colt</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.042</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD>1.0e+308</TD><TD> 0.636</TD><TD></TD><TD> 0.042</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>1.0e+308</TD><TD> 0.480</TD><TD></TD><TD> 0.088</TD><TD></TD><TD> 3.5e-14</TD><TD></TD><TD></TD><TD> 0.999</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>1.0e+308</TD><TD> 0.483</TD><TD></TD><TD> 0.090</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+307</TD><TD> 0.892</TD><TD></TD><TD> 0.060</TD><TD></TD><TD> 4.8e-14</TD><TD></TD><TD></TD><TD> 0.998</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>1.0e+308</TD><TD> 0.751</TD><TD></TD><TD> 0.057</TD><TD></TD><TD> 6.6e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD>1.0e+308</TD><TD> 0.483</TD><TD></TD><TD> 0.090</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+308</TD><TD> 0.483</TD><TD></TD><TD> 0.090</TD><TD></TD><TD> 1.1e-12</TD><TD></TD><TD></TD><TD> 0.019</TD><TD> 0.981</TD></TR>
+<TR><TH>Colt</TH><TD>1.0e+308</TD><TD> 0.480</TD><TD></TD><TD> 0.088</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 0.999</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD>1.0e+308</TD><TD> 0.480</TD><TD></TD><TD> 0.088</TD><TD></TD><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 0.999</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
 == Least Squares Solve ==
 
 <TABLE border="1" cellpadding="5">
-<TR><TH></TH><TH colspan="5"> Over Flow </TH><TH colspan="5"> Nearly Singular</TH></TR>
+<TR><TH></TH><TH colspan="5"> Overflow </TH><TH colspan="5"> Nearly Singular</TH></TR>
 <TR><TH/><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
-<TR><TH>JAMA</TH><TD>Infinity</TD><TD> 0.128</TD><TD></TD><TD></TD><TD></TD><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
-<TR><TH>MTJ</TH><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD>1.0e+155</TD><TD> 0.010</TD><TD></TD><TD> 0.966</TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 0.994</TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD>Infinity</TD><TD> 0.110</TD><TD></TD><TD></TD><TD></TD><TD> 5.4e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>Infinity</TD><TD> 0.093</TD><TD></TD><TD></TD><TD></TD><TD> 7.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD/><TD/><TD/><TD/><TD/><TD> 6.6e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+155</TD><TD> 0.012</TD><TD></TD><TD> 0.954</TD><TD></TD><TD> 5.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>Infinity</TD><TD> 0.078</TD><TD></TD><TD></TD><TD></TD><TD> 5.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
-<TR><TH>CommMath</TH><TD>1.0e+155</TD><TD> 0.832</TD><TD></TD><TD> 0.168</TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD>Infinity</TD><TD> 0.128</TD><TD></TD><TD></TD><TD></TD><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 0.996</TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD> 1.0e+00</TD><TD></TD><TD> 0.962</TD><TD></TD><TD></TD><TD> 1.0e+00</TD><TD></TD><TD> 0.950</TD><TD> 0.050</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+155</TD><TD> 0.790</TD><TD></TD><TD> 0.211</TD><TD></TD><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD>Infinity</TD><TD> 0.093</TD><TD></TD><TD></TD><TD></TD><TD> 7.4e-14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD> 1.0e+00</TD><TD></TD><TD> 0.944</TD><TD></TD><TD></TD><TD> 1.0e+00</TD><TD></TD><TD> 0.944</TD><TD> 0.057</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
 == Singular Value Decomposition ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="5"> Overflow </TH><TH colspan="5"> Accuracy</TH></TR>
+<TR><TH/><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>JAMA</TH><TD> 1.0e+14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD><TD> 2.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD><TD> 4.1e-01</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD> 1.0e+14</TD><TD> 0.109</TD><TD></TD><TD> 0.891</TD><TD></TD><TD> 2.8e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD> 1.0e+14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD><TD> 2.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
+<TR><TH>CommMath</TH><TD> 1.0e+00</TD><TD> 0.593</TD><TD> 0.128</TD><TD> 0.279</TD><TD></TD><TD> 4.3e-16</TD><TD> 0.676</TD><TD> 0.089</TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD> 1.0e+14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD><TD> 2.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD> 1.0e+14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD><TD> 2.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD> 1.0e+14</TD><TD></TD><TD></TD><TD> 1.000</TD><TD></TD><TD> 2.3e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+</TABLE>
 
 == Eigen Value Decomposition ==
 
