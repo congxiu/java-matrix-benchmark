@@ -9,7 +9,7 @@ Quick Links:
 = Test Setup =
 
 Test environment:
-|| Date || 2009/12/21 ||
+|| Date || 2009/12/23 ||
 || Java Version || 1.7 pre ||
 || OS || Ubuntu 9.10 ||
 || CPU || Quad Core 6600 ||
@@ -28,9 +28,9 @@ Tested Libraries:
 
 Test Configuration
 ||  || Min || Max || Solve Trials || Svd Trials ||
-|| Small || 2 || 20 ||  1000 || ||
-|| Medium || 100 || 200 ||  || ||
-|| Large || 1000 || 1500 || || ||
+|| Small  || 2    || 20   || 2000 || 1000 ||
+|| Medium || 100  || 200  || 100  || 25  ||
+|| Large  || 1000 || 1500 || 10   || 5   ||
 
 ----
 = Small Matrices =
