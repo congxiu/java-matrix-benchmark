@@ -2,9 +2,9 @@
 
 Quick Links:
 
-  * [#Small Matrices]
-  * [#Medium Matrices]
-  * [#Large Matrices]
+  * [#Small_Matrices]
+  * [#Medium_Matrices]
+  * [#Large_Matrices]
 
 = Test Setup =
 
