@@ -1,5 +1,11 @@
 #summary Stability Benchmark Results
 
+Quick Links:
+
+  * [#Small Matrices]
+  * [#Medium Matrices]
+  * [#Large Matrices]
+
 = Test Setup =
 
 Test environment:
@@ -26,7 +32,9 @@ Test Configuration
 || Medium || 100 || 200 ||  || ||
 || Large || 1000 || 1500 || || ||
 
+----
 = Small Matrices =
+
 == Linear Solve ==
 
 <TABLE border="1" cellpadding="5">
@@ -91,6 +99,7 @@ Test Configuration
 <TR><TH>UJMP</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
+----
 = Medium Matrices =
 
 == Linear Solve ==
@@ -154,4 +163,6 @@ Test Configuration
 <TR><TH>PColt</TH><TD/><TD>1.0e+154</TD><TD></TD><TD>100.0</TD><TD></TD><TD></TD><TD/><TD> 4.5e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>UJMP</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
+
+----
 = Large Matrices =
