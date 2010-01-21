@@ -2,19 +2,23 @@
 
 = Introduction =
 
-Stability and accuracy of several important decomposition algorithms and linear solvers is tested in each library.  Three types of tests are performed for all algorithms; accuracy, overflow, and underflow.  A fourth type of test is also done for linear solvers that test their ability to handle nearly singular systems.  Accuracy tests the ability to accurately decompose a well formed matrix.  Overflow and underflow test their ability to handle very large and small numbers respectively.  
+Stability and accuracy are two very important issues in computational linear algebra.  Stability deals with how sensitive a system is to small perbations or how well it performs under certain stressing conditions.  Accuracy provides a metric how different the computed answer is from the true answer.  
+
+To evaluate the quality of different linear algebra libraries, tests are performed on several important decomposition algorithms and linear solvers in each library.  Three types of tests are performed for all algorithms; accuracy, overflow, and underflow.  A fourth type of test is also done for linear solvers that test their ability to handle nearly singular systems.  Accuracy tests the ability to accurately decompose or solve a well formed system.  Overflow and underflow test their ability to handle very large and small numbers respectively.  
 
 This benchmark does not claim to test for every possible type of error.  It is entirely possible for a library to pass all of these tests and still produce poor results in a different application.  The tests were selected to provide a general feel for a libraries accuracy and expose some common problems.
+
+= Testing Procedure = 
 
 Each test is performed several times using randomly generated matrices.  The tests are also performed across a range of matrix sizes.  Randomly generated matrices are used to provide a good range of tests.  The disadvantage of this approach is that particularly stressing cases might be missed.    In general the specialized stressing cases are specific for a particular algorithm/implementation and are not included since this is a general purpose benchmark.  It is possible for an algorithm to perform very well in these tests, but perform poorly for a particular application.
 
 There are two reason for testing different sizes of matrices.  Some libraries switch between different algorithms depending on the size and some errors become more noticeable for larger matrices.  The size of each matrix is specified on the results page.
 
-= Metrics =
+== Metrics ==
 
 Depending on the test different metrics are used.  Accuracy is measured as the frobenius norm of the difference between the expected and found results.  The specifics for how this is computed for each solver/decomposition is provided below.  Overflow/underflow tests work by scaling up or down a matrix until a stopping condition is encountered.  For overflow tests larger numbers are better with infinity being the best.  For underflow small numbers are better.
 
-== Trial Stopping Condition ==
+=== Trial Stopping Condition ===
 
 There are special different reasons for an individual test to stop, which are shown below:
 
@@ -26,13 +30,13 @@ There are special different reasons for an individual test to stop, which are sh
 
 On the results page the fraction of times that each of these stopping conditions was encountered is listed.
 
-== Fatal Test Errors ==
+=== Fatal Test Errors ===
 
 A fatal error for a test is an error that prevents results from being generated.  There are two types of fatal errors; froze and memory.  A test is declared frozen is some significant amount of time passes and no results are generated.  Memory indicates that not enough memory was allocated for the test to run.  This can be caused by the library requiring much more than the expected amount or the system not having enough memory.
 
 It is possible for a frozen test to not really be frozen, it could just be running very slowly.  Unfortunately it is impossible to tell the difference between the two.  As a general rule for small and medium matrix tests if it times out then it is a bug in the algorithm.  For large matrices it might just be slow but it could also be frozen.
 
-= Raw Results =
+== Raw Results ==
 
 The raw results contains more information than is presented on the website.  Of interest to library developers is the list of exceptions that were thrown.  A link is provided
 
