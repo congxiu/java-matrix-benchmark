@@ -6,11 +6,7 @@ Stability and accuracy of several important decomposition algorithms and linear 
 
 Each test is performed several times using randomly generated matrices.  The tests are also performed across a range of matrix sizes.  Randomly generated matrices are used to provide a good range of tests.  The disadvantage of this approach is that particularly stressing cases might be missed.    In general the specialized stressing cases are specific for a particular algorithm/implementation and are not included since this is a general purpose benchmark.  It is possible for an algorithm to perform very well in these tests, but perform poorly for a particular application.
 
-There are two reason for testing different sizes of matrices.  Some libraries switch between different algorithms depending on the size and some errors become more noticeable for larger matrices.  Three sets of matrix sizes are tested; small, medium, and large:
-||        || min  || max || 
-|| Small  ||  2   || 20  || 
-|| Medium || 100  || 200 ||
-|| Large  || 500  || 600 ||
+There are two reason for testing different sizes of matrices.  Some libraries switch between different algorithms depending on the size and some errors become more noticeable for larger matrices.  The size of each matrix is specified on the results page.
 
 = Metrics =
 
