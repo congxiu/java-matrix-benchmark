@@ -1,9 +1,5 @@
 #summary Stability Benchmark Results as of 2010 / 1 / 20
 
-= NOTE =
-*UJML's Eigenvalue results are incorrect and should be discounted*
-
-
 Quick Links:
 
   * [#Small_Matrices Small Matrices]
@@ -105,14 +101,14 @@ Test Configuration
 <TR><TH></TH><TH colspan="6"> Accuracy </TH><TH colspan="6"> Overflow </TH><TH colspan="6"> Underflow </TH></TR>
 
 <TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
-<TR><TH>JAMA</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-307</TD><TD></TD><TD></TD><TD> 95.0%</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-307</TD><TD></TD><TD></TD><TD> 95.0%</TD><TD></TD></TR>
 <TR><TH>MTJ</TH><TD/><TD> 7.5e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-320</TD><TD></TD><TD></TD><TD> 94.0%</TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD/><TD> 8.0e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+85</TD><TD> 37.2%</TD><TD> 62.8%</TD><TD></TD><TD></TD><TD/><TD> 1.0e-08</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD/><TD> 8.7e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+162</TD><TD> 99.8%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-155</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>UJMP</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-307</TD><TD></TD><TD></TD><TD> 95.0%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-307</TD><TD></TD><TD></TD><TD> 95.0%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD/><TD>     NaN</TD><TD> 65.9%</TD><TD>  0.1%</TD><TD></TD><TD>  9.5%</TD><TD/><TD> 1.0e+00</TD><TD> 52.7%</TD><TD></TD><TD> 30.8%</TD><TD> 16.5%</TD><TD/><TD> 1.0e+00</TD><TD> 52.7%</TD><TD></TD><TD> 30.8%</TD><TD> 16.5%</TD></TR>
-<TR><TH>Colt</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD> 8.4e-16</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
@@ -126,14 +122,14 @@ Test Configuration
 <TR><TH>MTJ</TH><TD/><TD> 1.6e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+308</TD><TD> 84.7%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-321</TD><TD></TD><TD></TD><TD> 99.7%</TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD/><TD> 1.0e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD>  0.7%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD/><TD> 1.7e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+308</TD><TD>  2.2%</TD><TD></TD><TD>  0.7%</TD><TD> 91.8%</TD><TD/><TD>1.0e-306</TD><TD></TD><TD></TD><TD>  8.3%</TD><TD> 91.7%</TD></TR>
-<TR><TH>UJMP</TH><TD/><TD> 2.1e+00</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD/><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD> 1.2e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD>  0.7%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD/><TD>1.0e-161</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD/><TD> 9.9e-16</TD><TD></TD><TD>  0.3%</TD><TD></TD><TD></TD><TD/><TD>1.0e+154</TD><TD>  9.7%</TD><TD>  0.2%</TD><TD>  4.8%</TD><TD> 85.3%</TD><TD/><TD>1.0e-154</TD><TD>  5.2%</TD><TD>  0.2%</TD><TD>  1.3%</TD><TD> 93.3%</TD></TR>
 <TR><TH>Colt</TH><TD/><TD> 1.2e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD>  0.7%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD/><TD>1.0e-161</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD/><TD> 1.2e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD>  0.7%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD/><TD>1.0e-161</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
-= Medium Matrices = 
+= Medium Matrices =
 
 == Linear Solve ==
 
@@ -173,7 +169,7 @@ Test Configuration
 
 <TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
 <TR><TH>JAMA</TH><TD/><TD>1.0e+308</TD><TD> 84.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-319</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>MTJ</TH><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-320</TD><TD>  4.0%</TD><TD></TD><TD> 96.0%</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-320</TD><TD>  4.0%</TD><TD></TD><TD> 96.0%</TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD/><TD>1.0e+155</TD><TD>  4.0%</TD><TD></TD><TD> 96.0%</TD><TD></TD><TD/><TD> 1.0e-15</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD/><TD>1.0e+308</TD><TD> 82.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-308</TD><TD></TD><TD></TD><TD>  4.0%</TD><TD> 96.0%</TD></TR>
 <TR><TH>UJMP</TH><TD/><TD>1.0e+308</TD><TD> 84.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-319</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
@@ -193,7 +189,7 @@ Test Configuration
 <TR><TH>UJMP</TH><TD/><TD> 1.5e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 98.0%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD/><TD> 1.1e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 4.8e-14</TD><TD></TD><TD></TD><TD> 98.0%</TD><TD></TD></TR>
 <TR><TH>Colt</TH><TD/><TD> 1.5e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 8.2e-14</TD><TD></TD><TD></TD><TD> 98.0%</TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD/><TD>     NaN</TD><TD></TD><TD> 99.0%</TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD>     NaN</TD><TD></TD><TD> 99.0%</TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
@@ -209,8 +205,8 @@ Test Configuration
 <TR><TH>EJML</TH><TD/><TD> 3.9e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+161</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-155</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>UJMP</TH><TD/><TD> 4.1e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-307</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD/><TD>     NaN</TD><TD> 52.8%</TD><TD></TD><TD></TD><TD>  2.8%</TD><TD/><TD> 1.0e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD/><TD> 4.1e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD/><TD> 4.1e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD/><TD> 4.1e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD> 4.1e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
@@ -224,7 +220,7 @@ Test Configuration
 <TR><TH>MTJ</TH><TD/><TD> 5.3e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-320</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD/><TD> 3.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD/><TD> 6.6e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+307</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD/><TD>1.0e-300</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
-<TR><TH>UJMP</TH><TD/><TD> 7.1e+00</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD/><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD> 4.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD>1.0e-161</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD/><TD> 5.1e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+154</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD/><TD>1.0e-154</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
 <TR><TH>Colt</TH><TD/><TD> 4.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD>1.0e-161</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD/><TD> 4.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD>1.0e-161</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
@@ -247,7 +243,7 @@ Test Configuration
 <TR><TH>CommMath</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e-11</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
 <TR><TH>Colt</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>JScience</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
 <TABLE border="1" cellpadding="5">
 <TR><TH></TH><TH colspan="6"> Accuracy </TH><TH colspan="6"> Nearly Singular </TH></TR>
@@ -261,7 +257,7 @@ Test Configuration
 <TR><TH>CommMath</TH><TD/><TD> 2.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.2e-13</TD><TD></TD><TD></TD><TD> 91.7%</TD><TD>  8.3%</TD></TR>
 <TR><TH>Colt</TH><TD/><TD> 1.9e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.9e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD/><TD> 1.9e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.9e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>JScience</TH><TD/><TD> 2.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD> 2.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
 
 == Least Squares Solve ==
@@ -271,7 +267,7 @@ Test Configuration
 
 <TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
 <TR><TH>JAMA</TH><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-319</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>MTJ</TH><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-320</TD><TD> 16.7%</TD><TD></TD><TD> 83.3%</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-320</TD><TD> 16.7%</TD><TD></TD><TD> 83.3%</TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD/><TD>1.0e+155</TD><TD> 16.7%</TD><TD></TD><TD> 83.3%</TD><TD></TD><TD/><TD> 1.0e-15</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-308</TD><TD></TD><TD></TD><TD> 16.7%</TD><TD> 83.3%</TD></TR>
 <TR><TH>UJMP</TH><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-319</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
@@ -301,14 +297,14 @@ Test Configuration
 <TR><TH></TH><TH colspan="6"> Accuracy </TH><TH colspan="6"> Overflow </TH><TH colspan="6"> Underflow </TH></TR>
 
 <TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
-<TR><TH>JAMA</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>MTJ</TH><TD/><TD> 3.8e-15</TD><TD></TD><TD></TD><TD></TD><TD>  3.6%</TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD/><TD> 3.8e-15</TD><TD></TD><TD></TD><TD></TD><TD>  3.6%</TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD/><TD> 5.9e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+84</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 1.0e-08</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD/><TD> 9.6e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+161</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e-155</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>UJMP</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD/><TD>     NaN</TD><TD> 53.6%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
@@ -319,10 +315,10 @@ Test Configuration
 
 <TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
 <TR><TH>JAMA</TH><TD/><TD> 9.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD>1.0e-162</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>MTJ</TH><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD/><TD> 7.0e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD/><TD> 1.3e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>UJMP</TH><TD/><TD> 1.4e+01</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD/><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD/><TD> 1.3e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>TIME</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD> 9.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD>1.0e-162</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD/><TD> 1.7e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+153</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD/><TD>1.0e-154</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
 <TR><TH>Colt</TH><TD/><TD> 9.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD>1.0e-162</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD/><TD> 9.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD>1.0e-162</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
