@@ -19,10 +19,16 @@ There are special different reasons for an individual test to stop, which are sh
 || Finished || The test finished with no error. ||
 || Large Error || The difference from the expected result was too large. ||
 || Uncountable || A matrix was returned with at least one element that was not a countable number (infinity or NaN) ||
-|| Unexpected Exception || An unexpected exception was thrown.  For example a null pointer exception would be unexpected ||
-|| Graceful || The algorithm detected that it has failed. For example, a specified exception could be thrown and value of false could be returned.  ||
+|| Exception || An unexpected exception was thrown.  For example a null pointer exception would be unexpected ||
+|| Detected || The algorithm detected that it has failed. For example, a SingularMatrix exception could be thrown or value of false could be returned.  ||
+
+On the results page the fraction of times that each of these stopping conditions was encountered is listed.
 
 Each set of trials is given a finite (but generous) amount of time to run.  Failure to finish running in that amount of time is considered a complete failure.  This can be because the operation had frozen (which is a common problem in multi-threaded algorithms) or was simply too slow.  Due to the halting problem it is impossible to tell the difference between the two.  As a general rule for small and medium matrix tests if it times out then it is a bug in the algorithm.  For large matrices it might just be slow but it could also be frozen.
+
+= Raw Results =
+
+The raw results contains more information than is presented on the website.  Of interest to library developers is the list of exceptions that were thrown.  A link is provided
 
 = Benchmarks =
 
