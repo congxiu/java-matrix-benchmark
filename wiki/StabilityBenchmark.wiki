@@ -24,7 +24,7 @@ There are special different reasons for an individual test to stop, which are sh
 || Large Error || The difference from the expected result was too large. ||
 || Uncountable || A matrix was returned with at least one element that was not a countable number (infinity or NaN) ||
 || Unexpected Exception || An unexpected exception was thrown.  For example a null pointer exception would be unexpected ||
-|| Graceful || The algorithm detected that it has failed. ||
+|| Graceful || The algorithm detected that it has failed. For example, a specified exception could be thrown and value of false could be returned.  ||
 
 Each set of trials is given a finite (but generous) amount of time to run.  Failure to finish running in that amount of time is considered a complete failure.  This can be because the operation had frozen (which is a common problem in multi-threaded algorithms) or was simply too slow.  Due to the halting problem it is impossible to tell the difference between the two.  As a general rule for small and medium matrix tests if it times out then it is a bug in the algorithm.  For large matrices it might just be slow but it could also be frozen.
 
@@ -36,11 +36,11 @@ Both linear and least squares problems are described by the following equation:
 Ax = y
 where A is m by n, x is n by 1 and y is m by 1.  For linear equations m = n and for least squares m > n.  The matrix x is unknown and solved for.
 
-Accuracy of the solution is tested by computing the frobenius norm of:
-error = |y-Ax|<sub>2</sub>
-This accuracy metric is used for the accuracy, overflow/underflow, and nearly singular tests.
+Accuracy is computed with:
 
-All tests start with a randomly generated matrix whose singular values are all one.  For the accuracy test thsi matrix is used as is, for overflow/underflow tests it is scaled up/down.  In the nearly singular test one singular value is randomly selected and scaled down.  The smaller the singular value is before the algorithm breaks the better.
+error = |y-Ax|<sub>2</sub>
+
+All tests start with a randomly generated matrix whose singular values are all one.  Such matrices can be easily solved for.  For the accuracy test this matrix is used as is, for overflow/underflow tests it is scaled up/down.  In the nearly singular test one singular value is randomly selected and scaled down.  The smaller the singular value is before the algorithm breaks the better.
 
 == Singular Value Decomposition ==
 
@@ -50,6 +50,7 @@ error = |A-USV<sup>T</sup>|
 
 where U,S, and V is the SVD of A.  It is tested against randomly generated matrices that have a singular value of one.
 
+To ensure reasonable scaling the test matrices have all have singular values of one initially.
 *NOTE: Change this to nearly one to avoid an unrealistic pathological case*
 
 == Eigenvalue Decomposition ==
@@ -61,3 +62,6 @@ error = |AV - LV|
 where V is a matrix composed of the eigenvectors and L is a matrix composed of the eigenvalues.  If the eigenvalues are all positive then it is a diagonal matrix.
 
 Currently only symmetric matrices are tested.  This problem is important in many engineering and scientific applications and has a solution contained in the real domain.  The general eigenvalue problem involves imaginary numbers, which goes beyond the scale of this benchmark.
+
+To ensure reasonable scaling the test matrices have all have singular values of one initially.
+*NOTE: Change this to nearly one to avoid an unrealistic pathological case*
