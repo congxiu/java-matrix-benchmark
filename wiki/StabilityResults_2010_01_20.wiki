@@ -1,4 +1,4 @@
-#summary Stability Benchmark Results (Preliminary Results)
+#summary Stability Benchmark Results as of 2010 / 1 / 20
 
 = NOTICE =
 
@@ -13,7 +13,7 @@ Quick Links:
 = Test Setup =
 
 Test environment:
-|| Date || 2010/01/20 ||
+|| Date || 2010 / 01 / 20 ||
 || Java Version || 1.7 pre ||
 || OS || Ubuntu 9.10 ||
 || CPU || Quad Core 6600 ||
