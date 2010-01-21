@@ -72,7 +72,7 @@ Notice how "Lib E" has no results.  This is because the library did not support 
 <TR><TH>Lib B</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
-The above table is an example of what the results from an accuracy benchmark might look like.  This table is similar to the overflow/underflow charts.  The metric being evaluated is accuracy.  
+The above table is an example of what the results from an accuracy benchmark might look like.  This table is similar to the overflow/underflow charts.  The metric being evaluated is accuracy.  If a trial failed then a value of NaN was recorded as the result.
 
 One major difference is the meaning of error columns.  Instead of indicating a terminating condition they show how often a specific type of error occurred.  For example, if an unexpected exception was thrown, then it produced no result thus no metric.  The only way to know that something bad happened is by looking at the error columns.
 
