@@ -36,7 +36,7 @@ Test Configuration
 || Medium || 100  || 200  ||
 || Large  || 500  || 600  ||
 
-= Small =
+= Small Matrices =
 == Linear Solve ==
 
 <TABLE border="1" cellpadding="5">
@@ -105,7 +105,7 @@ Test Configuration
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
-= Medium =
+= Medium Matrices =
 
 == Linear Solve ==
 
@@ -175,4 +175,4 @@ Test Configuration
 <TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
-= Large =
+= Large Matrices =
