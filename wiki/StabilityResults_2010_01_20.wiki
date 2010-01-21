@@ -176,3 +176,71 @@ Test Configuration
 </TABLE>
 
 = Large Matrices =
+
+== Linear Solve ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="6"> Overflow </TH><TH colspan="6"> Accuracy </TH><TH colspan="6"> Nearly Singular </TH></TR>
+
+<TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>JAMA</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.9e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.9e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.2e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD/><TD>1.0e+305</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.9e-13</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.3e-12</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.9e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.2e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.9e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.9e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.2e-13</TD><TD></TD><TD></TD><TD> 91.7%</TD><TD>  8.3%</TD></TR>
+<TR><TH>Colt</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.9e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.9e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.9e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.9e-13</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD>1.0e+307</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+</TABLE>
+
+== Least Squares Solve ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="6"> Overflow </TH><TH colspan="6"> Accuracy </TH><TH colspan="6"> Nearly Singular </TH></TR>
+
+<TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>JAMA</TH><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.2e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.0e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.2e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD/><TD>1.0e+155</TD><TD> 16.7%</TD><TD></TD><TD> 83.3%</TD><TD></TD><TD/><TD> 2.4e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 4.4e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.4e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.5e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.2e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD/><TD>1.0e+154</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 2.4e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.9e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD/><TD>1.0e+308</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.0e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 6.0e-14</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD> 1.0e+00</TD><TD> 16.7%</TD><TD> 83.3%</TD><TD></TD><TD></TD><TD/><TD>     NaN</TD><TD></TD><TD> 91.7%</TD><TD></TD><TD></TD><TD/><TD> 1.0e+00</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
+</TABLE>
+
+== Singular Value Decomposition ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="6"> Overflow </TH><TH colspan="6"> Accuracy </TH></TR>
+
+<TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>JAMA</TH><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 3.8e-15</TD><TD></TD><TD></TD><TD></TD><TD>  3.6%</TD></TR>
+<TR><TH>ojAlgo</TH><TD/><TD> 1.0e+84</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 5.9e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD/><TD>1.0e+161</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD> 9.6e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD/><TD> 1.0e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD/><TD>     NaN</TD><TD> 53.6%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD>Infinity</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
+</TABLE>
+
+== Symmetric Eigenvalue Decomposition ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="6"> Overflow </TH><TH colspan="6"> Accuracy </TH></TR>
+
+<TR><TH/><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Fatal</TH><TH>Median</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>JAMA</TH><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 9.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 7.0e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>FROZE</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD/><TD> 1.3e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD/><TD> 1.0e+00</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD/><TD> 1.4e+01</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD/><TD>1.0e+153</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD/><TD> 1.7e-14</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 9.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD/><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD/><TD> 9.8e-15</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JScience</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
+</TABLE>
