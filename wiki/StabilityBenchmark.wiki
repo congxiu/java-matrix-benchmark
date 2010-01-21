@@ -14,7 +14,7 @@ There are two reason for testing different sizes of matrices.  Some libraries sw
 
 = Metrics =
 
-Depending on the test different metrics are used.  Accuracy is measured as the P2 norm of the difference between the expected and found results.  The specifics for how this is computed for each solver/decomposition is provided below.  Overflow/underflow tests work by scaling up or down a matrix until a stopping condition is encountered.  For overflow tests larger numbers are better with infinity being the best.  For underflow small numbers are better.
+Depending on the test different metrics are used.  Accuracy is measured as the frobenius norm of the difference between the expected and found results.  The specifics for how this is computed for each solver/decomposition is provided below.  Overflow/underflow tests work by scaling up or down a matrix until a stopping condition is encountered.  For overflow tests larger numbers are better with infinity being the best.  For underflow small numbers are better.
 
 == Stopping Condition ==
 
@@ -36,7 +36,7 @@ Both linear and least squares problems are described by the following equation:
 Ax = y
 where A is m by n, x is n by 1 and y is m by 1.  For linear equations m = n and for least squares m > n.  The matrix x is unknown and solved for.
 
-Accuracy of the solution is tested by computing the P2 norm of:
+Accuracy of the solution is tested by computing the frobenius norm of:
 error = |y-Ax|<sub>2</sub>
 This accuracy metric is used for the accuracy, overflow/underflow, and nearly singular tests.
 
