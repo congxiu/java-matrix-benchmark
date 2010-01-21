@@ -5,7 +5,7 @@ Quick Links:
   * [#Small_Matrices Small Matrices]
   * [#Medium_Matrices Medium Matrices]
   * [#Large_Matrices Large Matrices]
-  * [http://code.google.com/p/java-matrix-benchmark/wiki/StabilityResults_2010_01_20.attach/stability_2010_01_20.tgz Raw results]
+  * [http://java-matrix-benchmark.googlecode.com/svn/wiki/StabilityResults_2010_01_20.attach/stability_2010_01_20.tgz Raw results]
 = Test Setup =
 
 Test environment:
