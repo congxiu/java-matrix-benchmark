@@ -38,7 +38,7 @@ where A is m by n, x is n by 1 and y is m by 1.  For linear equations m = n and 
 
 Accuracy is computed with:
 
-error = |y-Ax|<sub>2</sub>
+error = |y-Ax|
 
 All tests start with a randomly generated matrix whose singular values are all one.  Such matrices can be easily solved for.  For the accuracy test this matrix is used as is, for overflow/underflow tests it is scaled up/down.  In the nearly singular test one singular value is randomly selected and scaled down.  The smaller the singular value is before the algorithm breaks the better.
 
