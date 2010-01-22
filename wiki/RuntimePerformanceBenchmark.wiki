@@ -1,4 +1,5 @@
 #summary Summary of runtime performance benchmarks.
+#labels Featured
 
 = Introduction =
 Several libraries were tested for runtime performance in several different operations.  The tested operations were primarily selected based on how commonly they are used or to show off the potential advantages or disadvantages of library design issues.
