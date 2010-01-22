@@ -3,7 +3,17 @@
 = Introduction =
 Several libraries were tested for runtime performance in several different operations.  The tested operations were primarily selected based on how commonly they are used or to show off the potential advantages or disadvantages of library design issues.
 
-Click here for a list of [EvaluatedLibraries evaluated libaries]
+Click here for a list of [EvaluatedLibraries evaluated libraries]
+
+= Understanding Relative Runtime Plots =
+
+Results are presented primarily using relative runtime plots.  These plots show fast one library runs relative to another library across a range of matrix sizes.  An example of such a plot is shown below:
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_22.attach/det.png
+
+The x-axis is a function of the size of the input matrices and the y-axis shows how fast one library ran relative to reference library.  Larger the relative runtime is the faster the library is.
+
+By viewing these plots it is easy to tell how fast a particular library runs relative to any other library.  Since these plots show the results as a function of matrix size it is often easy to see when CPU cache size starts adversely effecting one algorithm or when a library switches to a multi-threaded approach.  
 
 = Evaluated Operations =
 
