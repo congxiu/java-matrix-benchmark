@@ -1,4 +1,5 @@
 #summary Description of the stability benchmark test.
+#labels Featured
 
 = Introduction =
 
