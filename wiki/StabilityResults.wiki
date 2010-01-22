@@ -1,4 +1,5 @@
 #summary Stability Benchmark Results (Preliminary Results)
+#labels Deprecated
 
 = NOTICE =
 
