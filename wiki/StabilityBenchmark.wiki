@@ -59,7 +59,7 @@ The above table is an example of what results from the overflow/underflow benchm
   # "Large Error" column shows the percent of time a trial returned a matrix that had an excessively large error.
   # "Detected" column shows the percent of time a trial the algorithm detected an error and stopped gracefully.
 
-The metric being shown is the size of the scaling factor or size of the smallest singular value at the time the test stopped, for overflow/underflow and nearly singular tests respectively. A value of infinity for overflow or zero for underflow indicates that a terminating condition was never encountered before the scaling factor exceeded its numerical limits.  This is the best that an algorithm can possibly perform.  For sake of brevity the percent of the time in which an algorithm finished without error is not shown.  This is why the percentages do not always add up to one.
+The metric being shown is the size of the scaling factor or size of the smallest singular value at the time the test stopped, for overflow/underflow and nearly singular tests respectively. A value of infinity for overflow or zero for underflow indicates that a terminating condition was never encountered before the scaling factor exceeded its numerical limits.  This is the best that an algorithm can possibly perform.  For sake of brevity the percent of the time in which an algorithm finished without error is not shown.  As a result the percentages do not always add up to one.
 
 Notice how "Lib E" has no results.  This is because the library did not support the particular operation being evaluated.
 
@@ -68,13 +68,13 @@ Notice how "Lib E" has no results.  This is because the library did not support 
 <TABLE border="1" cellpadding="5">
 <TR><TH></TH><TH colspan="8"> Accuracy </TH></TR>
 <TR><TH/><TH>Fatal</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
-<TR><TH>Lib A</TH><TD/><TD> 5.1e-16</TD><TD> 1.2e-15</TD><TD> 1.6e-15</TD><TD></TD><TD>12%</TD><TD></TD><TD></TD></TR>
+<TR><TH>Lib A</TH><TD/><TD> 5.1e-16</TD><TD> 1.2e-15</TD><TD> 1.6e-15</TD><TD></TD><TD>5%</TD><TD></TD><TD></TD></TR>
 <TR><TH>Lib B</TH><TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/></TR>
 </TABLE>
 
 The above table is an example of what the results from an accuracy benchmark might look like.  This table is similar to the overflow/underflow charts.  The metric being evaluated is accuracy.  If a trial failed then a value of NaN was recorded as the result.
 
-One major difference is the meaning of error columns.  Instead of indicating a terminating condition they show how often a specific type of error occurred.  For example, if an unexpected exception was thrown, then it produced no result thus no metric.  The only way to know that something bad happened is by looking at the error columns.
+One major difference is the meaning of error columns.  Instead of indicating a terminating condition they show how often a specific type of error occurred.  For example, if an unexpected exception was thrown, then it produced no result and NaN was recorded as the metric.
 
 == Raw Results ==
 
