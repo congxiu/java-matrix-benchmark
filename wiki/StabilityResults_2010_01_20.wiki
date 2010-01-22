@@ -15,6 +15,7 @@ Test environment:
 || Java Version || 1.7 pre ||
 || OS || Ubuntu 9.10 ||
 || CPU || Quad Core 6600 ||
+|| Benchmark || 0.4 ||
 
 Tested Libraries:
 || Name || Version         ||
