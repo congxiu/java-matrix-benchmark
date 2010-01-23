@@ -13,6 +13,12 @@ Links to the results:
   * [BenchmarkPentiumM#Solving_Linear_Systems Solving Linear Systems]
   * [BenchmarkPentiumM#Matrix_Decompositions Matrix Decompositions]
 
+= Comments = 
+
+The plots are relative to Jama.  Note the the y-axis is on a log scale. For visual clarity the range of the plot some times clip results from libraries that are very slow or very fast.
+
+Parallel Colt and Colt both have significant problems in a few of the benchmarks.  The author of Parallel Colt has been contacted to help determine where the problem lies.  This is why the results from these libraries are often stop early or are not presented.
+
 =Basic Operation Results=
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_01_22.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_01_22.attach/scale.png ||
