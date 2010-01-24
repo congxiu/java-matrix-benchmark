@@ -1,0 +1,219 @@
+/*
+ * Copyright (c) 2009-2010, Peter Abeles. All Rights Reserved.
+ *
+ * This file is part of JMatrixBenchmark.
+ *
+ * JMatrixBenchmark is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * JMatrixBenchmark is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package jmbench.tools.stability;
+
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * Creates plots for all the results in a directory
+ *
+ * @author Peter Abeles
+ */
+@SuppressWarnings({"unchecked"})
+public class GenerateHtmlTables extends TablesCommon {
+    public GenerateHtmlTables(String dir) {
+        super(dir);
+    }
+
+    @Override
+    protected void printTables(Map<String, List> opMap) {
+        System.out.println("== Linear Solve ==\n");
+        printSolvingLinear(opMap);
+        System.out.println("\n== Least Squares Solve ==");
+        System.out.println();
+        printSolvingLeastSquares(opMap);
+        System.out.println("\n== Singular Value Decomposition ==");
+        System.out.println();
+        printSvd(opMap);
+        System.out.println("\n== Symmetric Eigenvalue Decomposition ==");
+        System.out.println();
+        printSymmEig(opMap);
+    }
+
+    private void printSolvingLinear( Map<String, List> opMap ) {
+        printSolving(opMap,"LinearOverflow","LinearUnderflow","LinearAccuracy","LinearSingular");
+    }
+
+    private void printSolving( Map<String, List> opMap ,
+                               String nameOverflow , String nameUnderflow ,
+                               String nameAccuracy , String nameSingular ) {
+        List<String> names = getLibraryNames(opMap);
+
+        List<StabilityTrialResults> lsOverflow = opMap.get(nameOverflow);
+        List<StabilityTrialResults> lsUnderflow = opMap.get(nameUnderflow);
+        List<StabilityTrialResults> lsAccuracy = opMap.get(nameAccuracy);
+        List<StabilityTrialResults> lsSingular = opMap.get(nameSingular);
+
+        printTableHeader("Overflow","Underflow");
+
+        for( String n : names ) {
+            Data over = findByName(lsOverflow,n);
+            Data under = findByName(lsUnderflow,n);
+
+            System.out.printf("<TR><TH>%s</TH>",n);
+            printSolveHTML(over);
+            printSolveHTML(under);
+
+            System.out.println("</TR>");
+        }
+        System.out.println("</TABLE>");
+
+        printTableHeader("Accuracy","Nearly Singular");
+        for( String n : names ) {
+            Data accuracy = findByName(lsAccuracy,n);
+            Data singular = findByName(lsSingular,n);
+
+            System.out.printf("<TR><TH>%s</TH>",n);
+            printSolveHTML(accuracy);
+            printSolveHTML(singular);
+
+            System.out.println("</TR>");
+        }
+        System.out.println("</TABLE>");
+    }
+
+    private void printSvd( Map<String, List> opMap ) {
+        printDecomposition(opMap,"SvdOverflow","SvdUnderflow","SvdAccuracy");
+    }
+
+    private void printDecomposition( Map<String, List> opMap ,
+                                     String nameOverflow , String nameUnderflow ,
+                                     String nameAccuracy )
+    {
+        List<String> names = getLibraryNames(opMap);
+
+        List<StabilityTrialResults> overflow = opMap.get(nameOverflow);
+        List<StabilityTrialResults> underflow = opMap.get(nameUnderflow);
+        List<StabilityTrialResults> accuracy = opMap.get(nameAccuracy);
+
+        printTableHeader("Accuracy");
+        for( String n : names ) {
+            Data acc = findByName(accuracy,n);
+
+            System.out.printf("<TR><TH>%s</TH>",n);
+            printSolveHTML(acc);
+
+            System.out.println("</TR>");
+        }
+        System.out.println("</TABLE>");
+
+        printTableHeader("Overflow","Underflow");
+        for( String n : names ) {
+            Data over = findByName(overflow,n);
+            Data under = findByName(underflow,n);
+
+            System.out.printf("<TR><TH>%s</TH>",n);
+            printSolveHTML(over);
+            printSolveHTML(under);
+
+            System.out.println("</TR>");
+        }
+        System.out.println("</TABLE>");
+    }
+
+    private void printSymmEig( Map<String, List> opMap ) {
+        printDecomposition(opMap,"EigSymmOverflow","EigSymmUnderflow","EigSymmAccuracy");
+    }
+
+    private void printTableHeader( String ...titles ) {
+        System.out.print("<TABLE border=\"1\" cellpadding=\"5\">\n");
+        System.out.printf("<TR><TH></TH>");
+
+        for( String s : titles ) {
+            System.out.printf("<TH colspan=\"8\"> %s </TH>",s);
+        }
+        System.out.println("</TR>\n");
+        System.out.print("<TR><TH/>");
+
+        for( int i = 0; i < titles.length; i++ ) {
+            System.out.print("<TH>Fatal</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH>");
+        }
+        System.out.print("</TR>\n");
+    }
+
+    private void printSolvingLeastSquares( Map<String, List> opMap ) {
+        printSolving(opMap,"LeastSquaresOverflow","LeastSquaresUnderflow",
+                "LeastSquaresAccuracy","LeastSquaresSingular");
+
+    }
+
+    private void printSolveHTML( Data d ) {
+        if( d == null ) {
+            System.out.print("<TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/>");
+        } else {
+            printFatalError(d);
+            printHtmlElement(d.per10,"%8.1e");
+            printHtmlElement(d.per50,"%8.1e");
+            printHtmlElement(d.per90,"%8.1e");
+            printHtmlElement(d.fracUncount);
+            printHtmlElement(d.fracUnexpected);
+            printHtmlElement(d.fracLargeError);
+            printHtmlElement(d.fracDetected);
+
+//            System.out.printf("<TD>%8.1e</TD> <TD> %6.3f </TD><TD> %6.3f </TD><TD> %6.3f </TD><TD> %6.3f</TD>",d.median,d.fracUncount,d.fracUnexpected,d.fracLargeError,d.fracDetected);
+        }
+    }
+
+    private void printFatalError(Data d) {
+        if( d.fatalError == null ) {
+            System.out.print("<TD/>");
+        } else {
+            switch( d.fatalError ) {
+                case MISC:
+                    System.out.print("<TD>?</TD>");
+                    break;
+
+                case RETURNED_NULL:
+                    System.out.print("<TD>??</TD>");
+                    break;
+
+                case FROZE:
+                    System.out.print("<TD>TIME</TD>");
+                    break;
+
+                case OUT_OF_MEMORY:
+                    System.out.print("<TD>MEM</TD>");
+                    break;
+
+                default:
+                    throw new RuntimeException("Unknown error.  Add to list. "+d.fatalError);
+            }
+        }
+    }
+
+    private void printHtmlElement( double val ) {
+        printHtmlElement(val*100,"% 5.1f%%");
+    }
+
+    private void printHtmlElement( double val , String precision ) {
+        if( val == 0 )
+            System.out.print("<TD></TD>");
+        else
+            System.out.printf("<TD>"+precision+"</TD>",val);
+    }
+
+    public static void main( String args[] ) {
+        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/java/jmatbench/results/stability_2010_01_20/small");
+
+        p.plot();
+    }
+}
