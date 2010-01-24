@@ -1,0 +1,44 @@
+----- Version 0.4
+
+20XX/XX/XX
+
+- Can load XML based config files.
+- Adjusted OjAlgo benchmark to take in account its caching of previous results
+- Updated to the latest version of OjAlgo
+- New random seed for each trial in a block
+- First stability benchmark
+
+----- Version 0.3
+
+2009/11/29
+
+- Added Colt, Parallel Colt, UJMP, and ojAlgo.
+- Refactored benchmark tests into a single class for each library
+- computes more metrics. Mean, stdev, median, min, max.
+- Dynamically computes the memory for the slave
+- Better error recover.
+  * Creates an error log where it writes exceptions to instead of throwing an exception.
+- Broke solve benchmark up into two tests.  One for square and the other for non-square matrices.
+- Slave can exit if a library leaves a stray thread around.
+- each library saves its output into its own directory
+- To avoid accidental overloading, jars are now loaded at runtime.
+  * All benchmarks should be run from ant for now on since IDEs will load everything.
+- Detects if a slave is frozen and kills it.
+  * Also prints out messages every 60 seconds so it is easy to tell if the master is frozen
+- Added benchmark for eigen decomposition for symmetric matrices
+
+----- Version 0.2
+
+2009/11/10
+
+- Added QR decomposition benchmark.
+- Truncated partially finished runs to make nicer graphs.
+
+----- Version 0.1
+
+2009/10/26
+
+- First time I bothered keeping track of changes and set the version to 0.1
+- Added QR decomposition algorithms to benchmark
+- Slave will now output the library's name
+
