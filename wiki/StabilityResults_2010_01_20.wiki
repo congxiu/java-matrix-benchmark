@@ -11,7 +11,7 @@ Quick Links:
 
 = Comments =
 
-In the SVD accuracy benchmark it is possible for a zero matrix to be created as an input.  This causes a NaN to always be generated for the score.  This is why all SVD algorithms have a 90% metric value of NaN in the small case.  This will be changed in the future.
+In the SVD accuracy benchmark it is possible for a zero matrix to be created as an input.  When a zero matrix is an input the score will always be a NaN.  As a result all SVD algorithms have a 90% metric value of NaN in the small case.  This problem will be fixed in the next release.
 
 = Test Setup =
 
