@@ -65,6 +65,10 @@ public class SvdAccuracy extends StabilityTestBase {
             int o = Math.min(m,n);
             int numS = rand.nextInt(o);
 
+            while( numS == 0 ) {
+                numS = rand.nextInt(o);
+            }
+
             createMatrix(m,n,50,numS);
 
             evaluateSVD();

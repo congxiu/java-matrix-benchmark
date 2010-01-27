@@ -30,6 +30,8 @@ import jmbench.tools.stability.StabilityBenchmarkConfig;
  */
 public class BenchmarkAll {
 
+    public static double SMALL_PERTURBATION = 1e-4;
+
     public void performBenchmarks( RuntimeBenchmarkConfig runtimeConfig ,
                                    StabilityBenchmarkConfig stabilityConfig ) {
 

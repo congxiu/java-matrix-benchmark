@@ -90,7 +90,7 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
-                // since it caches the previous result you need to make a new primative matrix each time
+                // since it caches the previous result you need to make a new primitive matrix each time
                 final BasicMatrix basic = new PrimitiveMatrix(matA);
                 basic.getDeterminant().getReal();
             }

@@ -32,7 +32,7 @@ public enum MatrixLibrary {
     JSCIENCE("JScience","jscience-4.3","JScience 4.3","",true,true),
     OJALGO("ojAlgo","ojalgo-28.31","ojAlgo 28.31","2010-01-20",true,true),
     COLT("Colt","colt-1.2","Colt 1.2","",true,true),
-    PCOLT("PColt","parallelcolt-0.9.1","Parallel Colt 0.9.1","",true,true),
+    PCOLT("PColt","parallelcolt-0.9.2","Parallel Colt 0.9.2","2010-01-24",true,true),
     UJMP("UJMP","ujmp-svn","UJMP svn","2010-01-20",true,true);
 
     public String plotName;

@@ -26,6 +26,7 @@ import org.ejml.alg.dense.decomposition.*;
 import org.ejml.alg.dense.decomposition.svd.SvdNumericalRecipes;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
+import org.ejml.ops.EigenOps;
 
 
 /**
@@ -124,7 +125,7 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            EigenDecomposition eig = DecompositionFactory.eig();
+            EigenDecomposition eig = EigenOps.decompositionSymmetric();
 
             for( long i = 0; i < numTrials; i++ ) {
                 eig.decompose(matA);

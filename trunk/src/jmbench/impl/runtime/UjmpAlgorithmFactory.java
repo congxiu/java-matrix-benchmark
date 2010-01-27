@@ -29,6 +29,7 @@ import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
 
 
 /**
+ *
  * @author Peter Abeles
  */
 public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {

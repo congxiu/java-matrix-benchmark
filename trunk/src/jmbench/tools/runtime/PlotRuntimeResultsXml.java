@@ -95,7 +95,7 @@ public class PlotRuntimeResultsXml {
     }
 
     public static void main( String args[] ) {
-        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/java/jmatbench/results/vista_64bit_jvm_1.6.0_16_Intel_Quad_Q9400_2.66Ghz");
+        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/manycores");
 
         p.plot(EvaluationMetrics.METRIC_MAX);
     }

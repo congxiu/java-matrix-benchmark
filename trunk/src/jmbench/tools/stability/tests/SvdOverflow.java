@@ -20,6 +20,7 @@
 package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
+import jmbench.tools.BenchmarkAll;
 import jmbench.tools.stability.StabilityBenchmark;
 import jmbench.tools.stability.StabilityTestBase;
 import org.ejml.data.DenseMatrix64F;
@@ -96,7 +97,9 @@ public class SvdOverflow extends StabilityTestBase implements BreakingPointBinar
         // randomly generate singular values and put into ascending order
         sv = new double[o];
         for( int i = 0; i < o; i++ )
-            sv[i] = svMag;
+        // perturb it from being exactly svMag since that is a pathological case for some
+        // algorithms and not common in real world scenarios
+            sv[i] = svMag+rand.nextDouble()* BenchmarkAll.SMALL_PERTURBATION;
 
         A = SolverCommon.createMatrix(U,V,sv);
     }
