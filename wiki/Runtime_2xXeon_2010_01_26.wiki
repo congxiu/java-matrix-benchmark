@@ -1,4 +1,4 @@
-#summary Benchmark results for Q9400 Vista 64
+#summary Benchmark results for 2 Quad-Core Xeon MaxOS 64bit
 
 Links to the results:
   * [#Basic_Operation_Results Basic Operations]
