@@ -1,0 +1,192 @@
+<project name="jmatbench" basedir="." default="main">
+
+    <property name="java.compilor" value="/opt/jdk1.7.0/bin/javac"/>
+    <property name="java.vm" value="/opt/jdk1.7.0/bin/java"/>
+
+    <!--<property name="java.compilor" value="/opt/jdk/bin/javac"/>-->
+    <!--<property name="java.vm" value="/opt/jdk/bin/java"/>-->
+
+    <!--<property name="java.compilor" value="javac"/>-->
+    <!--<property name="java.vm" value="java"/>-->
+
+        <!-- used to launch an arbitrary application -->
+    <property name="app" value="" />
+    <property name="args" value="" />
+
+    <property name="src.dir"     value="src"/>
+    <property name="test.dir"     value="test"/>
+
+    <property name="build.dir"   value="build"/>
+    <property name="lib.dir"   value="lib"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="testbuild.dir"   value="build/test"/>
+    <property name="testclasses.dir"   value="${testbuild.dir}/classes"/>
+    <property name="testreport.dir"  value="${testbuild.dir}/report"/>
+
+    <!-- If you want to launch the benchmark using a config file set this variable -->
+    <property name="benchmarkconfig" value=""/>
+
+    <property name="junit.dir"  value="lib/"/>
+
+    <path id="project.classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        <fileset dir="../thirdparty/jfreechart-1.0.13/" includes="**/*.jar"/>
+    </path>
+
+    <path id="benchmark.classpath">
+        <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
+        <fileset dir="lib/" includes="EJML.jar"/>
+        <fileset dir="lib/" includes="libpja.jar"/>
+    </path>
+
+    <path id="test.classpath">
+        <path refid="project.classpath"/>
+        <fileset dir="${junit.dir}" includes="junit*.jar"/>
+        <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
+    </path>
+
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+
+        <!-- Capture the path as a delimited property using the refid attribute -->
+        <!--<property name="myclasspath" refid="project.classpath"/>-->
+        <!-- Emit the property to the ant console -->
+        <!--<echo message="Classpath = ${myclasspath}"/>-->
+
+
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"
+               fork="yes" executable="${java.compilor}"
+               includejavaruntime="false"
+               includeantruntime="false" >
+            <classpath refid="project.classpath"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}"/>
+    </target>
+
+    <target name="test" depends="jar">
+        <mkdir dir="${testbuild.dir}"/>
+        <mkdir dir="${testreport.dir}"/>
+        <mkdir dir="${testclasses.dir}"/>
+
+        <javac srcdir="${test.dir}" destdir="${testclasses.dir}"
+               fork="yes" executable="${java.compilor}"
+               includejavaruntime="false"
+               includeantruntime="false" >
+           <classpath>
+                <path refid="test.classpath"/>
+            </classpath>
+        </javac>
+
+        <junit printsummary="yes" showoutput="yes">
+            <classpath>
+                <path refid="test.classpath"/>
+                <pathelement location="${testclasses.dir}"/>
+            </classpath>
+
+            <formatter type="xml"/>
+
+            <batchtest fork="yes" todir="${testreport.dir}">
+                <fileset dir="${test.dir}" includes="**/Test*.java"/>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!--
+     This is used to launch some application inside of jmatrixbenchmark.
+     ant launch -Dapp=<path.to.java.app> -Dargs="<arguments>"
+    -->
+    <target name="launch" depends="jar">
+        <java classname="${app}"
+              fork="true"
+              failonerror="true"
+              jvm="${java.vm}">
+            <arg value="${args}"/>
+            <classpath>
+                <path refid="project.classpath"/>
+                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="benchmark" depends="jar">    
+        <java classname="jmbench.tools.BenchmarkAll"
+              fork="true"
+              failonerror="true"
+              jvm="${java.vm}">
+             <arg line="${benchmarkconfig}" />
+            <classpath>
+                <path refid="benchmark.classpath"/>
+                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="benchmarkRuntime" depends="jar">
+        <java classname="jmbench.tools.runtime.RuntimeBenchmarkMaster"
+              fork="true"
+              failonerror="true"
+              jvm="${java.vm}">
+             <arg line="${benchmarkconfig}" />
+            <classpath>
+                <path refid="benchmark.classpath"/>
+                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="benchmarkStability" depends="jar">
+        <java classname="jmbench.tools.stability.StabilityBenchmark"
+              fork="true"
+              failonerror="true"
+              jvm="${java.vm}">
+             <arg line="${benchmarkconfig}" />
+            <classpath>
+                <path refid="benchmark.classpath"/>
+                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+
+    <target name="testreport">
+        <junitreport todir="${testreport.dir}">
+            <fileset dir="${testreport.dir}" includes="TEST-*.xml"/>
+            <report todir="${testreport.dir}"/>
+        </junitreport>
+    </target>
+
+    <target name="javadoc">
+        <javadoc
+                destdir="docs/api"
+                author="true"
+                version="true"
+                use="true"
+                windowtitle="Java Matrix Benchmark">
+
+            <packageset dir="src" defaultexcludes="yes">
+                <include name="jmbench/**"/>
+            </packageset>
+
+            <doctitle><![CDATA[<h1>Java Matrix Benchmark</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2009 Peter Abeles All Rights Reserved.</i>]]></bottom>
+            <!--<group title="Group 1 Packages" packages="com.dummy.test.a*"/>-->
+            <!--<group title="Group 2 Packages" packages="com.dummy.test.b*:com.dummy.test.c*"/>-->
+            <!--<link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="C:\tmp"/>-->
+            <!--<link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>-->
+        </javadoc>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+
+    <target name="main" depends="clean,jar"/>
+</project>

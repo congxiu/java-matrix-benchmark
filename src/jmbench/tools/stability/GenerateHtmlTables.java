@@ -63,7 +63,7 @@ public class GenerateHtmlTables extends TablesCommon {
         List<StabilityTrialResults> lsAccuracy = opMap.get(nameAccuracy);
         List<StabilityTrialResults> lsSingular = opMap.get(nameSingular);
 
-        printTableHeader("Overflow","Underflow");
+        printTableHeader(new Info("Overflow",false),new Info("Underflow",false));
 
         for( String n : names ) {
             Data over = findByName(lsOverflow,n);
@@ -77,7 +77,7 @@ public class GenerateHtmlTables extends TablesCommon {
         }
         System.out.println("</TABLE>");
 
-        printTableHeader("Accuracy","Nearly Singular");
+        printTableHeader(new Info("Accuracy",true),new Info("Nearly Singular",false));
         for( String n : names ) {
             Data accuracy = findByName(lsAccuracy,n);
             Data singular = findByName(lsSingular,n);
@@ -105,7 +105,7 @@ public class GenerateHtmlTables extends TablesCommon {
         List<StabilityTrialResults> underflow = opMap.get(nameUnderflow);
         List<StabilityTrialResults> accuracy = opMap.get(nameAccuracy);
 
-        printTableHeader("Accuracy");
+        printTableHeader(new Info("Accuracy",true));
         for( String n : names ) {
             Data acc = findByName(accuracy,n);
 
@@ -116,7 +116,7 @@ public class GenerateHtmlTables extends TablesCommon {
         }
         System.out.println("</TABLE>");
 
-        printTableHeader("Overflow","Underflow");
+        printTableHeader(new Info("Overflow",false),new Info("Underflow",false));
         for( String n : names ) {
             Data over = findByName(overflow,n);
             Data under = findByName(underflow,n);
@@ -134,18 +134,31 @@ public class GenerateHtmlTables extends TablesCommon {
         printDecomposition(opMap,"EigSymmOverflow","EigSymmUnderflow","EigSymmAccuracy");
     }
 
-    private void printTableHeader( String ...titles ) {
+    private void printTableHeader( Info ...titles ) {
+
+
+
         System.out.print("<TABLE border=\"1\" cellpadding=\"5\">\n");
         System.out.printf("<TR><TH></TH>");
 
-        for( String s : titles ) {
-            System.out.printf("<TH colspan=\"8\"> %s </TH>",s);
+        for( Info s : titles ) {
+            System.out.printf("<TH colspan=\"8\"> %s </TH>",s.name);
         }
         System.out.println("</TR>\n");
+
         System.out.print("<TR><TH/>");
 
-        for( int i = 0; i < titles.length; i++ ) {
-            System.out.print("<TH>Fatal</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH>");
+        for (Info info : titles) {
+            String percentNames = info.accuracy ? "Unexpected Error" : "Stopping Condition";
+            String metricName = info.accuracy ? "Accuracy" : "Scaling Factor";
+            System.out.printf("<TH colspan=\"3\"> %s </TH><TH colspan=\"5\"> %s </TH>", metricName, percentNames);
+        }
+        System.out.print("</TR>\n");
+
+        System.out.print("<TR><TH/>");
+
+        for (Info title : titles) {
+            System.out.print("<TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH>");
         }
         System.out.print("</TR>\n");
     }
@@ -158,46 +171,51 @@ public class GenerateHtmlTables extends TablesCommon {
 
     private void printSolveHTML( Data d ) {
         if( d == null ) {
-            System.out.print("<TD/><TD/><TD/><TD/><TD/><TD/><TD/><TD/>");
+            System.out.print("<TD colspan=\"8\"> Not Supported </TD>");
         } else {
-            printFatalError(d);
-            printHtmlElement(d.per10,"%8.1e");
-            printHtmlElement(d.per50,"%8.1e");
-            printHtmlElement(d.per90,"%8.1e");
-            printHtmlElement(d.fracUncount);
-            printHtmlElement(d.fracUnexpected);
-            printHtmlElement(d.fracLargeError);
-            printHtmlElement(d.fracDetected);
+            if( d.fatalError != null ) {
+                printFatalError(d);
+            } else {
+                double noError = 1.0 - d.fracUncount - d.fracUnexpected - d.fracLargeError - d.fracDetected;
+                printHtmlElement(d.per10,"%8.1e");
+                printHtmlElement(d.per50,"%8.1e");
+                printHtmlElement(d.per90,"%8.1e");
+                printHtmlElement(noError);
+                printHtmlElement(d.fracUncount);
+                printHtmlElement(d.fracUnexpected);
+                printHtmlElement(d.fracLargeError);
+                printHtmlElement(d.fracDetected);
+            }
 
 //            System.out.printf("<TD>%8.1e</TD> <TD> %6.3f </TD><TD> %6.3f </TD><TD> %6.3f </TD><TD> %6.3f</TD>",d.median,d.fracUncount,d.fracUnexpected,d.fracLargeError,d.fracDetected);
         }
     }
 
     private void printFatalError(Data d) {
-        if( d.fatalError == null ) {
-            System.out.print("<TD/>");
-        } else {
-            switch( d.fatalError ) {
-                case MISC:
-                    System.out.print("<TD>?</TD>");
-                    break;
+        String reason;
 
-                case RETURNED_NULL:
-                    System.out.print("<TD>??</TD>");
-                    break;
+        switch( d.fatalError ) {
+            case MISC:
+                reason = "MISC";
+                break;
 
-                case FROZE:
-                    System.out.print("<TD>TIME</TD>");
-                    break;
+            case RETURNED_NULL:
+                reason = "RETURNED NULL";
+                break;
 
-                case OUT_OF_MEMORY:
-                    System.out.print("<TD>MEM</TD>");
-                    break;
+            case FROZE:
+                reason = "TIMED OUT";
+                break;
 
-                default:
-                    throw new RuntimeException("Unknown error.  Add to list. "+d.fatalError);
-            }
+            case OUT_OF_MEMORY:
+                reason = "OUT OF MEMORY";
+                break;
+
+            default:
+                throw new RuntimeException("Unknown error.  Add to list. "+d.fatalError);
         }
+
+        System.out.printf("<TH colspan=\"8\"> %s </TH>",reason);
     }
 
     private void printHtmlElement( double val ) {
@@ -211,8 +229,19 @@ public class GenerateHtmlTables extends TablesCommon {
             System.out.printf("<TD>"+precision+"</TD>",val);
     }
 
+    public static class Info
+    {
+        String name;
+        boolean accuracy;
+
+        public Info(String name, boolean accuracy) {
+            this.name = name;
+            this.accuracy = accuracy;
+        }
+    }
+
     public static void main( String args[] ) {
-        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/java/jmatbench/results/stability_2010_01_20/small");
+        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/jmatbench/trunk/results/stability_2010_01_20/large");
 
         p.plot();
     }

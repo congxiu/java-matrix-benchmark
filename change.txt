@@ -1,6 +1,17 @@
+----- Version 0.5
+
+2010/XX/XX
+
+- Updated version of Parallel Colt (fixed bugs discovered with this benchmark)
+- SVD overflow no longer creates matrices that have exactly the same singular values.
+  They are slightly perturbed from each other.   This was to make a more realistic test scenario.
+- Proved HTML tables. Thanks Anders Peterson for the suggestions.
+- Changed SVD accuracy so that an input matrix of zero can't be created
+
+
 ----- Version 0.4
 
-20XX/XX/XX
+2010/01/22
 
 - Can load XML based config files.
 - Adjusted OjAlgo benchmark to take in account its caching of previous results
