@@ -1,9 +1,9 @@
 #summary Benchmark results for Q9400 Vista 64
 
 Links to the results:
-  * [BenchmarkQ9400#Basic_Operation_Results Basic Operations]
-  * [BenchmarkQ9400#Solving_Linear_Systems Solving Linear Systems]
-  * [BenchmarkQ9400#Matrix_Decompositions Matrix Decompositions]
+  * [#Basic_Operation_Results Basic Operations]
+  * [#Solving_Linear_Systems Solving Linear Systems]
+  * [#Matrix_Decompositions Matrix Decompositions]
 
 =Test Environment =
 
