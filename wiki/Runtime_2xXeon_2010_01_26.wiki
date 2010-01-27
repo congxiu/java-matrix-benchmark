@@ -15,7 +15,7 @@ Links to the results:
 
 = Comments =
 
-Thanks to Anders Peterson took the time to run this benchmark on his system.
+Thanks to Anders Peterson who took the time to run this benchmark on his system.
 
 =Basic Operation Results=
 
