@@ -31,7 +31,6 @@
 
     <path id="project.classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
-        <fileset dir="../thirdparty/jfreechart-1.0.13/" includes="**/*.jar"/>
     </path>
 
     <path id="benchmark.classpath">

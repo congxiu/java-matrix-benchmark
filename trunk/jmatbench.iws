@@ -16,42 +16,22 @@
   </component>
   <component name="ChangeListManager" verified="true">
     <list default="true" readonly="true" id="ca5367f2-e5a0-4faf-b6f8-6a9fbdaf5e1c" name="Default" comment="- minor tweek to display the name of the library in performance benchmark&#10;- stability prints system info&#10;- updated name of metric">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/parallelcolt-0.9.2-src.zip" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/jplasma.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/parallelcolt-0.9.1-src.zip" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/jtransforms.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/arpack-combo.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/jplasma.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.iws" afterPath="$PROJECT_DIR$/jmatbench.iws" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/csparsej.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/EJML.jar" afterPath="$PROJECT_DIR$/lib/EJML.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.ipr" afterPath="$PROJECT_DIR$/jmatbench.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/BenchmarkAll.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/BenchmarkAll.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/GenerateHtmlTables.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/GenerateHtmlTables.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change.txt" afterPath="$PROJECT_DIR$/change.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java" afterPath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/license.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/parallelcolt-0.9.2.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/optimization.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/arpack-combo.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/jtransforms.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/parallelcolt-0.9.1.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/netlib-java.jar" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdAccuracy.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdAccuracy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.iml" afterPath="$PROJECT_DIR$/jmatbench.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/parallelcolt-0.9.2-doc.zip" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/parallelcolt-0.9.1-doc.zip" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/parallelcolt-0.9.1/csparsej.jar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/MatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeometryMath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdOverflow.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdOverflow.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/netlib-java.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverSingular.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverSingular.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java" afterPath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/optimization.jar" />
     </list>
     <list id="6e54816f-3357-4769-86e6-1129cd62fca8" name="Failed commit: Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
     <list id="8c73df95-4bc0-47db-a3d2-aeb8db41e918" name="Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
@@ -157,19 +137,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StabilityBenchmarkConfig.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StabilityBenchmarkConfig.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="29" selection-start="4309" selection-end="4309" vertical-scroll-proportion="0.8005148">
+            <state line="117" column="33" selection-start="4309" selection-end="4309" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StabilityBenchmarkLibrary.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MatrixLibrary.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="0" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StabilityBenchmarkLibrary.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="191" column="22" selection-start="6115" selection-end="6658" vertical-scroll-proportion="0.0">
+            <state line="173" column="69" selection-start="5954" selection-end="5954" vertical-scroll-proportion="2.8458498">
               <folding />
             </state>
           </provider>
@@ -196,8 +185,10 @@
       <file leaf-file-name="EjmlStabilityFactory.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="70" selection-start="3339" selection-end="3372" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="114" column="70" selection-start="3277" selection-end="3310" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1264602172000" expanded="false" signature="817:1238" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -215,15 +206,6 @@
         <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="260" column="38" selection-start="9194" selection-end="9194" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GeneralEigenDecompositionCheck.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/GeneralEigenDecompositionCheck.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="233" column="13" selection-start="7152" selection-end="7152" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -255,7 +237,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/SymmetricQRAlgorithmDecomposition.java" />
         <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/DecompositionFactory.java" />
         <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/TestSwitchingEigenDecomposition.java" />
         <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigenvector.java" />
@@ -270,6 +251,7 @@
         <option value="$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java" />
         <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" />
         <option value="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" />
         <option value="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java" />
       </list>
     </option>
@@ -553,6 +535,82 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="jmatbench" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmatbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmatbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmatbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmatbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stability" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -1070,7 +1128,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="25" width="1286" height="976" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32748538" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1083,7 +1141,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36393178" sideWeight="0.4877193" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981315" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36393178" sideWeight="0.51345026" order="0" side_tool="false" content_ui="tabs" x="364" y="128" width="397" height="828" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36393178" sideWeight="0.51345026" order="0" side_tool="false" content_ui="tabs" x="364" y="128" width="397" height="828" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53216374" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1113,7 +1171,7 @@
     <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Adding a working symmetric eigenvalue decomposition&#10;- Improved general eigenvalue tests, which is exposing problems with general evd algorithm&#10;- updated name of random eigen vector generator to reflect that it is actually only generating symmetric matrices" />
+    <option name="LAST_COMMIT_MESSAGE" value="- upgraded parallel colt to 0.9.2&#10;- fixed an issue with SVD accuracy stability test&#10;- slightly purturbed SVD overflow test so that all the singular values are not all equal&#10;- tweeked GenerateHtmlTables so that you can configure individual plots&#10;- added build.xml back in" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1126,7 +1184,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="- renamed jsci to jscience to remove ambiguity with the library jsci&#10;- updated ojalgo&#10;- added a lot to the stability benchmark" />
     <MESSAGE value="- improved stability benchmark&#10;  - run faster&#10;  - there is now an SVD benchmark&#10;  - more error logging" />
     <MESSAGE value="- deleted old version of ojalgo&#10;- Updated EJML jar with new reflector code&#10;- added eigenvalue benchmarks&#10;- added solver accuracy benchmark&#10;- greatly improved performance when dealing with large matrices&#10;- more benchmark debugging information saved&#10;- more configurable options" />
     <MESSAGE value="- Made RandomMatrix.createSpan() much more efficient by using reflections directly&#10;- tweeked SVD code&#10;- added reflector to VectorVectorMult&#10;- addec random symmetric" />
@@ -1151,6 +1208,7 @@
     <MESSAGE value="- Working symmetric eigenvalue decomposition algorithm" />
     <MESSAGE value="- minor tweek to display the name of the library in performance benchmark&#10;- stability prints system info&#10;- updated name of metric" />
     <MESSAGE value="- Adding a working symmetric eigenvalue decomposition&#10;- Improved general eigenvalue tests, which is exposing problems with general evd algorithm&#10;- updated name of random eigen vector generator to reflect that it is actually only generating symmetric matrices" />
+    <MESSAGE value="- upgraded parallel colt to 0.9.2&#10;- fixed an issue with SVD accuracy stability test&#10;- slightly purturbed SVD overflow test so that all the singular values are not all equal&#10;- tweeked GenerateHtmlTables so that you can configure individual plots&#10;- added build.xml back in" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1214,13 +1272,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/DecompositionFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="46" selection-start="4012" selection-end="4039" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigenvector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="98" column="34" selection-start="3014" selection-end="3014" vertical-scroll-proportion="0.0">
@@ -1296,8 +1347,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="70" selection-start="3339" selection-end="3372" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="114" column="70" selection-start="3277" selection-end="3310" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1264602172000" expanded="false" signature="817:1238" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1324,16 +1377,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java">
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="191" column="22" selection-start="6115" selection-end="6658" vertical-scroll-proportion="0.0">
+        <state line="117" column="33" selection-start="4309" selection-end="4309" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="29" selection-start="4309" selection-end="4309" vertical-scroll-proportion="0.8005148">
+        <state line="26" column="0" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="173" column="69" selection-start="5954" selection-end="5954" vertical-scroll-proportion="2.8458498">
           <folding />
         </state>
       </provider>
