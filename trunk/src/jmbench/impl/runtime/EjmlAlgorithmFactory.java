@@ -81,7 +81,8 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             LUDecomposition lu = DecompositionFactory.lu();
 
             for( long i = 0; i < numTrials; i++ ) {
-                lu.decompose(matA);
+                if( !lu.decompose(matA) )
+                    throw new RuntimeException("Decomposition failed");
             }
 
             return System.currentTimeMillis() - prev;
@@ -103,7 +104,8 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             SvdNumericalRecipes svd = new SvdNumericalRecipes();
 
             for( long i = 0; i < numTrials; i++ ) {
-                svd.decompose(matA);
+                if( !svd.decompose(matA) )
+                    throw new RuntimeException("Decomposition failed");
                 svd.getU();
                 svd.getW();
                 svd.getV();
@@ -128,7 +130,8 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             EigenDecomposition eig = EigenOps.decompositionSymmetric();
 
             for( long i = 0; i < numTrials; i++ ) {
-                eig.decompose(matA);
+                if( !eig.decompose(matA) )
+                    throw new RuntimeException("Decomposition failed");
                 eig.getEigenvalue(0);
                 eig.getEigenVector(0);
             }
@@ -152,7 +155,8 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             QRDecomposition qr = DecompositionFactory.qr();
 
             for( long i = 0; i < numTrials; i++ ) {
-                qr.decompose(matA);
+                if( !qr.decompose(matA) )
+                    throw new RuntimeException("Decomposition failed");
             }
 
             return System.currentTimeMillis() - prev;
@@ -194,7 +198,8 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                CommonOps.invert(matA,B);
+                if( !CommonOps.invert(matA,B) )
+                        throw new RuntimeException("Invert failed");
             }
 
             return System.currentTimeMillis() - prev;
@@ -218,25 +223,6 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.add(matA,matB,matC);
-            }
-
-            return System.currentTimeMillis()-prev;
-        }
-    }
-
-    public static class AddTransA extends MyInterface {
-        @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
-            DenseMatrix64F matB = inputs[1];
-
-            DenseMatrix64F matC = new DenseMatrix64F(matA);
-
-            long prev = System.currentTimeMillis();
-
-            for( long i = 0; i < numTrials; i++ ) {
-                CommonOps.transpose(matA,matC);
-                CommonOps.addEquals(matC,matB);
             }
 
             return System.currentTimeMillis()-prev;
