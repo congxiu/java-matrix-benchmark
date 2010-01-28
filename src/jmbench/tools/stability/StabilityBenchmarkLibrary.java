@@ -257,9 +257,8 @@ public class StabilityBenchmarkLibrary {
         for( int attempts = 0; attempts < 5; attempts++ ) {
 
             tools.setMemoryScale(40*(attempts+1));
-//            EvaluatorSlave.Results results = tools.runTest(e);
-            EvaluatorSlave.Results results = tools.runTestNoSpawn(e);
-
+            EvaluatorSlave.Results results = tools.runTest(e);
+//            EvaluatorSlave.Results results = tools.runTestNoSpawn(e);
             slaveMemoryMegaBytes = tools.getAllocatedMemory();
 
             if( results == null ) {
