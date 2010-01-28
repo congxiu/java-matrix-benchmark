@@ -21,6 +21,7 @@ package jmbench.misc;
 
 import jmbench.interfaces.MatrixGenerator;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
 
@@ -46,17 +47,7 @@ public class SymmMatrixGenerator implements MatrixGenerator {
 
     @Override
     public DenseMatrix64F createMatrix(int numRows, int numCols) {
-        DenseMatrix64F A = new DenseMatrix64F(numRows,numCols);
-
-        for( int i = 0; i < numRows; i++ ) {
-            for( int j = i; j < numCols ; j++ ) {
-                double val = (rand.nextDouble()-0.5)*2;
-                A.set(i,j,val);
-                A.set(j,i,val);
-            }
-        }
-
-        return A;
+        return RandomMatrices.createSymmetric(numRows,-1,1,rand);
     }
 
     @Override
