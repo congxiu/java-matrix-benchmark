@@ -37,6 +37,7 @@ public class FactoryRuntimeEvaluationCase {
     private static long RAND_SEED = 0x37645;
 
     private static int MAX_MATRIX_SIZE = 2000;
+    private static int MIN_MATRIX_SIZE = 2;
 
     LibraryAlgorithmFactory factory;
 
@@ -253,8 +254,14 @@ public class FactoryRuntimeEvaluationCase {
     private static int[] createDimenList( int max ) {
         List<Integer> a = new ArrayList<Integer>();
 
-        int val = 2;//2
-        int dec = 1;//1
+        int val = MIN_MATRIX_SIZE;
+
+        int dec = 1;
+
+        while( (val / (dec*10)) >= 1 ) {
+            dec *= 10;
+        }
+
         a.add(val);
 
         while(  val < max ) {
