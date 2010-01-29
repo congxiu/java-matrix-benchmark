@@ -3,7 +3,7 @@
 
 = Introduction =
 
-In principle benchmarking an algorithm on a computer is a simple task.  For this project we wanted measure how fast various matrix libraries are at performing different linear algebra operations across a variety of matrix sizes.  A very simple benchmark for this task might go something like:
+In principle benchmarking an algorithm is a simple task.  For this project we wanted measure how fast various matrix libraries are at performing different linear algebra operations across a variety of matrix sizes.  A very simple benchmark for this project might go something like:
 
 {{{
     public void performBenchmark( Libraries libraries ) {
