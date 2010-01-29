@@ -30,7 +30,8 @@ This approach is very simple and for many application is good enough, when only 
     # Accidental overloading of library classes.
     # Runtime optimization performed by the JavaVM.
   # Benchmark's overhead.
-  # Repeatability and Exception Handling 
+  # Repeatability
+  # Exception Handling 
 
 In addition how the statistics are computed make the big difference.  Are the worst case results the most interesting?  The best case?  How about the median or the average?  What do each of these metrics tell you?
 
@@ -192,10 +193,59 @@ A key design requirement of this benchmark was accurate results for small matric
         return System.currentTimeMillis()-prev;
    }
 }}}
-The above is the benchmark code for Jama's addition operator.  Note that the only overhead that is included in the timing is the for loop.
+The above is the benchmark code is used to evaluate Jama's addition operator.  Note the for loop is the only overhead that is included the timing.
 
 The disadvantage of this approach is that only a few different matrices can be used in testing.  Some algorithm's runtime will depend on the input they are given.  So more matrices that they are evaluated against the better.  One way around this problem would be to generate a random matrix and then measure the time for a single operation.  For small matrices the execution time is too small to be measured this way and the benchmark will take much longer to run.
 
-== 1.4 Repeatability and Exception Handling ==
+== 1.4 Repeatability ==
+
+Modern operating systems and applications running on them perform many tasks automatically and periodically.  An application could decide that the middle of your benchmark is a good time to download, decompress, and install the latest update.  The OS might decide to update its file indexes.  Some of these can be controlled by turning off services and quitting applications. 
+
+Unfortunately this is a tedious task that often requires intimate knowledge the operating system to effective do.  It is often the case that these tasks will run for a relatively short period of time.  So only one library or set of applications would be influenced.
+
+=== 1.4.1 The Java Matrix Benchmark Approach ===
+
+Java Matrix Benchmark can not eliminate this problem by itself.  It is best for the user to close and kill all non essential applications and processes before running the benchmark.  It does take steps to mitigate the issue by randomizing the order in which it evaluates operations within a library.
+
+By randomizing the order it is less likely that all the individual tests will be slowed down by a short process that suddenly starts up and stops.  A process that takes a lot of time to run will significantly change the results and can be hard to detect.  An additional step that could be taken to improve the situation is to only measure the benchmark application's CPU usage time.  Many operating systems provide this functionality, and ways to get access to that information in an OS independent way inside of Java are being investigated.
+
+== 1.5 Exception Handling ==
+
+No library is perfect and things will go wrong.  A good benchmark will be able to handle these problems and continue running.  In Java, typical problems include a RuntimeException being thrown, an algorithm not stopping, or threads not terminating.
+
+=== 1.5.1 The Java Matrix Benchmark Approach ===
+
+RuntimeExceptions can be caught with a simple try catch block.  An algorithm caught in an infinite loop is more problematic.  Since each test is a new Java instance it can be easily killed by the master benchmark program if it is taking too long.  All of these exceptions are logged for later debugging of the library or explaining why it went wrong.
 
 = 2 Benchmark Statistics =
+
+I've written too much already.  This can be done later.
+
+= Summary =
+
+Here is a summary of how Java Matrix Benchmark evaluates each library:
+
+  # For each operation in each library a new JavaVM is launched M times.
+  # In each of these JavaVM's the operation is evaluated N times.
+    # Results from each of these M*N trials are saved and any exceptions that occurred are logged.
+  # Only the Java jar's needed by the library being evaluated are loaded in each test JavaVM.
+  # How many trials are run in each test is dynamically determined at runtime.
+  # Memory allocated to the JavaVM is adjusted for each operation depending on an estimate of how much will be needed.
+    # If a library needs more 5 attempts with increasingly more memory are done.
+  # The maximum matrix size that is evaluated for each operation in each library is determined at runtime depending on how long it takes to run.
+    # An upper limit is specified by the user before hand.
+  # The benchmark's influence on the results is minimized.
+  # The order in which operations are tested is randomized.
+
+Here are the positive aspects of this approach:
+
+  * Accurate runtime performance measurements across a range of matrix sizes.
+  * One library can not effect the performance of another library that is run later on.  The same is true for operations within a library.
+  * Short processes started by the operating system or applications will have a minimal affect on the final results.
+  * It can be run without modification on slow memory starved systems as well as the latest in computing technology.
+    * The runtime of the benchmark is approximately constant.
+
+Here are the negatives for this approach:
+
+  * Only a small set of matrices are evaluated as input.  Ideally each trial would have its own randomly generated one.
+  * The code is much more complex.
