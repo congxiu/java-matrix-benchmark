@@ -3,7 +3,7 @@
 
 = Introduction =
 
-In principle benchmarking an algorithm is a simple task.  For this project we wanted measure how fast various matrix libraries are at performing different linear algebra operations across a variety of matrix sizes.  A very simple benchmark for this project might go something like:
+In principle benchmarking an algorithm is a simple task.  Just measure the elapsed time and save the results.  For this project we wanted measure how fast various matrix libraries are at performing different linear algebra operations across a variety of matrix sizes.  A very simple benchmark for this project might go something like:
 
 {{{
     public void performBenchmark( Libraries libraries ) {
@@ -42,43 +42,43 @@ In the following subsection these issues are discussed and examples given to ill
 
 = 1 Benchmark Procedures =
 
-Measuring runtime performance accurately requires procedures that carefully take in account the reality of how modern computers operate. Desktop computers today are very complex and no single application has control over the entire system.  This complexity adds more unknowns and makes it more difficult to predict future performance based upon your past results, which is what a benchmark is used to do.  
+Measuring runtime performance accurately requires benchmark procedures that carefully take in account the reality of how modern computers operate. Desktop computers today are very complex and no single application has control over the entire system.  This complexity adds more unknowns and makes it more difficult to predict future performance based upon your past results, which is what a benchmark is used to do.  
 
-Benchmarking Java applications is even more difficult than native applications because of the additional layer of abstraction from the hardware.  Even a simple application will show more variability in its runtime than a simple application written in c when run multiple times.  Modern Java virtual machines (VM) will optimize the code at runtime.  Making it even more difficult to predict how they will run in the future.  
+Benchmarking in a Java environment is even more difficult than native code, because of the additional layers of abstraction from hardware.  Even a simple Java application will show more variability in its runtime than a simple application written in c.  Modern Java virtual machines (VM) will actually change the executed code at runtime.  Making benchmarking more difficult.  
 
 == 1.1 Implicit Assumptions ==
 
-When writing a benchmark it is hard if not impossible to not make implicit assumptions about the system the benchmark is run on.  The most common culprit is the variable 'numberOfTrials' that determines the number of times a particular trial is run.  If set too small then the performance can not be accurate measured.  If set too high then it will take too long. For example, if a benchmark is written on a very fast computer then in might be too slow when used on an older computer.  Then years later when it is run on a new computer it might be too slow.
+When writing a benchmark it is hard, if not impossible, to not make implicit assumptions about the system the benchmark is run on.  The most common culprit is the variable 'numberOfTrials' that determines the number of times a particular trial is run for a test.  If set too small then the performance cannot be accurate measured.  If set too high then it will take too long. For example, if a benchmark is written on a very fast computer then in might be too slow when used on an older computer.  Then years later when the same program is run on a new computer it might be too fast.
 
-A benchmark running too fast leads to inaccurate results because there is always noise in how its runtime is measured.  Mathematically this can be viewed as a random process:
+A benchmark running too fast leads to inaccurate results because there is always noise in how the execution time measured.  Mathematically this can be viewed as a random process:
 {{{
 t_m = t_0 + N(t_0)
 }}}
 where 't_m' is the measured time, 't_0' is the true time, and N(t_0) is a noise process that may be dependent on when it is called.  This issue is exaggerated in Java due to the abstraction from the systems hardware, preventing very low level system calls from being called.
 
-In Java it has been long known that System.currentTimeMillis() has an accuracy within milliseconds, but can be variable depending on which operations/hardware it is run on.  System.nanoTime() returns a more precise time measurement, but its documentation explicitly states that its accuracy is not defined, see below:
+In Java a common function to measure time is System.currentTimeMillis() and it has an unspecified accuracy that is assumed to be within milliseconds.  In practice its accuracy is variable depending on which operations/hardware it is run on.  System.nanoTime() returns a more precise time measurement, but its documentation explicitly states that its accuracy is not defined, see the excerpt from its documentation below:
 {{{
 This method can only be used to measure elapsed time and is not related to any other.
 This method provides nanosecond precision, but not necessarily nanosecond accuracy. 
 }}}
 
-One way to handle this problem is to simply increase the length of the benchmark until the noise is insignificant.  As previously mentioned the number of trials that this requires is dependent on the system it is run on.  
+One way to handle this problem is to simply increase the length of the benchmark until the noise is insignificant.  As previously mentioned, the number of trials that this requires is dependent on the system it is run on.  
 
-In this benchmark matrices of different sizes are tested.  In general, the larger the matrix is the longer it takes to process.  Determining the maximum matrix size has similar issues to determining the number of trials and is system dependent.
+In this benchmark matrices of different sizes are used as inputs.  In general, the larger the matrix is the longer it takes to process.  Determining the maximum matrix size has similar issues to determining the number of trials and is system dependent.
 
 === 1.1.1 The Java Matrix Benchmark Approach ===
 
-JMatBench dynamically determines the number of trials by estimating how long each operation takes.  Each time a new benchmark is run it first runs a small number of trials.  Then it estimates how long it takes to run each operation and increases the number of trials so that it should last for a minimum duration T<sub>min</sub>.  The process is repeated until it approximately runs for T<sub>min</sub> seconds.  At which point the trial stops and the number of operations per second is returned.
+Java Matrix Benchmark dynamically determines the number of trials by estimating how long each operation takes.  Each time a new benchmark is run it first runs a small number of trials.  Then it estimates how long it takes to run each operation and increases the number of trials so that it should last for a minimum duration T<sub>min</sub>.  This process is repeated until it approximately runs for T<sub>min</sub> seconds.  At which point the trial stops and the number of operations per second is returned.
 
-The size of the matrices that it processes is also dynamically determined at runtime.  This is done simply by having a maximum amount of time allowed for each test.  If that time is exceeded the test stops.  A maximum matrix size specified to prevent it from running for too long or beyond any interesting point.  A test will be killed if it is taking too long.
+The size of the matrices that it processes is also dynamically determined at runtime.  This is done simply by having a maximum amount of time allowed for each test.  If that time is exceeded the test stops.  A maximum matrix size is also specified to prevent it from running for too long or beyond any interesting point.
 
-Another factor that determines which system a benchmark is run on is the amount of memory allocated to Java.  A generous estimate is made for how much memory a process will require and only that amount of memory is allocated when a test instance is launched.  So for a small matrix only a few megabytes might be allocated, but for large matrices over a gigabyte might be.  If an application fails to launch due to lack of memory it increases the amount allocated to it.  Thus without modifications this benchmark could be run on an embedded system with 100 megabytes of RAM or a desktop with 6 gigabytes.
+Another factor that determines which system a benchmark is run on is the amount of memory allocated to Java.  A generous estimate is made for how much memory a process will require and only that amount of memory is allocated when a test instance is launched.  For a small matrix only a few megabytes might be allocated, but for large matrices over a gigabyte might be.  If an application fails to launch due to lack of memory then its memory allocation will be increased until it can run.  Thus without modifications this benchmark could be run on an embedded system with 100 megabytes of RAM or a desktop with 6 gigabytes.
 
-A side effect of this approach is that the amount of time it takes for a complete benchmark to run is approximately system independent.  It would take about as long on a state of the hard computer 10 years from now as it would on old computer collecting dust.
+A side effect of this approach is that the amount of time it takes for a complete benchmark to run is approximately system independent.  It would take about as long on a state of the art computer 10 years from now as it would on an old door stop collecting dust.
 
 == 1.2 Influence of Past History ==
 
-A basic assumption made when measuring an algorithm's performance is that its current performance is independent of what was run before it.  If this assumption is broken then results become unpredictable or unreproducible on different systems. At a glance the sample code above wouldn't have this issue since by the time new library is being evaluated the old library would have stopped and would no longer be running. Unfortunately this is not the case.  A few of the reasons why this is so are listed below:
+A basic assumption made when measuring an algorithm's performance is that its current performance is independent of what was run before it.  If this assumption is broken then results become unpredictable or unreproducible on different systems. At a glance the sample code above wouldn't have this issue, since by the time new library is being evaluated the old library would have stopped and would no longer be running. Unfortunately this is not the case.  A few of the reasons why are listed below:
 
   # The previous library or operation could have left stray threads around.
   # The Java garbage collector might have not had run yet in the previous test and so it runs in the current one.
@@ -87,15 +87,15 @@ A basic assumption made when measuring an algorithm's performance is that its cu
 
 1) With concurrent (multithreaded) algorithms becoming more and more popular as multiprocessor/multicore systems become mainstream problems associated with them will increase.  Writing good multithreaded is not easy and there are several common errors that can significantly effect other tests performed later on.  For example, a deadlock condition is when a thread is waiting for something to happen that never will happen.  The thread might never stop consuming computation and memory resources until it is killed by the application exiting.
 
-2) Java applications have very little control over when the garbage collected might run.  They can request that it run at a particular time, but they can not force it to run.  It is possible for one test to consume a lot of memory only to have the next test take a performance hit when the garbage collector run.  How the garbage collector behaves is highly dependent on its own algorithm, which constantly change with each new release of the JavaVM.
+2) Java applications have very little control over when the garbage collected might run [1].  They can request that the garbage collector run at a particular time, but they can not force it to run.  It is possible for one test to consume a lot of memory only to have the next test take a performance hit when the garbage collector runs.  How the garbage collector behaves is highly dependent on its own algorithm, which constantly changing with each new release of the JavaVM.
 
 3) It is possible for two libraries to have a class with exactly the same class name and package but have different behavours.  If this happens and both libraries are tested inside the same application instance then Java will override one library's classes with the others at runtime silently making the benchmark's results invalid.  
 
-While this is unlikely it is possible.  Some libraries are derived from other libraries, share a common ancestry, or maybe the authors just think like.  There isn't any known cases of this problem existing since most authors change the name of a class when they absorb a class from another project.
+While this is unlikely it is possible.  Some libraries are derived from other libraries, share a common ancestry, or maybe the authors just think like.  There isn't any known cases of this problem existing since most authors change the name of a class when they absorb an algorithm from another project.
 
-4) To most people how the JavaVM performs its runtime optimization is unknown and a bit of a mystery.  One reason is that the developers are constantly changing the algorithms to improve its performance.  The typical assumption is that the first time some code is run it will be slow then the second time it is run it will be much faster.  Based on experience the true situation is much more confusion and difficult to understand.
+4) For most people how the JavaVM performs its runtime optimization is unknown and a bit of a mystery.  One reason is that the Java's developers are constantly changing the algorithms to improve its performance.  The typical assumption is that the first time some code is run it will be slow then the second time it is run it will be much faster.  Based on experience, the true situation is much more confusion and difficult to understand.
 
-To illustrate how significant this issue is consider the following benchmark that compares the performance of three different ways to multiply matrices:
+To illustrate how significant this issue is consider the following benchmark that compares performance of three different ways to multiply matrices:
 {{{
 public class BenchmarkMatrixMatrixMult {
 
@@ -132,7 +132,7 @@ public class BenchmarkMatrixMatrixMult {
     }
 }
 }}}
-Please note that the code has been truncated to only show what is essential.  When the above code is run on JavaVM 1.6.0_15 with my computer it produces the following output:
+Please note that the code has been truncated to only show what is essential.  When the above code is run using JavaVM 1.6.0_15 on my computer it produces the following output:
 {{{
 Size    2 elapsed time:   3766   4165   3990
 Size    4 elapsed time:   3445   2817   3669
@@ -145,7 +145,7 @@ Size  500 elapsed time:   9146   3383   5175
 Size 1000 elapsed time:  24195   7191  10677
 }}}
 
-Now let's say that you are only concerned with the results for matrices that are 200 or above.  So you simply modify the code so that 'i' is set to 6 initially and you get this output:
+Now let's say that you are only concerned with results for matrices that are 200 or above.  So you simply modify the code so that 'i' is set to 6 initially and you get this output:
 {{{
 Size  200 elapsed time:   1798   2316   2198
 Size  500 elapsed time:   7556   1941   1855
@@ -156,9 +156,9 @@ The results are now completely different!  Why did this happen?  That's hard to 
 
 === 1.2.1 The Java Matrix Benchmark Approach ===
 
-Java Matrix Benchmark mitigates these problems by launching a new java virtual machine with every set of tests for an operation.  In a typical configuration the same operation in the same library will be evaluated 25 times.  A new virtual machine will be launched and it will repeat the test 5 times in that instance.  A new instance is launched 5 times.
+Java Matrix Benchmark mitigates these problems by launching a new Java virtual machine with every set of tests for an operation.  In a typical configuration the same operation in the same library will be evaluated 25 times.  A new virtual machine will be launched and it will repeat the test 5 times in that instance.  A new instance is launched 5 times.
 
-The only libraries that are loaded are for the library being evaluated in that test instance.  This eliminates the possibility of accidental overloading of classes.  Between each test in the same Java instance a call to "System.gc()" is made to reduce the influence of the garbage collector on the results.
+Jar files are only loaded if they are used by the library being evaluated.  This eliminates the possibility of accidental overloading of classes.  Between each test in the same Java instance a call to "System.gc()" is made to reduce the influence of the garbage collector on the results.
 
 == 1.3 Benchmark Overhead ==
 
@@ -174,11 +174,11 @@ When measuring an algorithms performance, the influence of the benchmark on the 
        }
    }
 
-        return (double)(System.currentTimeMillis()-startTime)/(double)totalTrials;
+   return (double)(System.currentTimeMillis()-startTime)/(double)totalTrials;
 }}}
 It counts how many times a specific operation runs in approximately 5 seconds.  Is it really doing that?  What happens if 'createRandom()' takes longer to execute than performOperation()?  Then you are measuring the overhead of the benchmark and not operation itself.  The same is true for 'System.currentTimeMillis()' and for the overhead caused by the use of an interface instead of directly calling the function.
 
-In general for large matrices and expensive operations these are not significant issues.  However for fast operations or small matrices they are significant. 
+In general large matrices and expensive operations are not significantly affected by this issue.  However for fast operations or small matrices it is significant. 
 
 === 1.3.1 The Java Matrix Benchmark Approach ===
 
@@ -196,9 +196,9 @@ A key design requirement of this benchmark was accurate results for small matric
         return System.currentTimeMillis()-prev;
    }
 }}}
-The above is the benchmark code is used to evaluate Jama's addition operator.  Note the for loop is the only overhead that is included the timing.
+The above is the benchmark code is used to evaluate Jama's addition operator.  Note the for loop is the only overhead that is included the elapsed time measurement.
 
-The disadvantage of this approach is that only a few different matrices can be used in testing.  Some algorithm's runtime will depend on the input they are given.  So more matrices that they are evaluated against the better.  One way around this problem would be to generate a random matrix and then measure the time for a single operation.  For small matrices the execution time is too small to be measured this way and the benchmark will take much longer to run.
+The disadvantage of this approach is that only a few different matrices can be used in testing.  Some algorithm's runtime is dependent on the input they are given.  More matrices that they are evaluated against the better the results will be.  One way around this problem would be to generate a random matrix and then measure the time for a single operation.  For small matrices the execution time is too small to be measured this way and the benchmark will take much longer to run.
 
 == 1.4 Repeatability ==
 
@@ -249,3 +249,6 @@ Here are the negatives for this approach:
   * Only a small set of matrices are evaluated as input.  Ideally each trial would have its own randomly generated one.
   * CPU time is not currently measured.
   * The code is much more complex.
+
+= Footnotes =
+[1] This is not true for some real-time implementations of Java.
