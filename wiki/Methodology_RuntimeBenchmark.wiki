@@ -25,11 +25,10 @@ In principle benchmarking an algorithm on a computer is a simple task.  For this
 This approach is very simple and for many application is good enough, when only a crude estimate is needed.  Unfortunately it will produce inaccurate results in practice because it fails to take in account several factors:
 
   # Implicit assumptions about the system it is run on.
-  # Variability of results depending on when they were run.
   # Influence of previous history on current results.
-    # Libraries can directly effect results of other libraries.
+    # Previously run libraries can degrade the performance on other libraries.
+    # Accidental overloading of library classes.
     # Runtime optimization performed by the JavaVM.
-  # Accidental overloading of library classes.
   # Benchmark's overhead.
   # Repeatability and Exception Handling 
 
@@ -156,5 +155,47 @@ The results are now completely different!  Why did this happen?  That's hard to 
 Java Matrix Benchmark mitigates these problems by launching a new java virtual machine with every set of tests for an operation.  In a typical configuration the same operation in the same library will be evaluated 25 times.  A new virtual machine will be launched and it will repeat the test 5 times in that instance.  A new instance is launched 5 times.
 
 The only libraries that are loaded are for the library being evaluated in that test instance.  This eliminates the possibility of accidental overloading of classes.  Between each test in the same Java instance a call to "System.gc()" is made to reduce the influence of the garbage collector on the results.
+
+== 1.3 Benchmark Overhead ==
+
+When measuring an algorithms performance, the influence of the benchmark on the results should be minimized.  Consider the following benchmark:
+{{{
+   int totalTrials = 0;
+        
+   long startTime = System.currentTimeMillis();
+   while( System.currentTimeMillis() - startTime < 5000 ) {
+       for( int i = 0; i < numTrials; i++ ) {
+           DenseMatrix64F A = RandomMatrices.createRandom(N,N,rand); 
+           operationInterface.perform(A);
+       }
+   }
+
+        return (double)(System.currentTimeMillis()-startTime)/(double)totalTrials;
+}}}
+It counts how many times a specific operation runs in approximately 5 seconds.  Is it really doing that?  What happens if 'createRandom()' takes longer to execute than performOperation()?  Then you are measuring the overhead of the benchmark and not operation itself.  The same is true for 'System.currentTimeMillis()' and for the overhead caused by the use of an interface instead of directly calling the function.
+
+In general for large matrices and expensive operations these are not significant issues.  However for fast operations or small matrices they are significant. 
+
+=== 1.3.1 The Java Matrix Benchmark Approach ===
+
+A key design requirement of this benchmark was accurate results for small matrices.  All previously know Java benchmarks effectively ignored small matrices and/or had significant overhead in the benchmark.  This was handled by making direct calls to the library's functions between the time samples:
+{{{
+    public long process(DenseMatrix64F[]inputs, long numTrials) {
+        Matrix matA = convertToJama(inputs[0]);
+        Matrix matB = convertToJama(inputs[1]);
+
+        long prev = System.currentTimeMillis();
+
+        for( long i = 0; i < numTrials; i++ ) {
+            matA.plus(matB);
+        }
+        return System.currentTimeMillis()-prev;
+   }
+}}}
+The above is the benchmark code for Jama's addition operator.  Note that the only overhead that is included in the timing is the for loop.
+
+The disadvantage of this approach is that only a few different matrices can be used in testing.  Some algorithm's runtime will depend on the input they are given.  So more matrices that they are evaluated against the better.  One way around this problem would be to generate a random matrix and then measure the time for a single operation.  For small matrices the execution time is too small to be measured this way and the benchmark will take much longer to run.
+
+== 1.4 Repeatability and Exception Handling ==
 
 = 2 Benchmark Statistics =
