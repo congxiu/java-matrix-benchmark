@@ -89,7 +89,63 @@ While this is unlikely it is possible.  Some libraries are derived from other li
 
 4) To most people how the JavaVM performs its runtime optimization is unknown and a bit of a mystery.  One reason is that the developers are constantly changing the algorithms to improve its performance.  The typical assumption is that the first time some code is run it will be slow then the second time it is run it will be much faster.  Based on experience the true situation is much more confusion and difficult to understand.
 
+To illustrate how significant this issue is consider the following benchmark that compares the performance of three different ways to multiply matrices:
+{{{
+public class BenchmarkMatrixMatrixMult {
 
+    public static long multSmall( DenseMatrix64F matA , DenseMatrix64F matB ,
+                             DenseMatrix64F matResult , int numTrials) {
+        long prev = System.currentTimeMillis();
+
+        for( int i = 0; i < numTrials; i++ ) {
+            MatrixMatrixMult.mult_small(matA,matB,matResult);
+        }
+
+        return System.currentTimeMillis()-prev;
+    }
+
+    public static void main( String args[] ) {
+        int size[] = new int[]{2,4,10,20,50,100,200,500,1000};
+        int count[] = new int[]{30000000,6000000,600000,140000,15000,1500,150,8,2,1,1};
+
+        for( int i = 0; i < size.length; i++ ) {
+            int width = size[i];
+            DenseMatrix64F matA = RandomMatrices.createRandom(width,width,rand);
+            DenseMatrix64F matB = RandomMatrices.createRandom(width,width,rand);
+            DenseMatrix64F matResult = RandomMatrices.createRandom(width,width,rand);
+
+            long timeSmall = multSmall(matA,matB,matResult,count[i]);
+            long timeAux = multAux(matA,matB,matResult,count[i]);
+            long timeLarge = multLarge(matA,matB,matResult,count[i]);
+
+            System.out.printf("Size %4d elapsed time: %6d %6d %6d\n",width,timeSmall,timeAux,timeLarge);
+        }
+    }
+}
+}}}
+Please note that the code has been truncated to only show what is essential.  When the above code is run on JavaVM 1.6.0_15 with my computer it produces the following output:
+{{{
+Size    2 elapsed time:   3766   4165   3990
+Size    4 elapsed time:   3445   2817   3669
+Size   10 elapsed time:   3887   2720   3969
+Size   20 elapsed time:   6425   4276   6577
+Size   50 elapsed time:   9931   6419  10412
+Size  100 elapsed time:   8250   5391   8417
+Size  200 elapsed time:   6384   4131   6317
+Size  500 elapsed time:   9146   3383   5175
+Size 1000 elapsed time:  24195   7191  10677
+}}}
+
+Now let's say that you are only concerned with the results for matrices that are 200 or above.  So you simply modify the code so that 'i' is set to 6 initially and you get this output:
+{{{
+Size  200 elapsed time:   1798   2316   2198
+Size  500 elapsed time:   7556   1941   1855
+Size 1000 elapsed time:  13574   3562   3491
+}}}
+
+The results are now completely different!  Why did this happen?  That's hard to say, but clearly the conclusions you reach are dependent upon the order in which you process your results.
+
+=== 1.2.1 The Java Matrix Benchmark Approach ===
 
 == 1.3 Accidental Overloading ==
 
