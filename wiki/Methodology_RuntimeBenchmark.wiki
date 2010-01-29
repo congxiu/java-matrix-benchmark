@@ -24,7 +24,7 @@ In principle benchmarking an algorithm on a computer is a simple task.  For this
 
 This approach is very simple and for many application is good enough, when only a crude estimate is needed.  Unfortunately it will produce inaccurate results in practice because it fails to take in account several factors:
 
-  # Implicit assumptions about the system it is run on.
+  # [Implicit_Assumptions Implicit assumptions about the system it is run on.]
   # Influence of previous history on current results.
     # Previously run libraries can degrade the performance on other libraries.
     # Accidental overloading of library classes.
