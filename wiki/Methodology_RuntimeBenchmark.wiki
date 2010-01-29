@@ -2,7 +2,7 @@
 
 = Introduction =
 
-In principle benchmarking an algorithm on a computer is a simple task.  For this project we wanted measure how fast various matrix libraries are at performing different linear algebra operations across a variety of matrix sizes.  A very simple implementation of a benchmark for this task might go something like this:
+In principle benchmarking an algorithm on a computer is a simple task.  For this project we wanted measure how fast various matrix libraries are at performing different linear algebra operations across a variety of matrix sizes.  A very simple benchmark for this task might go something like:
 
 {{{
     public void performBenchmark( Libraries libraries ) {
@@ -15,14 +15,14 @@ In principle benchmarking an algorithm on a computer is a simple task.  For this
                     
                     long timeAfter = System.currentTimeMillis();
                     
-                    saveResults( op , timeAfter-timeBefore );
+                    saveResults( lib , op , matrixSize , timeAfter-timeBefore );
                 }
             }
         }
     }
 }}}
 
-This approach is very simple and for many application is good enough when only a crude estimate is needed.  Unfortunately it will produce inaccurate results in practice because it fails to take in account several factors:
+This approach is very simple and for many application is good enough, when only a crude estimate is needed.  Unfortunately it will produce inaccurate results in practice because it fails to take in account several factors:
 
   # Implicit assumptions about the system it is run on.
   # Variability of results depending on when they were run.
@@ -37,9 +37,9 @@ In the following subsection these issues are discussed and examples given to ill
 
 = Benchmark Procedures =
 
-How accurately the runtime performance is measured is entirely dependent on carefully taking in account factors of modern computers. Desktop computers today are very complex and no single application has control over the entire system.  This complexity adds more unknowns and makes it more difficult to predict future performance based upon your past results, which is what a benchmark is used to do.  
+Measuring runtime performance accurately requires procedures that carefully take in account the reality of how modern computers operate. Desktop computers today are very complex and no single application has control over the entire system.  This complexity adds more unknowns and makes it more difficult to predict future performance based upon your past results, which is what a benchmark is used to do.  
 
-Benchmarking Java applications is even more difficult than native applications because of the additional layer of abstraction from the hardware.  Even a simple application will show more variability in its runtime than a simple application written in c.  Modern Java virtual machines (VM) will optimize the code at runtime.  
+Benchmarking Java applications is even more difficult than native applications because of the additional layer of abstraction from the hardware.  Even a simple application will show more variability in its runtime than a simple application written in c when run multiple times.  Modern Java virtual machines (VM) will optimize the code at runtime.  Making it even more difficult to predict how they will run in the future.  
 
 == Implicit Assumptions ==
 
