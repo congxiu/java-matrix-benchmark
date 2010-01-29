@@ -37,9 +37,9 @@ In addition how the statistics are computed make the big difference.  Are the wo
 
 In the following subsection these issues are discussed and examples given to illustrate their importance.
 
-  # [#1_Benchmark_Procedures] 
-  # [#2_Benchmark_Statistics] 
-  # [#3_Summary] 
+  # [1_Benchmark_Procedures] 
+  # [2_Benchmark_Statistics] 
+  # [3_Summary] 
 
 = 1 Benchmark Procedures =
 
