@@ -236,7 +236,7 @@ Here is a summary of how Java Matrix Benchmark evaluates each library:
   # Only the Java jar's needed by the library being evaluated are loaded in each test JavaVM.
   # How many trials are run in each test is dynamically determined at runtime.
   # Memory allocated to the JavaVM is adjusted for each operation depending on an estimate of how much will be needed.
-    # If a library needs more 5 attempts with increasingly more memory are done.
+    # If a library needs more additional attempts made with increasingly more memory.
   # The maximum matrix size that is evaluated for each operation in each library is determined at runtime depending on how long it takes to run.
     # An upper limit is specified by the user before hand.
   # The benchmark's influence on the results is minimized.
@@ -245,12 +245,13 @@ Here is a summary of how Java Matrix Benchmark evaluates each library:
 Here are the positive aspects of this approach:
 
   * Accurate runtime performance measurements across a range of matrix sizes.
-  * One library can not effect the performance of another library that is run later on.  The same is true for operations within a library.
-  * Short processes started by the operating system or applications will have a minimal affect on the final results.
+  * One library cannot effect the performance of another library that is run later on.  The same is true for operations within a library.
+  * Short unexpected processes started by the operating system or applications will have a minimal affect on the final results.
   * It can be run without modification on slow memory starved systems as well as the latest in computing technology.
     * The runtime of the benchmark is approximately constant.
 
 Here are the negatives for this approach:
 
   * Only a small set of matrices are evaluated as input.  Ideally each trial would have its own randomly generated one.
+  * CPU time is not currently measured.
   * The code is much more complex.
