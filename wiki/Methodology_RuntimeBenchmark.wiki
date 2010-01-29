@@ -11,7 +11,7 @@ In principle benchmarking an algorithm on a computer is a simple task.  For this
                 for( int matrixSize = 0; matrixSize < maxSize; matrixSize++ ) {
                     long timeBefore = System.currentTimeMillis();
                     
-                    op.performTest( matrixSize , numOfTrials );
+                    op.performTest( matrixSize , numberOfTrials );
                     
                     long timeAfter = System.currentTimeMillis();
                     
@@ -30,6 +30,7 @@ This approach is very simple and for many application is good enough, when only 
     # Libraries can directly effect results of other libraries.
     # Runtime optimization performed by the JavaVM.
   # Accidental overloading of library classes.
+  # Benchmark's overhead.
 
 In addition how the statistics are computed make the big difference.  Are the worst case results the most interesting?  The best case?  How about the median or the average?  What do each of these metrics tell you?
 
@@ -43,6 +44,30 @@ Benchmarking Java applications is even more difficult than native applications b
 
 == Implicit Assumptions ==
 
+When writing a benchmark it is hard if not impossible to not make implicit assumptions about the system the benchmark is run on.  The most common culprit is the variable 'numberOfTrials' that determines the number of times a particular trial is run.  If set too small then the performance can not be accurate measured.  If set too high then it will take too long. For example, if a benchmark is written on a very fast computer then in might be too slow when used on an older computer.  Then years later when it is run on a new computer it might be too slow.
+
+A benchmark running too fast leads to inaccurate results because there is always noise in how its runtime is measured.  Mathematically this can be viewed as a random process:
+{{{
+t_m = t_0 + N(t_0)
+}}}
+where 't_m' is the measured time, 't_0' is the true time, and N(t_0) is a noise process that may be dependent on when it is called.  This issue is exaggerated in Java due to the abstraction from the systems hardware, preventing very low level system calls from being called.
+
+In Java it has been long known that System.currentTimeMillis() has an accuracy within milliseconds, but can be variable depending on which operations/hardware it is run on.  System.nanoTime() returns a more precise time measurement, but its documentation explicitly states that its accuracy is not defined:
+{{{
+This method can only be used to measure elapsed time and is not related to any other This method provides nanosecond precision, but not necessarily nanosecond accuracy. 
+}}}
+
+One way to handle this problem is to simply increase the length of the benchmark until the noise is insignificant.  As previously mentioned the number of trials that this requires is dependent on the system it is run on.  
+
+In this benchmark matrices of different sizes are tested.  In general, the larger the matrix is the longer it takes to process.  Determining the maximum matrix size has similar issues to determining the number of trials and is system dependent.
+
+=== The Java Matrix Benchmark Approach ===
+
+JMatBench dynamically determines the number of trials by estimating how long each operation takes.  Each time a new benchmark is run it first runs a small number of trials.  Then it estimates how long it takes to run each operation and increases the number of trials so that it should last for a minimum duration T<sub>min</sub>.  The process is repeated until it approximately runs for T<sub>min</sub> seconds.  At which point the trial stops and the number of operations per second is returned.
+
+The size of the matrices that it processes is also dynamically determined at runtime.  This is done simply by having a maximum amount of time allowed for each test.  If that time is exceeded the test stops.  A maximum matrix size specified to prevent it from running for too long or beyond any interesting point.  A test will be killed if it is taking too long.
+
+A side effect of this approach is that the amount of time it takes for a complete benchmark to run is approximately system independent.  It would take about as long on a state of the hard computer 10 years from now as it would on old computer collecting dust.
 
 == Past History ==
 
