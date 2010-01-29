@@ -36,13 +36,13 @@ In addition how the statistics are computed make the big difference.  Are the wo
 
 In the following subsection these issues are discussed and examples given to illustrate their importance.
 
-= Benchmark Procedures =
+= 1 Benchmark Procedures =
 
 Measuring runtime performance accurately requires procedures that carefully take in account the reality of how modern computers operate. Desktop computers today are very complex and no single application has control over the entire system.  This complexity adds more unknowns and makes it more difficult to predict future performance based upon your past results, which is what a benchmark is used to do.  
 
 Benchmarking Java applications is even more difficult than native applications because of the additional layer of abstraction from the hardware.  Even a simple application will show more variability in its runtime than a simple application written in c when run multiple times.  Modern Java virtual machines (VM) will optimize the code at runtime.  Making it even more difficult to predict how they will run in the future.  
 
-== Implicit Assumptions ==
+== 1.1 Implicit Assumptions ==
 
 When writing a benchmark it is hard if not impossible to not make implicit assumptions about the system the benchmark is run on.  The most common culprit is the variable 'numberOfTrials' that determines the number of times a particular trial is run.  If set too small then the performance can not be accurate measured.  If set too high then it will take too long. For example, if a benchmark is written on a very fast computer then in might be too slow when used on an older computer.  Then years later when it is run on a new computer it might be too slow.
 
@@ -52,7 +52,7 @@ t_m = t_0 + N(t_0)
 }}}
 where 't_m' is the measured time, 't_0' is the true time, and N(t_0) is a noise process that may be dependent on when it is called.  This issue is exaggerated in Java due to the abstraction from the systems hardware, preventing very low level system calls from being called.
 
-In Java it has been long known that System.currentTimeMillis() has an accuracy within milliseconds, but can be variable depending on which operations/hardware it is run on.  System.nanoTime() returns a more precise time measurement, but its documentation explicitly states that its accuracy is not defined:
+In Java it has been long known that System.currentTimeMillis() has an accuracy within milliseconds, but can be variable depending on which operations/hardware it is run on.  System.nanoTime() returns a more precise time measurement, but its documentation explicitly states that its accuracy is not defined, see below:
 {{{
 This method can only be used to measure elapsed time and is not related to any other.
 This method provides nanosecond precision, but not necessarily nanosecond accuracy. 
@@ -62,7 +62,7 @@ One way to handle this problem is to simply increase the length of the benchmark
 
 In this benchmark matrices of different sizes are tested.  In general, the larger the matrix is the longer it takes to process.  Determining the maximum matrix size has similar issues to determining the number of trials and is system dependent.
 
-=== The Java Matrix Benchmark Approach ===
+=== 1.1.1 The Java Matrix Benchmark Approach ===
 
 JMatBench dynamically determines the number of trials by estimating how long each operation takes.  Each time a new benchmark is run it first runs a small number of trials.  Then it estimates how long it takes to run each operation and increases the number of trials so that it should last for a minimum duration T<sub>min</sub>.  The process is repeated until it approximately runs for T<sub>min</sub> seconds.  At which point the trial stops and the number of operations per second is returned.
 
@@ -70,8 +70,8 @@ The size of the matrices that it processes is also dynamically determined at run
 
 A side effect of this approach is that the amount of time it takes for a complete benchmark to run is approximately system independent.  It would take about as long on a state of the hard computer 10 years from now as it would on old computer collecting dust.
 
-== Past History ==
+== 1.2 Past History ==
 
-== Accidental Overloading ==
+== 1.3 Accidental Overloading ==
 
-= Benchmark Statistics =
+= 2 Benchmark Statistics =
