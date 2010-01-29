@@ -29,17 +29,17 @@ This approach is very simple and for many application is good enough, when only 
     # Previously run libraries can degrade the performance on other libraries.
     # Accidental overloading of library classes.
     # Runtime optimization performed by the JavaVM.
-  # [1.3_Benchmark_Overhead Benchmark overhead.]
-  # [1.4_Repeatability Repeatability]
-  # [1.5_Exception_Handling Exception Handling] 
+  # [#1.3_Benchmark_Overhead Benchmark overhead.]
+  # [#1.4_Repeatability Repeatability]
+  # [#1.5_Exception_Handling Exception Handling] 
 
 In addition how the statistics are computed make the big difference.  Are the worst case results the most interesting?  The best case?  How about the median or the average?  What do each of these metrics tell you?
 
 In the following subsection these issues are discussed and examples given to illustrate their importance.
 
-  # [#Benchmark_Procedures] 
-  # [#Benchmark_Statistics] 
-  # [#Summary] 
+  # [#1_Benchmark_Procedures] 
+  # [#2_Benchmark_Statistics] 
+  # [#3_Summary] 
 
 = 1 Benchmark Procedures =
 
