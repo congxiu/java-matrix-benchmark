@@ -34,13 +34,11 @@ This approach is very simple and for many application is good enough, when only 
   # [#1.4_Repeatability Repeatability]
   # [#1.5_Exception_Handling Exception Handling] 
 
-In addition how the statistics are computed make the big difference.  Are the worst case results the most interesting?  The best case?  How about the median or the average?  What do each of these metrics tell you?
 
 In the following subsection these issues are discussed and examples given to illustrate their importance.
 
   # [#1_Benchmark_Procedures Benchmark Procedures] 
-  # [#2_Benchmark_Statistics Benchmark Statistics] 
-  # [#3_Summary Summary] 
+  # [#2_Summary Summary] 
 
 = 1 Benchmark Procedures =
 
@@ -222,11 +220,7 @@ No library is perfect and things will go wrong.  A good benchmark will be able t
 
 RuntimeExceptions can be caught with a simple try catch block.  An algorithm caught in an infinite loop is more problematic.  Since each test is a new Java instance it can be easily killed by the master benchmark program if it is taking too long.  All of these exceptions are logged for later debugging of the library or explaining why it went wrong.
 
-= 2 Benchmark Statistics =
-
-I've written too much already.  This can be done later.
-
-= Summary =
+= 2 Summary =
 
 Here is a summary of how Java Matrix Benchmark evaluates each library:
 
