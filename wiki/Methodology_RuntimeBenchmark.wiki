@@ -70,7 +70,26 @@ The size of the matrices that it processes is also dynamically determined at run
 
 A side effect of this approach is that the amount of time it takes for a complete benchmark to run is approximately system independent.  It would take about as long on a state of the hard computer 10 years from now as it would on old computer collecting dust.
 
-== 1.2 Past History ==
+== 1.2 Influence of Past History ==
+
+A basic assumption made when measuring an algorithm's performance is that its current performance is independent of what was run before it.  If this assumption is broken then results become unpredictable or unreproducible on different systems. At a glance the sample code above wouldn't have this issue since by the time new library is being evaluated the old library would have stopped and would no longer be running. Unfortunately this is not the case.  A few of the reasons why this is so are listed below:
+
+  # The previous library or operation could have left stray threads around.
+  # The Java garbage collector might have not had run yet in the previous test and so it runs in the current one.
+  # Two libraries might have different classes with the same name and classpath.
+  # The virtual machine might have optimised itself for a different configuration and might be a suboptimal state for the current one.
+
+1) With concurrent (multithreaded) algorithms becoming more and more popular as multiprocessor/multicore systems become mainstream problems associated with them will increase.  Writing good multithreaded is not easy and there are several common errors that can significantly effect other tests performed later on.  For example, a deadlock condition is when a thread is waiting for something to happen that never will happen.  The thread might never stop consuming computation and memory resources until it is killed by the application exiting.
+
+2) Java applications have very little control over when the garbage collected might run.  They can request that it run at a particular time, but they can not force it to run.  It is possible for one test to consume a lot of memory only to have the next test take a performance hit when the garbage collector run.  How the garbage collector behaves is highly dependent on its own algorithm, which constantly change with each new release of the JavaVM.
+
+3) It is possible for two libraries to have a class with exactly the same class name and package but have different behavours.  If this happens and both libraries are tested inside the same application instance then Java will override one library's classes with the others at runtime silently making the benchmark's results invalid.  
+
+While this is unlikely it is possible.  Some libraries are derived from other libraries, share a common ancestry, or maybe the authors just think like.  There isn't any known cases of this problem existing since most authors change the name of a class when they absorb a class from another project.
+
+4) To most people how the JavaVM performs its runtime optimization is unknown and a bit of a mystery.  One reason is that the developers are constantly changing the algorithms to improve its performance.  The typical assumption is that the first time some code is run it will be slow then the second time it is run it will be much faster.  Based on experience the true situation is much more confusion and difficult to understand.
+
+
 
 == 1.3 Accidental Overloading ==
 
