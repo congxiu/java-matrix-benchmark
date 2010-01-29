@@ -31,6 +31,7 @@ This approach is very simple and for many application is good enough, when only 
     # Runtime optimization performed by the JavaVM.
   # Accidental overloading of library classes.
   # Benchmark's overhead.
+  # Repeatability and Exception Handling 
 
 In addition how the statistics are computed make the big difference.  Are the worst case results the most interesting?  The best case?  How about the median or the average?  What do each of these metrics tell you?
 
@@ -67,6 +68,8 @@ In this benchmark matrices of different sizes are tested.  In general, the large
 JMatBench dynamically determines the number of trials by estimating how long each operation takes.  Each time a new benchmark is run it first runs a small number of trials.  Then it estimates how long it takes to run each operation and increases the number of trials so that it should last for a minimum duration T<sub>min</sub>.  The process is repeated until it approximately runs for T<sub>min</sub> seconds.  At which point the trial stops and the number of operations per second is returned.
 
 The size of the matrices that it processes is also dynamically determined at runtime.  This is done simply by having a maximum amount of time allowed for each test.  If that time is exceeded the test stops.  A maximum matrix size specified to prevent it from running for too long or beyond any interesting point.  A test will be killed if it is taking too long.
+
+Another factor that determines which system a benchmark is run on is the amount of memory allocated to Java.  A generous estimate is made for how much memory a process will require and only that amount of memory is allocated when a test instance is launched.  So for a small matrix only a few megabytes might be allocated, but for large matrices over a gigabyte might be.  If an application fails to launch due to lack of memory it increases the amount allocated to it.  Thus without modifications this benchmark could be run on an embedded system with 100 megabytes of RAM or a desktop with 6 gigabytes.
 
 A side effect of this approach is that the amount of time it takes for a complete benchmark to run is approximately system independent.  It would take about as long on a state of the hard computer 10 years from now as it would on old computer collecting dust.
 
@@ -115,8 +118,11 @@ public class BenchmarkMatrixMatrixMult {
             DenseMatrix64F matResult = RandomMatrices.createRandom(width,width,rand);
 
             long timeSmall = multSmall(matA,matB,matResult,count[i]);
+            System.gc();
             long timeAux = multAux(matA,matB,matResult,count[i]);
+            System.gc();
             long timeLarge = multLarge(matA,matB,matResult,count[i]);
+            System.gc();
 
             System.out.printf("Size %4d elapsed time: %6d %6d %6d\n",width,timeSmall,timeAux,timeLarge);
         }
@@ -147,6 +153,8 @@ The results are now completely different!  Why did this happen?  That's hard to 
 
 === 1.2.1 The Java Matrix Benchmark Approach ===
 
-== 1.3 Accidental Overloading ==
+Java Matrix Benchmark mitigates these problems by launching a new java virtual machine with every set of tests for an operation.  In a typical configuration the same operation in the same library will be evaluated 25 times.  A new virtual machine will be launched and it will repeat the test 5 times in that instance.  A new instance is launched 5 times.
+
+The only libraries that are loaded are for the library being evaluated in that test instance.  This eliminates the possibility of accidental overloading of classes.  Between each test in the same Java instance a call to "System.gc()" is made to reduce the influence of the garbage collector on the results.
 
 = 2 Benchmark Statistics =
