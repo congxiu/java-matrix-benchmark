@@ -15,28 +15,40 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager" verified="true">
-    <list default="true" readonly="true" id="ca5367f2-e5a0-4faf-b6f8-6a9fbdaf5e1c" name="Default" comment="- minor tweek to display the name of the library in performance benchmark&#10;- stability prints system info&#10;- updated name of metric">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/jtransforms.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/arpack-combo.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/jplasma.jar" />
+    <list default="true" readonly="true" id="ca5367f2-e5a0-4faf-b6f8-6a9fbdaf5e1c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/PColtAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/PColtAlgorithmFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.iws" afterPath="$PROJECT_DIR$/jmatbench.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/csparsej.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/EJML.jar" afterPath="$PROJECT_DIR$/lib/EJML.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-math-2.1a" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.ipr" afterPath="$PROJECT_DIR$/jmatbench.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/BenchmarkAll.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/BenchmarkAll.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change.txt" afterPath="$PROJECT_DIR$/change.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-math-2.1a/commons-math-2.1-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-math-2.1a/commons-math-2.1-SNAPSHOT-src.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.iml" afterPath="$PROJECT_DIR$/jmatbench.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-math-2.1a/commons-math-2.1-SNAPSHOT-doc.zip" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/MatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeometryMath.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/netlib-java.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java" afterPath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/parallelcolt-0.9.2/optimization.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/SejmlAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/SejmlAlgorithmFactory.java" />
     </list>
     <list id="6e54816f-3357-4769-86e6-1129cd62fca8" name="Failed commit: Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
     <list id="8c73df95-4bc0-47db-a3d2-aeb8db41e918" name="Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
-    <ignored path="matbenchmark.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="matbenchmark.iws" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +70,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigen.java" line="207" class="org.ejml.alg.dense.decomposition.eig.symm.SymmetricQREigen" package="org.ejml.alg.dense.decomposition.eig.symm">
+      <breakpoint url="file://$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/mult/BenchmarkMatrixMatrixMult.java" line="116" class="org.ejml.alg.dense.mult.BenchmarkMatrixMatrixMult" package="org.ejml.alg.dense.mult">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -71,7 +83,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigen.java" line="219" class="org.ejml.alg.dense.decomposition.eig.symm.SymmetricQREigen" package="org.ejml.alg.dense.decomposition.eig.symm">
+      <breakpoint url="file://$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" line="129" class="jmbench.tools.ResultPlotter" package="jmbench.tools">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -126,13 +138,20 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SymmetricQRAlgorithmDecomposition.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/SymmetricQRAlgorithmDecomposition.java">
+      <file leaf-file-name="change.txt" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/change.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="11" selection-start="2550" selection-end="2550" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="12" column="68" selection-start="754" selection-end="754" vertical-scroll-proportion="0.38626608">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StabilityBenchmarkLibrary.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="261" column="52" selection-start="9496" selection-end="9496" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,84 +159,77 @@
       <file leaf-file-name="StabilityBenchmarkConfig.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="33" selection-start="4309" selection-end="4309" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MatrixLibrary.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StabilityBenchmarkLibrary.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="173" column="69" selection-start="5954" selection-end="5954" vertical-scroll-proportion="2.8458498">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestSwitchingEigenDecomposition.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/TestSwitchingEigenDecomposition.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="16" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SymmetricQREigenvalue.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigenvalue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="65" selection-start="3557" selection-end="3557" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EjmlStabilityFactory.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="70" selection-start="3277" selection-end="3310" vertical-scroll-proportion="0.0">
+            <state line="82" column="0" selection-start="3310" selection-end="3310" vertical-scroll-proportion="0.0">
               <folding>
-                <marker date="1264602172000" expanded="false" signature="817:1238" placeholder="..." />
+                <marker date="1264810047000" expanded="false" signature="818:998" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EjmlAlgorithmFactory.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java">
+      <file leaf-file-name="RuntimeBenchmarkConfig.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="63" selection-start="3735" selection-end="3735" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EigenOps.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="260" column="38" selection-start="9194" selection-end="9194" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestSymmetricQREigenvalue.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/symm/TestSymmetricQREigenvalue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="63" selection-start="1561" selection-end="1561" vertical-scroll-proportion="0.0">
+            <state line="93" column="0" selection-start="3873" selection-end="3873" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="imports" expanded="true" />
+                <marker date="1264810047000" expanded="false" signature="816:994" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlotRuntimeResultsXml.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="92" column="0" selection-start="2860" selection-end="2860" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestNormOps.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestNormOps.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="124" column="9" selection-start="3288" selection-end="3288" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1264809630000" expanded="false" signature="812:899" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="change.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../java/ejml/change.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="10" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ColtStabilityFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/ColtStabilityFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="13" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="McBrStabilityFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/McBrStabilityFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="13" selection-start="1261" selection-end="1261" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MtjStabilityFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/MtjStabilityFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="13" selection-start="1345" selection-end="1345" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -237,22 +249,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/DecompositionFactory.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/TestSwitchingEigenDecomposition.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigenvector.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/TestSymmetricQRAlgorithmDecomposition.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/SwitchingEigenDecomposition.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/RandomMatrices.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigen.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/GeneralEigenDecompositionCheck.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/symm/TestSymmetricQREigenvalue.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigenvalue.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" />
         <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/PColtAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/SejmlAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" />
         <option value="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" />
+        <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/misc/TestBigSquareRoot.java" />
+        <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestNormOps.java" />
+        <option value="$PROJECT_DIR$/../../java/ejml/change.txt" />
+        <option value="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java" />
         <option value="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java" />
+        <option value="$PROJECT_DIR$/change.txt" />
       </list>
     </option>
   </component>
@@ -529,6 +541,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -613,10 +626,65 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmatbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stability" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmatbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmbench" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="runtime" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Favorites" />
-      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane />
       </pane>
@@ -651,7 +719,7 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.lastSelected" value="project.propCompiler" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
@@ -679,130 +747,119 @@
       <recent name="jmbench" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StabilityBenchmark">
-    <configuration default="false" name="TestSymmetricQRAlgorithmDecomposition" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma">
-        <pattern>
-          <option name="PATTERN" value="org.ejml.alg.dense.decomposition.eig.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="ejml" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.ejml.alg.dense.decomposition.eig" />
-      <option name="MAIN_CLASS_NAME" value="org.ejml.alg.dense.decomposition.eig.TestSymmetricQRAlgorithmDecomposition" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="41035" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Debug" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestSwitchingEigenDecomposition" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma">
-        <pattern>
-          <option name="PATTERN" value="org.ejml.alg.dense.decomposition.eig.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="ejml" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.ejml.alg.dense.decomposition.eig" />
-      <option name="MAIN_CLASS_NAME" value="org.ejml.alg.dense.decomposition.eig.TestSwitchingEigenDecomposition" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="46669" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Debug" />
-      <method />
-    </configuration>
-    <configuration default="false" name="org.ejml" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma" />
-      <extension name="snapshooter" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.ejml" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="50002" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Debug" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestSymmetricQREigenvalue.shouldNotChange" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma">
-        <pattern>
-          <option name="PATTERN" value="org.ejml.alg.dense.decomposition.eig.symm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="ejml" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.ejml.alg.dense.decomposition.eig.symm" />
-      <option name="MAIN_CLASS_NAME" value="org.ejml.alg.dense.decomposition.eig.symm.TestSymmetricQREigenvalue" />
-      <option name="METHOD_NAME" value="shouldNotChange" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="38471" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Debug" />
-      <method />
-    </configuration>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="1/29/10 7:04 PM" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+          <PATH vcs="svn" revision="159">$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with property conflicts" />
+          <option name="myStatusName" value="Will be merged with property conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with tree conflicts" />
+          <option name="myStatusName" value="Will be merged with tree conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
+  </component>
+  <component name="RunManager" selected="Application.PlotRuntimeResultsXml">
     <configuration default="false" name="StabilityBenchmark" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="emma">
         <pattern>
@@ -824,6 +881,119 @@
       <envs />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="57080" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSymmetricQRAlgorithmDecomposition.justSymmetricTests" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="org.ejml.alg.dense.decomposition.eig.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <module name="ejml" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.ejml.alg.dense.decomposition.eig" />
+      <option name="MAIN_CLASS_NAME" value="org.ejml.alg.dense.decomposition.eig.TestSymmetricQRAlgorithmDecomposition" />
+      <option name="METHOD_NAME" value="justSymmetricTests" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="35254" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="BigSquareRoot" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="org.ejml.misc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="org.ejml.misc.BigSquareRoot" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ejml" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="34047" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="BenchmarkMatrixMatrixMult" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="org.ejml.alg.dense.mult.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="org.ejml.alg.dense.mult.BenchmarkMatrixMatrixMult" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ejml" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="44709" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="PlotRuntimeResultsXml" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="jmbench.tools.runtime.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="jmbench.tools.runtime.PlotRuntimeResultsXml" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="jmatbench" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="55293" />
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -1006,15 +1176,15 @@
       <method />
     </configuration>
     <list size="9">
-      <item index="0" class="java.lang.String" itemvalue="Application.BenchmarkSolveEq" />
-      <item index="1" class="java.lang.String" itemvalue="Application.BenchmarkCholeskyDecomposition" />
-      <item index="2" class="java.lang.String" itemvalue="Application.BenchmarkSolveSymPosDef" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TestQrUpdate.testInsertRow" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TestSymmetricQRAlgorithmDecomposition" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.TestSwitchingEigenDecomposition" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.org.ejml" />
-      <item index="7" class="java.lang.String" itemvalue="JUnit.TestSymmetricQREigenvalue.shouldNotChange" />
-      <item index="8" class="java.lang.String" itemvalue="Application.StabilityBenchmark" />
+      <item index="0" class="java.lang.String" itemvalue="Application.StabilityBenchmark" />
+      <item index="1" class="java.lang.String" itemvalue="Application.BenchmarkSolveEq" />
+      <item index="2" class="java.lang.String" itemvalue="Application.BenchmarkCholeskyDecomposition" />
+      <item index="3" class="java.lang.String" itemvalue="Application.BenchmarkSolveSymPosDef" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.TestQrUpdate.testInsertRow" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.TestSymmetricQRAlgorithmDecomposition.justSymmetricTests" />
+      <item index="6" class="java.lang.String" itemvalue="Application.BigSquareRoot" />
+      <item index="7" class="java.lang.String" itemvalue="Application.BenchmarkMatrixMatrixMult" />
+      <item index="8" class="java.lang.String" itemvalue="Application.PlotRuntimeResultsXml" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -1127,21 +1297,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="25" width="1286" height="976" extended-state="6" />
+    <frame x="0" y="25" width="1280" height="942" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32748538" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30877194" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30816078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18683997" sideWeight="0.65730995" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47836256" sideWeight="0.9971483" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32982457" sideWeight="0.0" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33450294" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43970767" sideWeight="0.9971483" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32886723" sideWeight="0.0" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33373934" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32748538" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36393178" sideWeight="0.4877193" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36571428" sideWeight="0.4823386" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981315" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36393178" sideWeight="0.51345026" order="0" side_tool="false" content_ui="tabs" x="364" y="128" width="397" height="828" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36571428" sideWeight="0.6626066" order="0" side_tool="false" content_ui="tabs" x="364" y="128" width="397" height="828" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53216374" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1171,7 +1341,7 @@
     <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="- upgraded parallel colt to 0.9.2&#10;- fixed an issue with SVD accuracy stability test&#10;- slightly purturbed SVD overflow test so that all the singular values are not all equal&#10;- tweeked GenerateHtmlTables so that you can configure individual plots&#10;- added build.xml back in" />
+    <option name="LAST_COMMIT_MESSAGE" value="- updated all libraries runtime test&#10;- added latest snapshot of commons-math&#10;- more options when plotting runtime results" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1184,11 +1354,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="- improved stability benchmark&#10;  - run faster&#10;  - there is now an SVD benchmark&#10;  - more error logging" />
-    <MESSAGE value="- deleted old version of ojalgo&#10;- Updated EJML jar with new reflector code&#10;- added eigenvalue benchmarks&#10;- added solver accuracy benchmark&#10;- greatly improved performance when dealing with large matrices&#10;- more benchmark debugging information saved&#10;- more configurable options" />
-    <MESSAGE value="- Made RandomMatrix.createSpan() much more efficient by using reflections directly&#10;- tweeked SVD code&#10;- added reflector to VectorVectorMult&#10;- addec random symmetric" />
-    <MESSAGE value="Java Matrix Benchmark&#10;&#10;- reports different kinds of fatal errors&#10;- now can print results in a text format&#10;- reports the amount of memory allocated to a process&#10;- other changes." />
-    <MESSAGE value="- tweeked a few different functions" />
     <MESSAGE value="fixed spelling errors" />
     <MESSAGE value="improved Hessenberg by reducing cache misses&#10;put print into DenseMatrix64F&#10;minor tweeks" />
     <MESSAGE value="- fixed bugs in eigenvalue algortihm&#10;- wrote code to extract eigenvectors from a single eigenvalue&#10;- stress test for eigenvalue&#10;- started writing eigenvector" />
@@ -1206,9 +1371,14 @@
     <MESSAGE value="- added a bidiagonalization algorithm&#10;- minor tweeks" />
     <MESSAGE value="-Test commit to google using intellij" />
     <MESSAGE value="- Working symmetric eigenvalue decomposition algorithm" />
-    <MESSAGE value="- minor tweek to display the name of the library in performance benchmark&#10;- stability prints system info&#10;- updated name of metric" />
     <MESSAGE value="- Adding a working symmetric eigenvalue decomposition&#10;- Improved general eigenvalue tests, which is exposing problems with general evd algorithm&#10;- updated name of random eigen vector generator to reflect that it is actually only generating symmetric matrices" />
     <MESSAGE value="- upgraded parallel colt to 0.9.2&#10;- fixed an issue with SVD accuracy stability test&#10;- slightly purturbed SVD overflow test so that all the singular values are not all equal&#10;- tweeked GenerateHtmlTables so that you can configure individual plots&#10;- added build.xml back in" />
+    <MESSAGE value="- improved speed and overflow in symmetric eigen" />
+    <MESSAGE value="- improved symmetric EVD&#10;-" />
+    <MESSAGE value="- improved symmetric SVD" />
+    <MESSAGE value="cleaned up code some&#10;started work on a version of normF that uses BigDecimal&#10;uploaded this code as version 0.9&#10;" />
+    <MESSAGE value="- minor tweek to display the name of the library in performance benchmark&#10;- stability prints system info&#10;- updated name of metric" />
+    <MESSAGE value="- updated all libraries runtime test&#10;- added latest snapshot of commons-math&#10;- more options when plotting runtime results" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1272,128 +1442,122 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigenvector.java">
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="34" selection-start="3014" selection-end="3014" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1264597704000" expanded="true" signature="841:901" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/SwitchingEigenDecomposition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="37" selection-start="2541" selection-end="2541" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/RandomMatrices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="187" column="41" selection-start="6764" selection-end="6764" vertical-scroll-proportion="0.0">
+        <state line="33" column="23" selection-start="1143" selection-end="1143" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigen.java">
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/McBrAlgorithmFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="379" column="0" selection-start="9645" selection-end="9645" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1264597704000" expanded="false" signature="841:957" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/TestSymmetricQRAlgorithmDecomposition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/GeneralEigenDecompositionCheck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="233" column="13" selection-start="7152" selection-end="7152" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/symm/TestSymmetricQREigenvalue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="63" selection-start="1561" selection-end="1561" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/eig/TestSwitchingEigenDecomposition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="16" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/symm/SymmetricQREigenvalue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="65" selection-start="3557" selection-end="3557" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/EjmlStabilityFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="70" selection-start="3277" selection-end="3310" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1264602172000" expanded="false" signature="817:1238" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="63" selection-start="3735" selection-end="3735" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/EigenOps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="260" column="38" selection-start="9194" selection-end="9194" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/eig/SymmetricQRAlgorithmDecomposition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="11" selection-start="2550" selection-end="2550" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="33" selection-start="4309" selection-end="4309" vertical-scroll-proportion="0.0">
+        <state line="98" column="66" selection-start="3044" selection-end="3044" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0">
+        <state line="30" column="64" selection-start="1155" selection-end="1155" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/misc/BigSquareRoot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="26" selection-start="1489" selection-end="1502" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/misc/TestBigSquareRoot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="11" selection-start="985" selection-end="985" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/NormOps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="213" column="41" selection-start="6713" selection-end="6725" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestNormOps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="9" selection-start="3288" selection-end="3288" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1264809630000" expanded="false" signature="812:899" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../java/ejml/change.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="10" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/ColtStabilityFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="13" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/McBrStabilityFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="13" selection-start="1261" selection-end="1261" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/stability/MtjStabilityFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="13" selection-start="1345" selection-end="1345" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkLibrary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="69" selection-start="5954" selection-end="5954" vertical-scroll-proportion="2.8458498">
+        <state line="261" column="52" selection-start="9496" selection-end="9496" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmarkConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="0" selection-start="3310" selection-end="3310" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1264810047000" expanded="false" signature="818:998" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="0" selection-start="3873" selection-end="3873" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1264810047000" expanded="false" signature="816:994" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="0" selection-start="2860" selection-end="2860" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/change.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="68" selection-start="754" selection-end="754" vertical-scroll-proportion="0.38626608">
           <folding />
         </state>
       </provider>

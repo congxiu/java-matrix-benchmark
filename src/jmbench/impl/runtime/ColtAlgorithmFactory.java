@@ -75,12 +75,13 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
+            LUDecompositionQuick lu = new LUDecompositionQuick();
+            DenseDoubleMatrix2D tmp = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
             long prev = System.currentTimeMillis();
 
-            LUDecompositionQuick lu = new LUDecompositionQuick();
-
             for( long i = 0; i < numTrials; i++ ) {
-                lu.decompose(matA);
+                tmp.assign(matA);
+                lu.decompose(tmp);
 
                 if( !lu.isNonsingular() )
                     throw new RuntimeException("Singular matrix");
@@ -190,9 +191,9 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             Algebra alg = new Algebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.inverse(matA);
@@ -240,17 +241,12 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
+            Algebra alg = new Algebra();
+
             long prev = System.currentTimeMillis();
 
-            Algebra alg = new Algebra();
-            DoubleMatrix2D result = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                result = alg.mult(matA,matB);
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                alg.mult(matA,matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -268,21 +264,15 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             Algebra alg = new Algebra();
-            DoubleMatrix2D result = null;
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DoubleMatrix2D tranA = alg.transpose(matA);
-                result = alg.mult(tranA,matB);
+                alg.mult(tranA,matB);
 
             }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
-            }
-
             return System.currentTimeMillis()-prev;
         }
     }
@@ -297,11 +287,10 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
+            DoubleMatrix2D C = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
             Blas blas = SmpBlas.smpBlas;
 
-            DoubleMatrix2D C = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -329,17 +318,12 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
+            Algebra alg = new Algebra();
+
             long prev = System.currentTimeMillis();
 
-            Algebra alg = new Algebra();
-            DoubleMatrix2D result = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                result = alg.solve(matA,matB);
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                alg.solve(matA,matB);
             }
 
             return System.currentTimeMillis()-prev;

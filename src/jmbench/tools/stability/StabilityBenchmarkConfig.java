@@ -26,7 +26,6 @@ import jmbench.tools.EvaluationTarget;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -81,7 +80,7 @@ public class StabilityBenchmarkConfig implements Serializable {
     public static StabilityBenchmarkConfig createDefault() {
         StabilityBenchmarkConfig config = new StabilityBenchmarkConfig();
 
-        config.randomSeed = new Random().nextLong();
+        config.randomSeed = 0xdeadbeef;//new Random().nextLong();
         config.maxProcessingTime = 15*60*1000;
 
         config.breakingPoint = 0.001;

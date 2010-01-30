@@ -90,12 +90,13 @@ public class PlotRuntimeResultsXml {
 
             String fileName = directory.getPath()+"/"+key;
 
-            ResultPlotter.relativePlots(l, MatrixLibrary.JAMA,fileName,whichMetric,true,true);
+            ResultPlotter.Reference refType = ResultPlotter.Reference.MEDIAN;
+            ResultPlotter.relativePlots(l, refType,MatrixLibrary.JAMA,fileName,whichMetric,true,true);
         }
     }
 
     public static void main( String args[] ) {
-        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/manycores");
+        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/vista_64bit_jvm_1.6.0_16_Intel_Quad_Q9400_2.66Ghz");
 
         p.plot(EvaluationMetrics.METRIC_MAX);
     }

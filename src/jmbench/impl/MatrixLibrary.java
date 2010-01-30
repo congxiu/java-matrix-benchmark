@@ -28,7 +28,7 @@ public enum MatrixLibrary {
     JAMA("JAMA","jama-1.0.2","Jama 1.0.2","",false,false),
     MTJ("MTJ","mtj-0.9.12","MTJ 0.9.12","",false,true),
     SEJML("SEJML","sejml","SEJML 0.7","",false,true),
-    CM("CommMath","commons-math-2.0","Commons Math 2.0","",false,true),
+    CM("CommMath","commons-math-2.1a","Commons Math 2.1a","",false,true),
     JSCIENCE("JScience","jscience-4.3","JScience 4.3","",true,true),
     OJALGO("ojAlgo","ojalgo-28.31","ojAlgo 28.31","2010-01-20",true,true),
     COLT("Colt","colt-1.2","Colt 1.2","",true,true),

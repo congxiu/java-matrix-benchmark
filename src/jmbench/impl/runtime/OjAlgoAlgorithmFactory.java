@@ -25,36 +25,33 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
 import org.ejml.data.DenseMatrix64F;
 import org.ojalgo.function.implementation.PrimitiveFunction;
-import org.ojalgo.matrix.BasicMatrix;
-import org.ojalgo.matrix.PrimitiveMatrix;
 import org.ojalgo.matrix.decomposition.*;
 import org.ojalgo.matrix.store.MatrixStore;
 import org.ojalgo.matrix.store.PhysicalStore;
 import org.ojalgo.matrix.store.PrimitiveDenseStore;
 
-
 /**
- * This library caches a lot of the previous results.  Need to carefully find all instance of that.
+ *
  *
  * @author Peter Abeles
+ * @author Anders Peterson
  */
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings( { "unchecked" })
 public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
-   public static class OpAdd extends MyInterface {
+    public static class OpAdd extends MyInterface {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-            final PhysicalStore matB = convertToOjAlgo(inputs[1]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+            final PhysicalStore matB = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[1]);
+
+            final PhysicalStore<Double> tmpDestination = FACTORY.makeEmpty(matA.getRowDim(), matA.getColDim());
 
             final long prev = System.currentTimeMillis();
 
-            final int tmpRowDim = matA.getRowDim();
-            final int tmpColDim = matA.getColDim();
-
             for (long i = 0; i < numTrials; i++) {
-                FACTORY.makeEmpty(tmpRowDim, tmpColDim).fillMatching(matA, PrimitiveFunction.ADD, matB);
+                tmpDestination.fillMatching(matA, PrimitiveFunction.ADD, matB);
             }
 
             return System.currentTimeMillis() - prev;
@@ -65,7 +62,7 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
 
             final long prev = System.currentTimeMillis();
 
@@ -85,14 +82,16 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+
+            final LU<Double> lu = LUDecomposition.makePrimitive();
 
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
-                // since it caches the previous result you need to make a new primitive matrix each time
-                final BasicMatrix basic = new PrimitiveMatrix(matA);
-                basic.getDeterminant().getReal();
+                if( !lu.compute(matA) )
+                    throw new RuntimeException("Decomposition failed");
+                lu.getDeterminant();
             }
 
             return System.currentTimeMillis() - prev;
@@ -103,11 +102,11 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-
-            final long prev = System.currentTimeMillis();
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
 
             final Eigenvalue<Double> eig = EigenvalueDecomposition.makePrimitive();
+
+            final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!eig.computeSymmetric(matA)) {
@@ -125,14 +124,16 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+
+            final LU<Double> lu = LUDecomposition.makePrimitive();
 
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
-                // results are cached here.  create a new PrimativeMatrix each time
-                BasicMatrix basic = new PrimitiveMatrix(matA);
-                basic.invert();
+                if( !lu.compute(matA) )
+                    throw new RuntimeException("Decomposition failed");
+                lu.getInverse();
             }
 
             return System.currentTimeMillis() - prev;
@@ -143,11 +144,11 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-
-            final long prev = System.currentTimeMillis();
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
 
             final LU<Double> lu = LUDecomposition.makePrimitive();
+
+            final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!lu.compute(matA)) {
@@ -163,15 +164,13 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-            final PhysicalStore matB = convertToOjAlgo(inputs[1]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+            final PhysicalStore matB = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[1]);
 
             final long prev = System.currentTimeMillis();
 
-            final BasicMatrix basicA = new PrimitiveMatrix(matA);
-            final BasicMatrix basicB = new PrimitiveMatrix(matB);
             for (long i = 0; i < numTrials; i++) {
-                basicA.multiplyRight(basicB);
+                matA.multiplyRight(matB);
             }
 
             return System.currentTimeMillis() - prev;
@@ -182,15 +181,13 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-            final PhysicalStore matB = convertToOjAlgo(inputs[1]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+            final PhysicalStore matB = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[1]);
 
             final long prev = System.currentTimeMillis();
 
-            final BasicMatrix basicA = new PrimitiveMatrix(matA);
-            final BasicMatrix basicB = new PrimitiveMatrix(matB);
             for (long i = 0; i < numTrials; i++) {
-                basicA.transpose().multiplyRight(basicB);
+                matA.transpose().multiplyRight(matB);
             }
 
             return System.currentTimeMillis() - prev;
@@ -201,7 +198,7 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
 
             final long prev = System.currentTimeMillis();
 
@@ -221,17 +218,16 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
 
-            final long prev = System.currentTimeMillis();
-
-            final int tmpRowDim = matA.getRowDim();
-            final int tmpColDim = matA.getColDim();
+            final PhysicalStore<Double> tmpDestination = FACTORY.makeEmpty(matA.getRowDim(), matA.getColDim());
 
             final Double tmpArg = 3.1;
 
+            final long prev = System.currentTimeMillis();
+
             for (long i = 0; i < numTrials; i++) {
-                FACTORY.makeEmpty(tmpRowDim, tmpColDim).fillMatching(matA, PrimitiveFunction.MULTIPLY, tmpArg);
+                tmpDestination.fillMatching(matA, PrimitiveFunction.MULTIPLY, tmpArg);
             }
 
             return System.currentTimeMillis() - prev;
@@ -242,16 +238,16 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-            final PhysicalStore matB = convertToOjAlgo(inputs[1]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+            final PhysicalStore matB = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[1]);
+
+            final LU<Double> lu = LUDecomposition.makePrimitive();
 
             final long prev = System.currentTimeMillis();
 
-            final BasicMatrix basicB = new PrimitiveMatrix(matB);
             for (long i = 0; i < numTrials; i++) {
-                // Results caching here.  Flush the old results by creating a new primitive matrix.
-                BasicMatrix basicA = new PrimitiveMatrix(matA);
-                basicA.solve(basicB);
+                lu.compute(matA);
+                lu.solve(matB);
             }
 
             return System.currentTimeMillis() - prev;
@@ -262,16 +258,16 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-            final PhysicalStore matB = convertToOjAlgo(inputs[1]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+            final PhysicalStore matB = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[1]);
+
+            final QR<Double> qr = QRDecomposition.makePrimitive();
 
             final long prev = System.currentTimeMillis();
 
-            final BasicMatrix basicB = new PrimitiveMatrix(matB);
             for (long i = 0; i < numTrials; i++) {
-                // Results caching here.  Flush the old results by creating a new primitive matrix.
-                BasicMatrix basicA = new PrimitiveMatrix(matA);
-                basicA.solve(basicB);
+                qr.compute(matA);
+                qr.solve(matB);
             }
 
             return System.currentTimeMillis() - prev;
@@ -282,11 +278,11 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
-
-            final long prev = System.currentTimeMillis();
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
 
             final SingularValue<Double> svd = SingularValueDecomposition.makePrimitive();
+
+            final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!svd.compute(matA)) {
@@ -305,7 +301,7 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
         public long process(final DenseMatrix64F[] inputs, final long numTrials) {
 
-            final PhysicalStore matA = convertToOjAlgo(inputs[0]);
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
 
             final long prev = System.currentTimeMillis();
 
@@ -333,14 +329,20 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
         return PrimitiveDenseStore.FACTORY.copy(raw);
     }
 
-    public static void main(final String args[]) {
+    public static DenseMatrix64F ojAlgoToEjml(final MatrixStore orig) {
+        if (orig == null) {
+            return null;
+        }
 
-        final MyInterface add = new OpSolveExact();
+        final DenseMatrix64F ret = new DenseMatrix64F(orig.getRowDim(), orig.getColDim());
 
-        final DenseMatrix64F a = new DenseMatrix64F(1000, 1000);
-        final DenseMatrix64F b = new DenseMatrix64F(3, 3);
+        for (int i = 0; i < ret.numRows; i++) {
+            for (int j = 0; j < ret.numCols; j++) {
+                ret.set(i, j, orig.get(i, j).doubleValue());
+            }
+        }
 
-        add.process(new DenseMatrix64F[] { a, b }, 3);
+        return ret;
     }
 
     public AlgorithmInterface add() {
@@ -397,21 +399,5 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public AlgorithmInterface transpose() {
         return new OpTranspose();
-    }
-
-    public static DenseMatrix64F ojAlgoToEjml( MatrixStore orig )
-    {
-        if( orig == null )
-            return null;
-
-        DenseMatrix64F ret = new DenseMatrix64F(orig.getRowDim(),orig.getColDim() );
-
-        for( int i = 0; i < ret.numRows; i++ ) {
-            for( int j = 0; j < ret.numCols; j++ ) {
-                ret.set(i,j, orig.get(i,j).doubleValue());
-            }
-        }
-
-        return ret;
     }
 }

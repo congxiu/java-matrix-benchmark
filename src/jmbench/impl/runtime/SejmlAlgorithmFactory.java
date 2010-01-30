@@ -136,14 +136,8 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            SimpleMatrix results = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                results = matA.plus(matB);
-            }
-
-            if( results == null ) {
-                throw new RuntimeException();
+                matA.plus(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -163,14 +157,8 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            SimpleMatrix results = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                results = matA.mult(matB);
-            }
-
-            if( results == null ) {
-                throw new RuntimeException();
+                 matA.mult(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -190,14 +178,8 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            SimpleMatrix results = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                results = matA.transpose().mult(matB);
-            }
-
-            if( results == null ) {
-                throw new RuntimeException();
+                matA.transpose().mult(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -216,15 +198,10 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            SimpleMatrix results = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                results = matA.scale(2.5);
+                matA.scale(2.5);
             }
 
-            if( results == null ) {
-                throw new RuntimeException();
-            }
 
             return System.currentTimeMillis()-prev;
         }
@@ -248,14 +225,8 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            SimpleMatrix results = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                results = matA.solve(matB);
-            }
-
-            if( results == null ) {
-                throw new RuntimeException();
+                matA.solve(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -274,16 +245,9 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            SimpleMatrix results = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                results = matA.transpose();
+                matA.transpose();
             }
-
-            if( results == null ) {
-                throw new RuntimeException();
-            }
-
             return System.currentTimeMillis()-prev;
         }
     }

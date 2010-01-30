@@ -52,13 +52,13 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
 
-            long prev = System.currentTimeMillis();
-
             CholeskyDecomposition chol = DecompositionFactory.chol(matA.numRows, false, true);
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !chol.decompose(matA) ) {
-                    throw new RuntimeException("Not SPD");
+                    throw new RuntimeException("Decomposition failed");
                 }
             }
 
@@ -76,9 +76,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
 
-            long prev = System.currentTimeMillis();
-
             LUDecomposition lu = DecompositionFactory.lu();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !lu.decompose(matA) )
@@ -99,9 +99,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
 
-            long prev = System.currentTimeMillis();
-
             SvdNumericalRecipes svd = new SvdNumericalRecipes();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !svd.decompose(matA) )
@@ -125,13 +125,14 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
 
-            long prev = System.currentTimeMillis();
-
             EigenDecomposition eig = EigenOps.decompositionSymmetric();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !eig.decompose(matA) )
                     throw new RuntimeException("Decomposition failed");
+                // this isn't necessary since eigenvalues and eigenvectors are always computed
                 eig.getEigenvalue(0);
                 eig.getEigenVector(0);
             }
@@ -150,9 +151,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
 
-            long prev = System.currentTimeMillis();
-
             QRDecomposition qr = DecompositionFactory.qr();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !qr.decompose(matA) )
@@ -199,7 +200,7 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !CommonOps.invert(matA,B) )
-                        throw new RuntimeException("Invert failed");
+                    throw new RuntimeException("Inversion failed");
             }
 
             return System.currentTimeMillis() - prev;
@@ -229,6 +230,25 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         }
     }
 
+    public static class AddTransA extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[]inputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0];
+            DenseMatrix64F matB = inputs[1];
+
+            DenseMatrix64F matC = new DenseMatrix64F(matA);
+
+            long prev = System.currentTimeMillis();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                CommonOps.transpose(matA,matC);
+                CommonOps.addEquals(matC,matB);
+            }
+
+            return System.currentTimeMillis()-prev;
+        }
+    }
+
     @Override
     public AlgorithmInterface mult() {
         return new Mult();
@@ -240,9 +260,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix64F matA = inputs[0];
             DenseMatrix64F matB = inputs[1];
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix64F results = new DenseMatrix64F(matA.numRows,matB.numCols);
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.mult(matA,matB,results);
@@ -263,9 +283,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix64F matA = inputs[0];
             DenseMatrix64F matB = inputs[1];
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix64F results = new DenseMatrix64F(matA.numCols,matB.numCols);
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.multTransA(matA,matB,results);
@@ -285,9 +305,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix64F matB = new DenseMatrix64F(matA.numRows,matA.numCols);
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.scale(2.5,matA,matB);
@@ -313,9 +333,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix64F matA = inputs[0];
             DenseMatrix64F matB = inputs[1];
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix64F results = new DenseMatrix64F(matA.numCols,matB.numCols);
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.solve(matA,matB,results);

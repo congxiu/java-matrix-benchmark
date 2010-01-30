@@ -57,9 +57,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // can't decompose a matrix with the same decomposition algorithm
@@ -80,14 +80,17 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             // the recommended way I think would be using Algebra, but this might allow
             // reuse of data
             DenseDoubleLUDecompositionQuick decomp = new DenseDoubleLUDecompositionQuick();
+            DoubleMatrix2D tmp = new DenseColumnDoubleMatrix2D(matA.rows(),matA.columns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                decomp.decompose(matA);
+                // input matrix is overwritten
+                tmp.assign(matA);
+                decomp.decompose(tmp);
                 if( !decomp.isNonsingular() )
                     throw new RuntimeException("LU decomposition failed");
             }
@@ -106,9 +109,8 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+            long prev = System.currentTimeMillis();
 
             // There are two MySVD decomposition algorithms.
             // I arbitrarily chose this version.  The java doc provided no guidelines...
@@ -133,9 +135,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DenseDoubleEigenvalueDecomposition e = alg.eig(matA);
@@ -157,9 +159,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.qr(matA);
@@ -179,9 +181,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.det(matA);
@@ -201,9 +203,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.inverse(matA);
@@ -224,11 +226,10 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
             DoubleMatrix2D matB = convertToParallelColt(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
-
             DoubleBlas blas = new SmpDoubleBlas();
             DoubleMatrix2D C = new DenseColumnDoubleMatrix2D(matA.rows(),matA.columns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -252,14 +253,13 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
             DoubleMatrix2D matB = convertToParallelColt(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.mult(matA,matB);
             }
-
 
             return System.currentTimeMillis()-prev;
         }
@@ -276,9 +276,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
             DoubleMatrix2D matB = convertToParallelColt(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DoubleMatrix2D tran = alg.transpose(matA);
@@ -300,10 +300,10 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DoubleBlas blas = new SmpDoubleBlas();
             DoubleMatrix2D C = new DenseColumnDoubleMatrix2D(matA.rows(),matA.columns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -331,9 +331,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
             DoubleMatrix2D matB = convertToParallelColt(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+            
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.solve(matA,matB);
