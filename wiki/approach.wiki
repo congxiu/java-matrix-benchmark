@@ -10,7 +10,7 @@ Methodology:
   * [Methodology_RuntimeBenchmark  Methodology for the Runtime Benchmark]
 
 Description:
-  * [StabilityBenchmark Stability Benchmark Description
-  * [RuntimePerformanceBenchmark Runtime Benchmark Description
+  * [StabilityBenchmark Stability Benchmark Description]
+  * [RuntimePerformanceBenchmark Runtime Benchmark Description]
   
  
