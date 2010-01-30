@@ -9,8 +9,9 @@
 - Proved HTML tables. Thanks Anders Peterson for the suggestions.
 - Changed SVD accuracy so that an input matrix of zero can't be created
 - Modified MTJ, Colt, and Parallel COlt benchmarks so that do not overwrite input matrices.
-- Modified all runtime bechmarks so that everything that can be predeclared is not done so inside of the timing area.
+- Modified all runtime benchmark so that everything that can be predeclared is not done so inside of the timing area.
 - Can plot runtime results relative to the mean or median result now
+
 ----- Version 0.4
 
 2010/01/22
