@@ -24,7 +24,7 @@ package jmbench.impl;
  * @author Peter Abeles
  */
 public enum MatrixLibrary {
-    EJML("EJML","ejml","EJML 0.8","2010-01-27",false,false),
+    EJML("EJML","ejml","EJML 0.9","2010-01-29",false,false),
     JAMA("JAMA","jama-1.0.2","Jama 1.0.2","",false,false),
     MTJ("MTJ","mtj-0.9.12","MTJ 0.9.12","",false,true),
     SEJML("SEJML","sejml","SEJML 0.7","",false,true),
