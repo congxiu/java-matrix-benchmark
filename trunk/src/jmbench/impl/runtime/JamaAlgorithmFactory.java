@@ -201,14 +201,8 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            Matrix result = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.plus(matB);
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                matA.plus(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -228,14 +222,9 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            Matrix result = null;
 
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.times(matB);
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                matA.times(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -255,14 +244,8 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            Matrix result = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.transpose().times(matB);
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                matA.transpose().times(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -281,14 +264,8 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            Matrix result = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.times(2.5);
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                matA.times(2.5);
             }
 
             return System.currentTimeMillis()-prev;
@@ -313,14 +290,8 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            Matrix result = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.solve(matB);
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                matA.solve(matB);
             }
 
             return System.currentTimeMillis()-prev;
@@ -339,14 +310,8 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            Matrix result = null;
-
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.transpose();
-            }
-
-            if( result == null ) {
-                System.out.println("asdasdasdasd");
+                matA.transpose();
             }
 
             return System.currentTimeMillis()-prev;

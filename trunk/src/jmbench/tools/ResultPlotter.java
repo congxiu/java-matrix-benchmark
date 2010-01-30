@@ -24,6 +24,8 @@ import jmbench.plots.OperationsVersusSizePlot;
 import jmbench.tools.runtime.OperationResults;
 import jmbench.tools.stability.StabilityTrialResults;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -40,63 +42,138 @@ public class ResultPlotter {
     }
 
     public static void relativePlots( List<OperationResults> data ,
+                                      Reference referenceType ,
                                       MatrixLibrary refLib ,
                                       String fileName ,
                                       int whichMetric ,
                                       boolean savePDF ,
                                       boolean showWindow )
     {
-        OperationResults refResults = findReferenceResults(data, refLib);
+        OperationResults refResults = null;
+        if( refLib != null ) {
+            refResults = findReferenceResults(data, refLib);
 
-        if( refResults == null ) {
-            System.out.println("Can't find reference.");
-            return;
+            if( refResults == null ) {
+                System.out.println("Can't find reference.");
+                return;
+            }
         }
 
-        String opName = refResults.getOpName();
+        String opName = data.get(0).getOpName();
         OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Relative Performance");
 
         splot.setLogScale(true,true);
         splot.setRange(0.1,20);
 //        splot.setRange(0.01,20);
 
-        EvaluationMetrics []opsRef = refResults.getMetrics();
+        int numMatrixSizes = getNumMatrices(data);
 
-        double results[] = new double[ opsRef.length ];
+        double results[] = new double[ numMatrixSizes ];
+        double refValue[] = new double[ numMatrixSizes ];
+        int matDimen[] = new int[ numMatrixSizes ];
 
         if( fileName == null ) {
             fileName = opName;
         }
 
-        int maxIndexRef = 0;
-        for( ; maxIndexRef < opsRef.length; maxIndexRef++ ) {
-            if( opsRef[maxIndexRef] == null )
-                break;
+        for( int i = 0; i <numMatrixSizes; i++ ) {
+            refValue[i] = getReferenceValue(data,refResults,i,whichMetric,referenceType);
         }
 
-        int matDimen[] = new int[ maxIndexRef ];
-        for( int i = 0; i < maxIndexRef; i++ ){
-            matDimen[i] = refResults.getMatDimen()[i];
+        for( int i = 0; i < numMatrixSizes; i++ ){
+            matDimen[i] = getMatrixSize(data,i);
         }
 
         for( OperationResults ops : data ) {
             EvaluationMetrics []metrics = ops.metrics;
 
-            for( int i = 0; i < maxIndexRef; i++ ) {
-                if( opsRef[i] != null && metrics[i] != null ) {
-                    results[i] = metrics[i].getMetric(whichMetric)/opsRef[i].getMetric(whichMetric);
+            for( int i = 0; i < numMatrixSizes; i++ ) {
+                if( !Double.isNaN(refValue[i]) && metrics[i] != null ) {
+                    results[i] = metrics[i].getMetric(whichMetric)/refValue[i];
                 } else {
                     results[i] = Double.NaN;
                 }
             }
 
-            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),maxIndexRef);
+            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),numMatrixSizes);
         }
         
         if( savePDF )
             splot.savePDF(fileName+".pdf",500,350);
         if( showWindow )
             splot.displayWindow(500, 350);
+    }
+
+    private static int getNumMatrices( List<OperationResults> data ) {
+        int max = 0;
+
+        for( OperationResults d : data ) {
+            int sizes[] = d.getMatDimen();
+
+            if( sizes.length > max )
+                max = sizes.length;
+        }
+
+        return max;
+    }
+
+    private static int getMatrixSize( List<OperationResults> data , int index)
+    {
+        for( OperationResults d : data ) {
+            int sizes[] = d.getMatDimen();
+
+            if( sizes.length >= index ) {
+                return sizes[index];
+            }
+        }
+
+        throw new RuntimeException("Couldnt find a match");
+    }
+
+    private static double getReferenceValue( List<OperationResults> data ,
+                                             OperationResults refLib ,
+                                             int matrixSize ,
+                                             int whichMetric ,
+                                             Reference referenceType )
+    {
+        if( referenceType == Reference.LIBRARY ) {
+            EvaluationMetrics []opsRef = refLib.getMetrics();
+
+            if( matrixSize >= opsRef.length || opsRef[matrixSize] == null ) {
+                return Double.NaN;
+            }
+
+            return opsRef[matrixSize].getMetric(whichMetric);
+        }
+
+        List<Double> results = new ArrayList<Double>();
+
+        for( OperationResults d : data ) {
+            EvaluationMetrics []opsRef = d.getMetrics();
+
+            if( matrixSize >= opsRef.length || opsRef[matrixSize] == null ) {
+                continue;
+            }
+
+            results.add( opsRef[matrixSize].getMetric(whichMetric) );
+        }
+
+        if( results.size() == 0 )
+            return Double.NaN;
+
+        switch( referenceType ) {
+            case MEAN:
+                double total = 0;
+                for( double d : results )
+                    total += d;
+                return total / results.size();
+
+            case MEDIAN:
+                Collections.sort(results);
+                return results.get(results.size()/2);
+        }
+
+        throw new RuntimeException("Unknown reference type");
     }
 
     private static OperationResults findReferenceResults(List<OperationResults> data,
@@ -111,5 +188,12 @@ public class ResultPlotter {
         }
 
         return refResults;
+    }
+
+    public static enum Reference
+    {
+        LIBRARY,
+        MEAN,
+        MEDIAN
     }
 }

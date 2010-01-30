@@ -26,7 +26,6 @@ import jmbench.tools.EvaluationTarget;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -92,7 +91,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public static RuntimeBenchmarkConfig createAllConfig() {
         RuntimeBenchmarkConfig config = new RuntimeBenchmarkConfig();
 
-        config.seed = new Random().nextLong();
+        config.seed = 0xDEADBEEF;//new Random().nextLong();
         config.numBlockTrials = 5;
         config.numBlocks = 5;
         config.trialTime = 3000;

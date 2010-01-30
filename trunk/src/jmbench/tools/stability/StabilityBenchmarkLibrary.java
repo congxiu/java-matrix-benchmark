@@ -235,7 +235,7 @@ public class StabilityBenchmarkLibrary {
         System.out.println("    Finished           = "+results.getNumFinished());
         System.out.println("    Bad Answer         = "+results.getNumUncountable());
         System.out.println("    Large Error        = "+results.getNumLargeError());
-        System.out.println("    Singular           = "+results.getNumGraceful());
+        System.out.println("    Detected           = "+results.getNumGraceful());
         System.out.println("    Runtime Exception  = "+results.getNumUnexpectedException());
     }
 

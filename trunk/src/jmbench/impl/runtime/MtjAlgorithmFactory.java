@@ -50,12 +50,13 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
+            DenseCholesky cholesky = new DenseCholesky(matA.numRows(),true);
+            UpperSPDDenseMatrix uspd = new UpperSPDDenseMatrix(matA);
             long prev = System.currentTimeMillis();
 
-            DenseCholesky cholesky = new DenseCholesky(matA.numRows(),true);
-
             for( long i = 0; i < numTrials; i++ ) {
-                UpperSPDDenseMatrix uspd = new UpperSPDDenseMatrix(matA);
+                // the input matrix is over written
+                uspd.set(matA);
                 if( !cholesky.factor(uspd).isSPD() ) {
                     throw new RuntimeException("Is not SPD");
                 }
@@ -75,12 +76,15 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
+            DenseLU qr = new DenseLU(matA.numRows(),matA.numColumns());
+            DenseMatrix tmp = new DenseMatrix(matA);
+
             long prev = System.currentTimeMillis();
 
-            DenseLU qr = new DenseLU(matA.numRows(),matA.numColumns());
-
             for( long i = 0; i < numTrials; i++ ) {
-                qr.factor(matA);
+                // the input matrix is over written
+                tmp.set(matA);
+                qr.factor(tmp);
             }
 
             return System.currentTimeMillis()-prev;
@@ -97,13 +101,16 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             no.uib.cipr.matrix.SVD svd = new no.uib.cipr.matrix.SVD(matA.numRows(),matA.numColumns());
+            DenseMatrix tmp = new DenseMatrix(matA);
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 try {
-                    SVD s = svd.factor(matA);
+                    // the input matrix is over written
+                    tmp.set(matA);
+                    SVD s = svd.factor(tmp);
                     s.getU();
                     s.getS();
                     s.getVt();
@@ -126,13 +133,16 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             no.uib.cipr.matrix.EVD eig = new no.uib.cipr.matrix.EVD(matA.numRows());
+            DenseMatrix tmp = new DenseMatrix(matA);
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 try {
-                    EVD e = eig.factor(matA);
+                    // the input matrix is over written
+                    tmp.set(matA);
+                    EVD e = eig.factor(tmp);
                     e.getLeftEigenvectors();
                     e.getRightEigenvectors();
                 } catch (NotConvergedException e) {
@@ -154,12 +164,15 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
+            no.uib.cipr.matrix.QR qr = new no.uib.cipr.matrix.QR(matA.numRows(),matA.numColumns());
+            DenseMatrix tmp = new DenseMatrix(matA);
+
             long prev = System.currentTimeMillis();
 
-            no.uib.cipr.matrix.QR qr = new no.uib.cipr.matrix.QR(matA.numRows(),matA.numColumns());
-
             for( long i = 0; i < numTrials; i++ ) {
-                qr.factor(matA);
+                // the input matrix is over written
+                tmp.set(matA);
+                qr.factor(tmp);
             }
 
             return System.currentTimeMillis()-prev;
@@ -205,9 +218,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix result = new DenseMatrix(matA.numRows(),matB.numColumns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -230,9 +243,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix result = new DenseMatrix(matA.numRows(),matB.numColumns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.mult(matB,result);
@@ -253,9 +266,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matB.numColumns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.transAmult(matB,result);
@@ -275,9 +288,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[]inputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix mod = new DenseMatrix(matA.numRows(),matA.numColumns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -305,9 +318,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matB.numColumns());
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.solve(matB,result);

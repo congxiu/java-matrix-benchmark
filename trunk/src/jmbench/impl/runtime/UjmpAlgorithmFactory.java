@@ -31,6 +31,7 @@ import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
 /**
  *
  * @author Peter Abeles
+ * @author Holger Arndt
  */
 public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
@@ -193,17 +194,13 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 			DenseDoubleMatrix2D matB = convertToUjmp(inputs[1]);
 
-			long prev = System.currentTimeMillis();
+            DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
+                    .getRowCount(), matA.getColumnCount());
 
-			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
-					.getRowCount(), matA.getColumnCount());
+			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
 				Ops.PLUSMATRIX.calc(matA, matB, result);
-			}
-
-			if (result == null) {
-				System.out.println("asdasdasdasd");
 			}
 
 			return System.currentTimeMillis() - prev;
@@ -221,17 +218,13 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 			Matrix matA = convertToUjmp(inputs[0]);
 			Matrix matB = convertToUjmp(inputs[1]);
 
-			long prev = System.currentTimeMillis();
+            Matrix result = DenseDoubleMatrix2D.factory.dense(matA
+                    .getRowCount(), matB.getColumnCount());
 
-			Matrix result = DenseDoubleMatrix2D.factory.dense(matA
-					.getRowCount(), matB.getColumnCount());
+			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
 				Ops.MTIMES.calc(matA, matB, result);
-			}
-
-			if (result == null) {
-				System.out.println("asdasdasdasd");
 			}
 
 			return System.currentTimeMillis() - prev;
@@ -257,9 +250,6 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 				result = matA.transpose().mtimes(matB);
 			}
 
-			if (result == null) {
-				System.out.println("asdasdasdasd");
-			}
 
 			return System.currentTimeMillis() - prev;
 		}
@@ -275,17 +265,13 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		public long process(DenseMatrix64F[] inputs, long numTrials) {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 
-			long prev = System.currentTimeMillis();
+            DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
+                    .getRowCount(), matA.getColumnCount());
 
-			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
-					.getRowCount(), matA.getColumnCount());
+			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
 				Ops.TIMESSCALAR.calc(matA, 2.5, result);
-			}
-
-			if (result == null) {
-				System.out.println("asdasdasdasd");
 			}
 
 			return System.currentTimeMillis() - prev;
@@ -328,18 +314,14 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		public long process(DenseMatrix64F[] inputs, long numTrials) {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 
-			long prev = System.currentTimeMillis();
+            DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
+                    .getColumnCount(), matA.getRowCount());
 
-			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
-					.getColumnCount(), matA.getRowCount());
+            long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
 				org.ujmp.core.calculation.Transpose.DENSEDOUBLEMATRIX2D.calc(
 						matA, result);
-			}
-
-			if (result == null) {
-				System.out.println("asdasdasdasd");
 			}
 
 			return System.currentTimeMillis() - prev;
