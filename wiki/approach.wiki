@@ -1,8 +1,12 @@
 = Introduction =
-Java Matrix Benchmark is a tool for evaluating different Java matrix libraries for speed and stability.  It is designed to rigorously test the libraries and produce accurate stable results.  The tests are designed such that they can be run on a variety of platforms with no modification.  All operations are tested against a variety of different randomly generated matrices, from very small to very large.
 
-The accuracy of each libraries' runtime performance is ensured through a variety of techniques.  Tests are done in such a way that the benchmark does not add any overhead that could slow down the library being tested.  The number of trials and memory allocated is dynamically computed, allowing it to be run on both older and newer computers.  The effects of runtime optimizations done by the JavaVM are taken in account.
+Java Matrix Benchmark is a tool for evaluating different Java matrix libraries for speed and stability.  This is accomplished through two benchmarks, runtime and stability.  The runtime benchmark attempts to measure the best possible runtime performance for different linear algebra operations in each library.  The stability benchmark tests different common linear algebra solvers for stability and accuracy using general purpose tests.
 
-How fast a library runs does not mater if its results are incorrect.  Tests are performed that evaluate each libraries correctness and its stability against nearly singular matrices.
+Performance results are presented using relative runtime plots and tables.  Relative runtime plots show how fast each library performs relative to other libraries.  They do NOT show the FLOPS for each library.  Stability benchmarks are presented using tables.  These tables show either the accuracy or the breaking point of each algorithm as well as errors that occurred during testing.
 
-The results of the tests are saved to disk and can also be plotted, with PDF documents generated showing the results.
+A more detailed description of the benchmarks and how to understand the results is given in the following pages:
+
+  * [StabilityBenchmark Understanding Stability Benchmark Results]
+  * [RuntimePerformanceBenchmark Understanding Runtime Benchmark Results]
+  * [Methodology_RuntimeBenchmark  Methodology for the Runtime Benchmark]
+ 
