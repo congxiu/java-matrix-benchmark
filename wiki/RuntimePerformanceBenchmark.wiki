@@ -43,7 +43,7 @@ Most libraries provided ways to solve for linear systems.  Typically there are d
 
 == Decompositions ==
 
-After each library performs a decomposition the decomposed matrices are then requested.  *NOTE: this is only done for SVD and eigen right now.*
+For each of these operations the library is requested to perform the specified decomposition. Singular value and eigenvalue decompositions have the additional task of extracting the decomposed matrices.  This additional task is done since for these decompositions the decomposed matrices are often of value to the user.  In the other libraries raw matrices are used to solve or invert a system of equations.
 
 || Operation || Description ||
 || LU || Square non-singular matrices. ||
