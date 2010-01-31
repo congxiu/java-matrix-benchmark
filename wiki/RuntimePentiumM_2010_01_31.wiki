@@ -1,5 +1,13 @@
 #summary Benchmark results for Pentium M on Ubuntu 8.04
 
+= Comments = 
+
+There are a few changes in this benchmark since the last one.  
+  * If possible, all memory was predeclared and the time involved in predeclaring was not counted.
+  * Commons-math, EJML, Parallel-Colt and all were upgraded.
+  * Plots are now relative to the medium value of each test.
+  * MTJ and Colt/Parallel-Colt benchmarks were changed since several operations modified their inputs.
+
 =Test Environment =
 
 || Date || 2010.01.31 ||
@@ -25,14 +33,6 @@ Links to the results:
   * [#Basic_Operation_Results Basic Operations]
   * [#Solving_Linear_Systems Solving Linear Systems]
   * [#Matrix_Decompositions Matrix Decompositions]
-
-= Comments = 
-
-There are a few changes in this benchmark since the last one.  
-  * If possible, all memory was predeclared and the time involved in predeclaring was not counted.
-  * Commons-math, EJML, Parallel-Colt and all were upgraded.
-  * Plots are now relative to the medium value of each test.
-  * MTJ and Colt/Parallel-Colt benchmarks were modified since several operations modified the input matrices.
 
 =Basic Operation Results=
 
