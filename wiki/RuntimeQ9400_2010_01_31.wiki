@@ -1,5 +1,11 @@
 #summary Benchmark results for Q9400 Vista 64
 
+There are a few changes in this benchmark since the last one.  
+  * If possible, all memory was predeclared and the time involved in predeclaring was not counted.
+  * Commons-math, EJML, Parallel-Colt and all were upgraded.
+  * Plots are now relative to the medium value of each test.
+  * MTJ and Colt/Parallel-Colt benchmarks were changed since several operations modified their inputs.
+
 Links to the results:
   * [#Basic_Operation_Results Basic Operations]
   * [#Solving_Linear_Systems Solving Linear Systems]
@@ -25,15 +31,6 @@ Tested Libraries:
 || OjAlgo || 28.31         || 
 || Parallel Colt || 0.9.2  ||
 || UJMP || SVN             ||
-
-
-= Comments =
-
-There are a few changes in this benchmark since the last one.  
-  * If possible, all memory was predeclared and that process not counted against the library.
-  * Commons-math, EJML, Parallel-Colt and all were upgraded.
-  * Plots are now relative to the medium value of each test.
-  * MTJ and Colt/Parallel-Colt benchmarks were modified since several operations modified input matrices. 
 
 =Basic Operation Results=
 
