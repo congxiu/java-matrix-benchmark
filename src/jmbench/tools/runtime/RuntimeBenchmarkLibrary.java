@@ -267,6 +267,8 @@ public class RuntimeBenchmarkLibrary {
         // try running the application a few times and see if its size increases
         for( int attempts = 0; attempts < 5; attempts++ ) {
             tools.setMemoryScale(config.memorySlaveScale*(1+attempts));
+
+//            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
             EvaluatorSlave.Results r = tools.runTest(test);
 
             if( r == null ) {
