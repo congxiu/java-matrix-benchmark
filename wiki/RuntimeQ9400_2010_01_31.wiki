@@ -33,20 +33,21 @@ There are a few changes in this benchmark since the last one.
   * If possible, all memory was predeclared and that process not counted against the library.
   * Commons-math, EJML, Parallel-Colt and all were upgraded.
   * Plots are now relative to the medium value of each test.
+  * MTJ and Colt/Parallel-Colt benchmarks were modified since several operations modified input matrices. 
 
 =Basic Operation Results=
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/scale.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/multTranA.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/tran.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/inv.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/multTranA.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/tran.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/inv.png ||
 
 =Solving Linear Systems=
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/solveOver.png||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/solveOver.png||
 
 =Matrix Decompositions=
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/LU.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/svd.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_30.attach/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/LU.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/svd.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_01_31.attach/EigSymm.png ||
