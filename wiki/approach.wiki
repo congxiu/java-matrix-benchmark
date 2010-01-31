@@ -4,7 +4,7 @@ Java Matrix Benchmark is a tool for evaluating different Java matrix libraries f
 
 Performance results are presented using relative runtime plots and tables.  Relative runtime plots show how fast each library performs relative to other libraries.  They do NOT show the FLOPS for each library.  Stability benchmarks are presented using tables.  These tables show either the accuracy or the breaking point of each algorithm as well as errors that occurred during testing.
 
-The following pages provide more information on the specific benchmarks.  Links to the methodology go into detail about how the results are computed.  Links to the descriptions describe what was benchmarked and how to understand the results.
+The following pages provide more information on the specific benchmarks.  Links to the methodology go into detail about how the results are computed and why there were computed that way.  Links to the descriptions describe what was benchmarked and how to understand the results.
 
 Methodology:
   * [Methodology_RuntimeBenchmark  Methodology for the Runtime Benchmark]
