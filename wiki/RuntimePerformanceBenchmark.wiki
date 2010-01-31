@@ -1,10 +1,8 @@
-#summary Summary of runtime performance benchmarks.
+#summary Runtime performance benchmark operations and results.
 #labels Featured
 
 = Introduction =
-Several libraries were tested for runtime performance in several different operations.  The tested operations were primarily selected based on how commonly they are used or to show off the potential advantages or disadvantages of library design issues.
-
-Click here for a list of [EvaluatedLibraries evaluated libraries]
+This page discusses which operations were tested and how to understand the results for the runtime performance benchmark.  The tested operations were primarily selected based on how commonly they are used or to show off the potential advantages or disadvantages of library design issues.  Results are shown using relative runtime plots.  For a discussion of the techniques and reasoning behind testing procedures see [  	 Methodology_RuntimeBenchmark].
 
 = Understanding Relative Runtime Plots =
 
