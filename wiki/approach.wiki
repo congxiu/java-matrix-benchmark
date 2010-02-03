@@ -13,7 +13,7 @@ Description:
   * [StabilityBenchmark Stability Benchmark Description]
   * [RuntimePerformanceBenchmark Runtime Benchmark Description]
   
-= Runtime Benchmark Bias =
+= Benchmark Bias =
 
 All benchmarks have a certain bias that will favor one approach over another.  The runtime performance benchmark is intentionally biased to favor libraries that provide more control of memory management to developers and highlights poor performance on small matrices.  These are two areas that the creator of this benchmark perceived as being weak across existing libraries.  In some cases libraries would only require small modifications to have significant performance gains.
 
