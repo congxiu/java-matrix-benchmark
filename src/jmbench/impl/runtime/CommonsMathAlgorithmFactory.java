@@ -22,6 +22,7 @@ package jmbench.impl.runtime;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.apache.commons.math.linear.*;
 import org.apache.commons.math.util.MathUtils;
 import org.ejml.data.DenseMatrix64F;
@@ -30,7 +31,7 @@ import org.ejml.data.DenseMatrix64F;
 /**
  * @author Peter Abeles
  */
-public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
+public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
 
     private static abstract class MyInterface implements AlgorithmInterface
     {
@@ -47,8 +48,8 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
             long prev = System.currentTimeMillis();
 
@@ -73,8 +74,8 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
             long prev = System.currentTimeMillis();
 
@@ -93,8 +94,8 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
             long prev = System.currentTimeMillis();
 
@@ -117,8 +118,8 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Eig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
             long prev = System.currentTimeMillis();
 
@@ -140,8 +141,8 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
             long prev = System.currentTimeMillis();
 
@@ -160,8 +161,8 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
             long prev = System.currentTimeMillis();
 
@@ -183,19 +184,22 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             // LU decompose is a bit of a mess because of all the depreciated stuff everywhere
             // I believe this is the way the designers want you to do it
             for( long i = 0; i < numTrials; i++ ) {
                 LUDecomposition lu = new LUDecompositionImpl(matA);
-                lu.getSolver().getInverse();
+                result = lu.getSolver().getInverse();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -206,17 +210,20 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
-            BlockRealMatrix matB = convertToBlockReal(inputs[1]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
+            RealMatrix matB = convertToReal(inputs[1]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.add(matB);
+                result = matA.add(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -227,17 +234,20 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
-            BlockRealMatrix matB = convertToBlockReal(inputs[1]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
+            RealMatrix matB = convertToReal(inputs[1]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.multiply(matB);
+                result = matA.multiply(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -248,17 +258,20 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
-            BlockRealMatrix matB = convertToBlockReal(inputs[1]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
+            RealMatrix matB = convertToReal(inputs[1]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transpose().multiply(matB);
+                result = matA.transpose().multiply(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -269,16 +282,19 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.scalarMultiply(2.5);
+                result = matA.scalarMultiply(ScaleGenerator.SCALE);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -294,34 +310,40 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class SolveExact extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
-            BlockRealMatrix matB = convertToBlockReal(inputs[1]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
+            RealMatrix matB = convertToReal(inputs[1]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 LUDecomposition lu = new LUDecompositionImpl(matA);
-                lu.getSolver().solve(matB);
+                result = lu.getSolver().solve(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
 
     public static class SolveOver extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
-            BlockRealMatrix matB = convertToBlockReal(inputs[1]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
+            RealMatrix matB = convertToReal(inputs[1]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 QRDecomposition qr = new QRDecompositionImpl(matA);
-                qr.getSolver().solve(matB);
+                result = qr.getSolver().solve(matB);
             }
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -332,24 +354,27 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
-            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transpose();
+                result = matA.transpose();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
         }
     }
     
     /**
-     * Converts DenseMatrix64F used in EML into a BlockRealMatrix found in commons-math.
+     * Converts DenseMatrix64F used in EML into a RealMatrix found in commons-math.
      *
      * @param orig A DenseMatrix64F in EML
-     * @return A BlockRealMatrix in CommonsMath
+     * @return A RealMatrix in CommonsMath
      */
     public static BlockRealMatrix convertToBlockReal( DenseMatrix64F orig )
     {
@@ -362,6 +387,26 @@ public class McBrAlgorithmFactory implements LibraryAlgorithmFactory {
         }
 
         return new BlockRealMatrix(mat);
+    }
+
+    /**
+     * Uses MatrixUtils.createRealMatrix() to declare the matrix.  This function
+     * creates a different matrix depending on size.
+     *
+     * @param orig A DenseMatrix64F in EML
+     * @return A RealMatrix in CommonsMath
+     */
+    public static RealMatrix convertToReal( DenseMatrix64F orig )
+    {
+        double [][]mat = new double[ orig.numRows ][ orig.numCols ];
+
+        for( int i = 0; i < orig.numRows; i++ ) {
+            for( int j = 0; j < orig.numCols; j++ ) {
+                mat[i][j] = orig.get(i,j);
+            }
+        }
+
+        return MatrixUtils.createRealMatrix(mat);
     }
 
     public static DenseMatrix64F realToEjml( RealMatrix orig )

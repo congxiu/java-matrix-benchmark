@@ -19,7 +19,7 @@
 
 package jmbench.impl;
 
-import jmbench.impl.runtime.McBrAlgorithmFactory;
+import jmbench.impl.runtime.CommonsMathAlgorithmFactory;
 import org.junit.Test;
 
 
@@ -34,6 +34,6 @@ public class TestMcBrAlgorithmFactory {
      */
     @Test
     public void testModInputs() {
-        CheckModifyInputs.checkFactory( new McBrAlgorithmFactory() );
+        CheckModifyInputs.checkFactory( new CommonsMathAlgorithmFactory() );
     }
 }

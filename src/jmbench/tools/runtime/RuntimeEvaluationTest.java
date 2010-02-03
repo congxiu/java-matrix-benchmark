@@ -20,26 +20,34 @@
 package jmbench.tools.runtime;
 
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.MatrixGenerator;
 import jmbench.interfaces.MatrixProcessorInterface;
 import jmbench.tools.EvaluationTest;
 import jmbench.tools.TestResults;
 import org.ejml.data.DenseMatrix64F;
+
+import java.util.Random;
 
 
 /**
  * @author Peter Abeles
  */
 public class RuntimeEvaluationTest extends EvaluationTest {
+
+    public static final double MAX_ERROR_THRESHOLD = 0.05;
+
     private int dimen;
     private MatrixProcessorInterface alg;
-    private MatrixGenerator generators[];
+    private InputOutputGenerator generator;
 
     // how long it should try to run the tests for in milliseconds
     private long expectedRuntime;
 
     // randomly generated input matrices
+    private volatile Random rand;
     private volatile DenseMatrix64F inputs[];
+    private volatile DenseMatrix64F outputs[];
+
+    private volatile DenseMatrix64F residual;
 
     // an estimate of how many cycles it will take to finish the test in the desired
     // amount of time
@@ -50,18 +58,19 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      *
      * @param dimen How big the matrices are that are being processed.
      * @param alg The algorithm that is being processed.
-     * @param generators What generates the random matrices.
+     * @param generator Creates the inputs and expected outputs for the tested operation
      * @param expectedRuntime  How long it wants to try to run the test for in milliseconds
      * @param randomSeed The random seed used for the tests.
      */
-    public RuntimeEvaluationTest( int dimen , MatrixProcessorInterface alg ,
-                                  MatrixGenerator []generators ,
+    public RuntimeEvaluationTest( int dimen ,
+                                  MatrixProcessorInterface alg ,
+                                  InputOutputGenerator generator ,
                                   long expectedRuntime, long randomSeed )
     {
         super(randomSeed);
         this.dimen = dimen;
         this.alg = alg;
-        this.generators = generators;
+        this.generator = generator;
         this.expectedRuntime = expectedRuntime;
     }
 
@@ -83,23 +92,16 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      */
     @Override
     public void init() {
-        for(MatrixGenerator m : generators ) {
-            m.setSeed(randomSeed);
-        }
+        estimatedTrials = 0;
+        rand = new Random(randomSeed);
+        residual = new DenseMatrix64F(1,1);
     }
 
     @Override
     public void setupTrial()
     {
-        if( inputs == null ) {
-            inputs = new DenseMatrix64F[ generators.length ];
-            estimatedTrials = 0;
-        }
-
-        for( int i = 0; i < inputs.length; i++ ) {
-            MatrixGenerator m = generators[i];
-            inputs[i] = m.createMatrix(dimen,dimen);
-        }
+        inputs = generator.createRandomInputs(rand,dimen);
+        outputs = new DenseMatrix64F[ generator.numOutputs() ];
     }
 
     /**
@@ -109,13 +111,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      */
     @Override
     public long getInputMemorySize() {
-        long bytes = 0;
-
-        for( MatrixGenerator g : generators ) {
-            bytes += g.getMemory(dimen,dimen);
-        }
-
-        return bytes;
+        return generator.getRequiredMemory(dimen);
     }
 
     /**
@@ -140,7 +136,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
         while( true ) {
             // nano is more precise than the millisecond timer
             long startTime = System.nanoTime();
-            alg.process(inputs,numTrials);
+            alg.process(inputs, outputs, numTrials);
             long stopTime = System.nanoTime();
 
             long elapsedTime = stopTime-startTime;
@@ -149,7 +145,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
             if( elapsedTime > goalDuration*0.9 )  {
                 estimatedTrials = (long)Math.ceil(goalDuration * (double)numTrials / (double)elapsedTime);
 //                System.out.println("  elpasedTime = "+elapsedTime);
-                return new RuntimeResults((double)numTrials/(elapsedTime/1e9));
+                return compileResults((double)numTrials/(elapsedTime/1e9));
             } else if( elapsedTime > 2e8 ) {  // 0.2 seconds
                 // if enough time has elapsed use a linear model to predict how many trials it will take
                 long oldNumTrials = numTrials;
@@ -173,6 +169,17 @@ public class RuntimeEvaluationTest extends EvaluationTest {
         }
     }
 
+    /**
+     * Generates the results based upon the computed opsPerSecond and the expected output.
+     */
+    private RuntimeResults compileResults( double opsPerSecond )
+    {
+        RuntimeResults results = new RuntimeResults(opsPerSecond,Runtime.getRuntime().totalMemory());
+        results.error = generator.checkResults(outputs,MAX_ERROR_THRESHOLD);
+
+        return results;
+    }
+
     public int getDimen() {
         return dimen;
     }
@@ -189,12 +196,12 @@ public class RuntimeEvaluationTest extends EvaluationTest {
         this.alg = alg;
     }
 
-    public MatrixGenerator[] getGenerators() {
-        return generators;
+    public InputOutputGenerator getGenerator() {
+        return generator;
     }
 
-    public void setGenerators(MatrixGenerator[] generators) {
-        this.generators = generators;
+    public void setGenerator(InputOutputGenerator generator) {
+        this.generator = generator;
     }
 
     public long getExpectedRuntime() {

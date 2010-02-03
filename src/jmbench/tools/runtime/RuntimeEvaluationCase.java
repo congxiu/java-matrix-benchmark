@@ -20,7 +20,6 @@
 package jmbench.tools.runtime;
 
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.MatrixGenerator;
 
 import java.io.Serializable;
 
@@ -36,7 +35,7 @@ public class RuntimeEvaluationCase implements Serializable {
     // list of algorithms it it can run
     private AlgorithmInterface alg;
     // what creates the matrices it processes
-    private MatrixGenerator generators[];
+    private InputOutputGenerator generator;
 
     private volatile String fileName;
 
@@ -44,12 +43,12 @@ public class RuntimeEvaluationCase implements Serializable {
 
     public RuntimeEvaluationCase( String opName , String fileName , int dimens[] ,
                                   AlgorithmInterface alg ,
-                                  MatrixGenerator generators[] )
+                                  InputOutputGenerator generator )
     {
         this.opName = opName;
         this.dimens = dimens.clone();
         this.alg = alg;
-        this.generators = generators.clone();
+        this.generator = generator;
         this.fileName = fileName;
     }
 
@@ -59,7 +58,7 @@ public class RuntimeEvaluationCase implements Serializable {
     public RuntimeEvaluationTest createTest( int dimenIndex , long duration ) {
         theTest.setDimen(dimens[dimenIndex]);
         theTest.setAlg(alg);
-        theTest.setGenerators(generators);
+        theTest.setGenerator(generator);
         theTest.setExpectedRuntime(duration);
 
         return theTest;
@@ -89,12 +88,12 @@ public class RuntimeEvaluationCase implements Serializable {
         this.alg = alg;
     }
 
-    public MatrixGenerator[] getGenerators() {
-        return generators;
+    public InputOutputGenerator getGenerator() {
+        return generator;
     }
 
-    public void setGenerators(MatrixGenerator[] generators) {
-        this.generators = generators;
+    public void setGenerator(InputOutputGenerator generator) {
+        this.generator = generator;
     }
 
     public String getFileName() {

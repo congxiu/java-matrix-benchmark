@@ -25,6 +25,7 @@ import cern.colt.matrix.linalg.*;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 
 
@@ -48,7 +49,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -72,7 +73,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
             LUDecompositionQuick lu = new LUDecompositionQuick();
@@ -98,7 +99,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -121,7 +122,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Eig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -144,7 +145,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -166,12 +167,12 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
-            long prev = System.currentTimeMillis();
-
             Algebra alg = new Algebra();
+
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.det(matA);
@@ -188,18 +189,24 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
             Algebra alg = new Algebra();
 
+            DoubleMatrix2D result = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                alg.inverse(matA);
+                result = alg.inverse(matA);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+
+            outputs[0] = coltToEjml(result);
+
+            return elapsed;
         }
     }
 
@@ -210,23 +217,26 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
-            long prev = System.currentTimeMillis();
-
             Blas blas = SmpBlas.smpBlas;
+            DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
 
-            DoubleMatrix2D C = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
+            long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // In-place operation here
-                C.assign(matA);
-                blas.daxpy(1,matB,C);
+                result.assign(matA);
+                blas.daxpy(1,matB,result);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+
+            outputs[0] = coltToEjml(result);
+
+            return elapsed;
         }
     }
 
@@ -237,19 +247,24 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
             Algebra alg = new Algebra();
+            DoubleMatrix2D result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                alg.mult(matA,matB);
+                result = alg.mult(matA,matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+
+            outputs[0] = coltToEjml(result);
+
+            return elapsed;
         }
     }
 
@@ -260,20 +275,25 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
             Algebra alg = new Algebra();
+            DoubleMatrix2D result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DoubleMatrix2D tranA = alg.transpose(matA);
-                alg.mult(tranA,matB);
-
+                result = alg.mult(tranA,matB);
             }
-            return System.currentTimeMillis()-prev;
+
+            long elapsed = System.currentTimeMillis()-prev;
+
+            outputs[0] = coltToEjml(result);
+
+            return elapsed;
         }
     }
 
@@ -284,21 +304,25 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
-            DoubleMatrix2D C = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
+            DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
             Blas blas = SmpBlas.smpBlas;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
-                C.assign(matA);
-                blas.dscal(2.5,C);
+                result.assign(matA);
+                blas.dscal(ScaleGenerator.SCALE,result);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+
+            outputs[0] = coltToEjml(result);
+
+            return elapsed;
         }
     }
 
@@ -314,17 +338,20 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
             Algebra alg = new Algebra();
+            DoubleMatrix2D result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                alg.solve(matA,matB);
+                result = alg.solve(matA,matB);
             }
+
+            outputs[0] = coltToEjml(result);
 
             return System.currentTimeMillis()-prev;
         }

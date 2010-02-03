@@ -40,7 +40,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public static EvaluationTarget sejml = new EvaluationTarget( MatrixLibrary.SEJML, SejmlAlgorithmFactory.class.getName());
     public static EvaluationTarget jama = new EvaluationTarget( MatrixLibrary.JAMA, JamaAlgorithmFactory.class.getName());
     public static EvaluationTarget ojalgo = new EvaluationTarget( MatrixLibrary.OJALGO, OjAlgoAlgorithmFactory.class.getName());
-    public static EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, McBrAlgorithmFactory.class.getName());
+    public static EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, CommonsMathAlgorithmFactory.class.getName());
     public static EvaluationTarget colt = new EvaluationTarget( MatrixLibrary.COLT, ColtAlgorithmFactory.class.getName());
     public static EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjAlgorithmFactory.class.getName());
     public static EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceAlgorithmFactory.class.getName());

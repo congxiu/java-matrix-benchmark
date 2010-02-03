@@ -22,6 +22,7 @@ package jmbench.tools;
 import jmbench.impl.MatrixLibrary;
 import jmbench.plots.OperationsVersusSizePlot;
 import jmbench.tools.runtime.OperationResults;
+import jmbench.tools.runtime.RuntimeEvaluationMetrics;
 import jmbench.tools.stability.StabilityTrialResults;
 
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class ResultPlotter {
         }
 
         for( OperationResults ops : data ) {
-            EvaluationMetrics []metrics = ops.metrics;
+            RuntimeEvaluationMetrics[]metrics = ops.metrics;
 
             for( int i = 0; i < numMatrixSizes; i++ ) {
                 if( !Double.isNaN(refValue[i]) && metrics[i] != null ) {
@@ -137,7 +138,7 @@ public class ResultPlotter {
                                              Reference referenceType )
     {
         if( referenceType == Reference.LIBRARY ) {
-            EvaluationMetrics []opsRef = refLib.getMetrics();
+            RuntimeEvaluationMetrics[]opsRef = refLib.getMetrics();
 
             if( matrixSize >= opsRef.length || opsRef[matrixSize] == null ) {
                 return Double.NaN;
@@ -149,7 +150,7 @@ public class ResultPlotter {
         List<Double> results = new ArrayList<Double>();
 
         for( OperationResults d : data ) {
-            EvaluationMetrics []opsRef = d.getMetrics();
+            RuntimeEvaluationMetrics[]opsRef = d.getMetrics();
 
             if( matrixSize >= opsRef.length || opsRef[matrixSize] == null ) {
                 continue;

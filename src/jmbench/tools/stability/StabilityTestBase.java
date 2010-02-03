@@ -21,6 +21,7 @@ package jmbench.tools.stability;
 
 import jmbench.interfaces.StabilityOperationInterface;
 import jmbench.tools.EvaluationTest;
+import jmbench.tools.OutputError;
 import jmbench.tools.TestResults;
 
 import java.util.Random;
@@ -38,7 +39,7 @@ public abstract class StabilityTestBase extends EvaluationTest {
 
     protected transient Random rand;
     protected transient double foundResult;
-    protected transient Reason reason;
+    protected transient OutputError reason;
     protected transient StabilityTrialResults results;
     protected transient int numResults;
 
@@ -127,7 +128,7 @@ public abstract class StabilityTestBase extends EvaluationTest {
         results.breakingPoints.add(foundResult);
 
         switch( reason ) {
-            case FINISHED:
+            case NO_ERROR:
                 results.numFinished++;
                 break;
 
@@ -143,7 +144,7 @@ public abstract class StabilityTestBase extends EvaluationTest {
                 results.numUnexpectedException++;
                 break;
 
-            case GRACEFULL_FAILURE:
+            case DETECTED_FAILURE:
                 results.numGraceful++;
                 break;
 
@@ -151,30 +152,6 @@ public abstract class StabilityTestBase extends EvaluationTest {
                 throw new RuntimeException("Unknown reason: "+reason);
         }
         System.gc();
-    }
-
-    public static enum Reason
-    {
-        /**
-         * Its solution was outside of tolerance
-         */
-        LARGE_ERROR,
-        /**
-         * The answer it produced has uncountable numbers
-         */
-        UNCOUNTABLE,
-        /**
-         * Detected that it was failing and gave up
-         */
-        GRACEFULL_FAILURE,
-        /**
-         * It threw some runtime exception
-         */
-        UNEXPECTED_EXCEPTION,
-        /**
-         * The test finished without error
-         */
-        FINISHED
     }
 
     public StabilityOperationInterface getOperation() {

@@ -20,6 +20,7 @@
 package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
+import jmbench.tools.OutputError;
 import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.MatrixFeatures;
@@ -65,7 +66,7 @@ public class SolverAccuracy extends SolverCommon {
     }
 
     private void evaluateSolver() {
-        reason = Reason.FINISHED;
+        reason = OutputError.NO_ERROR;
         foundResult = Double.NaN;
 
         DenseMatrix64F inputs[] = new DenseMatrix64F[]{A,b};
@@ -75,26 +76,26 @@ public class SolverAccuracy extends SolverCommon {
         } catch( Exception e ) {
             addUnexpectedException(e);
 //                e.printStackTrace();
-            reason = Reason.UNEXPECTED_EXCEPTION;
+            reason = OutputError.UNEXPECTED_EXCEPTION;
             return;
         }
 
         if( results == null ) {
-            reason = Reason.GRACEFULL_FAILURE;
+            reason = OutputError.DETECTED_FAILURE;
             return;
         }
 
         DenseMatrix64F x = results[0];
 
         if( MatrixFeatures.hasUncountable(x) ) {
-            reason = Reason.UNCOUNTABLE;
+            reason = OutputError.UNCOUNTABLE;
             return;
         }
 
         foundResult = StabilityBenchmark.residualErrorMetric(A,x,b);
 
         if( Double.isNaN(foundResult) || Double.isInfinite(foundResult) ) {
-            reason = Reason.LARGE_ERROR;
+            reason = OutputError.LARGE_ERROR;
             return;
         }
     }
