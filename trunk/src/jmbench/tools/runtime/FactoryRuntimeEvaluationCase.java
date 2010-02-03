@@ -31,11 +31,6 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class FactoryRuntimeEvaluationCase {
-    private static long RAND_SEED = 0x37645;
-
-    private static int MAX_MATRIX_SIZE = 2;
-    private static int MIN_MATRIX_SIZE = 2;
-
     LibraryAlgorithmFactory factory;
 
     RuntimeBenchmarkConfig config;
@@ -101,7 +96,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new MultGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Mult c=a*b","mult",matDimen,alg,generator);
     }
@@ -110,7 +105,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new AddGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Add c=a+b","add",matDimen,alg,generator);
     }
@@ -119,7 +114,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new TransposeGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Transpose b=a^T","tran",matDimen,alg,generator);
     }
@@ -128,7 +123,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new ScaleGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Scale b=alpha*a","scale",matDimen,alg,generator);
     }
@@ -137,7 +132,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new DeterminantGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Determinant","det",matDimen,alg,generator);
     }
@@ -146,7 +141,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new InvertGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Invert b=inv(a)","inv",matDimen,alg,generator);
     }
@@ -155,7 +150,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new SvdGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("SVD","svd",matDimen,alg,generator);
     }
@@ -164,7 +159,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new CholeskyGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Cholesky","cholesky",matDimen,alg,generator);
     }
@@ -173,7 +168,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new MultTranAGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Mult c=a^t * b","multTranA",matDimen,alg,generator);
     }
@@ -185,7 +180,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new SolveEqGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Solve m=n","solveEq",matDimen,alg,generator);
     }
@@ -197,7 +192,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new SolveOverGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Solve m>n","solveOver",matDimen,alg,generator);
     }
@@ -206,7 +201,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new QrGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("QR","QR",matDimen,alg,generator);
     }
@@ -215,7 +210,7 @@ public class FactoryRuntimeEvaluationCase {
 
         InputOutputGenerator generator = new LuGenerator();
 
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("LU","LU",matDimen,alg,generator);
     }
@@ -223,15 +218,15 @@ public class FactoryRuntimeEvaluationCase {
     public RuntimeEvaluationCase createEigSymm( AlgorithmInterface alg ) {
 
         InputOutputGenerator generator = new EigSymmGenerator();
-        int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Eigen for Symm Matrices","EigSymm",matDimen,alg,generator);
     }
 
-    private static int[] createDimenList( int max ) {
+    private static int[] createDimenList( int min , int max ) {
         List<Integer> a = new ArrayList<Integer>();
 
-        int val = MIN_MATRIX_SIZE;
+        int val = min;
 
         int dec = 1;
 

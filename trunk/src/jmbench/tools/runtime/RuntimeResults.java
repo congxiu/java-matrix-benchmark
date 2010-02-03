@@ -27,10 +27,10 @@ import jmbench.tools.TestResults;
  * @author Peter Abeles
  */
 public class RuntimeResults implements TestResults , Comparable<RuntimeResults>{
-    double opsPerSec;
+    public double opsPerSec;
 
-    long memoryUsed;
-    OutputError error;
+    public long memoryUsed;
+    public OutputError error;
 
     public RuntimeResults( double opsPerSec , long memoryUsed ) {
         this.opsPerSec = opsPerSec;

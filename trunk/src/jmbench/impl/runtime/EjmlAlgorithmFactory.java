@@ -86,6 +86,7 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             DenseMatrix64F L = new DenseMatrix64F(matA.numRows,matA.numCols);
             DenseMatrix64F U = new DenseMatrix64F(matA.numRows,matA.numCols);
+            DenseMatrix64F P = new DenseMatrix64F(matA.numRows,matA.numCols);
 
             long prev = System.currentTimeMillis();
 
@@ -95,11 +96,13 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
                 lu.getLower(L);
                 lu.getUpper(U);
+                lu.getPivot(P);
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
             outputs[0] = L;
             outputs[1] = U;
+            outputs[2] = P;
             return elapsedTime;
         }
     }

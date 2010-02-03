@@ -84,6 +84,7 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
 
             RealMatrix L = null;
             RealMatrix U = null;
+            RealMatrix P = null;
 
             long prev = System.currentTimeMillis();
 
@@ -92,11 +93,13 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
 
                 L = LU.getL();
                 U = LU.getU();
+                P = LU.getP();
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
             outputs[0] = realToEjml(L);
             outputs[1] = realToEjml(U);
+            outputs[2] = realToEjml(P);
             return elapsedTime;
         }
     }

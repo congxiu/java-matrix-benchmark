@@ -140,29 +140,38 @@ public class RuntimeEvaluationTest extends EvaluationTest {
             long stopTime = System.nanoTime();
 
             long elapsedTime = stopTime-startTime;
-//            System.out.println("elapsed time = "+elapsedTime + "  numTrials "+numTrials);
+//            System.out.println("elapsed time = "+elapsedTime + "  numTrials "+numTrials+"  ops/sec "+(double)numTrials/(elapsedTime/1e9));
 //            System.out.println("  in seconds "+(elapsedTime/1e9));
             if( elapsedTime > goalDuration*0.9 )  {
                 estimatedTrials = (long)Math.ceil(goalDuration * (double)numTrials / (double)elapsedTime);
 //                System.out.println("  elpasedTime = "+elapsedTime);
                 return compileResults((double)numTrials/(elapsedTime/1e9));
-            } else if( elapsedTime > 2e8 ) {  // 0.2 seconds
+            } else {  // 0.2 seconds
                 // if enough time has elapsed use a linear model to predict how many trials it will take
                 long oldNumTrials = numTrials;
+                
                 numTrials = (long)Math.ceil(goalDuration * (double)numTrials / (double)elapsedTime);
 //                System.out.println("numTrials A = "+numTrials);
                 if( oldNumTrials > numTrials ) {
                     numTrials = oldNumTrials;
 //                    System.out.println("Got smaller!?!?" );
                 }
-            } else if( elapsedTime > 1e7 ) { // 0.01 seconds
-                // for smaller periods of time its better just to blindly increment it
-                numTrials *= 10;
-//                System.out.println("numTrials B = "+numTrials);
-            } else {
-                numTrials *= 100;
-//                System.out.println("numTrials C = "+numTrials);
             }
+
+            // try to get it to clean up some
+            System.gc();
+            Thread.yield();
+            System.gc();
+            Thread.yield();
+
+//            if( elapsedTime > 1e7 ) { // 0.01 seconds
+//                // for smaller periods of time its better just to blindly increment it
+//                numTrials *= 10;
+////                System.out.println("numTrials B = "+numTrials);
+//            } else {
+//                numTrials *= 100;
+////                System.out.println("numTrials C = "+numTrials);
+//            }
             if( cycles++ > 20 ) {
                 throw new RuntimeException("Exceeded the opsPerSecondMax cycles");
             }
