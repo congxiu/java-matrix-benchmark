@@ -22,7 +22,10 @@ package jmbench.tools.runtime;
 import jmbench.impl.MatrixLibrary;
 import jmbench.impl.runtime.EjmlAlgorithmFactory;
 import jmbench.interfaces.LibraryAlgorithmFactory;
-import jmbench.tools.*;
+import jmbench.tools.BenchmarkTools;
+import jmbench.tools.EvaluationTest;
+import jmbench.tools.EvaluatorSlave;
+import jmbench.tools.TestResults;
 import pja.util.UtilXmlSerialization;
 
 import java.io.File;
@@ -192,7 +195,7 @@ public class RuntimeBenchmarkLibrary {
         RuntimeEvaluationCase e = state.evalCase;
         int matDimen[] = e.getDimens();
 
-        EvaluationMetrics score[] = state.score;
+        RuntimeEvaluationMetrics score[] = state.score;
 
         System.out.println("#### "+libraryType.getVersionName()+"  op "+e.getOpName()+"  Size "+matDimen[state.matrixIndex]+"  block "+state.blockIndex+"  ####");
 
@@ -215,10 +218,10 @@ public class RuntimeBenchmarkLibrary {
      */
     private boolean computeAndSaveResults( RuntimeEvaluationCase e , int matrixIndex ,
                                            long randSeed ,
-                                           EvaluationMetrics score[] , List<Double> rawResults )
+                                           RuntimeEvaluationMetrics score[] , List<RuntimeResults> rawResults )
             throws FileNotFoundException {
 
-        List<Double> opsPerSecond = evaluateCase( e , randSeed , matrixIndex );
+        List<RuntimeResults> opsPerSecond = evaluateCase( e , randSeed , matrixIndex );
 
         if( caseFailed ) {
             System.out.println("      ---- ***** -----");
@@ -229,7 +232,7 @@ public class RuntimeBenchmarkLibrary {
             rawResults.addAll(opsPerSecond);
 
             // save the results
-            score[matrixIndex] = new EvaluationMetrics(rawResults);
+            score[matrixIndex] = new RuntimeEvaluationMetrics(rawResults);
             OperationResults results = new OperationResults(e.getOpName(),
                     libraryType,e.getDimens(),score);
             UtilXmlSerialization.serializeXml(results,directorySave+"/"+e.getFileName()+".xml");
@@ -255,7 +258,8 @@ public class RuntimeBenchmarkLibrary {
      * @param indexDimen Which matrix size it should use.
      * @return The operations per second for this case.
      */
-    private List<Double> evaluateCase( RuntimeEvaluationCase e , long seed , int indexDimen) {
+    @SuppressWarnings({"RedundantCast", "unchecked"})
+    private List<RuntimeResults> evaluateCase( RuntimeEvaluationCase e , long seed , int indexDimen) {
         EvaluationTest test = e.createTest(indexDimen,config.trialTime);
         test.setRandomSeed(seed);
 
@@ -270,6 +274,7 @@ public class RuntimeBenchmarkLibrary {
 
 //            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
             EvaluatorSlave.Results r = tools.runTest(test);
+//            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
 
             if( r == null ) {
                 logStream.println("*** RunTest returned null: op = "+e.getOpName()+" matrix size = "+matrixSize);
@@ -297,7 +302,7 @@ public class RuntimeBenchmarkLibrary {
                     return null;
                 }
 
-                return convertToDoubleList(r.results);
+                return (List<RuntimeResults>)((List)r.results);
             }
 
         }
@@ -311,6 +316,7 @@ public class RuntimeBenchmarkLibrary {
         List<Double> ret = new ArrayList<Double>(l.size());
 
         for (TestResults aL : l) {
+
             double val = ((RuntimeResults) aL).getOpsPerSec();
 
             ret.add(val);
@@ -323,16 +329,16 @@ public class RuntimeBenchmarkLibrary {
     {
         RuntimeEvaluationCase evalCase;
 
-        List<Double> results = new ArrayList<Double>();
+        List<RuntimeResults> results = new ArrayList<RuntimeResults>();
 
-        EvaluationMetrics score[];
+        RuntimeEvaluationMetrics score[];
 
         int matrixIndex = 0;
         int blockIndex = 0;
 
         public CaseState( RuntimeEvaluationCase e ) {
             this.evalCase = e;
-            this.score = new EvaluationMetrics[ e.getDimens().length ];
+            this.score = new RuntimeEvaluationMetrics[ e.getDimens().length ];
         }
     }
 

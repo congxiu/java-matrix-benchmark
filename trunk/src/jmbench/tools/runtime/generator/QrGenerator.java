@@ -17,16 +17,43 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.interfaces;
+package jmbench.tools.runtime.generator;
 
+import jmbench.tools.OutputError;
+import jmbench.tools.runtime.InputOutputGenerator;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.RandomMatrices;
+
+import java.util.Random;
 
 
 /**
  * @author Peter Abeles
  */
-public interface MatrixProcessorInterface {
+public class QrGenerator implements InputOutputGenerator {
 
-    public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials);
+    DenseMatrix64F C;
 
+
+    @Override
+    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
+        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+
+        return new DenseMatrix64F[]{A};
+    }
+
+    @Override
+    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
+        return null;
+    }
+
+    @Override
+    public int numOutputs() {
+        return 1;
+    }
+
+    @Override
+    public long getRequiredMemory( int matrixSize ) {
+        return matrixSize*matrixSize;
+    }
 }

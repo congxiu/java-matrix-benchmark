@@ -17,7 +17,7 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.tools;
+package jmbench.tools.runtime;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author Peter Abeles
  */
-public class EvaluationMetrics
+public class RuntimeEvaluationMetrics
 {
     public final static int METRIC_MEAN = 0;
     public final static int METRIC_STDEV = 1;
@@ -45,36 +45,37 @@ public class EvaluationMetrics
     public double median;
 
     // unsorted raw results.  these are in the order they were generated
-    public List<Double> rawResults;
+    public List<RuntimeResults> rawResults;
 
-    public EvaluationMetrics( List<Double> vals ) {
+    public RuntimeEvaluationMetrics( List<RuntimeResults> vals ) {
         if( vals.size() <= 0 )
             throw new RuntimeException("No samples");
-        rawResults = new ArrayList<Double>(vals);
+        rawResults = new ArrayList<RuntimeResults>(vals);
 
         Collections.sort(vals);
 
         int numSamples = vals.size();
-        min = vals.get(0);
-        max = vals.get( numSamples - 1);
+        min = vals.get(0).getOpsPerSec();
+        max = vals.get( numSamples - 1).getOpsPerSec();
 
-        median = vals.get( numSamples/2 );
+        median = vals.get( numSamples/2 ).getOpsPerSec();
 
         mean = 0;
-        for( Double d : vals ) {
-            mean += d/max;
+        for( RuntimeResults r : vals ) {
+            mean += r.getOpsPerSec()/max;
         }
         mean = max*(mean/numSamples);
 
         stdev = 0;
 
-        for( Double d : vals ) {
+        for( RuntimeResults r : vals ) {
+            double d = r.getOpsPerSec();
             stdev += (d - mean)*(d - mean);
         }
         stdev = Math.sqrt( stdev / numSamples );
     }
 
-    public EvaluationMetrics(){}
+    public RuntimeEvaluationMetrics(){}
 
     public double getMetric( int which ) {
         switch( which ) {
@@ -137,11 +138,11 @@ public class EvaluationMetrics
         this.median = median;
     }
 
-    public List<Double> getRawResults() {
+    public List<RuntimeResults> getRawResults() {
         return rawResults;
     }
 
-    public void setRawResults(List<Double> rawResults) {
+    public void setRawResults(List<RuntimeResults> rawResults) {
         this.rawResults = rawResults;
     }
 }

@@ -20,6 +20,7 @@
 package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
+import jmbench.tools.OutputError;
 import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
@@ -115,7 +116,7 @@ public class SolverSingular extends SolverCommon
 
         CommonOps.mult(A,x,b);
 
-        reason = Reason.FINISHED;
+        reason = OutputError.NO_ERROR;
         int point = search.findCriticalPoint(-1,findMaxPow(0.9)+1);
         foundResult = Math.pow(0.9,point)*svMag;
     }
@@ -133,12 +134,12 @@ public class SolverSingular extends SolverCommon
         } catch( Exception e ) {
 //            e.printStackTrace();
             addUnexpectedException(e);
-            reason = Reason.UNEXPECTED_EXCEPTION;
+            reason = OutputError.UNEXPECTED_EXCEPTION;
             return false;
         }
 
         if( results == null ) {
-            reason = Reason.GRACEFULL_FAILURE;
+            reason = OutputError.DETECTED_FAILURE;
             return false;
         }
 
@@ -146,14 +147,14 @@ public class SolverSingular extends SolverCommon
 
 
         if(MatrixFeatures.hasUncountable(x)) {
-            reason = Reason.UNCOUNTABLE;
+            reason = OutputError.UNCOUNTABLE;
             return false;
         }
 
         double residual = StabilityBenchmark.residualErrorMetric(A_adj,x,b);
 //            System.out.println(residual);
         if( residual > breakingPoint ) {
-            reason = Reason.LARGE_ERROR;
+            reason = OutputError.LARGE_ERROR;
             return false;
         }
         return true;

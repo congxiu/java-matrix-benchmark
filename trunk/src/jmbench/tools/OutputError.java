@@ -17,16 +17,41 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.interfaces;
-
-import org.ejml.data.DenseMatrix64F;
+package jmbench.tools;
 
 
 /**
+ * Indicates if an unexpected result was generated from an operation.
+ *
  * @author Peter Abeles
  */
-public interface MatrixProcessorInterface {
-
-    public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials);
-
+public enum OutputError {
+    /**
+     * Its solution was outside of tolerance
+     */
+    LARGE_ERROR,
+    /**
+     * The answer it produced has uncountable numbers
+     */
+    UNCOUNTABLE,
+    /**
+     * Detected that it was failing and gave up
+     */
+    DETECTED_FAILURE,
+    /**
+     * It threw some runtime exception
+     */
+    UNEXPECTED_EXCEPTION,
+    /**
+     * A zero matrix is the input making it impossible to compute the error
+     */
+    ZERO_INPUT,
+    /**
+     * The test finished without error
+     */
+    NO_ERROR,
+    /**
+     * Something bad happened
+     */
+    MISC
 }

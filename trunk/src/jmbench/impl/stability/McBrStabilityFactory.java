@@ -26,8 +26,8 @@ import org.apache.commons.math.linear.*;
 import org.apache.commons.math.util.MathUtils;
 import org.ejml.data.DenseMatrix64F;
 
-import static jmbench.impl.runtime.McBrAlgorithmFactory.convertToBlockReal;
-import static jmbench.impl.runtime.McBrAlgorithmFactory.realToEjml;
+import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.convertToBlockReal;
+import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.realToEjml;
 
 
 /**

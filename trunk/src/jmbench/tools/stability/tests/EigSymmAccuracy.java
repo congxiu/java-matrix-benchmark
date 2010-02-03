@@ -20,6 +20,7 @@
 package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
+import jmbench.tools.OutputError;
 import jmbench.tools.stability.StabilityBenchmark;
 import jmbench.tools.stability.StabilityTestBase;
 import org.ejml.data.DenseMatrix64F;
@@ -73,7 +74,7 @@ public class EigSymmAccuracy extends StabilityTestBase {
 
 
     private void evaluateEigenDecomposition() {
-        reason = Reason.FINISHED;
+        reason = OutputError.NO_ERROR;
         foundResult = Double.NaN;
 
         DenseMatrix64F inputs[] = new DenseMatrix64F[]{A};
@@ -83,12 +84,12 @@ public class EigSymmAccuracy extends StabilityTestBase {
         } catch( Exception e ) {
             addUnexpectedException(e);
 //                e.printStackTrace();
-            reason = Reason.UNEXPECTED_EXCEPTION;
+            reason = OutputError.UNEXPECTED_EXCEPTION;
             return;
         }
 
         if( results == null ) {
-            reason = Reason.GRACEFULL_FAILURE;
+            reason = OutputError.DETECTED_FAILURE;
             return;
         }
 
@@ -97,7 +98,7 @@ public class EigSymmAccuracy extends StabilityTestBase {
 
         if(MatrixFeatures.hasUncountable(D) ||
                 MatrixFeatures.hasUncountable(V)) {
-            reason = Reason.UNCOUNTABLE;
+            reason = OutputError.UNCOUNTABLE;
             return;
         }
 

@@ -21,6 +21,7 @@ package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
 import jmbench.tools.BenchmarkAll;
+import jmbench.tools.OutputError;
 import jmbench.tools.stability.StabilityBenchmark;
 import jmbench.tools.stability.StabilityTestBase;
 import org.ejml.data.DenseMatrix64F;
@@ -106,7 +107,7 @@ public class SvdOverflow extends StabilityTestBase implements BreakingPointBinar
 
     private void breakSVD() {
 
-        reason = Reason.FINISHED;
+        reason = OutputError.NO_ERROR;
         int index = search.findCriticalPoint(-1,findMaxPow(scaling));
         foundResult = Math.pow(scaling,index);
     }
@@ -170,12 +171,12 @@ public class SvdOverflow extends StabilityTestBase implements BreakingPointBinar
         } catch( Exception e ) {
             addUnexpectedException(e);
 //                e.printStackTrace();
-            reason = Reason.UNEXPECTED_EXCEPTION;
+            reason = OutputError.UNEXPECTED_EXCEPTION;
             return false;
         }
 
         if( results == null ) {
-            reason = Reason.GRACEFULL_FAILURE;
+            reason = OutputError.DETECTED_FAILURE;
             return false;
         }
 
@@ -186,7 +187,7 @@ public class SvdOverflow extends StabilityTestBase implements BreakingPointBinar
         if(MatrixFeatures.hasUncountable(U.getMatrix()) ||
                 MatrixFeatures.hasUncountable(S.getMatrix()) ||
                 MatrixFeatures.hasUncountable(V.getMatrix()) ) {
-            reason = Reason.UNCOUNTABLE;
+            reason = OutputError.UNCOUNTABLE;
             return false;
         }
 
@@ -195,7 +196,7 @@ public class SvdOverflow extends StabilityTestBase implements BreakingPointBinar
         double error = StabilityBenchmark.residualError(foundA,Ascaled);
 
         if( error > breakingPoint ) {
-            reason = Reason.LARGE_ERROR;
+            reason = OutputError.LARGE_ERROR;
             return false;
         }
 

@@ -22,6 +22,7 @@ package jmbench.impl.runtime;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.Ops;
@@ -49,7 +50,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Chol extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
 			long prev = System.currentTimeMillis();
@@ -69,7 +70,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class LU extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
 			long prev = System.currentTimeMillis();
@@ -89,7 +90,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class SVD extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
 			long prev = System.currentTimeMillis();
@@ -110,7 +111,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Eig extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
 			long prev = System.currentTimeMillis();
@@ -130,7 +131,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class QR extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
 			long prev = System.currentTimeMillis();
@@ -150,7 +151,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Det extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
 			long prev = System.currentTimeMillis();
@@ -170,16 +171,20 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Inv extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
+
+            Matrix result = null;
 
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
-				matA.inv();
+				result = matA.inv();
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
 		}
 	}
 
@@ -190,7 +195,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Add extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 			DenseDoubleMatrix2D matB = convertToUjmp(inputs[1]);
 
@@ -203,7 +208,9 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 				Ops.PLUSMATRIX.calc(matA, matB, result);
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
 		}
 	}
 
@@ -214,7 +221,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Mult extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 			Matrix matB = convertToUjmp(inputs[1]);
 
@@ -227,7 +234,9 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 				Ops.MTIMES.calc(matA, matB, result);
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
 		}
 	}
 
@@ -238,7 +247,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MulTranA extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 			Matrix matB = convertToUjmp(inputs[1]);
 
@@ -250,8 +259,9 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 				result = matA.transpose().mtimes(matB);
 			}
 
-
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
 		}
 	}
 
@@ -262,7 +272,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Scale extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 
             DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
@@ -271,10 +281,12 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
-				Ops.TIMESSCALAR.calc(matA, 2.5, result);
+				Ops.TIMESSCALAR.calc(matA, ScaleGenerator.SCALE, result);
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
 		}
 	}
 
@@ -285,17 +297,21 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Solve extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 			Matrix matB = convertToUjmp(inputs[1]);
+
+            Matrix result = null;
 
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
-				matA.solve(matB);
+				result = matA.solve(matB);
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
 		}
 	}
 
@@ -311,7 +327,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	public static class Transpose extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, long numTrials) {
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 
             DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
@@ -324,8 +340,10 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 						matA, result);
 			}
 
-			return System.currentTimeMillis() - prev;
-		}
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
+        }
 	}
 
     public static DenseDoubleMatrix2D convertToUjmp( DenseMatrix64F orig )
@@ -364,6 +382,6 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
         DenseMatrix64F a = new DenseMatrix64F(1000,1000);
         DenseMatrix64F b = new DenseMatrix64F(1000,1000);
 
-        add.process(new DenseMatrix64F[]{a,b},3);
+        add.process(new DenseMatrix64F[]{a,b}, null, 3);
     }
 }

@@ -20,6 +20,7 @@
 package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
+import jmbench.tools.OutputError;
 import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
@@ -138,7 +139,7 @@ public class SolverOverflow extends SolverCommon
             y = new DenseMatrix64F(m,1);
         }
 
-        reason = Reason.FINISHED;
+        reason = OutputError.NO_ERROR;
         int where = search.findCriticalPoint(0,findMaxPow(scaling));
         foundResult = Math.pow(scaling,where);
     }
@@ -158,18 +159,18 @@ public class SolverOverflow extends SolverCommon
         } catch( Exception e ) {
             addUnexpectedException(e);
 //                e.printStackTrace();
-            reason = Reason.UNEXPECTED_EXCEPTION;
+            reason = OutputError.UNEXPECTED_EXCEPTION;
             return false;
         }
 
         if( results == null ) {
-            reason = Reason.GRACEFULL_FAILURE;
+            reason = OutputError.DETECTED_FAILURE;
             return false;
         }
         DenseMatrix64F x = results[0];
 
         if( MatrixFeatures.hasUncountable(x)) {
-            reason = Reason.UNCOUNTABLE;
+            reason = OutputError.UNCOUNTABLE;
             return false;
         }
 
@@ -178,7 +179,7 @@ public class SolverOverflow extends SolverCommon
         // all of these are considered large errors because earlier the solution it produced
         // was countable, it only become uncountable when computing the error.
         if( Double.isNaN(error) || Double.isInfinite(error) || error > breakingPoint) {
-            reason = Reason.LARGE_ERROR;
+            reason = OutputError.LARGE_ERROR;
             return false;
         }
 

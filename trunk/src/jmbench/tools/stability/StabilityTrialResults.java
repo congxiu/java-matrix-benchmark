@@ -27,16 +27,23 @@ import java.util.List;
 
 
 /**
+ * Summarizes results from a stability benchmark.
+ *
  * @author Peter Abeles
  */
 public class StabilityTrialResults implements TestResults {
 
     List<Double> breakingPoints = new ArrayList<Double>();
 
+    // how many times the test was finished without any errors
     int numFinished;
+    // Number of times the produced output had a very large error
     int numLargeError;
+    //NUmber of times the output had a matrix with an uncountable element
     int numUncountable;
+    // Number of times the operation signaled that it could fulfill the request.
     int numGraceful;
+    // A runtime exception was thrown that was not expected.
     int numUnexpectedException;
 
     MatrixLibrary library;

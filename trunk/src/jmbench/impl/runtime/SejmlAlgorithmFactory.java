@@ -22,6 +22,7 @@ package jmbench.impl.runtime;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.data.SimpleMatrix;
@@ -57,7 +58,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -90,7 +91,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -110,7 +111,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -130,7 +131,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
             SimpleMatrix matB = new SimpleMatrix(inputs[1]);
 
@@ -151,7 +152,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
             SimpleMatrix matB = new SimpleMatrix(inputs[1]);
 
@@ -172,7 +173,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
             SimpleMatrix matB = new SimpleMatrix(inputs[1]);
 
@@ -193,13 +194,13 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.scale(2.5);
+                matA.scale(ScaleGenerator.SCALE);
             }
 
 
@@ -219,7 +220,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
             SimpleMatrix matB = new SimpleMatrix(inputs[1]);
 
@@ -240,7 +241,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             SimpleMatrix matA = new SimpleMatrix(inputs[0]);
 
             long prev = System.currentTimeMillis();

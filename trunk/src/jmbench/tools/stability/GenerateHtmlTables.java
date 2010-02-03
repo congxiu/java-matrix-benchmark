@@ -241,7 +241,7 @@ public class GenerateHtmlTables extends TablesCommon {
     }
 
     public static void main( String args[] ) {
-        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/jmatbench/trunk/results/stability_2010_01_20/large");
+        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/jmatbench/trunk/results/stability_2010_01_30/large");
 
         p.plot();
     }

@@ -20,7 +20,6 @@
 package jmbench.tools.runtime;
 
 import jmbench.impl.MatrixLibrary;
-import jmbench.tools.EvaluationMetrics;
 
 import java.io.Serializable;
 
@@ -34,10 +33,10 @@ public class OperationResults implements Serializable {
     public String opName;
     public MatrixLibrary library;
     public int matDimen[];
-    public EvaluationMetrics metrics[];
+    public RuntimeEvaluationMetrics metrics[];
 
     public OperationResults( String opName , MatrixLibrary library ,
-                             int matDimen[] ,  EvaluationMetrics metrics[] )
+                             int matDimen[] ,  RuntimeEvaluationMetrics metrics[] )
     {
         this.opName = opName;
         this.library = library;
@@ -72,11 +71,11 @@ public class OperationResults implements Serializable {
         this.library = library;
     }
 
-    public EvaluationMetrics[] getMetrics() {
+    public RuntimeEvaluationMetrics[] getMetrics() {
         return metrics;
     }
 
-    public void setMetrics(EvaluationMetrics[] metrics) {
+    public void setMetrics(RuntimeEvaluationMetrics[] metrics) {
         this.metrics = metrics;
     }
 }

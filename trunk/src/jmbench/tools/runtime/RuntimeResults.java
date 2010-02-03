@@ -19,17 +19,22 @@
 
 package jmbench.tools.runtime;
 
+import jmbench.tools.OutputError;
 import jmbench.tools.TestResults;
 
 
 /**
  * @author Peter Abeles
  */
-public class RuntimeResults implements TestResults {
+public class RuntimeResults implements TestResults , Comparable<RuntimeResults>{
     double opsPerSec;
 
-    public RuntimeResults( double opsPerSec ) {
+    long memoryUsed;
+    OutputError error;
+
+    public RuntimeResults( double opsPerSec , long memoryUsed ) {
         this.opsPerSec = opsPerSec;
+        this.memoryUsed = memoryUsed;
     }
 
     public RuntimeResults(){}
@@ -44,5 +49,25 @@ public class RuntimeResults implements TestResults {
 
     public void setOpsPerSec(double opsPerSec) {
         this.opsPerSec = opsPerSec;
+    }
+
+    public OutputError getError() {
+        return error;
+    }
+
+    public void setError(OutputError error) {
+        this.error = error;
+    }
+
+    public long getMemoryUsed() {
+        return memoryUsed;
+    }
+
+    public int compareTo( RuntimeResults r ) {
+        if( r.opsPerSec < opsPerSec )
+            return 1;
+        else if( r.opsPerSec > opsPerSec )
+            return -1;
+        return 0;
     }
 }

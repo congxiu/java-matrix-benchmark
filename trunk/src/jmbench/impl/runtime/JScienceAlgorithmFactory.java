@@ -23,6 +23,7 @@ import jmbench.PackageMatrixConversion;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.jscience.mathematics.number.Float64;
 import org.jscience.mathematics.vector.Float64Matrix;
@@ -55,7 +56,7 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
 
 
@@ -91,7 +92,7 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -111,16 +112,19 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
 
+            Float64Matrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.inverse();
+                result = matA.inverse();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = jsciToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -131,17 +135,20 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
             Float64Matrix matB = convertToFloat64(inputs[1]);
 
+            Float64Matrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.plus(matB);
+                result = matA.plus(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = jsciToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -152,17 +159,20 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
             Float64Matrix matB = convertToFloat64(inputs[1]);
 
+            Float64Matrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.times(matB);
+                result = matA.times(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = jsciToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -173,17 +183,20 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
             Float64Matrix matB = convertToFloat64(inputs[1]);
 
+            Float64Matrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transpose().times(matB);
+                result = matA.transpose().times(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = jsciToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -194,16 +207,19 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
 
+            Float64Matrix result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.times(Float64.valueOf(2.5));
+                result = matA.times(Float64.valueOf(ScaleGenerator.SCALE));
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = jsciToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -219,14 +235,15 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
             Float64Matrix matB = convertToFloat64(inputs[1]);
 
+            Matrix<Float64> result = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.solve(matB);
+                result = matA.solve(matB);
             }
 
             return System.currentTimeMillis()-prev;

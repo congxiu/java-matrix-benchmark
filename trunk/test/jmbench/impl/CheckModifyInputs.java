@@ -105,7 +105,7 @@ public class CheckModifyInputs {
             inputs[i] = orig[i].copy();
         }
 
-        alg.process(inputs,12);
+        alg.process(inputs, null, 12);
 
         for( int i = 0; i < numInputs; i++ ) {
             checkEquals(orig[i],inputs[i],1e-8);

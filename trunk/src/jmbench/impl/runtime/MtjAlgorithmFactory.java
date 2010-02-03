@@ -22,6 +22,7 @@ package jmbench.impl.runtime;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.tools.runtime.generator.ScaleGenerator;
 import no.uib.cipr.matrix.*;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
@@ -47,7 +48,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
             DenseCholesky cholesky = new DenseCholesky(matA.numRows(),true);
@@ -73,7 +74,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
             DenseLU qr = new DenseLU(matA.numRows(),matA.numColumns());
@@ -98,7 +99,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MySVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
             no.uib.cipr.matrix.SVD svd = new no.uib.cipr.matrix.SVD(matA.numRows(),matA.numColumns());
@@ -130,7 +131,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Eig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
             no.uib.cipr.matrix.EVD eig = new no.uib.cipr.matrix.EVD(matA.numRows());
@@ -161,7 +162,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
             no.uib.cipr.matrix.QR qr = new no.uib.cipr.matrix.QR(matA.numRows(),matA.numColumns());
@@ -191,7 +192,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
             DenseMatrix I = Matrices.identity(matA.numColumns());
@@ -203,7 +204,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                 matA.solve(I,inv);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(inv);
+            return elapsedTime;
         }
     }
 
@@ -214,7 +217,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
@@ -228,7 +231,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                 result.add(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -239,7 +244,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
@@ -251,7 +256,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                 matA.mult(matB,result);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -262,7 +269,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
@@ -274,7 +281,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                 matA.transAmult(matB,result);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -285,7 +294,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
             DenseMatrix mod = new DenseMatrix(matA.numRows(),matA.numColumns());
@@ -295,10 +304,12 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
                 mod.set(matA);
-                mod.scale(2.5);
+                mod.scale(ScaleGenerator.SCALE);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(mod);
+            return elapsedTime;
         }
     }
 
@@ -314,7 +325,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
             DenseMatrix matB = convertToMtj(inputs[1]);
 
@@ -326,7 +337,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                 matA.solve(matB,result);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(result);
+            return elapsedTime;
         }
     }
 
@@ -337,17 +350,19 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
-            DenseMatrix matB = new DenseMatrix(matA.numColumns(),matA.numRows());
+            DenseMatrix result = new DenseMatrix(matA.numColumns(),matA.numRows());
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transpose(matB);
+                matA.transpose(result);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(result);
+            return elapsedTime;
         }
     }
     

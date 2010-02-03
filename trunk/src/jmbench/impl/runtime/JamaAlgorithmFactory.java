@@ -25,6 +25,7 @@ import Jama.SingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 
 
@@ -48,7 +49,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -70,7 +71,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -90,7 +91,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -113,7 +114,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Eig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -135,7 +136,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -155,7 +156,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
             long prev = System.currentTimeMillis();
@@ -175,16 +176,20 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
+
+            Matrix result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.inverse();
+                result = matA.inverse();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
         }
     }
 
@@ -195,17 +200,21 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
             Matrix matB = convertToJama(inputs[1]);
+
+            Matrix result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.plus(matB);
+                result = matA.plus(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
         }
     }
 
@@ -216,18 +225,21 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
             Matrix matB = convertToJama(inputs[1]);
 
             long prev = System.currentTimeMillis();
 
+            Matrix result = null;
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.times(matB);
+                result = matA.times(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
         }
     }
 
@@ -238,17 +250,21 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
             Matrix matB = convertToJama(inputs[1]);
+
+            Matrix result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transpose().times(matB);
+                result = matA.transpose().times(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
         }
     }
 
@@ -259,16 +275,20 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
+
+            Matrix result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.times(2.5);
+                result = matA.times(ScaleGenerator.SCALE);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
         }
     }
 
@@ -284,17 +304,21 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
             Matrix matB = convertToJama(inputs[1]);
+
+            Matrix result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.solve(matB);
+                result = matA.solve(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
         }
     }
 
@@ -305,16 +329,20 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[]inputs, long numTrials) {
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
+
+            Matrix result = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transpose();
+                result = matA.transpose();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
         }
     }
     

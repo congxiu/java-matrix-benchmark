@@ -21,10 +21,7 @@ package jmbench.tools.runtime;
 
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
-import jmbench.interfaces.MatrixGenerator;
-import jmbench.misc.PosDefSymGenerator;
-import jmbench.misc.RandomMatrixGenerator;
-import jmbench.misc.SymmMatrixGenerator;
+import jmbench.tools.runtime.generator.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +33,7 @@ import java.util.List;
 public class FactoryRuntimeEvaluationCase {
     private static long RAND_SEED = 0x37645;
 
-    private static int MAX_MATRIX_SIZE = 2000;
+    private static int MAX_MATRIX_SIZE = 10;
     private static int MIN_MATRIX_SIZE = 2;
 
     LibraryAlgorithmFactory factory;
@@ -102,95 +99,83 @@ public class FactoryRuntimeEvaluationCase {
 
     public RuntimeEvaluationCase createMatrixMult( AlgorithmInterface alg , double scale ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[2];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,scale,1);
-        generators[1] = new RandomMatrixGenerator(RAND_SEED,1,scale);
+        InputOutputGenerator generator = new MultGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Mult c=a*b","mult",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Mult c=a*b","mult",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createMatrixAdd( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[2];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED);
-        generators[1] = new RandomMatrixGenerator(RAND_SEED);
+        InputOutputGenerator generator = new AddGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Add c=a+b","add",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Add c=a+b","add",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createTranspose( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,1,1);
+        InputOutputGenerator generator = new TransposeGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Transpose b=a^T","tran",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Transpose b=a^T","tran",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createScale( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,1,1);
+        InputOutputGenerator generator = new ScaleGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Scale b=alpha*a","scale",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Scale b=alpha*a","scale",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createDeterminant( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED);
+        InputOutputGenerator generator = new DeterminantGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Determinant","det",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Determinant","det",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createInvert( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED);
+        InputOutputGenerator generator = new InvertGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Invert b=inv(a)","inv",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Invert b=inv(a)","inv",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createSVD( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED);
+        InputOutputGenerator generator = new SvdGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("SVD","svd",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("SVD","svd",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createCholesky( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new PosDefSymGenerator(RAND_SEED);
+        InputOutputGenerator generator = new CholeskyGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Cholesky","cholesky",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Cholesky","cholesky",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createMultTranA( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[2];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,1,1);
-        generators[1] = new RandomMatrixGenerator(RAND_SEED,1,1);
+        InputOutputGenerator generator = new MultTranAGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Mult c=a^t * b","multTranA",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Mult c=a^t * b","multTranA",matDimen,alg,generator);
     }
 
     /**
@@ -198,13 +183,11 @@ public class FactoryRuntimeEvaluationCase {
      */
     public RuntimeEvaluationCase createSolveEq( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[2];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,1,1);
-        generators[1] = new RandomMatrixGenerator(RAND_SEED,1,2.0);
+        InputOutputGenerator generator = new SolveEqGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Solve m=n","solveEq",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Solve m=n","solveEq",matDimen,alg,generator);
     }
 
     /**
@@ -212,43 +195,37 @@ public class FactoryRuntimeEvaluationCase {
      */
     public RuntimeEvaluationCase createSolveOver( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[2];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,3,1);
-        generators[1] = new RandomMatrixGenerator(RAND_SEED,3,2.0);
+        InputOutputGenerator generator = new SolveOverGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Solve m>n","solveOver",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Solve m>n","solveOver",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createQR( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,1,1);
+        InputOutputGenerator generator = new QrGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("QR","QR",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("QR","QR",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createLU( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new RandomMatrixGenerator(RAND_SEED,1,1);
+        InputOutputGenerator generator = new LuGenerator();
 
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("LU","LU",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("LU","LU",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createEigSymm( AlgorithmInterface alg ) {
 
-        MatrixGenerator []generators = new MatrixGenerator[1];
-        generators[0] = new SymmMatrixGenerator(RAND_SEED);
-
+        InputOutputGenerator generator = new EigSymmGenerator();
         int matDimen[] = createDimenList(MAX_MATRIX_SIZE);
 
-        return new RuntimeEvaluationCase("Eigen for Symm Matrices","EigSymm",matDimen,alg,generators);
+        return new RuntimeEvaluationCase("Eigen for Symm Matrices","EigSymm",matDimen,alg,generator);
     }
 
     private static int[] createDimenList( int max ) {

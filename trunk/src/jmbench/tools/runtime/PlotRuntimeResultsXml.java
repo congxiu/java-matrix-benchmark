@@ -20,7 +20,6 @@
 package jmbench.tools.runtime;
 
 import jmbench.impl.MatrixLibrary;
-import jmbench.tools.EvaluationMetrics;
 import jmbench.tools.ResultPlotter;
 import pja.util.UtilXmlSerialization;
 
@@ -96,8 +95,8 @@ public class PlotRuntimeResultsXml {
     }
 
     public static void main( String args[] ) {
-        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/vista_64bit_jvm_1.6.0_16_Intel_Quad_Q9400_2.66Ghz");
+        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/PentiumM_2010_01_31");
 
-        p.plot(EvaluationMetrics.METRIC_MAX);
+        p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
     }
 }
