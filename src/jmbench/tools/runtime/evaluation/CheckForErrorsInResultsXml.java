@@ -17,9 +17,12 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.tools.runtime;
+package jmbench.tools.runtime.evaluation;
 
 import jmbench.tools.OutputError;
+import jmbench.tools.runtime.OperationResults;
+import jmbench.tools.runtime.RuntimeEvaluationMetrics;
+import jmbench.tools.runtime.RuntimeResults;
 import pja.util.UtilXmlSerialization;
 
 import java.io.File;

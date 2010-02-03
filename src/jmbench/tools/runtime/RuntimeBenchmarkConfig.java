@@ -83,6 +83,11 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public int memorySlaveBase;// 10
     public int memorySlaveScale;// 8
 
+    // largest size matrix it can process
+    public int maxMatrixSize;
+    // the smallest matrix size it will process
+    public int minMatrixSize;
+
     /**
      * This config will process everything
      *
@@ -92,20 +97,22 @@ public class RuntimeBenchmarkConfig implements Serializable {
         RuntimeBenchmarkConfig config = new RuntimeBenchmarkConfig();
 
         config.seed = 0xDEADBEEF;//new Random().nextLong();
-        config.numBlockTrials = 5;
-        config.numBlocks = 5;
-        config.trialTime = 3000;
+        config.numBlockTrials = 1;
+        config.numBlocks = 1;
+        config.trialTime = 300;
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
         config.randizeOrder = true;
+        config.maxMatrixSize = 2;
+        config.minMatrixSize = 2;
 
-        config.chol = true;
-        config.lu = true;
-        config.svd = true;
-        config.qr = true;
-        config.eigSymm = true;
-        config.det = true;
-        config.invert = true;
+//        config.chol = true;
+//        config.lu = true;
+//        config.svd = true;
+//        config.qr = true;
+//        config.eigSymm = true;
+//        config.det = true;
+//        config.invert = true;
         config.add = true;
         config.mult = true;
         config.multTransA = true;
@@ -116,15 +123,15 @@ public class RuntimeBenchmarkConfig implements Serializable {
 
         config.targets = new ArrayList<EvaluationTarget>();
 
-        config.targets.add(ejml);
-//        config.targets.add(sejml);
-        config.targets.add(jama);
-        config.targets.add(ojalgo);
-        config.targets.add(commons);
-        config.targets.add(colt);
-        config.targets.add(pcolt);
-        config.targets.add(mtj);
-        config.targets.add(jsci);
+//        config.targets.add(ejml);
+////        config.targets.add(sejml);
+//        config.targets.add(jama);
+//        config.targets.add(ojalgo);
+//        config.targets.add(commons);
+//        config.targets.add(colt);
+//        config.targets.add(pcolt);
+//        config.targets.add(mtj);
+//        config.targets.add(jsci);
         config.targets.add(ujmp);
 
         return config;
@@ -304,5 +311,21 @@ public class RuntimeBenchmarkConfig implements Serializable {
 
     public void setMemorySlaveScale(int memorySlaveScale) {
         this.memorySlaveScale = memorySlaveScale;
+    }
+
+    public int getMaxMatrixSize() {
+        return maxMatrixSize;
+    }
+
+    public void setMaxMatrixSize(int maxMatrixSize) {
+        this.maxMatrixSize = maxMatrixSize;
+    }
+
+    public int getMinMatrixSize() {
+        return minMatrixSize;
+    }
+
+    public void setMinMatrixSize(int minMatrixSize) {
+        this.minMatrixSize = minMatrixSize;
     }
 }

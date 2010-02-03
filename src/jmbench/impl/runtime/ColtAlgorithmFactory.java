@@ -102,7 +102,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long elapsed = System.currentTimeMillis()-prev;
             outputs[0] = coltToEjml(L);
-            outputs[0] = coltToEjml(U);
+            outputs[1] = coltToEjml(U);
             return elapsed;
         }
     }
