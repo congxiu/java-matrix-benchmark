@@ -4,8 +4,6 @@
 = Introduction =
 The runtime performance benchmark portion of Java Matrix Benchmark is designed to measure the best possible performance of each library in different linear algebra routines.  It provides a realistic benchmark in situations that the developer knows how to effectively use a linear algebra library and has take steps to optimize performance, such as predeclaring all memory.  
 
-Due to assumptions inherit in its design, there are some real-world situations that would not be accurately represented by it.  Writing highly efficient code can be time consuming and is often not necessary.  If all one wants to do is to prove something is possible, why spend the extra time optimizing the code?  A significant amount of development time can be saved by not learning all the intricate details of a library, calling generic operations, and by managing memory in an ad hoc manor.  In these situations the practical performance merits of a library might be different than what is suggested in this benchmark.  However, this benchmark should still provide some insight.
-
 For sake of brevity, the following discussion is focused entirely on how to create an effective benchmark that measures best possible performance in optimized code.  There are other types of benchmarks that also have merit.  For example, a benchmark could measure less optimized code that might be common in research and development (R&D) environments and report the expected performance.
 
 = Performance Benchmark = 
