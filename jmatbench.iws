@@ -15,82 +15,42 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager" verified="true">
-    <list default="true" readonly="true" id="ca5367f2-e5a0-4faf-b6f8-6a9fbdaf5e1c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/EigSymmGenerator.java" />
+    <list default="true" readonly="true" id="ca5367f2-e5a0-4faf-b6f8-6a9fbdaf5e1c" name="Default" comment="- Added">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/LuGenerator.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/LuGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/MatrixFeatures.java" afterPath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/MatrixFeatures.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/svd/implicitqr/TestSvdImplicitQrAlgorithmVector.java" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/AddGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/TransposeGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/MultGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.iws" afterPath="$PROJECT_DIR$/jmatbench.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/InputOutputGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/InvertGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/SvdGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/LuGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jmbench/ejml/alg/mult/MatrixMult.java" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/TablesCommon.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/TablesCommon.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change.txt" afterPath="$PROJECT_DIR$/change.txt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jmbench/ejml/alg/mult" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/decomposition/eig/symm/BenchmarkSymmetricEigenDecomposition.java" afterPath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/decomposition/eig/symm/BenchmarkSymmetricEigenDecomposition.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/svd/implicitqr/SvdImplicitQrAlgorithmValue.java" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationCase.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationCase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityTestBase.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityTestBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverOverflow.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverOverflow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdAccuracy.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdAccuracy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/McBrAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/CommonsMathAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/EigSymmAccuracy.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/EigSymmAccuracy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/jmbench/impl/CheckModifyInputs.java" afterPath="$PROJECT_DIR$/test/jmbench/impl/CheckModifyInputs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/svd/implicitqr/SvdImplicitQrAlgorithmVector.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdOverflow.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SvdOverflow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeResults.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeResults.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/TODO_Algorithms.txt" afterPath="$PROJECT_DIR$/../../java/ejml/TODO_Algorithms.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/EigSymmOverflow.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/EigSymmOverflow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverSingular.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverSingular.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/SejmlAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/SejmlAlgorithmFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/ScaleGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestMatrixFeatures.java" afterPath="$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestMatrixFeatures.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/todo.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/PColtAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/PColtAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityTrialResults.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityTrialResults.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/interfaces/MatrixProcessorInterface.java" afterPath="$PROJECT_DIR$/src/jmbench/interfaces/MatrixProcessorInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/GenerateHtmlTables.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/GenerateHtmlTables.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jmbench/ejml/alg/mult/BenchmarkVariantsMult.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jmbench/ejml/alg/mult/MatrixMultTranAB.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/jmbench/impl/TestMcBrAlgorithmFactory.java" afterPath="$PROJECT_DIR$/test/jmbench/impl/TestMcBrAlgorithmFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/QrGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/ResultsChecking.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/jmbench/tools/EvaluationMetrics.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationMetrics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.iws" afterPath="$PROJECT_DIR$/jmatbench.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/MatrixLibrary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/CommonsMathAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/CommonsMathAlgorithmFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change.txt" afterPath="$PROJECT_DIR$/change.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/ConvertRuntimeResultsXmlToCSV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/decomposition/eig/symm/BenchmarkSymmetricEigenDecomposition.java" afterPath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/decomposition/eig/symm/BenchmarkSymmetricEigenDecomposition.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/svd/implicitqr/SvdImplicitQrAlgorithm.java" afterPath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/svd/implicitqr/SvdImplicitQrAlgorithm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/JScienceAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/JScienceAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/PlotRuntimeResultsXml.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/OutputError.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationTest.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/CheckForErrorsInResultsXml.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/svd/implicitqr/SvdImplicitQrAlgorithmValue.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/MultTranAGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/stability/McBrStabilityFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/stability/McBrStabilityFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmark.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/StabilityBenchmark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/svd/implicitqr/TestSvdImplicitQrAlgorithmValue.java" afterPath="$PROJECT_DIR$/../../java/ejml/test/org/ejml/alg/dense/decomposition/svd/implicitqr/TestSvdImplicitQrAlgorithm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/plots/OperationsVersusSizePlot.java" afterPath="$PROJECT_DIR$/src/jmbench/plots/OperationsVersusSizePlot.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/FactoryRuntimeEvaluationCase.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/FactoryRuntimeEvaluationCase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/SolveOverGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/MatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeometryMath.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jmbench/ejml/alg/mult/MatrixMult_D2.java" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/SolveEqGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverAccuracy.java" afterPath="$PROJECT_DIR$/src/jmbench/tools/stability/tests/SolverAccuracy.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/DeterminantGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" afterPath="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/svd/implicitqr/SvdImplicitQrAlgorithmVector.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/TODO_Algorithms.txt" afterPath="$PROJECT_DIR$/../../java/ejml/TODO_Algorithms.txt" />
     </list>
     <list id="6e54816f-3357-4769-86e6-1129cd62fca8" name="Failed commit: Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
     <list id="8c73df95-4bc0-47db-a3d2-aeb8db41e918" name="Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
@@ -130,7 +90,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" line="130" class="jmbench.tools.ResultPlotter" package="jmbench.tools">
+      <breakpoint url="file://$PROJECT_DIR$/src/jmbench/tools/ResultPlotter.java" line="126" class="jmbench.tools.ResultPlotter" package="jmbench.tools">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -144,6 +104,45 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/alg/dense/decomposition/svd/implicitqr/SvdImplicitQrAlgorithm.java" line="513" class="org.ejml.alg.dense.decomposition.svd.implicitqr.SvdImplicitQrAlgorithm" package="org.ejml.alg.dense.decomposition.svd.implicitqr">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java" line="51" class="jmbench.tools.runtime.generator.CholeskyGenerator" package="jmbench.tools.runtime.generator">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java" line="55" class="jmbench.tools.runtime.generator.CholeskyGenerator" package="jmbench.tools.runtime.generator">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java" line="64" class="jmbench.tools.runtime.generator.CholeskyGenerator" package="jmbench.tools.runtime.generator">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -198,39 +197,86 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CheckForErrorsInResultsXml.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/CheckForErrorsInResultsXml.java">
+      <file leaf-file-name="UjmpAlgorithmFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="12" selection-start="2983" selection-end="2983" vertical-scroll-proportion="0.0">
+            <state line="65" column="0" selection-start="1943" selection-end="1943" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CholeskyGenerator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="0" selection-start="1969" selection-end="1969" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OjAlgoAlgorithmFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="81" column="33" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cholesky.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/ojalgo-28.31/ojalgo-28.31-src.zip!/org/ojalgo/matrix/decomposition/Cholesky.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="59" column="23" selection-start="2527" selection-end="2531" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LU.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/ojalgo-28.31/ojalgo-28.31-src.zip!/org/ojalgo/matrix/decomposition/LU.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="60" column="19" selection-start="2631" selection-end="2631" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MtjAlgorithmFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="75" selection-start="1788" selection-end="1788" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RuntimeBenchmarkLibrary.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="276" column="45" selection-start="9738" selection-end="9738" vertical-scroll-proportion="0.0">
               <folding>
-                <marker date="1265162060000" expanded="false" signature="816:902" placeholder="..." />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="change.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/change.txt">
+      <file leaf-file-name="OperationResults.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="43" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="27" column="64" selection-start="943" selection-end="943" vertical-scroll-proportion="0.19379845">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FactoryRuntimeEvaluationCase.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/FactoryRuntimeEvaluationCase.java">
+      <file leaf-file-name="LuGenerator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/LuGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="43" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SymmMatrixGenerator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/misc/SymmMatrixGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="47" column="14" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -239,58 +285,7 @@
       <file leaf-file-name="RuntimeBenchmarkConfig.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="0" selection-start="4005" selection-end="4005" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OutputError.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/OutputError.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="12" selection-start="919" selection-end="919" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OperationResults.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="35" selection-start="1942" selection-end="1966" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1265162060000" expanded="false" signature="816:873" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RuntimeEvaluationMetrics.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationMetrics.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="30" selection-start="1488" selection-end="1502" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1265162060000" expanded="false" signature="816:889" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RuntimeBenchmarkLibrary.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="331" column="67" selection-start="11781" selection-end="11781" vertical-scroll-proportion="0.607362">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RuntimeResults.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeResults.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="16" selection-start="927" selection-end="927" vertical-scroll-proportion="0.0">
+            <state line="95" column="0" selection-start="4035" selection-end="4035" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -311,22 +306,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/todo.txt" />
         <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/CommonsMathAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/ColtAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/EjmlAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/JamaAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/JScienceAlgorithmFactory.java" />
         <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/PColtAlgorithmFactory.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationTest.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/MatrixFeatures.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/InvertGenerator.java" />
-        <option value="$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestMatrixFeatures.java" />
         <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/FactoryRuntimeEvaluationCase.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeResults.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/EvaluationMetrics.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/EvaluationMetrics.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationMetrics.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java" />
-        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/CheckForErrorsInResultsXml.java" />
-        <option value="$PROJECT_DIR$/change.txt" />
+        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/generator/LuGenerator.java" />
         <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java" />
+        <option value="$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java" />
       </list>
     </option>
   </component>
@@ -689,28 +684,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jmatbench" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trunk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jmbench" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="misc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane">
@@ -889,39 +862,7 @@
       </UpdatedFiles>
     </UpdateInfo>
   </component>
-  <component name="RunManager" selected="Application.CheckForErrorsInResultsXml">
-    <configuration default="false" name="TestSvdImplicitQrAlgorithm" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma">
-        <pattern>
-          <option name="PATTERN" value="org.ejml.alg.dense.decomposition.svd.implicitqr.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="ejml" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.ejml.alg.dense.decomposition.svd.implicitqr" />
-      <option name="MAIN_CLASS_NAME" value="org.ejml.alg.dense.decomposition.svd.implicitqr.TestSvdImplicitQrAlgorithm" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="43448" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Debug" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Application.RuntimeBenchmarkMaster">
     <configuration default="false" name="TestSvdImplicitQrAlgorithmVector" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="emma">
         <pattern>
@@ -1034,6 +975,33 @@
       <envs />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="35772" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ConvertRuntimeResultsXmlToCSV" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="jmbench.tools.runtime.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="jmbench.tools.runtime.ConvertRuntimeResultsXmlToCSV" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="jmatbench" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="52947" />
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -1216,15 +1184,15 @@
       <method />
     </configuration>
     <list size="9">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.TestSvdImplicitQrAlgorithm" />
-      <item index="1" class="java.lang.String" itemvalue="Application.BenchmarkSolveEq" />
-      <item index="2" class="java.lang.String" itemvalue="Application.BenchmarkCholeskyDecomposition" />
-      <item index="3" class="java.lang.String" itemvalue="Application.BenchmarkSolveSymPosDef" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TestQrUpdate.testInsertRow" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.TestSvdImplicitQrAlgorithmVector" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.TestSvdImplicitQrAlgorithmVector.randomMatrices" />
-      <item index="7" class="java.lang.String" itemvalue="Application.RuntimeBenchmarkMaster" />
-      <item index="8" class="java.lang.String" itemvalue="Application.CheckForErrorsInResultsXml" />
+      <item index="0" class="java.lang.String" itemvalue="Application.BenchmarkSolveEq" />
+      <item index="1" class="java.lang.String" itemvalue="Application.BenchmarkCholeskyDecomposition" />
+      <item index="2" class="java.lang.String" itemvalue="Application.BenchmarkSolveSymPosDef" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.TestQrUpdate.testInsertRow" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.TestSvdImplicitQrAlgorithmVector" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.TestSvdImplicitQrAlgorithmVector.randomMatrices" />
+      <item index="6" class="java.lang.String" itemvalue="Application.RuntimeBenchmarkMaster" />
+      <item index="7" class="java.lang.String" itemvalue="Application.CheckForErrorsInResultsXml" />
+      <item index="8" class="java.lang.String" itemvalue="Application.ConvertRuntimeResultsXmlToCSV" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -1345,13 +1313,13 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30760235" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18683997" sideWeight="0.65730995" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42923978" sideWeight="0.9971483" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32865497" sideWeight="0.0" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865497" sideWeight="0.0" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33333334" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32748538" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32818848" sideWeight="0.43391812" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981315" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32818848" sideWeight="0.6631579" order="0" side_tool="false" content_ui="tabs" x="364" y="128" width="397" height="828" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32818848" sideWeight="0.5625731" order="0" side_tool="false" content_ui="tabs" x="364" y="128" width="397" height="828" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53216374" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1482,120 +1450,118 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationTest.java">
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/PColtAlgorithmFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="46" selection-start="6471" selection-end="6471" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="113" column="21" selection-start="4140" selection-end="4140" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/InvertGenerator.java">
+    <entry file="jar://$PROJECT_DIR$/lib/ujmp-svn/ujmp-complete-0.2.4-sources.jar!/ujmp-core/src/main/java/org/ujmp/core/doublematrix/calculation/general/decomposition/DecompositionDoubleCalculations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="36" selection-start="1614" selection-end="1614" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/MatrixFeatures.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="284" column="0" selection-start="8429" selection-end="8429" vertical-scroll-proportion="0.0">
+        <state line="102" column="17" selection-start="2923" selection-end="2929" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="0" selection-start="1606" selection-end="1606" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/TestResults.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="17" selection-start="918" selection-end="918" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/EvaluatorSlave.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="25" selection-start="6782" selection-end="6782" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationMetrics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="30" selection-start="1488" selection-end="1502" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1265162060000" expanded="false" signature="816:889" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/OutputError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="12" selection-start="919" selection-end="919" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="35" selection-start="1942" selection-end="1966" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1265162060000" expanded="false" signature="816:873" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeResults.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="16" selection-start="927" selection-end="927" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/CheckForErrorsInResultsXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="12" selection-start="2983" selection-end="2983" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1265162060000" expanded="false" signature="816:902" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/change.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="43" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="4005" selection-end="4005" vertical-scroll-proportion="0.0">
+        <state line="29" column="13" selection-start="932" selection-end="932" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/FactoryRuntimeEvaluationCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="43" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.0">
+        <state line="35" column="42" selection-start="1166" selection-end="1166" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jmbench/misc/SymmMatrixGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeEvaluationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="147" column="0" selection-start="4956" selection-end="4956" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/mtj-0.9.12/mtj-src.zip!/no/uib/cipr/matrix/DenseCholesky.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="34" selection-start="4110" selection-end="4110" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/MtjAlgorithmFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="75" selection-start="1788" selection-end="1788" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="0" selection-start="1943" selection-end="1943" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/ojalgo-28.31/ojalgo-28.31-src.zip!/org/ojalgo/matrix/decomposition/LU.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="19" selection-start="2631" selection-end="2631" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/ojalgo-28.31/ojalgo-28.31-src.zip!/org/ojalgo/matrix/decomposition/Cholesky.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="23" selection-start="2527" selection-end="2531" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/CholeskyGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="0" selection-start="1969" selection-end="1969" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/impl/runtime/OjAlgoAlgorithmFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="33" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/generator/LuGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="14" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="0" selection-start="4035" selection-end="4035" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/RuntimeBenchmarkLibrary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="331" column="67" selection-start="11781" selection-end="11781" vertical-scroll-proportion="0.607362">
+        <state line="276" column="45" selection-start="9738" selection-end="9738" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jmbench/tools/runtime/OperationResults.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="64" selection-start="943" selection-end="943" vertical-scroll-proportion="0.19379845">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

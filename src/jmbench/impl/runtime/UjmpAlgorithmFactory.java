@@ -24,6 +24,7 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.CommonOps;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.Ops;
 import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
@@ -53,13 +54,19 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
+            Matrix U = null;
+
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
-				matA.chol();
+				U = matA.chol();
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+
+		    outputs[0] = ujmpToEjml(U);
+            CommonOps.transpose(outputs[0]);
+            return elapsedTime;
 		}
 	}
 
@@ -73,13 +80,22 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
+            Matrix L = null;
+            Matrix U = null;
+
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
-				matA.lu();
+				Matrix[] decomp = matA.lu();
+
+                L = decomp[0];
+                U = decomp[1];
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(L);
+            outputs[1] = ujmpToEjml(U);
+            return elapsedTime;
 		}
 	}
 

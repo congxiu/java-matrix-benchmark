@@ -36,16 +36,16 @@ import java.util.List;
  */
 public class RuntimeBenchmarkConfig implements Serializable {
 
-    public static EvaluationTarget ejml = new EvaluationTarget( MatrixLibrary.EJML, EjmlAlgorithmFactory.class.getName());
-    public static EvaluationTarget sejml = new EvaluationTarget( MatrixLibrary.SEJML, SejmlAlgorithmFactory.class.getName());
-    public static EvaluationTarget jama = new EvaluationTarget( MatrixLibrary.JAMA, JamaAlgorithmFactory.class.getName());
-    public static EvaluationTarget ojalgo = new EvaluationTarget( MatrixLibrary.OJALGO, OjAlgoAlgorithmFactory.class.getName());
-    public static EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, CommonsMathAlgorithmFactory.class.getName());
-    public static EvaluationTarget colt = new EvaluationTarget( MatrixLibrary.COLT, ColtAlgorithmFactory.class.getName());
-    public static EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjAlgorithmFactory.class.getName());
-    public static EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceAlgorithmFactory.class.getName());
-    public static EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, PColtAlgorithmFactory.class.getName());
-    public static EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpAlgorithmFactory.class.getName());
+    public static final EvaluationTarget ejml = new EvaluationTarget( MatrixLibrary.EJML, EjmlAlgorithmFactory.class.getName());
+    public static final EvaluationTarget sejml = new EvaluationTarget( MatrixLibrary.SEJML, SejmlAlgorithmFactory.class.getName());
+    public static final EvaluationTarget jama = new EvaluationTarget( MatrixLibrary.JAMA, JamaAlgorithmFactory.class.getName());
+    public static final EvaluationTarget ojalgo = new EvaluationTarget( MatrixLibrary.OJALGO, OjAlgoAlgorithmFactory.class.getName());
+    public static final EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, CommonsMathAlgorithmFactory.class.getName());
+    public static final EvaluationTarget colt = new EvaluationTarget( MatrixLibrary.COLT, ColtAlgorithmFactory.class.getName());
+    public static final EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjAlgorithmFactory.class.getName());
+    public static final EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceAlgorithmFactory.class.getName());
+    public static final EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, PColtAlgorithmFactory.class.getName());
+    public static final EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpAlgorithmFactory.class.getName());
 
     // random seed used to create matrices used as inputs
     public long seed;

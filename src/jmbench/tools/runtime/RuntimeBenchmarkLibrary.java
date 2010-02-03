@@ -272,7 +272,6 @@ public class RuntimeBenchmarkLibrary {
         for( int attempts = 0; attempts < 5; attempts++ ) {
             tools.setMemoryScale(config.memorySlaveScale*(1+attempts));
 
-//            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
             EvaluatorSlave.Results r = tools.runTest(test);
 //            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
 

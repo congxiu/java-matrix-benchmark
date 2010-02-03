@@ -19,9 +19,7 @@
 
 package jmbench.impl.runtime;
 
-import Jama.EigenvalueDecomposition;
-import Jama.Matrix;
-import Jama.SingularValueDecomposition;
+import Jama.*;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
@@ -52,15 +50,21 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
+            Matrix L = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                if( !matA.chol().isSPD() ) {
+                CholeskyDecomposition chol = matA.chol();
+                if( !chol.isSPD() ) {
                     throw new RuntimeException("Is not SPD");
                 }
+                L = chol.getL();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(L);
+            return elapsed;
         }
     }
 
@@ -74,13 +78,21 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
+            Matrix L = null;
+            Matrix U = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.lu();
+                LUDecomposition lu = matA.lu();
+                L = lu.getL();
+                U = lu.getU();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(L);
+            outputs[1] = jamaToEjml(U);
+            return elapsed;
         }
     }
 

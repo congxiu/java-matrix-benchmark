@@ -26,6 +26,7 @@ import jmbench.interfaces.LibraryAlgorithmFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.jscience.mathematics.number.Float64;
+import org.jscience.mathematics.vector.DenseMatrix;
 import org.jscience.mathematics.vector.Float64Matrix;
 import org.jscience.mathematics.vector.LUDecomposition;
 import org.jscience.mathematics.vector.Matrix;
@@ -59,14 +60,21 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Float64Matrix matA = convertToFloat64(inputs[0]);
 
+            DenseMatrix<Float64> L = null;
+            DenseMatrix<Float64> U = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                LUDecomposition.valueOf(matA);
+                LUDecomposition<Float64> lu = LUDecomposition.valueOf(matA);
+                L = lu.getLower(Float64.ZERO,Float64.ONE);
+                U = lu.getUpper(Float64.ZERO);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = jsciToEjml(L);
+            outputs[0] = jsciToEjml(U);
+            return elapsedTime;
         }
     }
 

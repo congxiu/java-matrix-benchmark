@@ -51,11 +51,14 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix L = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 try {
-                    new CholeskyDecompositionImpl(matA);
+                    CholeskyDecompositionImpl chol = new CholeskyDecompositionImpl(matA);
+                    L = chol.getL();
                 } catch (NotSymmetricMatrixException e) {
                     throw new RuntimeException(e);
                 } catch (NotPositiveDefiniteMatrixException e) {
@@ -63,7 +66,9 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
                 }
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(L);
+            return elapsedTime;
         }
     }
 
@@ -77,13 +82,22 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix L = null;
+            RealMatrix U = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                new LUDecompositionImpl(matA);
+                LUDecompositionImpl LU = new LUDecompositionImpl(matA);
+
+                L = LU.getL();
+                U = LU.getU();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(L);
+            outputs[1] = realToEjml(U);
+            return elapsedTime;
         }
     }
 

@@ -25,14 +25,18 @@ import java.io.Serializable;
 
 
 /**
- * The benchmark results performance trials.
+ * The runtime benchmark results for an operation in a library.
  *
  * @author Peter Abeles
  */
 public class OperationResults implements Serializable {
+    // operation these results are from
     public String opName;
+    // library these results are from
     public MatrixLibrary library;
+    // size of the input matrices
     public int matDimen[];
+    // results by matrix size
     public RuntimeEvaluationMetrics metrics[];
 
     public OperationResults( String opName , MatrixLibrary library ,

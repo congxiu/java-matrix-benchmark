@@ -25,6 +25,7 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.CommonOps;
 import org.ojalgo.function.implementation.PrimitiveFunction;
 import org.ojalgo.matrix.decomposition.*;
 import org.ojalgo.matrix.store.MatrixStore;
@@ -70,15 +71,21 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
             final long prev = System.currentTimeMillis();
 
+            MatrixStore<Double> U = null;
             final Cholesky<Double> chol = CholeskyDecomposition.makePrimitive();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!chol.compute(matA)) {
                     throw new RuntimeException("Decomposition failed");
                 }
+
+                U = chol.getR();
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = ojAlgoToEjml(U);
+            CommonOps.transpose(outputs[0]);
+            return elapsedTime;
         }
     }
 
@@ -156,15 +163,23 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
             final LU<Double> lu = LUDecomposition.makePrimitive();
 
+            MatrixStore<Double> L = null;
+            MatrixStore<Double> U = null;
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!lu.compute(matA)) {
                     throw new RuntimeException("Decomposition failed");
                 }
+
+                L = lu.getL();
+                U = lu.getU();
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = ojAlgoToEjml(L);
+            outputs[1] = ojAlgoToEjml(U);
+            return elapsedTime;
         }
     }
 
