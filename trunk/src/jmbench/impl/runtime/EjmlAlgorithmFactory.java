@@ -55,15 +55,20 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             CholeskyDecomposition chol = DecompositionFactory.chol(matA.numRows, false, true);
 
+            DenseMatrix64F L = new DenseMatrix64F(matA.numRows,matA.numCols);
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !chol.decompose(matA) ) {
                     throw new RuntimeException("Decomposition failed");
                 }
+                chol.getT(L);
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = L;
+            return elapsedTime;
         }
     }
 
@@ -79,14 +84,23 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             LUDecomposition lu = DecompositionFactory.lu();
 
+            DenseMatrix64F L = new DenseMatrix64F(matA.numRows,matA.numCols);
+            DenseMatrix64F U = new DenseMatrix64F(matA.numRows,matA.numCols);
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !lu.decompose(matA) )
                     throw new RuntimeException("Decomposition failed");
+
+                lu.getLower(L);
+                lu.getUpper(U);
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = L;
+            outputs[1] = U;
+            return elapsedTime;
         }
     }
 

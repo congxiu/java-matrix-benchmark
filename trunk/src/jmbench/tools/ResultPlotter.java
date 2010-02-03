@@ -23,7 +23,6 @@ import jmbench.impl.MatrixLibrary;
 import jmbench.plots.OperationsVersusSizePlot;
 import jmbench.tools.runtime.OperationResults;
 import jmbench.tools.runtime.RuntimeEvaluationMetrics;
-import jmbench.tools.stability.StabilityTrialResults;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,11 +35,6 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class ResultPlotter {
-
-    public static void overflowPlots( List<StabilityTrialResults> data )
-    {
-
-    }
 
     public static void relativePlots( List<OperationResults> data ,
                                       Reference referenceType ,
@@ -96,7 +90,8 @@ public class ResultPlotter {
                 }
             }
 
-            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),numMatrixSizes);
+            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),numMatrixSizes,
+                    ops.getLibrary().getPlotLineType());
         }
         
         if( savePDF )

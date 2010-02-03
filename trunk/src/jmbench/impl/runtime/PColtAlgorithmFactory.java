@@ -23,6 +23,7 @@ import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
 import cern.colt.matrix.tdouble.algo.DoubleBlas;
 import cern.colt.matrix.tdouble.algo.SmpDoubleBlas;
+import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleCholeskyDecomposition;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleEigenvalueDecomposition;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleLUDecompositionQuick;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecomposition;
@@ -60,14 +61,20 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
+            DoubleMatrix2D L = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // can't decompose a matrix with the same decomposition algorithm
-                alg.chol(matA);
+                DenseDoubleCholeskyDecomposition chol = alg.chol(matA);
+
+                L = chol.getL();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = parallelColtToEjml(L);
+            return elapsedTime;
         }
     }
 
@@ -86,6 +93,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseDoubleLUDecompositionQuick decomp = new DenseDoubleLUDecompositionQuick();
             DoubleMatrix2D tmp = new DenseColumnDoubleMatrix2D(matA.rows(),matA.columns());
 
+            DoubleMatrix2D L = null;
+            DoubleMatrix2D U = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
@@ -94,9 +104,15 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
                 decomp.decompose(tmp);
                 if( !decomp.isNonsingular() )
                     throw new RuntimeException("LU decomposition failed");
+
+                L = decomp.getL();
+                U = decomp.getU();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = parallelColtToEjml(L);
+            outputs[1] = parallelColtToEjml(U);
+            return elapsedTime;
         }
     }
 

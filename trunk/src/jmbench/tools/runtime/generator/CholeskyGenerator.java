@@ -21,7 +21,10 @@ package jmbench.tools.runtime.generator;
 
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
+import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.CommonOps;
+import org.ejml.ops.MatrixFeatures;
 import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
@@ -32,16 +35,37 @@ import java.util.Random;
  */
 public class CholeskyGenerator implements InputOutputGenerator {
 
+    DenseMatrix64F A;
+
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        DenseMatrix64F A = RandomMatrices.createRandomPosDef(matrixSize,rand);
+        A = RandomMatrices.createRandomPosDef(matrixSize,rand);
 
         return new DenseMatrix64F[]{A};
     }
 
     @Override
     public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        return null;
+        DenseMatrix64F L = output[0];
+
+        if( L == null ) {
+            return OutputError.MISC;
+        }
+
+        if(MatrixFeatures.hasUncountable(L)) {
+            return OutputError.UNCOUNTABLE;
+        }
+
+        DenseMatrix64F A_found = new DenseMatrix64F(A.numRows,A.numCols);
+
+        CommonOps.multTransB(L,L,A_found);
+
+        double error = StabilityBenchmark.residualError(A_found,A);
+        if( error > tol ) {
+            return OutputError.LARGE_ERROR;
+        }
+
+        return OutputError.NO_ERROR;
     }
 
     @Override

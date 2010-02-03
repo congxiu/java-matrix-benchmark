@@ -19,7 +19,6 @@
 
 package jmbench.plots;
 
-import jmbench.impl.MatrixLibrary;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -35,8 +34,6 @@ import org.jfree.ui.RectangleInsets;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -52,10 +49,6 @@ public class OperationsVersusSizePlot
     // how many data sets have been added
     int numDataSets;
     XYPlot plot;
-
-    // specifies what the line color and pattern should be.  This makes it possible
-    // for the same ones to be used across all plots
-    Map<String,Integer> libToIndex;
 
     java.util.List<String> dataNames = new ArrayList<String>();
 
@@ -79,12 +72,6 @@ public class OperationsVersusSizePlot
         // one of the numbers is getting cropped.  this will make it fully visible
         chart.setPadding(new RectangleInsets(5,0,0,5));
 
-        libToIndex = new HashMap<String,Integer>();
-
-        int index = 0;
-        for( MatrixLibrary lib : MatrixLibrary.values() ) {
-            libToIndex.put(lib.getPlotName(),index++);
-        }
     }
 
     public void setRange( double min , double max ) {
@@ -132,19 +119,12 @@ public class OperationsVersusSizePlot
         UtilPlotPdf.saveAsPdf(chart,fileName,width,height);
     }
 
-
-
-    public void addResults( int size[] , double opsPerSecond[], String name , int length ) {
+    public void addResults( int size[] , double opsPerSecond[], String name , int length , int seriesIndex ) {
         double conv_x[] = new double[ size.length ];
 
         for( int i = 0; i < size.length; i++ ) {
             conv_x[i] = size[i];
         }
-
-        if( !libToIndex.containsKey(name)) {
-            throw new RuntimeException("Unknown name "+name+".  Add it to the libToIndex");
-        }
-        int seriesIndex = libToIndex.get(name);
 
         _addErrors(conv_x,opsPerSecond,length,name,seriesIndex);
     }

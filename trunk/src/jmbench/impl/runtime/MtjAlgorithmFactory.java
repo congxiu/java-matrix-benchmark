@@ -51,8 +51,11 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
-            DenseCholesky cholesky = new DenseCholesky(matA.numRows(),true);
-            UpperSPDDenseMatrix uspd = new UpperSPDDenseMatrix(matA);
+            DenseCholesky cholesky = new DenseCholesky(matA.numRows(),false);
+            LowerSPDDenseMatrix uspd = new LowerSPDDenseMatrix(matA);
+
+            LowerTriangDenseMatrix L = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
@@ -61,9 +64,13 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                 if( !cholesky.factor(uspd).isSPD() ) {
                     throw new RuntimeException("Is not SPD");
                 }
+
+                L = cholesky.getL();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(L);
+            return elapsedTime;
         }
     }
 
@@ -77,18 +84,27 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix matA = convertToMtj(inputs[0]);
 
-            DenseLU qr = new DenseLU(matA.numRows(),matA.numColumns());
+            DenseLU lu = new DenseLU(matA.numRows(),matA.numColumns());
             DenseMatrix tmp = new DenseMatrix(matA);
+
+            LowerTriangDenseMatrix L = null;
+            UpperTriangDenseMatrix U = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // the input matrix is over written
                 tmp.set(matA);
-                qr.factor(tmp);
+                lu.factor(tmp);
+
+                L = lu.getL();
+                U = lu.getU();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(L);
+            outputs[1] = mtjToEjml(U);
+            return elapsedTime;
         }
     }
 
@@ -387,20 +403,18 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
         return ret;
     }
 
-    public static DenseMatrix64F mtjToEjml( DenseMatrix orig )
+    public static DenseMatrix64F mtjToEjml( AbstractMatrix orig )
     {
         if( orig == null )
             return null;
 
         DenseMatrix64F ret = new DenseMatrix64F(orig.numRows(),orig.numColumns());
 
-        // MTJ's format is the transpose of this format
-        DenseMatrix64F temp = new DenseMatrix64F();
-        temp.numRows = orig.numColumns();
-        temp.numCols = orig.numRows();
-        temp.data = orig.getData();
-
-        CommonOps.transpose(temp,ret);
+        for( int i = 0; i < ret.numRows; i++ ) {
+            for( int j = 0; j < ret.numCols; j++ ) {
+                ret.set(i,j,orig.get(i,j));
+            }
+        }
 
         return ret;
     }

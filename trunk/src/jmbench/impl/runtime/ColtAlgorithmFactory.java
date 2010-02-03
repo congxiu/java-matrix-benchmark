@@ -52,6 +52,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
+            DoubleMatrix2D L = null;
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
@@ -60,9 +61,13 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
                 if( !chol.isSymmetricPositiveDefinite() ) {
                     throw new RuntimeException("Is not SPD");
                 }
+
+                L = chol.getL();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = coltToEjml(L);
+            return elapsed;
         }
     }
 
@@ -78,17 +83,27 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             LUDecompositionQuick lu = new LUDecompositionQuick();
             DenseDoubleMatrix2D tmp = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
+
+            DoubleMatrix2D L = null;
+            DoubleMatrix2D U = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 tmp.assign(matA);
                 lu.decompose(tmp);
 
+                L = lu.getL();
+                U = lu.getU();
+
                 if( !lu.isNonsingular() )
                     throw new RuntimeException("Singular matrix");
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = coltToEjml(L);
+            outputs[0] = coltToEjml(U);
+            return elapsed;
         }
     }
 

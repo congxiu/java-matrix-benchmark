@@ -41,12 +41,16 @@ public class LuGenerator implements InputOutputGenerator {
 
     @Override
     public OutputError checkResults(DenseMatrix64F[] output, double tol) {
+        DenseMatrix64F L = output[0];
+        DenseMatrix64F U = output[1];
+        DenseMatrix64F P = output[2];
+
         return null;
     }
 
     @Override
     public int numOutputs() {
-        return 1;
+        return 3;
     }
 
     @Override

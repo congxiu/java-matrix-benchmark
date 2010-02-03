@@ -13,6 +13,7 @@
 - Can plot runtime results relative to the mean or median result now
 - Added sanity checks to runtime performance that makes sure the operations are producing meaningful results.
 - Changed how Commons-math creates matrices
+- Added a converter for runtime results that change it into CSV format
 
 ----- Version 0.4
 

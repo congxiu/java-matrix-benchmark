@@ -33,7 +33,7 @@ import java.util.List;
 public class FactoryRuntimeEvaluationCase {
     private static long RAND_SEED = 0x37645;
 
-    private static int MAX_MATRIX_SIZE = 10;
+    private static int MAX_MATRIX_SIZE = 2;
     private static int MIN_MATRIX_SIZE = 2;
 
     LibraryAlgorithmFactory factory;
