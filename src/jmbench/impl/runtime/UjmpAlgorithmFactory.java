@@ -82,6 +82,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
             Matrix L = null;
             Matrix U = null;
+            Matrix P = null;
 
 			long prev = System.currentTimeMillis();
 
@@ -90,11 +91,13 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
                 L = decomp[0];
                 U = decomp[1];
+                P = decomp[2];
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
 		    outputs[0] = ujmpToEjml(L);
             outputs[1] = ujmpToEjml(U);
+            outputs[2] = ujmpToEjml(P);
             return elapsedTime;
 		}
 	}
