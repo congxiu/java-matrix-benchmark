@@ -112,7 +112,7 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             long elapsedTime = System.currentTimeMillis()-prev;
             outputs[0] = parallelColtToEjml(L);
             outputs[1] = parallelColtToEjml(U);
-            outputs[2] = SpecializedOps.pivotMatrix(null,pivot,pivot.length);
+            outputs[2] = SpecializedOps.pivotMatrix(null,pivot,pivot.length,false);
             return elapsedTime;
         }
     }

@@ -103,11 +103,11 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
         config.randizeOrder = true;
-        config.maxMatrixSize = 3;
-        config.minMatrixSize = 3;
+        config.maxMatrixSize = 10;
+        config.minMatrixSize = 10;
 
 //        config.chol = true;
-//        config.lu = true;
+        config.lu = true;
 //        config.svd = true;
 //        config.qr = true;
 //        config.eigSymm = true;
@@ -117,8 +117,8 @@ public class RuntimeBenchmarkConfig implements Serializable {
 //        config.mult = true;
 //        config.multTransA = true;
 //        config.scale = true;
-        config.solveExact = true;
-        config.solveOver = true;
+//        config.solveExact = true;
+//        config.solveOver = true;
 //        config.transpose = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
