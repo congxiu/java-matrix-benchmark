@@ -191,15 +191,24 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             no.uib.cipr.matrix.QR qr = new no.uib.cipr.matrix.QR(matA.numRows(),matA.numColumns());
             DenseMatrix tmp = new DenseMatrix(matA);
 
+            DenseMatrix Q = null;
+            UpperTriangDenseMatrix R = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // the input matrix is over written
                 tmp.set(matA);
                 qr.factor(tmp);
+
+                Q = qr.getQ();
+                R = qr.getR();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(Q);
+            outputs[1] = mtjToEjml(R);
+            return elapsedTime;
         }
     }
 

@@ -170,15 +170,23 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseMatrix64F matA = inputs[0];
 
             QRDecomposition qr = DecompositionFactory.qr();
+            DenseMatrix64F Q = null;
+            DenseMatrix64F R = null;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !qr.decompose(matA) )
                     throw new RuntimeException("Decomposition failed");
+
+                Q = qr.getQ(null,true);
+                R = qr.getR(null,true);
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = Q;
+            outputs[1] = R;
+            return elapsedTime;
         }
     }
 

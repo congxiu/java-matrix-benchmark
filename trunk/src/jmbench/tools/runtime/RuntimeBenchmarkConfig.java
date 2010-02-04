@@ -97,17 +97,17 @@ public class RuntimeBenchmarkConfig implements Serializable {
         RuntimeBenchmarkConfig config = new RuntimeBenchmarkConfig();
 
         config.seed = 0xDEADBEEF;//new Random().nextLong();
-        config.numBlockTrials = 5;
-        config.numBlocks = 5;
-        config.trialTime = 3000;
+        config.numBlockTrials = 1;
+        config.numBlocks = 1;
+        config.trialTime = 300;
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
         config.randizeOrder = true;
-        config.maxMatrixSize = 500;
-        config.minMatrixSize = 500;
+        config.maxMatrixSize = 3;
+        config.minMatrixSize = 3;
 
 //        config.chol = true;
-        config.lu = true;
+//        config.lu = true;
 //        config.svd = true;
 //        config.qr = true;
 //        config.eigSymm = true;
@@ -117,22 +117,22 @@ public class RuntimeBenchmarkConfig implements Serializable {
 //        config.mult = true;
 //        config.multTransA = true;
 //        config.scale = true;
-//        config.solveExact = true;
-//        config.solveOver = true;
+        config.solveExact = true;
+        config.solveOver = true;
 //        config.transpose = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
 
-//        config.targets.add(ejml);
+        config.targets.add(ejml);
 //        config.targets.add(sejml);
-//        config.targets.add(jama);
+        config.targets.add(jama);
         config.targets.add(ojalgo);
-//        config.targets.add(commons);
-//        config.targets.add(colt);
-//        config.targets.add(pcolt);
-//        config.targets.add(mtj);
-//        config.targets.add(jsci);
-//        config.targets.add(ujmp);
+        config.targets.add(commons);
+        config.targets.add(colt);
+        config.targets.add(pcolt);
+        config.targets.add(mtj);
+        config.targets.add(jsci);
+        config.targets.add(ujmp);
 
         return config;
     }

@@ -155,13 +155,22 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
+            Matrix Q = null;
+            Matrix R = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.qr();
+                QRDecomposition decomp = matA.qr();
+
+                Q = decomp.getQ();
+                R = decomp.getR();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(Q);
+            outputs[1] = jamaToEjml(R);
+            return elapsed;
         }
     }
 

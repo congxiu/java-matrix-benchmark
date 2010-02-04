@@ -166,20 +166,28 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
             MatrixStore<Double> L = null;
             MatrixStore<Double> U = null;
+            MatrixStore<Double> P = null;
+            MatrixStore<Double> D = null;
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
-                if (!lu.computeWithoutPivoting(matA)) {
+                if (!lu.compute(matA)) {
                     throw new RuntimeException("Decomposition failed");
                 }
 
                 L = lu.getL();
-                U = lu.getRowEchelonForm();
+                U = lu.getU();
+                D = lu.getD();
+                P = lu.getP();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = OjAlgoAlgorithmFactory.ojAlgoToEjml(L);
-            outputs[1] = OjAlgoAlgorithmFactory.ojAlgoToEjml(U);
+            long elapsedTime = System.currentTimeMillis() - prev;
+
+            U = U.multiplyLeft(D);
+
+            outputs[0] = ojAlgoToEjml(L);
+            outputs[1] = ojAlgoToEjml(U);
+            outputs[2] = ojAlgoToEjml(P);
             return elapsedTime;
         }
     }
@@ -234,15 +242,24 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
             final QR<Double> qr = QRDecomposition.makePrimitive();
 
+            MatrixStore<Double> Q = null;
+            MatrixStore<Double> R = null;
+
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!qr.compute(matA)) {
                     throw new RuntimeException("Decomposition failed");
                 }
+
+                Q = qr.getQ();
+                R = qr.getR();
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = ojAlgoToEjml(Q);
+            outputs[1] = ojAlgoToEjml(R);
+            return elapsedTime;
         }
     }
 

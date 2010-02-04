@@ -21,7 +21,9 @@ package jmbench.tools.runtime.generator;
 
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
+import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.data.SimpleMatrix;
 import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
@@ -32,24 +34,45 @@ import java.util.Random;
  */
 public class QrGenerator implements InputOutputGenerator {
 
-    DenseMatrix64F C;
+    DenseMatrix64F A;
 
 
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+        A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
 
         return new DenseMatrix64F[]{A};
     }
 
     @Override
     public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        return null;
+
+        if( output[0] == null || output[1] == null ) {
+            return OutputError.MISC;
+        }
+
+        SimpleMatrix Q = SimpleMatrix.wrap(output[0]);
+        SimpleMatrix R = SimpleMatrix.wrap(output[1]);
+
+        if( Q.hasUncountable() || R.hasUncountable() ) {
+            return OutputError.UNCOUNTABLE;
+        }
+
+        SimpleMatrix A_found = Q.mult(R);
+
+
+        double error = StabilityBenchmark.residualError(A_found.getMatrix(),A);
+        if( error > tol ) {
+//            P.print();
+            return OutputError.LARGE_ERROR;
+        }
+
+        return OutputError.NO_ERROR;
     }
 
     @Override
     public int numOutputs() {
-        return 1;
+        return 2;
     }
 
     @Override

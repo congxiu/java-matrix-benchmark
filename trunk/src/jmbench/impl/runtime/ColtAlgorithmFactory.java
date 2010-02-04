@@ -167,15 +167,22 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
+            DoubleMatrix2D Q = null;
+            DoubleMatrix2D R = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 QRDecomposition qr = new QRDecomposition(matA);
-                if( !qr.hasFullRank() )
-                    throw new RuntimeException("Doesn't have full rank");
+
+                Q = qr.getQ();
+                R = qr.getR();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = coltToEjml(Q);
+            outputs[1] = coltToEjml(R);
+            return elapsed;
         }
     }
 

@@ -153,13 +153,22 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
+            Matrix Q = null;
+            Matrix R = null;
+
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
-				matA.qr();
-			}
+				Matrix decomp[] = matA.qr();
 
-			return System.currentTimeMillis() - prev;
+                Q = decomp[0];
+                R = decomp[1];
+            }
+
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(Q);
+            outputs[1] = ujmpToEjml(R);
+            return elapsedTime;
 		}
 	}
 

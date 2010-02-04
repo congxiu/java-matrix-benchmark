@@ -258,7 +258,9 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
                 result = matA.solve(matB);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = jsciToEjml(result);
+            return elapsedTime;
         }
     }
 
