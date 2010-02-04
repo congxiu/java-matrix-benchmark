@@ -2,3 +2,4 @@
 
 - Finish adding checks for all operators
 - only plot results if errors don't exist
+- determine memory requirements

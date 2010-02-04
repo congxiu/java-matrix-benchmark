@@ -161,13 +161,23 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix Q = null;
+            RealMatrix R = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                new QRDecompositionImpl(matA);
+                QRDecompositionImpl decomp = new QRDecompositionImpl(matA);
+
+                Q = decomp.getQ();
+                R = decomp.getR();
+
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(Q);
+            outputs[1] = realToEjml(R);
+            return elapsedTime;
         }
     }
 

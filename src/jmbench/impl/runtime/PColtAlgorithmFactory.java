@@ -23,10 +23,7 @@ import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
 import cern.colt.matrix.tdouble.algo.DoubleBlas;
 import cern.colt.matrix.tdouble.algo.SmpDoubleBlas;
-import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleCholeskyDecomposition;
-import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleEigenvalueDecomposition;
-import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleLUDecompositionQuick;
-import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecomposition;
+import cern.colt.matrix.tdouble.algo.decomposition.*;
 import cern.colt.matrix.tdouble.impl.DenseColumnDoubleMatrix2D;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
@@ -182,13 +179,22 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
+            DoubleMatrix2D Q = null;
+            DoubleMatrix2D R = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                alg.qr(matA);
+                DenseDoubleQRDecomposition decomp = alg.qr(matA);
+
+                Q = decomp.getQ(true);
+                R = decomp.getR(true);
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = parallelColtToEjml(Q);
+            outputs[1] = parallelColtToEjml(R);
+            return elapsedTime;
         }
     }
 

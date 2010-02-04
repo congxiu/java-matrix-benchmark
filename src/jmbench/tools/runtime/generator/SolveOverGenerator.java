@@ -21,7 +21,10 @@ package jmbench.tools.runtime.generator;
 
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
+import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.data.SimpleMatrix;
+import org.ejml.ops.CommonOps;
 import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
@@ -31,19 +34,43 @@ import java.util.Random;
  * @author Peter Abeles
  */
 public class SolveOverGenerator implements InputOutputGenerator {
-
+    DenseMatrix64F A;
+    DenseMatrix64F B;
+    DenseMatrix64F X;
 
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        DenseMatrix64F A = RandomMatrices.createRandom(3*matrixSize,matrixSize,-1,1,rand);
-        DenseMatrix64F B = RandomMatrices.createRandom(3*matrixSize,3*matrixSize,-1,1,rand);
+        A = RandomMatrices.createRandom(3*matrixSize,matrixSize,-1,1,rand);
+        X = RandomMatrices.createRandom(matrixSize,3*matrixSize,-1,1,rand);
+        B = new DenseMatrix64F(3*matrixSize,3*matrixSize);
+
+        CommonOps.mult(A,X,B);
 
         return new DenseMatrix64F[]{A,B};
     }
 
     @Override
     public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        return null;
+        if( output[0] == null ) {
+            return OutputError.MISC;
+        }
+
+        SimpleMatrix X = SimpleMatrix.wrap(output[0]);
+
+        if( X.hasUncountable() ) {
+            return OutputError.UNCOUNTABLE;
+        }
+
+        SimpleMatrix B_found = SimpleMatrix.wrap(A).mult(X);
+
+
+        double error = StabilityBenchmark.residualError(B_found.getMatrix(),B);
+        if( error > tol ) {
+//            P.print();
+            return OutputError.LARGE_ERROR;
+        }
+
+        return OutputError.NO_ERROR;
     }
 
     @Override
