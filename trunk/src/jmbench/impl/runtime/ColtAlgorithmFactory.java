@@ -106,7 +106,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             long elapsed = System.currentTimeMillis()-prev;
             outputs[0] = coltToEjml(L);
             outputs[1] = coltToEjml(U);
-            outputs[2] = SpecializedOps.pivotMatrix(null, pivot, pivot.length);
+            outputs[2] = SpecializedOps.pivotMatrix(null, pivot, pivot.length,false);
             return elapsed;
         }
     }

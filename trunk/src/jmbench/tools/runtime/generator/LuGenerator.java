@@ -59,13 +59,16 @@ public class LuGenerator implements InputOutputGenerator {
         } else if( P != null && P.hasUncountable() )
             return OutputError.UNCOUNTABLE;
 
-        SimpleMatrix A_found = P != null ? P.mult(L).mult(U) : L.mult(U);
-
-
-        double error = StabilityBenchmark.residualError(A_found.getMatrix(),A);
-        if( error > tol ) {
-//            P.print();
-            return OutputError.LARGE_ERROR;
+        if( P == null ) {
+            double error = StabilityBenchmark.residualError(L.mult(U).getMatrix(),A);
+            if( error > tol ) {
+                return OutputError.LARGE_ERROR;
+            }
+        } else {
+            double error = StabilityBenchmark.residualError(P.transpose().mult(L).mult(U).getMatrix(),A);
+            if( error > tol ) {
+                return OutputError.LARGE_ERROR;
+            }
         }
 
         return OutputError.NO_ERROR;

@@ -95,7 +95,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
             long elapsed = System.currentTimeMillis()-prev;
             outputs[0] = jamaToEjml(L);
             outputs[1] = jamaToEjml(U);
-            outputs[2] = SpecializedOps.pivotMatrix(null, pivot, pivot.length);
+            outputs[2] = SpecializedOps.pivotMatrix(null, pivot, pivot.length,false);
             return elapsed;
         }
     }
