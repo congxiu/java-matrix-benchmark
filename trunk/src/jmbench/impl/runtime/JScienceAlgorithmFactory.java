@@ -62,6 +62,7 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
 
             DenseMatrix<Float64> L = null;
             DenseMatrix<Float64> U = null;
+            Matrix<Float64> P = null;
 
             long prev = System.currentTimeMillis();
 
@@ -69,11 +70,14 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
                 LUDecomposition<Float64> lu = LUDecomposition.valueOf(matA);
                 L = lu.getLower(Float64.ZERO,Float64.ONE);
                 U = lu.getUpper(Float64.ZERO);
+                // There is a bug in JScience here
+//                P = lu.getPermutation(Float64.ZERO,Float64.ONE);
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
             outputs[0] = jsciToEjml(L);
-            outputs[0] = jsciToEjml(U);
+            outputs[1] = jsciToEjml(U);
+//            outputs[2] = jsciToEjml(P);
             return elapsedTime;
         }
     }

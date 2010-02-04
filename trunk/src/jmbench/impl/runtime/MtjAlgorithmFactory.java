@@ -89,6 +89,7 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
             LowerTriangDenseMatrix L = null;
             UpperTriangDenseMatrix U = null;
+            int pivots[] = null;
 
             long prev = System.currentTimeMillis();
 
@@ -99,11 +100,17 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
                 L = lu.getL();
                 U = lu.getU();
+                pivots = lu.getPivots();
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
+
+            // I believe that MTJ is generating some buggy row pivots since they go outside
+            // the matrix bounds
+
             outputs[0] = mtjToEjml(L);
             outputs[1] = mtjToEjml(U);
+//            outputs[2] = SpecializedOps.pivotMatrix(null, pivots, pivots.length);
             return elapsedTime;
         }
     }

@@ -25,6 +25,7 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.SpecializedOps;
 
 
 /**
@@ -80,6 +81,7 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             Matrix L = null;
             Matrix U = null;
+            int pivot[] = null;
 
             long prev = System.currentTimeMillis();
 
@@ -87,11 +89,13 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
                 LUDecomposition lu = matA.lu();
                 L = lu.getL();
                 U = lu.getU();
+                pivot = lu.getPivot();
             }
 
             long elapsed = System.currentTimeMillis()-prev;
             outputs[0] = jamaToEjml(L);
             outputs[1] = jamaToEjml(U);
+            outputs[2] = SpecializedOps.pivotMatrix(null, pivot, pivot.length);
             return elapsed;
         }
     }

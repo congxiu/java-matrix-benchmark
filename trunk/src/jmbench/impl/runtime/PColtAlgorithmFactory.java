@@ -33,6 +33,7 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.ops.SpecializedOps;
 
 
 /**
@@ -95,6 +96,7 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             DoubleMatrix2D L = null;
             DoubleMatrix2D U = null;
+            int[] pivot = null;
 
             long prev = System.currentTimeMillis();
 
@@ -107,11 +109,13 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
                 L = decomp.getL();
                 U = decomp.getU();
+                pivot = decomp.getPivot();
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
             outputs[0] = parallelColtToEjml(L);
             outputs[1] = parallelColtToEjml(U);
+            outputs[2] = SpecializedOps.pivotMatrix(null,pivot,pivot.length);
             return elapsedTime;
         }
     }
