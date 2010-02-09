@@ -39,7 +39,7 @@ public class CholeskyGenerator implements InputOutputGenerator {
 
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        A = RandomMatrices.createRandomPosDef(matrixSize,rand);
+        A = RandomMatrices.createSymmPosDef(matrixSize,rand);
 
         return new DenseMatrix64F[]{A};
     }
