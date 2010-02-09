@@ -14,6 +14,7 @@
 - Added sanity checks to runtime performance that makes sure the operations are producing meaningful results.
 - Changed how Commons-math creates matrices
 - Added a converter for runtime results that change it into CSV format
+- Added specialized inverse performance test for symmetric positive definite matrices
 
 ----- Version 0.4
 
