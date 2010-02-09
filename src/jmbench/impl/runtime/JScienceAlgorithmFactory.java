@@ -141,6 +141,12 @@ public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
     }
 
     @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        // no specialized routine
+        return null;
+    }
+
+    @Override
     public AlgorithmInterface add() {
         return new Add();
     }

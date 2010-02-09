@@ -110,16 +110,24 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
+            Matrix U = null;
+            Matrix S = null;
+            Matrix V = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition s = matA.svd();
-                s.getU();
-                s.getS();
-                s.getV();
+                U = s.getU();
+                S = s.getS();
+                V = s.getV();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(U);
+            outputs[1] = jamaToEjml(S);
+            outputs[2] = jamaToEjml(V);
+            return elapsed;
         }
     }
 
@@ -133,15 +141,21 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             Matrix matA = convertToJama(inputs[0]);
 
+            Matrix D = null;
+            Matrix V = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 EigenvalueDecomposition e = matA.eig();
-                e.getD();
-                e.getV();
+                D = e.getD();
+                V = e.getV();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(D);
+            outputs[1] = jamaToEjml(V);
+            return elapsed;
         }
     }
 
@@ -210,6 +224,32 @@ public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.inverse();
+            }
+
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = jamaToEjml(result);
+            return elapsed;
+        }
+    }
+
+    @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return new InvSymmPosDef();
+    }
+
+    public static class InvSymmPosDef extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            Matrix matA = convertToJama(inputs[0]);
+
+            Matrix result = null;
+
+            int N = matA.getColumnDimension();
+
+            long prev = System.currentTimeMillis();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                result = matA.chol().solve(Matrix.identity(N,N));
             }
 
             long elapsed = System.currentTimeMillis()-prev;

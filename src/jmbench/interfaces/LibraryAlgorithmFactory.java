@@ -43,6 +43,8 @@ public interface LibraryAlgorithmFactory extends LibraryFactory {
 
     AlgorithmInterface invert();
 
+    AlgorithmInterface invertSymmPosDef();
+
     AlgorithmInterface add();
 
     AlgorithmInterface mult();

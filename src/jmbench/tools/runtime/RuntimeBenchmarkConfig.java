@@ -61,6 +61,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public boolean eigSymm;
     public boolean det;
     public boolean invert;
+    public boolean invertSymmPosDef;
     public boolean add;
     public boolean mult;
     public boolean multTransA;
@@ -97,29 +98,30 @@ public class RuntimeBenchmarkConfig implements Serializable {
         RuntimeBenchmarkConfig config = new RuntimeBenchmarkConfig();
 
         config.seed = 0xDEADBEEF;//new Random().nextLong();
-        config.numBlockTrials = 1;
-        config.numBlocks = 1;
-        config.trialTime = 300;
+        config.numBlockTrials = 5;
+        config.numBlocks = 5;
+        config.trialTime = 3000;
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
         config.randizeOrder = true;
-        config.maxMatrixSize = 10;
-        config.minMatrixSize = 10;
+        config.maxMatrixSize = 2000;
+        config.minMatrixSize = 2;
 
-//        config.chol = true;
+        config.chol = true;
         config.lu = true;
-//        config.svd = true;
-//        config.qr = true;
-//        config.eigSymm = true;
-//        config.det = true;
-//        config.invert = true;
-//        config.add = true;
-//        config.mult = true;
-//        config.multTransA = true;
-//        config.scale = true;
-//        config.solveExact = true;
-//        config.solveOver = true;
-//        config.transpose = true;
+        config.svd = true;
+        config.qr = true;
+        config.eigSymm = true;
+        config.det = true;
+        config.invert = true;
+        config.invertSymmPosDef = true;
+        config.add = true;
+        config.mult = true;
+        config.multTransA = true;
+        config.scale = true;
+        config.solveExact = true;
+        config.solveOver = true;
+        config.transpose = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
 

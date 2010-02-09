@@ -21,7 +21,9 @@ package jmbench.tools.runtime.generator;
 
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
+import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.data.SimpleMatrix;
 import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
@@ -32,25 +34,47 @@ import java.util.Random;
  */
 public class EigSymmGenerator implements InputOutputGenerator {
 
+    SimpleMatrix A;
+
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
         DenseMatrix64F A = RandomMatrices.createSymmetric(matrixSize,-1,1,rand);
+
+        this.A = SimpleMatrix.wrap(A);
 
         return new DenseMatrix64F[]{A};
     }
 
     @Override
     public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        return null;
+        if( output[0] == null || output[1] == null ) {
+            return OutputError.MISC;
+        }
+
+        SimpleMatrix D = SimpleMatrix.wrap(output[0]);
+        SimpleMatrix V = SimpleMatrix.wrap(output[1]);
+
+        SimpleMatrix L = A.mult(V);
+        SimpleMatrix R = V.mult(D);
+
+        if( L.hasUncountable() || R.hasUncountable() )
+            return OutputError.UNCOUNTABLE;
+
+        double error = StabilityBenchmark.residualError(L.getMatrix(),R.getMatrix());
+        if( error > tol ) {
+            return OutputError.LARGE_ERROR;
+        }
+
+        return OutputError.NO_ERROR;
     }
 
     @Override
     public int numOutputs() {
-        return 1;
+        return 2;
     }
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize;
+        return matrixSize*matrixSize*3;
     }
 }

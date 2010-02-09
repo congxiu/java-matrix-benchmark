@@ -19,6 +19,7 @@
 
 package jmbench.impl.runtime;
 
+import cern.colt.matrix.DoubleFactory2D;
 import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
 import cern.colt.matrix.linalg.*;
@@ -121,16 +122,24 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
+            DoubleMatrix2D U = null;
+            DoubleMatrix2D S = null;
+            DoubleMatrix2D V = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition s = new SingularValueDecomposition(matA);
-                s.getU();
-                s.getS();
-                s.getV();
+                U = s.getU();
+                S = s.getS();
+                V = s.getV();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = coltToEjml(U);
+            outputs[1] = coltToEjml(S);
+            outputs[2] = coltToEjml(V);
+            return elapsed;
         }
     }
 
@@ -144,16 +153,22 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
+            DoubleMatrix2D D = null;
+            DoubleMatrix2D V = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 EigenvalueDecomposition eig = new EigenvalueDecomposition(matA);
 
-                eig.getD();
-                eig.getV();
+                D = eig.getD();
+                V = eig.getV();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = coltToEjml(D);
+            outputs[1] = coltToEjml(V);
+            return elapsed;
         }
     }
 
@@ -232,6 +247,32 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             outputs[0] = coltToEjml(result);
 
+            return elapsed;
+        }
+    }
+
+    @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return new InvSymmPosDef();
+    }
+
+    public static class InvSymmPosDef extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
+
+            DoubleMatrix2D result = null;
+
+            long prev = System.currentTimeMillis();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                CholeskyDecomposition chol = new CholeskyDecomposition(matA);
+
+                result = chol.solve(DoubleFactory2D.dense.identity(matA.rows()));
+            }
+
+            long elapsed = System.currentTimeMillis()-prev;
+            outputs[0] = coltToEjml(result);
             return elapsed;
         }
     }
