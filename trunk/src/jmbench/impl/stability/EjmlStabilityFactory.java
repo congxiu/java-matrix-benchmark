@@ -24,7 +24,6 @@ import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.alg.dense.decomposition.EigenDecomposition;
 import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
-import org.ejml.data.Complex64F;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.ejml.ops.EigenOps;
@@ -117,26 +116,8 @@ public class EjmlStabilityFactory implements StabilityFactory {
             if( !eig.decompose(A) )
                 return null;
 
-            int N = A.numRows;
-
-            DenseMatrix64F D = new DenseMatrix64F( N , N );
-            DenseMatrix64F V = new DenseMatrix64F( N , N );
-
-            for( int i = 0; i < N; i++ ) {
-                Complex64F c = eig.getEigenvalue(i);
-
-                if( c.isReal() ) {
-                    D.set(i,i,c.real);
-
-                    DenseMatrix64F v = eig.getEigenVector(i);
-
-                    if( v != null ) {
-                        for( int j = 0; j < N; j++ ) {
-                            V.set(j,i,v.get(j,0));
-                        }
-                    }
-                }
-            }
+            DenseMatrix64F D = EigenOps.createMatrixD(eig);
+            DenseMatrix64F V = EigenOps.createMatrixV(eig);
 
             return new DenseMatrix64F[]{D,V};
         }

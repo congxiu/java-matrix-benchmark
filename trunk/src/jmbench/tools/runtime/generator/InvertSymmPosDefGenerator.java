@@ -21,9 +21,7 @@ package jmbench.tools.runtime.generator;
 
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
-import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
-import org.ejml.ops.CommonOps;
 import org.ejml.ops.MatrixFeatures;
 import org.ejml.ops.RandomMatrices;
 
@@ -33,37 +31,30 @@ import java.util.Random;
 /**
  * @author Peter Abeles
  */
-public class CholeskyGenerator implements InputOutputGenerator {
+public class InvertSymmPosDefGenerator implements InputOutputGenerator {
 
     DenseMatrix64F A;
 
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        A = RandomMatrices.createRandomPosDef(matrixSize,rand);
+        double ev[] = new double[ matrixSize ];
+        for( int i = 0; i < matrixSize; i++ ) {
+            ev[i] = rand.nextDouble()*10;
+        }
+
+        A = RandomMatrices.createEigenvaluesSymm(matrixSize,rand,ev);
 
         return new DenseMatrix64F[]{A};
     }
 
     @Override
     public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        DenseMatrix64F L = output[0];
-
-        if( L == null ) {
+        if( output[0] == null ) {
             return OutputError.MISC;
         }
 
-        if(MatrixFeatures.hasUncountable(L)) {
-            return OutputError.UNCOUNTABLE;
-        }
-
-        DenseMatrix64F A_found = new DenseMatrix64F(A.numRows,A.numCols);
-
-        CommonOps.multTransB(L,L,A_found);
-
-        double error = StabilityBenchmark.residualError(A_found,A);
-        if( error > tol ) {
+        if( !MatrixFeatures.isInverse(output[0],A,1e-8) )
             return OutputError.LARGE_ERROR;
-        }
 
         return OutputError.NO_ERROR;
     }
@@ -75,6 +66,6 @@ public class CholeskyGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize*3;
+        return matrixSize*matrixSize*2;
     }
 }

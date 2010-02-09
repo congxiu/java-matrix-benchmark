@@ -125,6 +125,11 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
     }
 
     @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return null;
+    }
+
+    @Override
     public AlgorithmInterface add() {
         return new Add();
     }

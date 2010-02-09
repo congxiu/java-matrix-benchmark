@@ -114,17 +114,25 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix U = null;
+            RealMatrix S = null;
+            RealMatrix V = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition svd = new SingularValueDecompositionImpl(matA);
                 // need to call this functions so that it performs the full decomposition
-                svd.getU();
-                svd.getS();
-                svd.getV();
+                U = svd.getU();
+                S = svd.getS();
+                V = svd.getV();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(U);
+            outputs[1] = realToEjml(S);
+            outputs[2] = realToEjml(V);
+            return elapsedTime;
         }
     }
 
@@ -138,16 +146,22 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             RealMatrix matA = convertToReal(inputs[0]);
 
+            RealMatrix V = null;
+            RealMatrix D = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 EigenDecompositionImpl eig = new EigenDecompositionImpl(matA, MathUtils.SAFE_MIN);
                 // need to do this so that it computes the complete eigen vector
-                eig.getV();
-                eig.getD();
+                V = eig.getV();
+                D = eig.getD();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(D);
+            outputs[1] = realToEjml(V);
+            return elapsedTime;
         }
     }
 
@@ -222,6 +236,39 @@ public class CommonsMathAlgorithmFactory implements LibraryAlgorithmFactory {
             for( long i = 0; i < numTrials; i++ ) {
                 LUDecomposition lu = new LUDecompositionImpl(matA);
                 result = lu.getSolver().getInverse();
+            }
+
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = realToEjml(result);
+            return elapsedTime;
+        }
+    }
+
+    @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return new InvSymmPosDef();
+    }
+
+    public static class InvSymmPosDef extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            RealMatrix matA = convertToReal(inputs[0]);
+
+            RealMatrix result = null;
+            long prev = System.currentTimeMillis();
+
+            // LU decompose is a bit of a mess because of all the depreciated stuff everywhere
+            // I believe this is the way the designers want you to do it
+            for( long i = 0; i < numTrials; i++ ) {
+                CholeskyDecompositionImpl chol = null;
+                try {
+                    chol = new CholeskyDecompositionImpl(matA);
+                } catch (NotSymmetricMatrixException e) {
+                    throw new RuntimeException(e);
+                } catch (NotPositiveDefiniteMatrixException e) {
+                    throw new RuntimeException(e);
+                }
+                result = chol.getSolver().getInverse();
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;

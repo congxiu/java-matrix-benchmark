@@ -19,6 +19,7 @@
 
 package jmbench.impl.runtime;
 
+import cern.colt.matrix.tdouble.DoubleFactory2D;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
 import cern.colt.matrix.tdouble.algo.DoubleBlas;
@@ -128,18 +129,27 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            DoubleMatrix2D U = null;
+            DoubleMatrix2D S = null;
+            DoubleMatrix2D V = null;
+
             long prev = System.currentTimeMillis();
 
             // There are two MySVD decomposition algorithms.
             // I arbitrarily chose this version.  The java doc provided no guidelines...
             for( long i = 0; i < numTrials; i++ ) {
                 DenseDoubleSingularValueDecomposition s = alg.svd(matA);
-                s.getU();
-                s.getS();
-                s.getV();
+                U = s.getU();
+                S = s.getS();
+                V = s.getV();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = parallelColtToEjml(U);
+            outputs[1] = parallelColtToEjml(S);
+            outputs[2] = parallelColtToEjml(V);
+            return elapsedTime;
         }
     }
 
@@ -155,15 +165,21 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
+            DoubleMatrix2D D = null;
+            DoubleMatrix2D V = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DenseDoubleEigenvalueDecomposition e = alg.eig(matA);
-                e.getD();
-                e.getV();
+                D = e.getD();
+                V = e.getV();
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = parallelColtToEjml(D);
+            outputs[1] = parallelColtToEjml(V);
+            return elapsedTime;
         }
     }
 
@@ -238,6 +254,37 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = alg.inverse(matA);
+            }
+
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = parallelColtToEjml(result);
+            return elapsedTime;
+        }
+    }
+
+    @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return new InvSymmPosDef();
+    }
+
+    // DenseDoubleAlgebra
+    public static class InvSymmPosDef extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
+
+            DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            DoubleMatrix2D result = null;
+
+            long prev = System.currentTimeMillis();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                // can't decompose a matrix with the same decomposition algorithm
+                DenseDoubleCholeskyDecomposition chol = alg.chol(matA);
+
+                result = DoubleFactory2D.dense.identity(matA.rows());
+                chol.solve(result);
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;

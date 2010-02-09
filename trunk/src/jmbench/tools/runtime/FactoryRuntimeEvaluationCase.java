@@ -64,6 +64,9 @@ public class FactoryRuntimeEvaluationCase {
         alg = factory.invert();
         if( config.invert && alg != null ) ret.add( createInvert(alg));
 
+        alg = factory.invertSymmPosDef();
+        if( config.invertSymmPosDef && alg != null ) ret.add( createInvertSymmPosDef(alg));
+
         alg = factory.svd();
         if( config.svd && alg != null ) ret.add( createSVD(alg));
 
@@ -144,6 +147,15 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Invert b=inv(a)","inv",matDimen,alg,generator);
+    }
+
+    public RuntimeEvaluationCase createInvertSymmPosDef( AlgorithmInterface alg ) {
+
+        InputOutputGenerator generator = new InvertSymmPosDefGenerator();
+
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
+
+        return new RuntimeEvaluationCase("Invert b=invSymmPosDef(a)","invSymmPosDef",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createSVD( AlgorithmInterface alg ) {

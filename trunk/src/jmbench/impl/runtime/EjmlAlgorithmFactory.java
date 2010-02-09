@@ -27,6 +27,7 @@ import org.ejml.alg.dense.decomposition.*;
 import org.ejml.alg.dense.decomposition.svd.SvdNumericalRecipes;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
+import org.ejml.ops.CovarianceOps;
 import org.ejml.ops.EigenOps;
 
 
@@ -119,17 +120,25 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             SvdNumericalRecipes svd = new SvdNumericalRecipes();
 
+            DenseMatrix64F U = null;
+            DenseMatrix64F S = null;
+            DenseMatrix64F V = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !svd.decompose(matA) )
                     throw new RuntimeException("Decomposition failed");
-                svd.getU();
-                svd.getW();
-                svd.getV();
+                U = svd.getU();
+                S = svd.getW();
+                V = svd.getV();
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = U;
+            outputs[1] = S;
+            outputs[2] = V;
+            return elapsedTime;
         }
     }
 
@@ -155,7 +164,10 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
                 eig.getEigenVector(0);
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = EigenOps.createMatrixD(eig);
+            outputs[1] = EigenOps.createMatrixV(eig);
+            return elapsedTime;
         }
     }
 
@@ -226,6 +238,31 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !CommonOps.invert(matA,result) )
+                    throw new RuntimeException("Inversion failed");
+            }
+
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = result;
+            return elapsedTime;
+        }
+    }
+
+    @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return new InvSymmPosDef();
+    }
+
+    public static class InvSymmPosDef extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0];
+
+            DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matA.numCols);
+
+            long prev = System.currentTimeMillis();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                if( !CovarianceOps.invert(matA,result) )
                     throw new RuntimeException("Inversion failed");
             }
 

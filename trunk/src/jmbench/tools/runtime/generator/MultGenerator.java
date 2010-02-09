@@ -60,6 +60,6 @@ public class MultGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize;
+        return matrixSize*matrixSize*2;
     }
 }

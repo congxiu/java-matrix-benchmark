@@ -128,6 +128,10 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             no.uib.cipr.matrix.SVD svd = new no.uib.cipr.matrix.SVD(matA.numRows(),matA.numColumns());
             DenseMatrix tmp = new DenseMatrix(matA);
 
+            DenseMatrix U = null;
+            double[] S = null;
+            DenseMatrix Vt = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
@@ -135,15 +139,20 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                     // the input matrix is over written
                     tmp.set(matA);
                     SVD s = svd.factor(tmp);
-                    s.getU();
-                    s.getS();
-                    s.getVt();
+                    U = s.getU();
+                    S = s.getS();
+                    Vt = s.getVt();
                 } catch (NotConvergedException e) {
                     throw new RuntimeException(e);
                 }
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(U);
+            outputs[1] = CommonOps.diag(S);
+            outputs[2] = mtjToEjml(Vt);
+            CommonOps.transpose(outputs[2]);
+            return elapsedTime;
         }
     }
 
@@ -160,6 +169,9 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
             no.uib.cipr.matrix.EVD eig = new no.uib.cipr.matrix.EVD(matA.numRows());
             DenseMatrix tmp = new DenseMatrix(matA);
 
+            DenseMatrix V = null;
+            double []D = null;
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
@@ -167,14 +179,17 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
                     // the input matrix is over written
                     tmp.set(matA);
                     EVD e = eig.factor(tmp);
-                    e.getLeftEigenvectors();
-                    e.getRightEigenvectors();
+                    V = e.getRightEigenvectors();
+                    D = e.getRealEigenvalues();
                 } catch (NotConvergedException e) {
                     throw new RuntimeException(e);
                 }
             }
 
-            return System.currentTimeMillis()-prev;
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = CommonOps.diag(D);
+            outputs[1] = mtjToEjml(V);
+            return elapsedTime;
         }
     }
 
@@ -238,6 +253,39 @@ public class MtjAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long elapsedTime = System.currentTimeMillis()-prev;
             outputs[0] = mtjToEjml(inv);
+            return elapsedTime;
+        }
+    }
+
+    @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return new InvSymmPosDef();
+    }
+
+    public static class InvSymmPosDef extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            DenseMatrix matA = convertToMtj(inputs[0]);
+
+            DenseCholesky cholesky = new DenseCholesky(matA.numRows(),false);
+            LowerSPDDenseMatrix uspd = new LowerSPDDenseMatrix(matA);
+
+            DenseMatrix result = null;
+
+            long prev = System.currentTimeMillis();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                // the input matrix is over written
+                uspd.set(matA);
+                if( !cholesky.factor(uspd).isSPD() ) {
+                    throw new RuntimeException("Is not SPD");
+                }
+
+                result = cholesky.solve(Matrices.identity(matA.numColumns()));
+            }
+
+            long elapsedTime = System.currentTimeMillis()-prev;
+            outputs[0] = mtjToEjml(result);
             return elapsedTime;
         }
     }

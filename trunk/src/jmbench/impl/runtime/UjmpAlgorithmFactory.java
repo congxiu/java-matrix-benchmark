@@ -112,14 +112,20 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
+            Matrix[]svd = null;
+
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
                 // it should be extracting all the components all the time
-				Matrix[]components = matA.svd();
+				svd = matA.svd();
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(svd[0]);
+            outputs[1] = ujmpToEjml(svd[1]);
+            outputs[2] = ujmpToEjml(svd[2]);
+            return elapsedTime;
 		}
 	}
 
@@ -133,13 +139,18 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
 
+            Matrix result[] = null;
+
 			long prev = System.currentTimeMillis();
 
 			for (long i = 0; i < numTrials; i++) {
-				matA.eig();
+				result = matA.eig();
 			}
 
-			return System.currentTimeMillis() - prev;
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result[1]);
+            outputs[1] = ujmpToEjml(result[0]);
+            return elapsedTime;
 		}
 	}
 
@@ -214,6 +225,11 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 		    outputs[0] = ujmpToEjml(result);
             return elapsedTime;
 		}
+	}
+
+    @Override
+	public AlgorithmInterface invertSymmPosDef() {
+		return null;
 	}
 
 	@Override

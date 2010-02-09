@@ -117,17 +117,23 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
             final Eigenvalue<Double> eig = EigenvalueDecomposition.makePrimitive();
 
+            MatrixStore<Double> D = null;
+            MatrixStore<Double> V = null;
+
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!eig.computeSymmetric(matA)) {
                     throw new RuntimeException("Decomposition failed");
                 }
-                eig.getD();
-                eig.getV();
+                D = eig.getD();
+                V = eig.getV();
             }
 
-            return System.currentTimeMillis() - prev;
+            final long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = OjAlgoAlgorithmFactory.ojAlgoToEjml(D);
+            outputs[1] = OjAlgoAlgorithmFactory.ojAlgoToEjml(V);
+            return elapsedTime;
         }
     }
 
@@ -156,8 +162,34 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
         }
     }
 
+    public static class OpCholInvertSymmPosDef extends MyInterface {
+
+        public long process(final DenseMatrix64F[] inputs, final DenseMatrix64F[] outputs, final long numTrials) {
+
+            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+
+            MatrixStore<Double> inverse = null;
+            final Cholesky<Double> chol = CholeskyDecomposition.makePrimitive();
+
+            final long prev = System.currentTimeMillis();
+
+            for (long i = 0; i < numTrials; i++) {
+                if (!chol.compute(matA)) {
+                    throw new RuntimeException("Decomposition failed");
+                }
+                inverse = chol.getInverse();
+            }
+
+            final long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = OjAlgoAlgorithmFactory.ojAlgoToEjml(inverse);
+            CommonOps.transpose(outputs[0]);
+            return elapsedTime;
+        }
+    }
+
     public static class OpLu extends MyInterface {
 
+        // TODO change to what Anders said
         public long process(final DenseMatrix64F[] inputs, final DenseMatrix64F[] outputs, final long numTrials) {
 
             final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
@@ -341,18 +373,26 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
             final SingularValue<Double> svd = SingularValueDecomposition.makePrimitive();
 
+            MatrixStore<Double> U = null;
+            MatrixStore<Double> S = null;
+            MatrixStore<Double> V = null;
+
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!svd.compute(matA)) {
                     throw new RuntimeException("Decomposition failed");
                 }
-                svd.getQ1();
-                svd.getD();
-                svd.getQ2();
+                U = svd.getQ1();
+                S = svd.getD();
+                V = svd.getQ2();
             }
 
-            return System.currentTimeMillis() - prev;
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = ojAlgoToEjml(U);
+            outputs[1] = ojAlgoToEjml(S);
+            outputs[2] = ojAlgoToEjml(V);
+            return elapsedTime;
         }
     }
 
@@ -426,6 +466,11 @@ public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
 
     public AlgorithmInterface invert() {
         return new OpInvert();
+    }
+
+    @Override
+    public AlgorithmInterface invertSymmPosDef() {
+        return new OpCholInvertSymmPosDef();
     }
 
     public AlgorithmInterface lu() {
