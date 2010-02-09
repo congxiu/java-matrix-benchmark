@@ -26,8 +26,10 @@ import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.ujmp.core.Matrix;
+import org.ujmp.core.MatrixFactory;
 import org.ujmp.core.Ops;
 import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
+import org.ujmp.core.doublematrix.calculation.general.decomposition.Chol;
 
 
 /**
@@ -46,10 +48,10 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
 	@Override
 	public AlgorithmInterface chol() {
-		return new Chol();
+		return new CholOp();
 	}
 
-	public static class Chol extends MyInterface {
+	public static class CholOp extends MyInterface {
 		@Override
 		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
 			Matrix matA = convertToUjmp(inputs[0]);
@@ -229,7 +231,27 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 
     @Override
 	public AlgorithmInterface invertSymmPosDef() {
-		return null;
+		return new InvSymmPosDef();
+	}
+
+	public static class InvSymmPosDef extends MyInterface {
+		@Override
+		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+			Matrix matA = convertToUjmp(inputs[0]);
+
+            Matrix result = null;
+            Matrix eye = MatrixFactory.eye(matA.getSize());
+
+			long prev = System.currentTimeMillis();
+
+			for (long i = 0; i < numTrials; i++) {
+                result = Chol.INSTANCE.solve(matA, eye);
+            }
+
+			long elapsedTime = System.currentTimeMillis() - prev;
+		    outputs[0] = ujmpToEjml(result);
+            return elapsedTime;
+		}
 	}
 
 	@Override
