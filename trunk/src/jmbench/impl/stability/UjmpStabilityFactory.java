@@ -20,13 +20,12 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
+import static jmbench.impl.runtime.UjmpAlgorithmFactory.convertToUjmp;
+import static jmbench.impl.runtime.UjmpAlgorithmFactory.ujmpToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
 import org.ujmp.core.Matrix;
-
-import static jmbench.impl.runtime.UjmpAlgorithmFactory.convertToUjmp;
-import static jmbench.impl.runtime.UjmpAlgorithmFactory.ujmpToEjml;
 
 
 /**

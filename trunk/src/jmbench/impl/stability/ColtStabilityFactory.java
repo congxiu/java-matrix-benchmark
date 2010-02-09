@@ -24,12 +24,11 @@ import cern.colt.matrix.linalg.Algebra;
 import cern.colt.matrix.linalg.EigenvalueDecomposition;
 import cern.colt.matrix.linalg.SingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
+import static jmbench.impl.runtime.ColtAlgorithmFactory.coltToEjml;
+import static jmbench.impl.runtime.ColtAlgorithmFactory.convertToColt;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
-
-import static jmbench.impl.runtime.ColtAlgorithmFactory.coltToEjml;
-import static jmbench.impl.runtime.ColtAlgorithmFactory.convertToColt;
 
 
 /**

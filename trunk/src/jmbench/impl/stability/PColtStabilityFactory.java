@@ -24,12 +24,11 @@ import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleEigenvalueDecomposition;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
+import static jmbench.impl.runtime.PColtAlgorithmFactory.convertToParallelColt;
+import static jmbench.impl.runtime.PColtAlgorithmFactory.parallelColtToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
-
-import static jmbench.impl.runtime.PColtAlgorithmFactory.convertToParallelColt;
-import static jmbench.impl.runtime.PColtAlgorithmFactory.parallelColtToEjml;
 
 
 /**

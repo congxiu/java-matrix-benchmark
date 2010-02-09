@@ -20,13 +20,12 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
+import static jmbench.impl.runtime.JScienceAlgorithmFactory.convertToFloat64;
+import static jmbench.impl.runtime.JScienceAlgorithmFactory.jsciToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
 import org.jscience.mathematics.vector.Float64Matrix;
-
-import static jmbench.impl.runtime.JScienceAlgorithmFactory.convertToFloat64;
-import static jmbench.impl.runtime.JScienceAlgorithmFactory.jsciToEjml;
 
 
 /**
