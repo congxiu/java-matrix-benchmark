@@ -15,18 +15,7 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager" verified="true">
-    <list default="true" readonly="true" id="c142ba04-2f3d-40ac-baac-3067f4bf6a6f" name="Default" comment="- adding changes from">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/RandomMatrices.java" afterPath="$PROJECT_DIR$/../../java/ejml/src/org/ejml/ops/RandomMatrices.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/MatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeometryMath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/decomposition/BenchmarkCholeskyDecomposition.java" afterPath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/decomposition/BenchmarkCholeskyDecomposition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestMatrixGeoMath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jmatbench.iws" afterPath="$PROJECT_DIR$/jmatbench.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/EJML.jar" afterPath="$PROJECT_DIR$/lib/EJML.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/pja/geometry/GeoTuple3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" afterPath="$PROJECT_DIR$/../../java/libpjajava/src/test/pja/geometry/TestRotationMatrixGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestRandomMatrices.java" afterPath="$PROJECT_DIR$/../../java/ejml/test/org/ejml/ops/TestRandomMatrices.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/linsol/BenchmarkInvertSymPosDef.java" afterPath="$PROJECT_DIR$/../../java/ejml/benchmarks/src/org/ejml/alg/dense/linsol/BenchmarkInvertSymPosDef.java" />
-    </list>
+    <list default="true" readonly="true" id="c142ba04-2f3d-40ac-baac-3067f4bf6a6f" name="Default" comment="" />
     <list id="58cf4c9d-8fc7-457b-a1a4-e98b225003f8" name="Failed commit: Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
     <list id="445b28f8-d1e0-46b6-b475-c082b31086fc" name="Failed commit: Default" comment="- DenseMatrix64F can be set to a row major or column major matrix&#10;- Each library now uses a single class to create all of its performance tests&#10; * An interface is defined for that class&#10;- Slave calls exit(0) so that it will exit even with dangling threads&#10;- added ojAlgo to benchmark" />
     <ignored path="matbenchmark.iws" />
@@ -939,7 +928,7 @@
     <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="- clarified name of random matrix generator&#10;- switch random matrix for inverse pos def generator" />
+    <option name="LAST_COMMIT_MESSAGE" value="misc" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -952,7 +941,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="- Working symmetric eigenvalue decomposition algorithm" />
     <MESSAGE value="- Adding a working symmetric eigenvalue decomposition&#10;- Improved general eigenvalue tests, which is exposing problems with general evd algorithm&#10;- updated name of random eigen vector generator to reflect that it is actually only generating symmetric matrices" />
     <MESSAGE value="- upgraded parallel colt to 0.9.2&#10;- fixed an issue with SVD accuracy stability test&#10;- slightly purturbed SVD overflow test so that all the singular values are not all equal&#10;- tweeked GenerateHtmlTables so that you can configure individual plots&#10;- added build.xml back in" />
     <MESSAGE value="- improved speed and overflow in symmetric eigen" />
@@ -977,6 +965,7 @@
     <MESSAGE value="- adding new version of ojalgo and ujmp" />
     <MESSAGE value="- got ant script to build" />
     <MESSAGE value="- clarified name of random matrix generator&#10;- switch random matrix for inverse pos def generator" />
+    <MESSAGE value="misc" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
