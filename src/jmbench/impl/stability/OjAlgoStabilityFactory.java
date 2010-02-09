@@ -20,6 +20,8 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
+import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.convertToOjAlgo;
+import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.ojAlgoToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
@@ -30,9 +32,6 @@ import org.ojalgo.matrix.decomposition.EigenvalueDecomposition;
 import org.ojalgo.matrix.decomposition.SingularValue;
 import org.ojalgo.matrix.decomposition.SingularValueDecomposition;
 import org.ojalgo.matrix.store.PhysicalStore;
-
-import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.convertToOjAlgo;
-import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.ojAlgoToEjml;
 
 
 /**

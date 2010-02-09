@@ -20,14 +20,13 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
+import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.convertToBlockReal;
+import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.realToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.apache.commons.math.linear.*;
 import org.apache.commons.math.util.MathUtils;
 import org.ejml.data.DenseMatrix64F;
-
-import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.convertToBlockReal;
-import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.realToEjml;
 
 
 /**

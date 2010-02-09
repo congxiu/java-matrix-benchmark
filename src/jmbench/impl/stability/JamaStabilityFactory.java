@@ -23,12 +23,11 @@ import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
+import static jmbench.impl.runtime.JamaAlgorithmFactory.convertToJama;
+import static jmbench.impl.runtime.JamaAlgorithmFactory.jamaToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
-
-import static jmbench.impl.runtime.JamaAlgorithmFactory.convertToJama;
-import static jmbench.impl.runtime.JamaAlgorithmFactory.jamaToEjml;
 
 
 /**
