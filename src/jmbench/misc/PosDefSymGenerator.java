@@ -47,7 +47,7 @@ public class PosDefSymGenerator implements MatrixGenerator
             throw new RuntimeException("Must be square");
         }
 
-        return RandomMatrices.createRandomPosDef(numRows,rand);
+        return RandomMatrices.createSymmPosDef(numRows,rand);
     }
 
     @Override
