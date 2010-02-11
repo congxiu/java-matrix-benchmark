@@ -22,12 +22,12 @@ package jmbench.impl.stability;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
+import org.ejml.alg.dense.decomposition.DecompositionFactory;
 import org.ejml.alg.dense.decomposition.EigenDecomposition;
 import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.ejml.ops.EigenOps;
-import org.ejml.ops.SpecializedOps;
 
 
 /**
@@ -86,13 +86,12 @@ public class EjmlStabilityFactory implements StabilityFactory {
         public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
             DenseMatrix64F A = inputs[0];
 
-            SingularValueDecomposition svd = SpecializedOps.svd(A);
-
-            if( svd == null )
+            SingularValueDecomposition svd = DecompositionFactory.svd();
+            if( !svd.decompose(A) )
                 return null;
 
             DenseMatrix64F U = svd.getU();
-            DenseMatrix64F S = svd.getW();
+            DenseMatrix64F S = svd.getW(null);
             DenseMatrix64F V = svd.getV();
 
             return new DenseMatrix64F[]{U,S,V};

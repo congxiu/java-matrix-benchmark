@@ -1,6 +1,9 @@
 
 
-- Finish adding checks for all operators
 - only plot results if errors don't exist
+- normalize to f(x) where f(x) is a polynomial that makes it look good
+- flush memory between trials
+
+
 - determine memory requirements
 - remove LU,QR,Cholesky decomposition from runtime

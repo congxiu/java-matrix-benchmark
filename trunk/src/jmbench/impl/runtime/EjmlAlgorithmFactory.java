@@ -130,7 +130,7 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
                 if( !svd.decompose(matA) )
                     throw new RuntimeException("Decomposition failed");
                 U = svd.getU();
-                S = svd.getW();
+                S = svd.getW(S);
                 V = svd.getV();
             }
 

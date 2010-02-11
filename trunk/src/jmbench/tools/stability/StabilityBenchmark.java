@@ -74,11 +74,11 @@ public class StabilityBenchmark {
 
         saveLibraryDescriptions(libs);
 
-//        benchmarkLibraries(libs, config, "small",config.smallSizeMin,config.smallSizeMax,
-//                    config.trialsSmallSolve,config.trialsSmallSvd );
-//
-//        benchmarkLibraries(libs, config, "medium",config.mediumSizeMin,config.mediumSizeMax,
-//                config.trialsMediumSolve,config.trialsMediumSvd );
+        benchmarkLibraries(libs, config, "small",config.smallSizeMin,config.smallSizeMax,
+                    config.trialsSmallSolve,config.trialsSmallSvd );
+
+        benchmarkLibraries(libs, config, "medium",config.mediumSizeMin,config.mediumSizeMax,
+                config.trialsMediumSolve,config.trialsMediumSvd );
 
         benchmarkLibraries(libs, config, "large",config.largeSizeMin,config.largeSizeMax,
                 config.trialsLargeSolve,config.trialsLargeSvd );
