@@ -66,7 +66,7 @@ public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
             for( long i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition s = matA.computeSVD();
                 s.getU();
-                s.getW();
+                s.getW(null);
                 s.getV();
             }
 
