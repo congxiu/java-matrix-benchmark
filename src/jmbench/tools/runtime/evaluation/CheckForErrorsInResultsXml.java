@@ -42,7 +42,7 @@ public class CheckForErrorsInResultsXml {
         directory = new File(dir);
 
         if( !directory.exists() ) {
-            throw new IllegalArgumentException("Directory does not exist");
+            throw new IllegalArgumentException("Directory does not exist: "+dir);
         }
 
         if( !directory.isDirectory() ) {
@@ -85,6 +85,10 @@ public class CheckForErrorsInResultsXml {
         int numUnknown = 0;
 
         for( RuntimeEvaluationMetrics metrics : r.getMetrics() ) {
+            // if it is null then it didn't have any results for that matrix size
+            if( metrics == null ) {
+                break;
+            }
             for( RuntimeResults rr : metrics.getRawResults() ) {
                 if( rr.error == null ) {
                    numNull++;
@@ -121,7 +125,7 @@ public class CheckForErrorsInResultsXml {
     }
 
     public static void main( String args[] ) {
-        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml("/home/pja/projects/jmatbench/trunk/results/1265160742280");
+        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml("C:\\Users\\foo\\Documents\\programming\\jmatbench\\results\\1265721857552");
 
         p.examine();
     }

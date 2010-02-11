@@ -19,7 +19,6 @@
 
 package jmbench.tools.runtime.evaluation;
 
-import jmbench.impl.MatrixLibrary;
 import jmbench.tools.ResultPlotter;
 import jmbench.tools.runtime.OperationResults;
 import jmbench.tools.runtime.RuntimeEvaluationMetrics;
@@ -92,12 +91,12 @@ public class PlotRuntimeResultsXml {
             String fileName = directory.getPath()+"/"+key;
 
             ResultPlotter.Reference refType = ResultPlotter.Reference.MEDIAN;
-            ResultPlotter.relativePlots(l, refType,MatrixLibrary.JAMA,fileName,whichMetric,true,true);
+            ResultPlotter.relativePlots(l, refType,null,fileName,whichMetric,true,true);
         }
     }
 
     public static void main( String args[] ) {
-        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/PentiumM_2010_01_31");
+        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("C:\\Users\\foo\\Documents\\programming\\jmatbench\\results\\1265721857552");
 
         p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
     }

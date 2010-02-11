@@ -41,8 +41,8 @@ public class SolveOverGenerator implements InputOutputGenerator {
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
         A = RandomMatrices.createRandom(3*matrixSize,matrixSize,-1,1,rand);
-        X = RandomMatrices.createRandom(matrixSize,3*matrixSize,-1,1,rand);
-        B = new DenseMatrix64F(3*matrixSize,3*matrixSize);
+        X = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
+        B = new DenseMatrix64F(3*matrixSize,1);
 
         CommonOps.mult(A,X,B);
 
@@ -80,6 +80,6 @@ public class SolveOverGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return 3*matrixSize*matrixSize*3;
+        return matrixSize*matrixSize*12;
     }
 }
