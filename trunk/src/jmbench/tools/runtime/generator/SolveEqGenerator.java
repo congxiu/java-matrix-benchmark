@@ -40,7 +40,7 @@ public class SolveEqGenerator implements InputOutputGenerator {
     @Override
     public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
         A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
-        B = RandomMatrices.createRandom(matrixSize,3*matrixSize,-1,1,rand);
+        B = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
 
         return new DenseMatrix64F[]{A,B};
     }
@@ -76,6 +76,6 @@ public class SolveEqGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize*3;
+        return matrixSize*matrixSize*8;
     }
 }

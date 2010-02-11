@@ -75,6 +75,6 @@ public class CholeskyGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize*4;
+        return matrixSize*matrixSize*10;
     }
 }
