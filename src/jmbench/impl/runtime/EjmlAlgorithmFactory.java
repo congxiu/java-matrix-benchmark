@@ -24,7 +24,6 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.alg.dense.decomposition.*;
-import org.ejml.alg.dense.decomposition.svd.SvdNumericalRecipes;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.ejml.ops.CovarianceOps;
@@ -118,7 +117,7 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
 
-            SvdNumericalRecipes svd = new SvdNumericalRecipes();
+            SingularValueDecomposition svd = DecompositionFactory.svd();
 
             DenseMatrix64F U = null;
             DenseMatrix64F S = null;
