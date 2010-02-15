@@ -35,7 +35,7 @@ Tested Libraries:
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/scale.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/multTranA.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/tran.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/invSymmPosDef.png
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/invSymmPosDef.png ||
 
 =Solving Linear Systems=
 
