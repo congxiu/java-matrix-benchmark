@@ -2,6 +2,7 @@
 
 There are a few changes in this benchmark since the last one.  
   * LU, QR, Cholesky are fully decomposed
+  * CommonsMath no longer always used block real matrices.
   * Several libraries had been updated
 
 Links to the results:
