@@ -42,6 +42,12 @@ import java.io.IOException;
 public class UtilPlotPdf {
 
     public static void saveAsPdf(JFreeChart chart, String FILENAME , int width, int height) {
+        File parent = new File(new File(FILENAME).getParent());
+        if( !parent.exists() )  {
+            if( !parent.mkdirs() )
+                throw new RuntimeException("Can't make directory path");
+        }
+
         Document document = new Document(new Rectangle(width, height));
         try {
             FileOutputStream file = new FileOutputStream(FILENAME);
