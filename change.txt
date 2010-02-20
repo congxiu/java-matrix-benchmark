@@ -1,4 +1,4 @@
------ Version 0.4.1
+----- Version 0.5
 
 2010/XX/XX
 
@@ -10,11 +10,12 @@
 - Changed SVD accuracy so that an input matrix of zero can't be created
 - Modified MTJ, Colt, and Parallel COlt benchmarks so that do not overwrite input matrices.
 - Modified all runtime benchmark so that everything that can be predeclared is not done so inside of the timing area.
-- Can plot runtime results relative to the mean or median result now
+- Can plot runtime results relative to the mean, median, max result now
 - Added sanity checks to runtime performance that makes sure the operations are producing meaningful results.
 - Changed how Commons-math creates matrices
 - Added a converter for runtime results that change it into CSV format
-- Added specialized inverse performance test for symmetric positive definite matrices
+- Added specialized inverse performance test for symmetric positive definite matrices (covariance)
+- Added absolute time plots which show how long it takes to perfomr one operation
 
 ----- Version 0.4
 

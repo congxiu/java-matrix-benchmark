@@ -36,6 +36,51 @@ import java.util.List;
  */
 public class ResultPlotter {
 
+    public static void absolutePlots( List<OperationResults> data ,
+                                      String fileName ,
+                                      int whichMetric ,
+                                      boolean savePDF ,
+                                      boolean showWindow )
+    {
+        String opName = data.get(0).getOpName();
+        OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Time (s)");
+
+        splot.setLogScale(true,true);
+
+        int numMatrixSizes = getNumMatrices(data);
+
+        double results[] = new double[ numMatrixSizes ];
+        int matDimen[] = new int[ numMatrixSizes ];
+
+        if( fileName == null ) {
+            fileName = opName;
+        }
+
+        for( int i = 0; i < numMatrixSizes; i++ ){
+            matDimen[i] = getMatrixSize(data,i);
+        }
+
+        for( OperationResults ops : data ) {
+            RuntimeEvaluationMetrics[]metrics = ops.metrics;
+
+            for( int i = 0; i < numMatrixSizes; i++ ) {
+                if( metrics[i] != null ) {
+                    results[i] = 1.0/metrics[i].getMetric(whichMetric);
+                } else {
+                    results[i] = Double.NaN;
+                }
+            }
+
+            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),numMatrixSizes,
+                    ops.getLibrary().getPlotLineType());
+        }
+
+        if( savePDF )
+            splot.savePDF(fileName+".pdf",600,500);
+        if( showWindow )
+            splot.displayWindow(600, 500);
+    }
+
     public static void relativePlots( List<OperationResults> data ,
                                       Reference referenceType ,
                                       MatrixLibrary refLib ,
@@ -58,8 +103,7 @@ public class ResultPlotter {
         OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Relative Performance");
 
         splot.setLogScale(true,true);
-        splot.setRange(0.1,20);
-//        splot.setRange(0.01,20);
+        splot.setRange(0.01,2);
 
         int numMatrixSizes = getNumMatrices(data);
 
@@ -71,9 +115,7 @@ public class ResultPlotter {
             fileName = opName;
         }
 
-        for( int i = 0; i <numMatrixSizes; i++ ) {
-            refValue[i] = getReferenceValue(data,refResults,i,whichMetric,referenceType);
-        }
+        computeReferenceValues(data, referenceType, whichMetric, refResults, numMatrixSizes, refValue);
 
         for( int i = 0; i < numMatrixSizes; i++ ){
             matDimen[i] = getMatrixSize(data,i);
@@ -98,6 +140,25 @@ public class ResultPlotter {
             splot.savePDF(fileName+".pdf",500,350);
         if( showWindow )
             splot.displayWindow(500, 350);
+    }
+
+    private static void computeReferenceValues(List<OperationResults> data,
+                                               Reference referenceType,
+                                               int whichMetric,
+                                               OperationResults refResults,
+                                               int numMatrixSizes,
+                                               double[] refValue) {
+        if( referenceType == Reference.NONE ) {
+            for( int i = 0; i <numMatrixSizes; i++ ) {
+                refValue[i] = 1.0;
+            }
+        } else {
+            for( int i = 0; i <numMatrixSizes; i++ ) {
+                refValue[i] = getReferenceValue(data,refResults,i,whichMetric,referenceType);
+//                System.out.println("i = "+refValue[i]);
+            }
+//            System.out.println();
+        }
     }
 
     private static int getNumMatrices( List<OperationResults> data ) {
@@ -167,6 +228,10 @@ public class ResultPlotter {
             case MEDIAN:
                 Collections.sort(results);
                 return results.get(results.size()/2);
+
+            case MAX:
+                Collections.sort(results);
+                return results.get(results.size()-1);
         }
 
         throw new RuntimeException("Unknown reference type");
@@ -188,8 +253,10 @@ public class ResultPlotter {
 
     public static enum Reference
     {
+        NONE,
         LIBRARY,
         MEAN,
-        MEDIAN
+        MEDIAN,
+        MAX
     }
 }

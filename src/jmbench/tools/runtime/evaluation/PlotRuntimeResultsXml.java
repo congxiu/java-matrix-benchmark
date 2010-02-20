@@ -88,15 +88,17 @@ public class PlotRuntimeResultsXml {
         for( String key : opMap.keySet() ) {
             List<OperationResults> l = opMap.get(key);
 
-            String fileName = directory.getPath()+"/"+key;
+            String fileNameRel = directory.getPath()+"/plots/relative/"+key;
+            String fileNameAbs = directory.getPath()+"/plots/absolute/"+key;
 
-            ResultPlotter.Reference refType = ResultPlotter.Reference.MEDIAN;
-            ResultPlotter.relativePlots(l, refType,null,fileName,whichMetric,true,true);
+            ResultPlotter.Reference refType = ResultPlotter.Reference.MAX;
+            ResultPlotter.relativePlots(l, refType,null,fileNameRel,whichMetric,true,true);
+            ResultPlotter.absolutePlots(l, fileNameAbs,whichMetric,true,false);
         }
     }
 
     public static void main( String args[] ) {
-        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("C:\\Users\\foo\\Documents\\programming\\jmatbench\\results\\1265721857552");
+        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/Q9400_2010_02");
 
         p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
     }
