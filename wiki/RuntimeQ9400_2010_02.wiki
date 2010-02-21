@@ -24,7 +24,7 @@ Tested Libraries:
 || Name || Version         ||
 || Colt ||  1.2            ||
 || Commons Math || 2.1a (2010/1/29) ||
-|| EJML ||  0.10.1 SVN  (2010/1/20) ||
+|| EJML ||  0.10 SVN  (2010/1/14) ||
 || Jama || 1.0.2           ||
 || JScience || 4.3         ||
 || MTJ || 0.9.12           || 
