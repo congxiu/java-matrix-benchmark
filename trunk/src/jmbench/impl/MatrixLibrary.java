@@ -36,10 +36,10 @@ public class MatrixLibrary implements Serializable {
     public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","SEJML 0.7","",true,3);
     public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math-2.1a","Commons Math 2.1a","",true,4);
     public static final MatrixLibrary JSCIENCE = new MatrixLibrary("JScience","jscience-4.3","JScience 4.3","",true,5);
-    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo-28.34","ojAlgo 28.34","2010-01-30",true,6);
+    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo-28.37","ojAlgo 28.37","2010-02-13",true,6);
     public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt-1.2","Colt 1.2","",true,7);
     public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt-0.9.2","Parallel Colt 0.9.2","2010-01-24",true,8);
-    public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp-svn","UJMP svn","2010-01-20",true,9);
+    public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp-svn","UJMP svn","2010-02-20",true,9);
 
     public String plotName;
     public String versionName;
