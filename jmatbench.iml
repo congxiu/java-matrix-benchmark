@@ -109,17 +109,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ujmp-svn/ujmp-complete-0.2.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/ujmp-svn/ujmp-complete-0.2.4-sources.jar!/ujmp-core/src/main/java" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="libpja" />
     <orderEntry type="module-library">
       <library>
@@ -204,14 +193,19 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ojalgo-28.34/ojalgo-28.34.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/ojalgo-28.37/ojalgo-28.37.jar!/" />
         </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/lib/ojalgo-28.34/ojalgo-28.34-doc.zip!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/ojalgo-28.34/ojalgo-28.34-src.zip!/" />
-        </SOURCES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/ujmp-svn/ujmp-complete-0.2.5-with-deps.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
       </library>
     </orderEntry>
   </component>
