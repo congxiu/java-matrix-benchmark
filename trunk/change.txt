@@ -13,6 +13,8 @@
 - Can plot runtime results relative to the mean, median, max result now
 - Added sanity checks to runtime performance that makes sure the operations are producing meaningful results.
 - Changed how Commons-math creates matrices
+- Changed which matrices parallel colt uses
+- Changes tested operations in colt and parallel colt uses suggestions from Piotr Wendykier 
 - Added a converter for runtime results that change it into CSV format
 - Added specialized inverse performance test for symmetric positive definite matrices (covariance)
 - Added absolute time plots which show how long it takes to perform one operation
