@@ -22,19 +22,20 @@ package jmbench.impl.stability;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleEigenvalueDecomposition;
-import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecomposition;
+import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecompositionDC;
 import jmbench.impl.MatrixLibrary;
-import static jmbench.impl.runtime.PColtAlgorithmFactory.convertToParallelColt;
-import static jmbench.impl.runtime.PColtAlgorithmFactory.parallelColtToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
+
+import static jmbench.impl.runtime.PColtAlgorithmFactory.convertToParallelColt;
+import static jmbench.impl.runtime.PColtAlgorithmFactory.parallelColtToEjml;
 
 
 /**
  * @author Peter Abeles
  */
-public class PColtStabilityFactory implements StabilityFactory {
+public class ParallelColtStabilityFactory implements StabilityFactory {
 
     @Override
     public MatrixLibrary getLibrary() {
@@ -85,7 +86,7 @@ public class PColtStabilityFactory implements StabilityFactory {
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            DenseDoubleSingularValueDecomposition s = alg.svd(matA);
+            DenseDoubleSingularValueDecompositionDC s = alg.svdDC(matA);
 
             DenseMatrix64F ejmlU = parallelColtToEjml(s.getU());
             DenseMatrix64F ejmlS = parallelColtToEjml(s.getS());

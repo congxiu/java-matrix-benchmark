@@ -40,7 +40,7 @@ public class StabilityBenchmarkConfig implements Serializable {
     public static EvaluationTarget colt = new EvaluationTarget( MatrixLibrary.COLT, ColtStabilityFactory.class.getName());
     public static EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjStabilityFactory.class.getName());
     public static EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceStabilityFactory.class.getName());
-    public static EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, PColtStabilityFactory.class.getName());
+    public static EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, ParallelColtStabilityFactory.class.getName());
     public static EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpStabilityFactory.class.getName());
 
 
