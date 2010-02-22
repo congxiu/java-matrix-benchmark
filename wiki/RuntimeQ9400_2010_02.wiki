@@ -5,6 +5,7 @@ There are a few changes in this benchmark since the last one.
   * CommonsMath no longer always used block real matrices.
   * Several libraries had been updated
   * Plots are normalized by the best library at each matrix size.
+  * How Colt and Parallel Colt computes their results have been changed.
 
 Links to the results:
   * [#Basic_Operation_Results Basic Operations]
@@ -14,7 +15,7 @@ Links to the results:
 =Test Environment =
 
 Test Environment:
-|| Date || 2010.02.21 ||
+|| Date || 2010.02.22 ||
 || OS || Vista 64bit ||
 || CPU || Q9400 - 2.66 Ghz - 4 cores ||
 || JVM || Java HotSpot(TM) 64-Bit Server VM 1.6.0_16 ||
