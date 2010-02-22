@@ -79,19 +79,19 @@ public class RuntimeEvaluationMetrics
 
     public double getMetric( int which ) {
         switch( which ) {
-            case 0:
+            case METRIC_MEAN:
                 return mean;
 
-            case 1:
+            case METRIC_STDEV:
                 return stdev;
 
-            case 2:
+            case METRIC_MIN:
                 return min;
 
-            case 3:
+            case METRIC_MAX:
                 return max;
 
-            case 4:
+            case METRIC_MEDIAN:
                 return median;
         }
 

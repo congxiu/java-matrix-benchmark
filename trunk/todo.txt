@@ -3,6 +3,7 @@
 - normalize to f(x) where f(x) is a polynomial that makes it look good
 - flush memory between trials
 
+- larger matrices.  up to 4000?
 
 - determine memory requirements
 - remove LU,QR,Cholesky decomposition from runtime

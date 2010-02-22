@@ -36,6 +36,56 @@ import java.util.List;
  */
 public class ResultPlotter {
 
+    public static void variabilityPlots( List<OperationResults> data ,
+                                      String fileName ,
+                                      boolean savePDF ,
+                                      boolean showWindow )
+    {
+        String opName = data.get(0).getOpName();
+        OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Ops/Sex Range (%)");
+
+        splot.setLogScale(false,true);
+        splot.setRange(0.0,0.4);
+
+        int numMatrixSizes = getNumMatrices(data);
+
+        double results[] = new double[ numMatrixSizes ];
+        int matDimen[] = new int[ numMatrixSizes ];
+
+        if( fileName == null ) {
+            fileName = opName;
+        }
+
+        for( int i = 0; i < numMatrixSizes; i++ ){
+            matDimen[i] = getMatrixSize(data,i);
+        }
+
+        for( OperationResults ops : data ) {
+            RuntimeEvaluationMetrics[]metrics = ops.metrics;
+
+            for( int i = 0; i < numMatrixSizes; i++ ) {
+                if( metrics[i] != null && metrics[i].getRawResults().size() > 5 ) {
+//                    double max = 1.0/metrics[i].getMin();
+//                    double min = 1.0/metrics[i].getMax();
+                    double max = metrics[i].getMax();
+                    double min = metrics[i].getMin();
+                    results[i] = (max-min)/max;
+//                    results[i] = metrics[i].getStdev()/metrics[i].getMean();
+                } else {
+                    results[i] = Double.NaN;
+                }
+            }
+
+            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),numMatrixSizes,
+                    ops.getLibrary().getPlotLineType());
+        }
+
+        if( savePDF )
+            splot.savePDF(fileName+".pdf",600,500);
+        if( showWindow )
+            splot.displayWindow(600, 500);
+    }
+
     public static void absolutePlots( List<OperationResults> data ,
                                       String fileName ,
                                       int whichMetric ,
@@ -43,7 +93,7 @@ public class ResultPlotter {
                                       boolean showWindow )
     {
         String opName = data.get(0).getOpName();
-        OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Time (s)");
+        OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Time Per Op (s)");
 
         splot.setLogScale(true,true);
 
