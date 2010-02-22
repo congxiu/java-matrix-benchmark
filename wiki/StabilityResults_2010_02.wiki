@@ -8,7 +8,7 @@ Quick Links:
 
 = Comments =
 
-PRELIMINARY
+
 
 = Test Setup =
 
@@ -23,13 +23,13 @@ Tested Libraries:
 || Name || Version         ||
 || Colt ||  1.2            ||
 || Commons Math || 2.1a (2010/1/29) ||
-|| EJML ||  0.9            ||
+|| EJML ||  0.10.1 ||
 || Jama || 1.0.2           ||
 || JScience || 4.3         ||
 || MTJ || 0.9.12           || 
-|| OjAlgo || 28.31         || 
+|| OjAlgo || 28.37         || 
 || Parallel Colt || 0.9.2  ||
-|| UJMP || SVN             ||
+|| UJMP || SVN (2010/2/20)  ||
 
 Test Configuration
 ||  || Min || Max ||
