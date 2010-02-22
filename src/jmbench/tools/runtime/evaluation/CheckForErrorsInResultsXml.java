@@ -125,7 +125,7 @@ public class CheckForErrorsInResultsXml {
     }
 
     public static void main( String args[] ) {
-        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml("C:\\Users\\foo\\Documents\\programming\\jmatbench\\results\\1265721857552");
+        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml("/home/pja/projects/jmatbench/trunk/results/1266805182869");
 
         p.examine();
     }

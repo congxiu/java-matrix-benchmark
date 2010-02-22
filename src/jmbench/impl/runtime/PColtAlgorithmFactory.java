@@ -22,10 +22,9 @@ package jmbench.impl.runtime;
 import cern.colt.matrix.tdouble.DoubleFactory2D;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
-import cern.colt.matrix.tdouble.algo.DoubleBlas;
-import cern.colt.matrix.tdouble.algo.SmpDoubleBlas;
 import cern.colt.matrix.tdouble.algo.decomposition.*;
-import cern.colt.matrix.tdouble.impl.DenseColumnDoubleMatrix2D;
+import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
+import cern.jet.math.tdouble.DoubleFunctions;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.LibraryAlgorithmFactory;
@@ -90,7 +89,7 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             // the recommended way I think would be using Algebra, but this might allow
             // reuse of data
             DenseDoubleLUDecompositionQuick decomp = new DenseDoubleLUDecompositionQuick();
-            DoubleMatrix2D tmp = new DenseColumnDoubleMatrix2D(matA.rows(),matA.columns());
+            DoubleMatrix2D tmp = createMatrix(matA.rows(),matA.columns());
 
             DoubleMatrix2D L = null;
             DoubleMatrix2D U = null;
@@ -136,10 +135,9 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             long prev = System.currentTimeMillis();
 
-            // There are two MySVD decomposition algorithms.
-            // I arbitrarily chose this version.  The java doc provided no guidelines...
+            // There are two SVD algorithms. Piotr Wendykier said this one is faster.
             for( long i = 0; i < numTrials; i++ ) {
-                DenseDoubleSingularValueDecomposition s = alg.svd(matA);
+                DenseDoubleSingularValueDecompositionDC s = alg.svdDC(matA);
                 U = s.getU();
                 S = s.getS();
                 V = s.getV();
@@ -304,15 +302,14 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
             DoubleMatrix2D matB = convertToParallelColt(inputs[1]);
 
-            DoubleBlas blas = new SmpDoubleBlas();
-            DoubleMatrix2D result = new DenseColumnDoubleMatrix2D(matA.rows(),matA.columns());
+            DoubleMatrix2D result = createMatrix(matA.rows(),matA.columns());
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
                 result.assign(matA);
-                blas.daxpy(1.0,matB,result);
+                result.assign(matB, DoubleFunctions.plus);
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
@@ -358,16 +355,12 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
             DoubleMatrix2D matB = convertToParallelColt(inputs[1]);
 
-            DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
-
-            DoubleMatrix2D result = null;
+            DoubleMatrix2D result = createMatrix(matA.columns(),matB.columns());
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                DoubleMatrix2D tran = alg.transpose(matA);
-                result = alg.mult(tran,matB);
-                
+                result = matA.zMult(matB, result, 1, 0, true, false);
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
@@ -386,15 +379,14 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
 
-            DoubleBlas blas = new SmpDoubleBlas();
-            DoubleMatrix2D result = new DenseColumnDoubleMatrix2D(matA.rows(),matA.columns());
+            DoubleMatrix2D result = createMatrix(matA.rows(),matA.columns());
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
                 result.assign(matA);
-                blas.dscal(ScaleGenerator.SCALE,result);
+                result.assign(DoubleFunctions.mult(ScaleGenerator.SCALE));
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
@@ -439,10 +431,15 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
         // yep it just marks it as transposed
         return null;
     }
-    
+
+    public static DenseDoubleMatrix2D createMatrix( int numRows , int numCols ) {
+        // this matrix type is used at the suggestion of Piotr Wendykier
+        return new DenseDoubleMatrix2D( numRows , numCols );
+    }
+
     public static cern.colt.matrix.tdouble.DoubleMatrix2D convertToParallelColt( DenseMatrix64F orig )
     {
-        DenseColumnDoubleMatrix2D mat = new DenseColumnDoubleMatrix2D(orig.numRows,orig.numCols);
+        DenseDoubleMatrix2D mat = createMatrix(orig.numRows,orig.numCols);
 
         for( int i = 0; i < orig.numRows; i++ ) {
             for( int j = 0; j < orig.numCols; j++ ) {

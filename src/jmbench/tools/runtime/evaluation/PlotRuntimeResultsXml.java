@@ -44,11 +44,11 @@ public class PlotRuntimeResultsXml {
         directory = new File(dir);
 
         if( !directory.exists() ) {
-            throw new IllegalArgumentException("Directory does not exist");
+            throw new IllegalArgumentException("Directory does not exist.");
         }
 
         if( !directory.isDirectory() ) {
-            throw new IllegalArgumentException("Need to specify a directory");
+            throw new IllegalArgumentException("Need to specify a directory.");
         }
     }
 
@@ -88,10 +88,12 @@ public class PlotRuntimeResultsXml {
         for( String key : opMap.keySet() ) {
             List<OperationResults> l = opMap.get(key);
 
+            String fileNameVar = directory.getPath()+"/plots/variability/"+key;
             String fileNameRel = directory.getPath()+"/plots/relative/"+key;
             String fileNameAbs = directory.getPath()+"/plots/absolute/"+key;
 
             ResultPlotter.Reference refType = ResultPlotter.Reference.MAX;
+            ResultPlotter.variabilityPlots(l, fileNameVar,true,false);
             ResultPlotter.relativePlots(l, refType,null,fileNameRel,whichMetric,true,true);
             ResultPlotter.absolutePlots(l, fileNameAbs,whichMetric,true,false);
         }

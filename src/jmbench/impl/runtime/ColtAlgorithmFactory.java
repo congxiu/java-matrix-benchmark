@@ -288,7 +288,6 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
-            Blas blas = SmpBlas.smpBlas;
             DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
 
             long prev = System.currentTimeMillis();
@@ -296,7 +295,7 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             for( long i = 0; i < numTrials; i++ ) {
                 // In-place operation here
                 result.assign(matA);
-                blas.daxpy(1,matB,result);
+                result.assign(matB, cern.jet.math.Functions.plus);
             }
 
             long elapsed = System.currentTimeMillis()-prev;
@@ -346,14 +345,12 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
             DenseDoubleMatrix2D matB = convertToColt(inputs[1]);
 
-            Algebra alg = new Algebra();
-            DoubleMatrix2D result = null;
-
+            DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.columns(),matB.columns());
+            
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                DoubleMatrix2D tranA = alg.transpose(matA);
-                result = alg.mult(tranA,matB);
+                result = matA.zMult(matB, result, 1, 0, true, false);
             }
 
             long elapsed = System.currentTimeMillis()-prev;
@@ -375,14 +372,13 @@ public class ColtAlgorithmFactory implements LibraryAlgorithmFactory {
             DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
 
             DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
-            Blas blas = SmpBlas.smpBlas;
 
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
                 result.assign(matA);
-                blas.dscal(ScaleGenerator.SCALE,result);
+                result.assign(cern.jet.math.Functions.mult(ScaleGenerator.SCALE));
             }
 
             long elapsed = System.currentTimeMillis()-prev;
