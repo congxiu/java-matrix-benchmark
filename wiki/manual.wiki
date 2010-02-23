@@ -2,15 +2,26 @@
 
 = Introduction =
 
-Add your content here.
-
-= File System =
+For ease of use ant scripts are provided for compiling and running the code.  
 
 = Running the Benchmarks =
 
-- default config
+By default results for all new tests are stored in a new directory created in the results directory.  The name of the directory will be the time in milliseconds when the test was started.  This way old results are not accidentally overwritten.
 
-- from a config file
+== Runtime Performance Benchmark ==
+
+  * Run a new benchmark using the default configuration.
+    * Command line: ant benchmarkRuntime
+  * Start a new benchmark using a specific configuration file.
+    * Command line: ant benchmarkRuntime -Dbenchmarkconfig=/path/to/config.xml
+  * Finish a benchmark that was incomplete.  Operations that were not completely finished will be deleted.
+    * Command line: ant benchmarkRuntime -Dbenchmarkconfig=/path/to/incomplete/results/directory
+  
+== Stability Benchmark ==
+
+  * Run a new benchmark using the default configuration
+    * Command line: ant benchmarkStability
+
 
 = Creating Plots and Tables =
 
