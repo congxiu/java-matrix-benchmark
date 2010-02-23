@@ -1,4 +1,5 @@
 #summary Stability Benchmark Results as of 2010 / 1 / 30
+#labels Deprecated
 
 Quick Links:
 
@@ -7,8 +8,6 @@ Quick Links:
   * [#Large_Matrices Large Matrices]
 
 = Comments =
-
-PRELIMINARY
 
 = Test Setup =
 
