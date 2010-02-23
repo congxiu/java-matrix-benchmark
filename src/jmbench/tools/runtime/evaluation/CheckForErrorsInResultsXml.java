@@ -125,7 +125,7 @@ public class CheckForErrorsInResultsXml {
     }
 
     public static void main( String args[] ) {
-        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml("/home/pja/projects/jmatbench/trunk/results/1266805182869");
+        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml("/home/pja/projects/jmatbench/trunk/results/Q9400_2010_02");
 
         p.examine();
     }

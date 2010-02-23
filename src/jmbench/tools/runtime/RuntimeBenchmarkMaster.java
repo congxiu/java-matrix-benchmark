@@ -124,16 +124,36 @@ public class RuntimeBenchmarkMaster {
     }
 
     public static void main( String args[] ) throws IOException, InterruptedException {
-        RuntimeBenchmarkMaster master = new RuntimeBenchmarkMaster();
+        RuntimeBenchmarkMaster master;
 
         if( args.length > 0 ) {
-            System.out.println("Loading config from xml...");
-            RuntimeBenchmarkConfig config = UtilXmlSerialization.deserializeXml(args[0]);
-            if( config == null )
-                throw new IllegalArgumentException("No config file found!");
+            File f = new File(args[0]);
 
-            master.performBenchmark(config);
+            RuntimeBenchmarkConfig config;
+
+            // if pointed to a directory it will try to resume from that directory
+            if( f.isDirectory() ) {
+                System.out.println("Resuming old results.");
+                config = UtilXmlSerialization.deserializeXml(args[0]+"/config.xml");
+                if( config == null )
+                    throw new IllegalArgumentException("No config file found!");
+                master = new RuntimeBenchmarkMaster(args[0]);
+                master.performBenchmark(config);
+
+            } else {
+                // otherwise try to load the file as a config and create a new results directory
+                master = new RuntimeBenchmarkMaster();
+                System.out.println("Loading config from xml...");
+                config = UtilXmlSerialization.deserializeXml(args[0]);
+                if( config == null )
+                    throw new IllegalArgumentException("No config file found!");
+                master.performBenchmark(config);
+            }
+
+
         } else {
+            // create a results directory starting from scratch
+            master = new RuntimeBenchmarkMaster();
             master.performBenchmark(RuntimeBenchmarkConfig.createAllConfig());
         }
     }
