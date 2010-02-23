@@ -39,6 +39,9 @@ public class OperationResults implements Serializable {
     // results by matrix size
     public RuntimeEvaluationMetrics metrics[];
 
+    // if true it finished computing all the results for this operation
+    public boolean complete;
+
     public OperationResults( String opName , MatrixLibrary library ,
                              int matDimen[] ,  RuntimeEvaluationMetrics metrics[] )
     {
@@ -81,5 +84,13 @@ public class OperationResults implements Serializable {
 
     public void setMetrics(RuntimeEvaluationMetrics[] metrics) {
         this.metrics = metrics;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }

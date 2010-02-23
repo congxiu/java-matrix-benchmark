@@ -141,11 +141,7 @@ public class RuntimeBenchmarkLibrary {
 
         List<RuntimeEvaluationCase> cases = new FactoryRuntimeEvaluationCase(library,config).createCases();
 
-        List<CaseState> states = new ArrayList<CaseState>();
-
-        for( RuntimeEvaluationCase c : cases ) {
-            states.add( new CaseState(c));
-        }
+        List<CaseState> states = createCaseList(cases);
 
         long startTime = System.currentTimeMillis();
 
@@ -163,6 +159,37 @@ public class RuntimeBenchmarkLibrary {
         System.out.println("Total processing time = "+(System.currentTimeMillis()-startTime)/1000.0);
 
         logStream.close();
+    }
+
+    /**
+     * Check to see if there are any previously saved results.  if so skip the test. 
+     */
+    private List<CaseState> createCaseList(List<RuntimeEvaluationCase> cases) {
+        List<CaseState> states = new ArrayList<CaseState>();
+
+        for( RuntimeEvaluationCase c : cases ) {
+            // see if the file already exists
+            File f = new File(directorySave+"/"+c.getFileName()+".xml");
+
+            if( f.exists() ) {
+                // if it exists read it in and see if it finished
+                OperationResults oldResults = UtilXmlSerialization.deserializeXml(f.getAbsolutePath());
+
+                if( !oldResults.isComplete() ) {
+                    System.out.println("DELETING OLD RESULTS: Found previously incomplete results for "+c.getOpName()+" deleting");
+                    logStream.println("DELETING OLD RESULTS: Found previously incomplete results for "+c.getOpName()+" deleting");
+                    if( !f.delete() )
+                        throw new RuntimeException("Can't delete old unfinished results");
+                     states.add( new CaseState(c));
+                } else {
+                    System.out.println("SKIPPING: Found previously completed results for "+c.getOpName());
+                    logStream.println("SKIPPING: Found previously completed results for "+c.getOpName()+" skipping");
+                }
+            } else {
+                states.add( new CaseState(c));
+            }
+        }
+        return states;
     }
 
     /**
@@ -199,24 +226,38 @@ public class RuntimeBenchmarkLibrary {
 
         System.out.println("#### "+libraryType.getVersionName()+"  op "+e.getOpName()+"  Size "+matDimen[state.matrixIndex]+"  block "+state.blockIndex+"  ####");
 
-        if( !computeAndSaveResults(e, state.matrixIndex , randSeed[state.blockIndex] , score , state.results) ) {
-            return true;
-        }
+        OperationResults r = computeResults(e, state.matrixIndex , randSeed[state.blockIndex] , score , state.results);
 
-        // move on to the next block
-        if( ++state.blockIndex >= config.numBlocks ) {
+        if( r == null )
+            return true;
+
+        boolean done = tooSlow;
+
+        // increment the number of blocks
+        if( !done && ++state.blockIndex >= config.numBlocks ) {
             state.results.clear();
             state.blockIndex = 0;
             state.matrixIndex++;
+
+            // see if its done processing all the matrices
+            if( state.matrixIndex >= matDimen.length ) {
+                done = true;
+            }
         }
 
-        return state.matrixIndex >= matDimen.length;
+        // make the this operation as being finished or not
+        r.complete = done;
+
+        // save the current state of the test
+        UtilXmlSerialization.serializeXml(r,directorySave+"/"+e.getFileName()+".xml");
+
+        return done;
     }
 
     /**
-     * Computes the current results and saves it to an XML file
+     * Computes the current results
      */
-    private boolean computeAndSaveResults( RuntimeEvaluationCase e , int matrixIndex ,
+    private OperationResults computeResults( RuntimeEvaluationCase e , int matrixIndex ,
                                            long randSeed ,
                                            RuntimeEvaluationMetrics score[] , List<RuntimeResults> rawResults )
             throws FileNotFoundException {
@@ -227,7 +268,7 @@ public class RuntimeBenchmarkLibrary {
             System.out.println("      ---- ***** -----");
             System.out.println("Evaluation Case Failed ");
             System.out.println("      ---- ***** -----");
-            return false;
+            return null;
         } else {
             rawResults.addAll(opsPerSecond);
 
@@ -235,19 +276,8 @@ public class RuntimeBenchmarkLibrary {
             score[matrixIndex] = new RuntimeEvaluationMetrics(rawResults);
             OperationResults results = new OperationResults(e.getOpName(),
                     libraryType,e.getDimens(),score);
-            UtilXmlSerialization.serializeXml(results,directorySave+"/"+e.getFileName()+".xml");
 
-            if( tooSlow ) {
-                // if it took too long don't run any more trials but save the results
-                // not as many trials, but longer processing time so its probably is still statistically
-                // significant.
-                System.out.println("      ---- ***** -----");
-                System.out.println("Took too long to evaluate this case.");
-                System.out.println("      ---- ***** -----");
-                return false;
-            } else {
-                return true;
-            }
+            return results;
         }
     }
 
