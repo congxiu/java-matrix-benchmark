@@ -46,6 +46,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public static final EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceAlgorithmFactory.class.getName());
     public static final EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, PColtAlgorithmFactory.class.getName());
     public static final EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpAlgorithmFactory.class.getName());
+    public static final EvaluationTarget jblas = new EvaluationTarget( MatrixLibrary.JBLAS, JBlasAlgorithmFactory.class.getName());
 
     // random seed used to create matrices used as inputs
     public long seed;
@@ -135,6 +136,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.targets.add(mtj);
         config.targets.add(jsci);
         config.targets.add(ujmp);
+        config.targets.add(jblas);
 
         return config;
     }

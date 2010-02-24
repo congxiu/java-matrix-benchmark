@@ -100,7 +100,7 @@ public class PlotRuntimeResultsXml {
     }
 
     public static void main( String args[] ) {
-        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/Q9400_2010_02");
+        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/PentiumM_2010_02");
 
         p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
     }
