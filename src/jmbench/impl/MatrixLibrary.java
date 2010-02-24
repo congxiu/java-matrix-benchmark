@@ -40,6 +40,7 @@ public class MatrixLibrary implements Serializable {
     public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt-1.2","Colt 1.2","",true,7);
     public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt-0.9.2","Parallel Colt 0.9.2","2010-01-24",true,8);
     public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp-svn","UJMP svn","2010-02-20",true,9);
+    public static final MatrixLibrary JBLAS = new MatrixLibrary("JBLAS","jblas-1.0.1","JBLAS 1.0.1","2010-01-13",true,10);
 
     public String plotName;
     public String versionName;
