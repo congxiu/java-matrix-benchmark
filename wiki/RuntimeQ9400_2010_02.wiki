@@ -13,7 +13,7 @@ Links to the results:
     * [#Java:_Basic_Operation_Results Basic Operations]
     * [#Java:_Solving_Linear_Systems Solving Linear Systems]
     * [#Java:_Matrix_Decompositions Matrix Decompositions]
-  * [#Mixed_Java_Libraries Java and Native Results]
+  * [#Mixed_Java_and_Native_Libraries Java and Native Results]
     * [#Mixed:_Basic_Operation_Results Basic Operations]
     * [#Mixed:_Solving_Linear_Systems Solving Linear Systems]
     * [#Mixed:_Matrix_Decompositions Matrix Decompositions]
