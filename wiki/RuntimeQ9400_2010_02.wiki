@@ -13,6 +13,10 @@ Links to the results:
     * [#Java:_Basic_Operation_Results Basic Operations]
     * [#Java:_Solving_Linear_Systems Solving Linear Systems]
     * [#Java:_Matrix_Decompositions Matrix Decompositions]
+  * [#Mixed_Java_Libraries Java and Native Results]
+    * [#Mixed:_Basic_Operation_Results Basic Operations]
+    * [#Mixed:_Solving_Linear_Systems Solving Linear Systems]
+    * [#Mixed:_Matrix_Decompositions Matrix Decompositions]
 
 =Test Environment =
 
@@ -57,6 +61,7 @@ These results show the performance of libraries that have code written entirely 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/svd.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/EigSymm.png ||
 
+----
 = Mixed Java and Native Libraries =
 
 These results show the performance of libraries that either use pure Java or calls to native libraries.
