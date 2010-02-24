@@ -9,9 +9,10 @@ There are a few changes in this benchmark since the last one.
   * JBlas has been added to native results. Due to requirements it was run on a 32bit JVM 1.6.0_18
 
 Links to the results:
-  * [#Basic_Operation_Results Basic Operations]
-  * [#Solving_Linear_Systems Solving Linear Systems]
-  * [#Matrix_Decompositions Matrix Decompositions]
+  * [#Pure_Java_Libraries Pure Java Results]
+    * [#Java:_Basic_Operation_Results Basic Operations]
+    * [#Java:_Solving_Linear_Systems Solving Linear Systems]
+    * [#Java:_Matrix_Decompositions Matrix Decompositions]
 
 =Test Environment =
 
