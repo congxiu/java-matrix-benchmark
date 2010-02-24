@@ -5,7 +5,7 @@ There are a few changes in this benchmark since the last one.
   * CommonsMath no longer always used block real matrices.
   * Several libraries had been updated
   * Plots are normalized by the best library at each matrix size.
-  * How Colt and Parallel Colt compute their results have been changed.
+  * How Colt and Parallel Colt compute their results has changed.
   * JBlas has been added to native results. Due to requirements it was run on a 32bit JVM 1.6.0_18
 
 Links to the results:
