@@ -19,6 +19,7 @@
 
 package jmbench.tools.runtime.evaluation;
 
+import jmbench.tools.EvaluationTarget;
 import jmbench.tools.ResultPlotter;
 import jmbench.tools.runtime.OperationResults;
 import jmbench.tools.runtime.RuntimeEvaluationMetrics;
@@ -39,6 +40,9 @@ import java.util.Map;
 public class PlotRuntimeResultsXml {
 
     File directory;
+
+    // should it include native libraries while plotting results
+    boolean plotNativeLibraries = true;
 
     public PlotRuntimeResultsXml( String dir ) {
         directory = new File(dir);
@@ -62,6 +66,10 @@ public class PlotRuntimeResultsXml {
             File level0 = new File(directory.getPath()+"/"+nameLevel0);
 
             if( level0.isDirectory() ) {
+                // see if it should include this library in the results or not
+                if( !checkIncludeLibrary(level0.getAbsolutePath()))
+                    continue;
+
                 String []files2 = level0.list();
 
                 for( String name2 : files2 ) {
@@ -70,7 +78,13 @@ public class PlotRuntimeResultsXml {
                         String stripName = name2.substring(0,name2.length()-4);
                         name2 = level0.getPath()+"/"+name2;
 
-                        OperationResults r = UtilXmlSerialization.deserializeXml(name2);
+                        OperationResults r;
+                        try {
+                            r = UtilXmlSerialization.deserializeXml(name2);
+                        } catch( ClassCastException e ) {
+                            System.out.println("Couldn't deserialize "+name2);
+                            continue;
+                        }
 
                         List l;
                         if( opMap.containsKey(stripName) ) {
@@ -99,8 +113,27 @@ public class PlotRuntimeResultsXml {
         }
     }
 
+    /**
+     * Checks to see if the results from this library are being filters out or not
+     *
+     * @param pathDir Path to results directory
+     * @return true if it should be included
+     */
+    private boolean checkIncludeLibrary(String pathDir) {
+        EvaluationTarget target = UtilXmlSerialization.deserializeXml(pathDir+".xml");
+
+        if( target == null ) {
+            // no library info associated with this directory so its probably not a results directory
+            return false;
+        }
+
+        return !(target.getLib().isNativeCode() && !plotNativeLibraries);
+    }
+
     public static void main( String args[] ) {
         PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/PentiumM_2010_02");
+
+        p.plotNativeLibraries = false;
 
         p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
     }

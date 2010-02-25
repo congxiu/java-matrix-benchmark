@@ -30,17 +30,17 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class MatrixLibrary implements Serializable {
-    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","EJML 0.10.1a","2010-02-21",false,0);
-    public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama-1.0.2","Jama 1.0.2","",false,1);
-    public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj-0.9.12","MTJ 0.9.12","",true,2);
-    public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","SEJML 0.7","",true,3);
-    public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math-2.1a","Commons Math 2.1a","",true,4);
-    public static final MatrixLibrary JSCIENCE = new MatrixLibrary("JScience","jscience-4.3","JScience 4.3","",true,5);
-    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo-28.37","ojAlgo 28.37","2010-02-13",true,6);
-    public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt-1.2","Colt 1.2","",true,7);
-    public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt-0.9.2","Parallel Colt 0.9.2","2010-01-24",true,8);
-    public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp-svn","UJMP svn","2010-02-20",true,9);
-    public static final MatrixLibrary JBLAS = new MatrixLibrary("JBLAS","jblas-1.0.1","JBLAS 1.0.1","2010-01-13",true,10);
+    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","EJML 0.10.1a","2010-02-21",false,false,0);
+    public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama-1.0.2","Jama 1.0.2","",false, false, 1);
+    public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj-0.9.12","MTJ 0.9.12","",true, false, 2);
+    public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","SEJML 0.7","",true, false, 3);
+    public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math-2.1a","Commons Math 2.1a","",true, false, 4);
+    public static final MatrixLibrary JSCIENCE = new MatrixLibrary("JScience","jscience-4.3","JScience 4.3","",true, false, 5);
+    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo-28.37","ojAlgo 28.37","2010-02-13",true, false, 6);
+    public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt-1.2","Colt 1.2","",true, false, 7);
+    public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt-0.9.2","Parallel Colt 0.9.2","2010-01-24",true, false, 8);
+    public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp-svn","UJMP svn","2010-02-20",true, false, 9);
+    public static final MatrixLibrary JBLAS = new MatrixLibrary("JBLAS","jblas-1.0.1","JBLAS 1.0.1","2010-01-13",true, true, 10);
 
     public String plotName;
     public String versionName;
@@ -49,18 +49,21 @@ public class MatrixLibrary implements Serializable {
     public String dateModified;
     // does the slave need to load additional libraries
     public boolean extraLibs;
+    // if the library is native or not
+    public boolean nativeCode;
 
     // when plotted what color and stroke should be used
     public int plotLineType;
 
-    public MatrixLibrary( String plotName , String dirName ,String versionName , String dateModified,
-                          boolean extraLibs , int plotLineType )
+    public MatrixLibrary(String plotName, String dirName, String versionName, String dateModified,
+                         boolean extraLibs, boolean nativeCode, int plotLineType)
     {
         this.plotName = plotName;
         this.versionName = versionName;
         this.dirName = dirName;
         this.dateModified = dateModified;
         this.extraLibs = extraLibs;
+        this.nativeCode = nativeCode;
         this.plotLineType = plotLineType;
     }
 
@@ -131,5 +134,13 @@ public class MatrixLibrary implements Serializable {
 
     public void setPlotLineType(int plotLineType) {
         this.plotLineType = plotLineType;
+    }
+
+    public boolean isNativeCode() {
+        return nativeCode;
+    }
+
+    public void setNativeCode(boolean nativeCode) {
+        this.nativeCode = nativeCode;
     }
 }
