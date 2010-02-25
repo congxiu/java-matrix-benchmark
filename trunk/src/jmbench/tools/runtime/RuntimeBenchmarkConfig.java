@@ -108,10 +108,10 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.maxMatrixSize = 2000;
         config.minMatrixSize = 2;
 
-        config.chol = true;
-        config.lu = true;
+//        config.chol = true;
+//        config.lu = true;
         config.svd = true;
-        config.qr = true;
+//        config.qr = true;
         config.eigSymm = true;
         config.det = true;
         config.invert = true;
@@ -134,7 +134,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.targets.add(colt);
         config.targets.add(pcolt);
         config.targets.add(mtj);
-        config.targets.add(jsci);
+//        config.targets.add(jsci);
         config.targets.add(ujmp);
         config.targets.add(jblas);
 

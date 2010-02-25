@@ -155,7 +155,7 @@ public class FactoryRuntimeEvaluationCase {
 
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
-        return new RuntimeEvaluationCase("Invert b=invSymmPosDef(a)","invSymmPosDef",matDimen,alg,generator);
+        return new RuntimeEvaluationCase("Invert Symm b=inv(a)","invSymmPosDef",matDimen,alg,generator);
     }
 
     public RuntimeEvaluationCase createSVD( AlgorithmInterface alg ) {

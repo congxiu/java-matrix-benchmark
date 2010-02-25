@@ -2,7 +2,9 @@
 
 2010/XX/XX
 
-
+- Updated version of OjAlgo
+- Flagged all libaries as using native code or not
+- For runtime performance plots, libraries can be filtered by using native code or not.
 
 ----- Version 0.5
 
