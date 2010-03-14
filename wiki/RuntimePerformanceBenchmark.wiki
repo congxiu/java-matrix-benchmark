@@ -10,7 +10,7 @@ Results are presented primarily using relative runtime plots.  These plots show 
 
 http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_02.attach/mult.png
 
-The x-axis is input matrix size and the y-axis shows the relative runtime.  The reference library is the fastest library for each matrix size.  Therefore one library always has a value of one (1).  Larger the value is on the y-axis the faster the library is.  If a plot ends prematurely for a library that means that it either became too slow or a fatal error occurred and the test was stopped.
+The x-axis is input matrix size and the y-axis shows the relative runtime.  The reference library is the fastest library for each matrix size.  Therefore one library always has a value of one.  Larger the value is on the y-axis the faster the library is.  If a plot ends prematurely for a library that means that it either became too slow or a fatal error occurred and the test was stopped.
 
 By viewing these plots it is easy to tell how fast a particular library runs relative to any other library.  Since these plots show the results as a function of matrix size it is often easy to see when CPU cache size starts adversely effecting one algorithm or when a library switches to a multi-threaded approach.  
 
@@ -50,14 +50,16 @@ For each of these operations the library is requested to perform the specified d
 || SVD || Square matrix. ||
 || Eigen || Symmetric square matrix. ||
 
+
+
+== Notes on History Results ==
+
+Some historic results use different methods for selecting the reference library.  Such as being fixed to a particular library or selecting the median performance.
+
 The following decompositions are no longer included but can be found in historic results.  They were removed since they are indirectly tested through other operations such as solve and invert and direct usage is less common in practice.
 
 || Operation || Description ||
 || LU || Square non-singular matrices. ||
 || Cholesky || Square positive definite matrices. ||
 || QR || Rectangular matrices where m > n ||
-
-== Footnotes ==
-
-(1) Some historic results use different methods for selecting the reference library.  Such as being fixed to a particular library or selecting the median performance.
  
