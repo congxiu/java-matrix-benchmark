@@ -1,6 +1,4 @@
 - Consider matrices up to 5000
-- remove LU,QR,Cholesky decomposition from runtime
-- remove JScience
 - flush memory between trials on slave
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
@@ -16,3 +14,4 @@
 
 - determine memory requirements
 
+- Plot program for CSV format

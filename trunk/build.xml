@@ -1,17 +1,15 @@
 <project name="jmatbench" basedir="." default="main">
 
-    <property name="java.compilor" value="/opt/jdk1.7.0/bin/javac"/>
-    <property name="java.vm" value="/opt/jdk1.7.0/bin/java"/>
+    <!--<property name="java.compilor" value="/opt/jdk1.7.0/bin/javac"/>-->
+    <!--<property name="java.vm" value="/opt/jdk1.7.0/bin/java"/>-->
 
-    <!--<property name="java.compilor" value="/opt/jdk/bin/javac"/>-->
-    <!--<property name="java.vm" value="/opt/jdk/bin/java"/>-->
+    <property name="java.compilor" value="/opt/jdk/bin/javac"/>
+    <property name="java.vm" value="/opt/jdk/bin/java"/>
 
     <!--<property name="java.compilor" value="javac"/>-->
     <!--<property name="java.vm" value="java"/>-->
 
-        <!-- used to launch an arbitrary application -->
-    <property name="app" value="" />
-    <property name="args" value="" />
+    <property name="args" value=""/>
 
     <property name="src.dir"     value="src"/>
     <property name="test.dir"     value="test"/>
@@ -45,6 +43,11 @@
         <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
     </path>
 
+    <path id="jar.classpath">
+        <fileset dir="lib/" includes="EJML.jar"/>
+        <fileset dir="lib/" includes="libpja.jar"/>
+    </path>
+
 
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -70,6 +73,20 @@
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}"/>
+    </target>
+
+    <target name="app" depends="jar">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/benchmark_app.jar" basedir="${classes.dir}">
+
+        <zipgroupfileset dir="${jar.dir}" includes="${ant.project.name}.jar"/>
+        <zipgroupfileset dir="lib" includes="**/*.jar"/>
+
+        <manifest>
+            <attribute name="Main-Class" value="jmbench.tools.BenchmarkToolsMasterApp"/>
+            <attribute name="Class-Path" value="jar.classpath"/>
+        </manifest>
+        </jar>
     </target>
 
     <target name="test" depends="jar">
@@ -98,36 +115,6 @@
                 <fileset dir="${test.dir}" includes="**/Test*.java"/>
             </batchtest>
         </junit>
-    </target>
-
-    <!--
-     This is used to launch some application inside of jmatrixbenchmark.
-     ant launch -Dapp=<path.to.java.app> -Dargs="<arguments>"
-    -->
-    <target name="launch" depends="jar">
-        <java classname="${app}"
-              fork="true"
-              failonerror="true"
-              jvm="${java.vm}">
-            <arg value="${args}"/>
-            <classpath>
-                <path refid="project.classpath"/>
-                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
-            </classpath>
-        </java>
-    </target>
-
-    <target name="benchmark" depends="jar">    
-        <java classname="jmbench.tools.BenchmarkAll"
-              fork="true"
-              failonerror="true"
-              jvm="${java.vm}">
-             <arg line="${benchmarkconfig}" />
-            <classpath>
-                <path refid="benchmark.classpath"/>
-                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
-            </classpath>
-        </java>
     </target>
 
     <target name="benchmarkRuntime" depends="jar">

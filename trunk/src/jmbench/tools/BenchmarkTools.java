@@ -206,14 +206,16 @@ public class BenchmarkTools {
 
     /**
      * Prints out the standard out and error from the slave and checks its health.  Exits if
-     * the slave has finished or is decleared frozen.
+     * the slave has finished or is declared frozen.
      */
-    private boolean monitorSlave(EvaluationTest test, Process pr, BufferedReader input, BufferedReader error) throws IOException, InterruptedException {
+    private boolean monitorSlave(EvaluationTest test, Process pr,
+                                 BufferedReader input, BufferedReader error)
+            throws IOException, InterruptedException {
 
-        // after this amount of time the slave is assumed to be frozen
-        // this time is very generous
-        long mustBeFrozenTime = test.getExpectedRuntime() > 0 ?
-                test.getExpectedRuntime()*frozenScale*2 : frozenDefaultTime;
+        // If the total amount of time allocated to the slave exceeds the maximum number of trials multiplied
+        // by the maximum runtime plus some fudge factor the slave is declared as frozen
+        long mustBeFrozenTime = test.getMaximumRuntime() > 0 ?
+                test.getMaximumRuntime()*(numTrials+2) : frozenDefaultTime;
 
         boolean frozen = false;
 

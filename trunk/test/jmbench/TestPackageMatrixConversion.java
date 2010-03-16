@@ -38,7 +38,7 @@ public class TestPackageMatrixConversion {
     public void covertToOjalgo() {
         double[] d = new double[]{5 ,-2 ,-4 ,0.5, 0.1, 91, 8, 66, 1, -2, 10, -4, -0.2, 7, -4, 0.8};
 
-        DenseMatrix64F orig = new DenseMatrix64F(2,8,d,true);
+        DenseMatrix64F orig = new DenseMatrix64F(2,8,true,d);
         PhysicalStore algo = OjAlgoAlgorithmFactory.convertToOjAlgo(orig);
 
         assertEquals(orig.getNumRows(),algo.getRowDim());
@@ -55,7 +55,7 @@ public class TestPackageMatrixConversion {
     public void covertToMtj() {
         double[] d = new double[]{5 ,-2 ,-4 ,0.5, 0.1, 91, 8, 66, 1, -2, 10, -4, -0.2, 7, -4, 0.8};
 
-        DenseMatrix64F orig = new DenseMatrix64F(2,8,d,true);
+        DenseMatrix64F orig = new DenseMatrix64F(2,8,true,d);
         DenseMatrix mtj = MtjAlgorithmFactory.convertToMtj(orig);
 
         assertEquals(orig.getNumRows(),mtj.numRows());

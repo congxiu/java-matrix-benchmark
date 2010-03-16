@@ -230,7 +230,7 @@ public class RuntimeBenchmarkLibrary {
 
         if( r == null )
             return true;
-
+        
         boolean done = tooSlow;
 
         // increment the number of blocks
@@ -245,7 +245,7 @@ public class RuntimeBenchmarkLibrary {
             }
         }
 
-        // make the this operation as being finished or not
+        // mark the this operation as being finished or not
         r.complete = done;
 
         // save the current state of the test
@@ -290,7 +290,7 @@ public class RuntimeBenchmarkLibrary {
      */
     @SuppressWarnings({"RedundantCast", "unchecked"})
     private List<RuntimeResults> evaluateCase( RuntimeEvaluationCase e , long seed , int indexDimen) {
-        EvaluationTest test = e.createTest(indexDimen,config.trialTime);
+        EvaluationTest test = e.createTest(indexDimen,config.trialTime,config.maxTrialTime);
         test.setRandomSeed(seed);
 
         int matrixSize = e.getDimens()[indexDimen];

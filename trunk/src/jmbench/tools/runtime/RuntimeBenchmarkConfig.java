@@ -79,8 +79,10 @@ public class RuntimeBenchmarkConfig implements Serializable {
     // a block is a set of trials performed in a single instance of a spawned VM
     // This is the number of times a block is spawned to evaluate the same set of input parameters
     public int numBlocks; // 5
-    // how long should each trial last for
+    // the minimum amount of time each trials should last for
     public int trialTime;// 3000
+    // the maximum amount of time a trial can last for
+    public int maxTrialTime;
 
     public int memorySlaveBase;// 10
     public int memorySlaveScale;// 8
@@ -102,6 +104,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.numBlockTrials = 5;
         config.numBlocks = 5;
         config.trialTime = 3000;
+        config.maxTrialTime = config.trialTime*4;
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
         config.randizeOrder = true;
@@ -110,19 +113,20 @@ public class RuntimeBenchmarkConfig implements Serializable {
 
 //        config.chol = true;
 //        config.lu = true;
-        config.svd = true;
 //        config.qr = true;
+        
+        config.svd = true;
         config.eigSymm = true;
-        config.det = true;
-        config.invert = true;
-        config.invertSymmPosDef = true;
-        config.add = true;
-        config.mult = true;
-        config.multTransA = true;
-        config.scale = true;
-        config.solveExact = true;
-        config.solveOver = true;
-        config.transpose = true;
+//        config.det = true;
+//        config.invert = true;
+//        config.invertSymmPosDef = true;
+//        config.add = true;
+//        config.mult = true;
+//        config.multTransA = true;
+//        config.scale = true;
+//        config.solveExact = true;
+//        config.solveOver = true;
+//        config.transpose = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
 
@@ -331,5 +335,21 @@ public class RuntimeBenchmarkConfig implements Serializable {
 
     public void setMinMatrixSize(int minMatrixSize) {
         this.minMatrixSize = minMatrixSize;
+    }
+
+    public boolean isInvertSymmPosDef() {
+        return invertSymmPosDef;
+    }
+
+    public void setInvertSymmPosDef(boolean invertSymmPosDef) {
+        this.invertSymmPosDef = invertSymmPosDef;
+    }
+
+    public int getMaxTrialTime() {
+        return maxTrialTime;
+    }
+
+    public void setMaxTrialTime(int maxTrialTime) {
+        this.maxTrialTime = maxTrialTime;
     }
 }
