@@ -129,8 +129,8 @@ public class RuntimeBenchmarkMaster {
         System.out.println("  --Size=min:max           |  Test matrices from the specified minimum size to the specified maximum size.");
         System.out.println("  --Quick                  |  Generate results much faster by sacrificing accuracy/stability of the results.");
         System.out.println("  --Seed=<number>          |  used to set the random seed to the specified value.");
-        System.out.println("  --TrailTime=<milliseconds> |  The minimum amount of time spent in each trial.  Typical is 3000.");
-        System.out.println("  --MaxTime=<milliseconds> |  Maximum number of milliseconds it can spend in a single test.  Typical is 30000.");
+        System.out.println("  --TrailTime=<ms>         |  The minimum amount of time spent in each trial.  Typical is 3000.");
+        System.out.println("  --MaxTime=<ms>           |  Maximum number of milliseconds it can spend in a single test.  Typical is 30000.");
         System.out.println("  --Resume=<directory>     |  It will resume an unfinished benchmark at the specified directory.");
         System.out.println();
         System.out.println("If no options are specified then a default configuration will be used and the results" +
