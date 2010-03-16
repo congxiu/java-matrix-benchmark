@@ -252,7 +252,8 @@ public class FactoryRuntimeEvaluationCase {
             if( val < 5 ) {
                 val++;
             } else {
-                switch( val / dec ) {
+                int w = val/dec;
+                switch( w ) {
                     case 1:
                         val = 2*dec;
                         break;
@@ -265,10 +266,23 @@ public class FactoryRuntimeEvaluationCase {
                         val = 10*dec;
                         dec *= 10;
                         break;
+
+                    default:
+                        if( w < 5 ) {
+                            val = 5*dec;
+                        } else {
+                            val = 10*dec;
+                            dec *= 10;
+                        }
                 }
             }
 
             a.add(val);
+        }
+
+        if( a.get(a.size()-1) != max ) {
+            a.remove(a.size()-1);
+            a.add(max);
         }
 
         int ret[] = new int[ a.size() ];

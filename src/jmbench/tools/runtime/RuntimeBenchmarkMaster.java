@@ -123,38 +123,92 @@ public class RuntimeBenchmarkMaster {
         }
     }
 
+    public static void printHelp() {
+        System.out.println("The following options are valid for runtime benchmark:");
+        System.out.println("  --Config=<file>          |  To tell it to use the specified xml file for its config.");
+        System.out.println("  --Size=min:max           |  Test matrices from the specified minimum size to the specified maximum size.");
+        System.out.println("  --Quick                  |  Generate results much faster by sacrificing accuracy/stability of the results.");
+        System.out.println("  --Seed=<number>          |  used to set the random seed to the specified value.");
+        System.out.println("  --TrailTime=<milliseconds> |  The minimum amount of time spent in each trial.  Typical is 3000.");
+        System.out.println("  --MaxTime=<milliseconds> |  Maximum number of milliseconds it can spend in a single test.  Typical is 30000.");
+        System.out.println("  --Resume=<directory>     |  It will resume an unfinished benchmark at the specified directory.");
+        System.out.println();
+        System.out.println("If no options are specified then a default configuration will be used and the results" +
+                "will be saved to a directory in results with the name of the current system time in milliseconds.");
+    }
+
     public static void main( String args[] ) throws IOException, InterruptedException {
-        RuntimeBenchmarkMaster master;
+        boolean failed = false;
 
-        if( args.length > 0 ) {
-            File f = new File(args[0]);
+        RuntimeBenchmarkConfig config = RuntimeBenchmarkConfig.createAllConfig();
 
-            RuntimeBenchmarkConfig config;
+        System.out.println("** Parsing Command Line **");
+        System.out.println();
+        for( int i = 0; i < args.length; i++ ) {
+            String splits[] = args[i].split("=");
 
-            // if pointed to a directory it will try to resume from that directory
-            if( f.isDirectory() ) {
-                System.out.println("Resuming old results.");
-                config = UtilXmlSerialization.deserializeXml(args[0]+"/config.xml");
-                if( config == null )
-                    throw new IllegalArgumentException("No config file found!");
-                master = new RuntimeBenchmarkMaster(args[0]);
-                master.performBenchmark(config);
+            String flag = splits[0];
 
-            } else {
-                // otherwise try to load the file as a config and create a new results directory
-                master = new RuntimeBenchmarkMaster();
-                System.out.println("Loading config from xml...");
-                config = UtilXmlSerialization.deserializeXml(args[0]);
-                if( config == null )
-                    throw new IllegalArgumentException("No config file found!");
-                master.performBenchmark(config);
+            if( flag.length() < 2 || flag.charAt(0) != '-' || flag.charAt(0) != '-') {
+                failed = true;
+                break;
             }
 
+            flag = flag.substring(2);
 
+            if( flag.compareTo("Config") == 0 ) {
+                if( splits.length != 2 || args.length != 1 ) {failed = true; break;}
+                System.out.println("Loading config: "+splits[1]);
+                config = UtilXmlSerialization.deserializeXml(splits[1]);
+            } else if( flag.compareTo("Size") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                String rangeStr[] = splits[1].split(":");
+                if( rangeStr.length != 2 ) {failed = true; break;}
+                config.minMatrixSize = Integer.parseInt(rangeStr[0]);
+                config.maxMatrixSize = Integer.parseInt(rangeStr[1]);
+                System.out.println("Set min/max matrix size to: "+config.minMatrixSize+" "+config.maxMatrixSize);
+            } else if( flag.compareTo("Quick") == 0 ) {
+                if( i != 0 ) {
+                    System.out.println("quick must be the first argument specified.");
+                    failed = true; break;
+                }
+                if( splits.length != 1 ) {failed = true; break;}
+                config.numBlocks = 1;
+                config.numBlockTrials = 2;
+                config.trialTime = 1000;
+                System.out.println("Using quick and dirty config.");
+            } else if( flag.compareTo("Seed") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                config.seed = Long.parseLong(splits[1]);
+                System.out.println("Random seed set to "+config.seed);
+            } else if( flag.compareTo("TrailTime") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                config.trialTime = Integer.parseInt(splits[1]);
+                System.out.println("Time per trial set to "+config.trialTime+" (ms).");
+            } else if( flag.compareTo("MaxTime") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                config.maxTrialTime = Integer.parseInt(splits[1]);
+                System.out.println("Max time per trial set to "+config.maxTrialTime+" (ms).");
+            }else if( flag.compareTo("Resume") == 0 ) {
+                if( splits.length != 2 || args.length != 1 ) {failed = true; break;}
+                System.out.println("Resuming a benchmark in dir "+splits[1]);
+                RuntimeBenchmarkMaster master = new RuntimeBenchmarkMaster(splits[1]);
+                config = UtilXmlSerialization.deserializeXml(splits[1]+"/config.xml");
+                master.performBenchmark(config);
+                return;
+            } else {
+                System.out.println("Unknown flag: "+flag);
+                failed = true;
+                break;
+            }
+        }
+        System.out.println("\n** Done parsing command line **\n");
+
+        if( !failed ) {
+            RuntimeBenchmarkMaster master = new RuntimeBenchmarkMaster();
+            master.performBenchmark(config);
         } else {
-            // create a results directory starting from scratch
-            master = new RuntimeBenchmarkMaster();
-            master.performBenchmark(RuntimeBenchmarkConfig.createAllConfig());
+            printHelp();
         }
     }
 }

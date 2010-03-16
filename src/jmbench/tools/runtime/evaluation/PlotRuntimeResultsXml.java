@@ -130,11 +130,101 @@ public class PlotRuntimeResultsXml {
         return !(target.getLib().isNativeCode() && !plotNativeLibraries);
     }
 
+    /**
+     * Returns the path to the most recently modified directory in results.
+     */
+    public static String findMostRecentDirectory() {
+        File baseDir = new File("results");
+
+        if( !baseDir.exists() ) {
+            throw new RuntimeException("Can't find results directory.  Try running one level up from it.");
+        }
+
+        File bestDir = null;
+        long bestTime = 0;
+
+        for( File f : baseDir.listFiles() ) {
+            if( f.isDirectory() ) {
+                long time = f.lastModified();
+                if( time > bestTime ) {
+                    bestDir = f;
+                    bestTime = time;
+                }
+            }
+        }
+
+        if( bestDir == null ) {
+            throw new RuntimeException("Can't find any directories in results/");
+        }
+
+        return bestDir.getPath();
+    }
+
+    public static void printHelp() {
+        System.out.println("--PlotNative=<true|false>    : Turns plotting results from native libraries on and off.");
+        System.out.println("--Metric=<?>                 : Changes the metric that is plotted.");
+        System.out.println("                             : MAX,MIN,STDEV,MEDIAN,MEAN");
+        System.out.println();
+        System.out.println("The last argument is the directory that contains the results.  If this is not specified");
+        System.out.println("then the most recently modified directory is used.");
+    }
+
     public static void main( String args[] ) {
-        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml("/home/pja/projects/jmatbench/trunk/results/PentiumM_2010_02");
+        String inputDirectory = null;
+        boolean plotNative = true;
+        int metric = RuntimeEvaluationMetrics.METRIC_MAX;
 
-        p.plotNativeLibraries = false;
+        boolean failed = false;
 
-        p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
+        for( int i = 0; i < args.length; i++ ) {
+            String splits[] = args[i].split("=");
+
+            String flag = splits[0];
+
+            if( flag.length() < 2 || flag.charAt(0) != '-' || flag.charAt(0) != '-') {
+                inputDirectory = args[i];
+                break;
+            }
+
+            flag = flag.substring(2);
+
+            if( flag.compareTo("PlotNative") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                plotNative = Boolean.parseBoolean(splits[1]);
+                System.out.println("PlotNative = "+plotNative);
+            } else if( flag.compareTo("Metric") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                if( splits[1].compareToIgnoreCase("MAX") == 0 ) {
+                    metric = RuntimeEvaluationMetrics.METRIC_MAX;
+                } else if( splits[1].compareToIgnoreCase("MIN") == 0 ) {
+                    metric = RuntimeEvaluationMetrics.METRIC_MIN;
+                } else if( splits[1].compareToIgnoreCase("STDEV") == 0 ) {
+                    metric = RuntimeEvaluationMetrics.METRIC_STDEV;
+                } else if( splits[1].compareToIgnoreCase("MEDIAN") == 0 ) {
+                    metric = RuntimeEvaluationMetrics.METRIC_MEDIAN;
+                } else if( splits[1].compareToIgnoreCase("MEAN") == 0 ) {
+                    metric = RuntimeEvaluationMetrics.METRIC_MEAN;
+                } else {
+                    throw new RuntimeException("Unknown metric: "+splits[1]);
+                }
+            }  else {
+                System.out.println("Unknown flag: "+flag);
+                failed = true;
+                break;
+            }
+        }
+
+        if( failed ) {
+            printHelp();
+            throw new RuntimeException("Parsing arguments failed");
+        }
+
+        if( inputDirectory == null )
+            inputDirectory = findMostRecentDirectory();
+
+        PlotRuntimeResultsXml p = new PlotRuntimeResultsXml(inputDirectory);
+
+        p.plotNativeLibraries = plotNative;
+        p.plot(metric);
     }
 }

@@ -87,7 +87,7 @@ public abstract class StabilityTestBase extends EvaluationTest {
     }
 
     @Override
-    public long getExpectedRuntime() {
+    public long getMaximumRuntime() {
         return -1;
     }
 

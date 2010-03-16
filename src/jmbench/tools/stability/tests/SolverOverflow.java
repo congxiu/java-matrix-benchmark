@@ -127,13 +127,13 @@ public class SolverOverflow extends SolverCommon
     private void evaluateOverflowSolver( int m , int n ) {
         // avoid declaring new memory, which is important when prcessing large matrices
         if( A_scale.data.length >= m*n ) {
-            A_scale.reshape(m,n);
+            A_scale.reshape(m,n,false);
         } else {
             A_scale = new DenseMatrix64F(m,n);
         }
         if( b_scale.data.length >= m ) {
-            b_scale.reshape(m,1);
-            y.reshape(m,1);
+            b_scale.reshape(m,1,false);
+            y.reshape(m,1,false);
         } else {
             b_scale = new DenseMatrix64F(m,1);
             y = new DenseMatrix64F(m,1);

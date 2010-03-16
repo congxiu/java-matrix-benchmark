@@ -117,12 +117,8 @@ public class EvaluatorSlave {
         // make sure it is in the correct state
         eval.init();
 
-        // compute how long it is allowed to process trials.
-        long expectedRuntime = eval.getExpectedRuntime();
-
-        long MAX_SINGLE_TIME = expectedRuntime > 0 ? eval.getExpectedRuntime()*10 : Long.MAX_VALUE;
-        long MAX_TOTAL_TIME = expectedRuntime > 0 ? numTrials*eval.getExpectedRuntime()*4+2000 : Long.MAX_VALUE;
-        long startTime = System.currentTimeMillis();
+        // How long does it allow each test to run for
+        long maximumRuntime = eval.getMaximumRuntime();
 
         List<TestResults> results = new ArrayList<TestResults>();
 
@@ -140,17 +136,11 @@ public class EvaluatorSlave {
             if( VERBOSE ) System.out.print("  results = "+r);
             results.add(r);
 
-            if( (after-before) > MAX_SINGLE_TIME) {
+            if( (after-before) > maximumRuntime) {
                 fail = FailReason.TOO_SLOW;
                 // if a single trial takes too long then it is just stop
                 if( VERBOSE )
                     System.out.println("\nSingle test too long: DT = "+(after-before));
-                break;
-            } else if( after-startTime > MAX_TOTAL_TIME ) {
-                fail = FailReason.TOO_SLOW;
-                // see if the sum of test time is taking too long
-                if( VERBOSE )
-                    System.out.println("\nTotal test time too long: DT = "+(after-startTime));
                 break;
             }
 

@@ -40,14 +40,14 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     private InputOutputGenerator generator;
 
     // how long it should try to run the tests for in milliseconds
-    private long expectedRuntime;
+    private long goalRuntime;
+    // the max amount of time it will let a test run for
+    private long maxRuntime;
 
     // randomly generated input matrices
     private volatile Random rand;
     private volatile DenseMatrix64F inputs[];
     private volatile DenseMatrix64F outputs[];
-
-    private volatile DenseMatrix64F residual;
 
     // an estimate of how many cycles it will take to finish the test in the desired
     // amount of time
@@ -59,19 +59,21 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      * @param dimen How big the matrices are that are being processed.
      * @param alg The algorithm that is being processed.
      * @param generator Creates the inputs and expected outputs for the tested operation
-     * @param expectedRuntime  How long it wants to try to run the test for in milliseconds
+     * @param goalRuntime  How long it wants to try to run the test for in milliseconds
+     * @param maxRuntime  How long it will let a test run for in milliseconds
      * @param randomSeed The random seed used for the tests.
      */
     public RuntimeEvaluationTest( int dimen ,
                                   MatrixProcessorInterface alg ,
                                   InputOutputGenerator generator ,
-                                  long expectedRuntime, long randomSeed )
+                                  long goalRuntime, long maxRuntime , long randomSeed )
     {
         super(randomSeed);
         this.dimen = dimen;
         this.alg = alg;
         this.generator = generator;
-        this.expectedRuntime = expectedRuntime;
+        this.goalRuntime = goalRuntime;
+        this.maxRuntime = maxRuntime;
     }
 
     public RuntimeEvaluationTest(){}
@@ -94,7 +96,6 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     public void init() {
         estimatedTrials = 0;
         rand = new Random(randomSeed);
-        residual = new DenseMatrix64F(1,1);
     }
 
     @Override
@@ -131,7 +132,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
         }
 
         // translate it to nanoseconds
-        long goalDuration = this.expectedRuntime *1000000;
+        long goalDuration = this.goalRuntime *1000000;
 
         while( true ) {
             // nano is more precise than the millisecond timer
@@ -213,11 +214,20 @@ public class RuntimeEvaluationTest extends EvaluationTest {
         this.generator = generator;
     }
 
-    public long getExpectedRuntime() {
-        return expectedRuntime;
+    public long getGoalRuntime() {
+        return goalRuntime;
     }
 
-    public void setExpectedRuntime(long expectedRuntime) {
-        this.expectedRuntime = expectedRuntime;
+    public void setGoalRuntime(long goalRuntime) {
+        this.goalRuntime = goalRuntime;
+    }
+
+    @Override
+    public long getMaximumRuntime() {
+        return maxRuntime;
+    }
+
+    public void setMaximumRuntime(long maxRuntime) {
+        this.maxRuntime = maxRuntime;
     }
 }

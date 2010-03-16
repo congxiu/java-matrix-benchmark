@@ -1,68 +1,324 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<java version="1.7.0-ea" class="java.beans.XMLDecoder">
- <object class="jmbench.tools.stability.StabilityBenchmarkConfig">
-  <void property="breakingPoint">
-   <double>0.0010</double>
-  </void>
-  <void property="largeSizeMax">
-   <int>600</int>
-  </void>
-  <void property="largeSizeMin">
-   <int>500</int>
-  </void>
-  <void property="maxProcessingTime">
-   <long>900000</long>
-  </void>
-  <void property="mediumSizeMax">
-   <int>200</int>
-  </void>
-  <void property="mediumSizeMin">
-   <int>100</int>
-  </void>
-  <void property="overFlowFactor">
-   <int>4</int>
-  </void>
-  <void property="randomSeed">
-   <long>-1536901698580732919</long>
-  </void>
-  <void property="smallSizeMax">
-   <int>20</int>
-  </void>
-  <void property="smallSizeMin">
-   <int>2</int>
-  </void>
-  <void property="targets">
-   <void method="add">
-    <object class="jmbench.tools.EvaluationTarget">
-     <void property="factoryPath">
-      <string>jmbench.impl.stability.UjmpStabilityFactory</string>
-     </void>
-     <void property="lib">
-      <object class="java.lang.Enum" method="valueOf">
-       <class>jmbench.impl.MatrixLibrary</class>
-       <string>UJMP</string>
-      </object>
-     </void>
-    </object>
-   </void>
-  </void>
-  <void property="trialsLargeSolve">
-   <int>48</int>
-  </void>
-  <void property="trialsLargeSvd">
-   <int>28</int>
-  </void>
-  <void property="trialsMediumSolve">
-   <int>200</int>
-  </void>
-  <void property="trialsMediumSvd">
-   <int>72</int>
-  </void>
-  <void property="trialsSmallSolve">
-   <int>4000</int>
-  </void>
-  <void property="trialsSmallSvd">
-   <int>2400</int>
-  </void>
- </object>
-</java>
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_17" class="java.beans.XMLDecoder"> 
+ <object class="jmbench.tools.runtime.RuntimeBenchmarkConfig"> 
+  <void property="add"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="det"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="eigSymm"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="invert"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="maxMatrixSize"> 
+   <int>2000</int> 
+  </void> 
+  <void property="memorySlaveBase"> 
+   <int>10</int> 
+  </void> 
+  <void property="memorySlaveScale"> 
+   <int>8</int> 
+  </void> 
+  <void property="minMatrixSize"> 
+   <int>2</int> 
+  </void> 
+  <void property="mult"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="multTransA"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="numBlockTrials"> 
+   <int>5</int> 
+  </void> 
+  <void property="numBlocks"> 
+   <int>5</int> 
+  </void> 
+  <void property="randizeOrder"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="scale"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="seed"> 
+   <long>-559038737</long> 
+  </void> 
+  <void property="solveExact"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="solveOver"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="svd"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="targets"> 
+   <object class="java.util.ArrayList"> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.EjmlAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string>2010-02-21</string> 
+        </void> 
+        <void property="dirName"> 
+         <string>ejml</string> 
+        </void> 
+        <void property="plotName"> 
+         <string>EJML</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>EJML 0.10.1a</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.JamaAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string></string> 
+        </void> 
+        <void property="dirName"> 
+         <string>jama-1.0.2</string> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>1</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>JAMA</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>Jama 1.0.2</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.OjAlgoAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string>2010-02-13</string> 
+        </void> 
+        <void property="dirName"> 
+         <string>ojalgo-28.37</string> 
+        </void> 
+        <void property="extraLibs"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>6</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>ojAlgo</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>ojAlgo 28.37</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.CommonsMathAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string></string> 
+        </void> 
+        <void property="dirName"> 
+         <string>commons-math-2.1a</string> 
+        </void> 
+        <void property="extraLibs"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>4</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>CommMath</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>Commons Math 2.1a</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.ColtAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string></string> 
+        </void> 
+        <void property="dirName"> 
+         <string>colt-1.2</string> 
+        </void> 
+        <void property="extraLibs"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>7</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>Colt</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>Colt 1.2</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.PColtAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string>2010-01-24</string> 
+        </void> 
+        <void property="dirName"> 
+         <string>parallelcolt-0.9.2</string> 
+        </void> 
+        <void property="extraLibs"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>8</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>PColt</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>Parallel Colt 0.9.2</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.MtjAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string></string> 
+        </void> 
+        <void property="dirName"> 
+         <string>mtj-0.9.12</string> 
+        </void> 
+        <void property="extraLibs"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>2</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>MTJ</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>MTJ 0.9.12</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.UjmpAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string>2010-02-20</string> 
+        </void> 
+        <void property="dirName"> 
+         <string>ujmp-svn</string> 
+        </void> 
+        <void property="extraLibs"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>9</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>UJMP</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>UJMP svn</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="jmbench.tools.EvaluationTarget"> 
+      <void property="factoryPath"> 
+       <string>jmbench.impl.runtime.JBlasAlgorithmFactory</string> 
+      </void> 
+      <void property="lib"> 
+       <object class="jmbench.impl.MatrixLibrary"> 
+        <void property="dateModified"> 
+         <string>2010-01-13</string> 
+        </void> 
+        <void property="dirName"> 
+         <string>jblas-1.0.1</string> 
+        </void> 
+        <void property="extraLibs"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="nativeCode"> 
+         <boolean>true</boolean> 
+        </void> 
+        <void property="plotLineType"> 
+         <int>10</int> 
+        </void> 
+        <void property="plotName"> 
+         <string>JBLAS</string> 
+        </void> 
+        <void property="versionName"> 
+         <string>JBLAS 1.0.1</string> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="transpose"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="trialTime"> 
+   <int>3000</int> 
+  </void> 
+ </object> 
+</java> 

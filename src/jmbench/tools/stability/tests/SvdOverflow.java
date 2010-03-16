@@ -20,7 +20,7 @@
 package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
-import jmbench.tools.BenchmarkAll;
+import jmbench.tools.BenchmarkToolsMasterApp;
 import jmbench.tools.OutputError;
 import jmbench.tools.stability.StabilityBenchmark;
 import jmbench.tools.stability.StabilityTestBase;
@@ -100,7 +100,7 @@ public class SvdOverflow extends StabilityTestBase implements BreakingPointBinar
         for( int i = 0; i < o; i++ )
         // perturb it from being exactly svMag since that is a pathological case for some
         // algorithms and not common in real world scenarios
-            sv[i] = svMag+rand.nextDouble()* BenchmarkAll.SMALL_PERTURBATION;
+            sv[i] = svMag+rand.nextDouble()* BenchmarkToolsMasterApp.SMALL_PERTURBATION;
 
         A = SolverCommon.createMatrix(U,V,sv);
     }
