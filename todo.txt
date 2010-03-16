@@ -1,16 +1,8 @@
-- Consider matrices up to 5000
 - flush memory between trials on slave
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
 - stability of BigDecimal matrices?
 - stability for jblas
-- Optionally exclude or include native libraries when plotting
-- command line interface for running benchmarks from jar
-  * Specify directory to resume
-  * Specify config file to use
-  * min and max matrix size
-  * Libraries to include
-  * quick and dirty results
 
 - determine memory requirements
 

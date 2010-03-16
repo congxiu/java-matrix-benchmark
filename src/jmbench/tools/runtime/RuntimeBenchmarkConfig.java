@@ -104,11 +104,11 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.numBlockTrials = 5;
         config.numBlocks = 5;
         config.trialTime = 3000;
-        config.maxTrialTime = config.trialTime*4;
+        config.maxTrialTime = config.trialTime*5;
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
         config.randizeOrder = true;
-        config.maxMatrixSize = 2000;
+        config.maxMatrixSize = 5000;
         config.minMatrixSize = 2;
 
 //        config.chol = true;
@@ -117,16 +117,16 @@ public class RuntimeBenchmarkConfig implements Serializable {
         
         config.svd = true;
         config.eigSymm = true;
-//        config.det = true;
-//        config.invert = true;
-//        config.invertSymmPosDef = true;
-//        config.add = true;
-//        config.mult = true;
-//        config.multTransA = true;
-//        config.scale = true;
-//        config.solveExact = true;
-//        config.solveOver = true;
-//        config.transpose = true;
+        config.det = true;
+        config.invert = true;
+        config.invertSymmPosDef = true;
+        config.add = true;
+        config.mult = true;
+        config.multTransA = true;
+        config.scale = true;
+        config.solveExact = true;
+        config.solveOver = true;
+        config.transpose = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
 
