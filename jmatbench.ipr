@@ -19,6 +19,14 @@
       <properties />
     </buildFile>
   </component>
+  <component name="ArtifactManager">
+    <artifact type="jar" name="libpja">
+      <output-path>$PROJECT_DIR$/out/artifacts/libpja</output-path>
+      <root id="archive" name="libpja.jar">
+        <element id="module-output" name="libpja" />
+      </root>
+    </artifact>
+  </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
   </component>
