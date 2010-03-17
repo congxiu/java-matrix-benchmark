@@ -94,7 +94,7 @@ public class ConvertRuntimeResultsXmlToCSV {
             System.out.println("Writing file: "+fileName);
             try {
                 PrintStream fileStream = new PrintStream(new FileOutputStream(fileName));
-                printResults(fileStream,l,whichMetric);
+                printResults(fileStream,l,whichMetric,key);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -105,34 +105,70 @@ public class ConvertRuntimeResultsXmlToCSV {
 
     private void printResults( PrintStream fileStream,
                                List<OperationResults> results ,
-                               int metricType) {
-        // make a list of matrix sizes
-        int max = 0;
-        for( OperationResults r : results ) {
-            int d[] = r.matDimen;
+                               int metricType ,
+                               String opName) {
 
-            for( int i = max; i < d.length; i++ ) {
-                fileStream.print("\t"+d[i]);
-            }
-            max = d.length;
+
+        fileStream.println("# Operation: "+opName);
+        fileStream.println("# Metric:    "+metricType);
+        fileStream.print("#");
+        for( OperationResults r : results ) {
+            fileStream.print("\t"+r.getLibrary().getPlotName());
         }
         fileStream.println();
 
-        for( OperationResults r : results ) {
-            fileStream.print(r.getLibrary());
+        int matrixSize[] = findMaxMatrixSize(results);
 
-            RuntimeEvaluationMetrics m[] = r.getMetrics();
+        for( int indexMatrix = 0; indexMatrix < matrixSize.length; indexMatrix++ ) {
+            int s = matrixSize[indexMatrix];
 
-            for( RuntimeEvaluationMetrics e : m ) {
-                fileStream.print("\t"+e.getMetric(metricType));
+            // print the size of this matrix
+            fileStream.print(s);
+
+            // print results for each library at this size
+            for( OperationResults r : results ) {
+//                fileStream.print(r.getLibrary());
+
+                // sanity check
+                if( r.getMatDimen()[indexMatrix] != s ) {
+                    throw new RuntimeException("Matrix size miss match");
+                }
+
+                RuntimeEvaluationMetrics m[] = r.getMetrics();
+
+                if( m.length > indexMatrix && m[indexMatrix] != null )
+                    fileStream.print("\t"+m[indexMatrix].getMetric(metricType));
+                else
+                    fileStream.print("\t"+Double.NaN);
+
             }
             fileStream.println();
         }
+        fileStream.println();
 
     }
 
+    private int[] findMaxMatrixSize( List<OperationResults> results) {
+        int max = 0;
+        int arrayMax[] = null;
+
+        for( OperationResults r : results ) {
+            int d[] = r.matDimen;
+
+            if( d.length > max ) {
+                max = d.length;
+                arrayMax = d;
+            }
+        }
+
+        return arrayMax;
+    }
+
     public static void main( String args[] ) {
-        ConvertRuntimeResultsXmlToCSV p = new ConvertRuntimeResultsXmlToCSV("/home/pja/projects/jmatbench/trunk/results/1265160742280");
+
+        String dir = args.length == 0 ? PlotRuntimeResultsXml.findMostRecentDirectory() : args[0];
+
+        ConvertRuntimeResultsXmlToCSV p = new ConvertRuntimeResultsXmlToCSV(dir);
 
         p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
 
