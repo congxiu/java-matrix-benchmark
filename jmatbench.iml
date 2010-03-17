@@ -146,15 +146,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jblas-1.0.1/jblas-1.0.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/parallelcolt-0.9.3/arpack-combo.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -210,6 +201,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/parallelcolt-0.9.3/jplasma.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jblas-1.0.2/jblas-1.0.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
