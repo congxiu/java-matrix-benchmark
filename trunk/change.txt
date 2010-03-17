@@ -2,7 +2,7 @@
 
 2010/XX/XX
 
-- Updated version of OjAlgo
+- Updated version of OjAlgo, ParallelColt, UJMP
 - Added JBlas to benchmark
 - Turned off LU,QR, Cholesky decompositions from runtime performance test.  Not often used directly and
   the functions which use them and are used directory (solve,inv,symm inv) are already included.
