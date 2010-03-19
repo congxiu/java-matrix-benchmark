@@ -19,13 +19,7 @@
 
 package jmbench.tools.runtime.evaluation;
 
-import jmbench.tools.ResultPlotter;
-import jmbench.tools.runtime.OperationResults;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +35,6 @@ public class PlotRuntimeResultsCsv {
 
     File directory;
 
-    // should it include native libraries while plotting results
-    boolean plotNativeLibraries = true;
-
     public PlotRuntimeResultsCsv( String dir ) {
         directory = new File(dir);
 
@@ -57,7 +48,7 @@ public class PlotRuntimeResultsCsv {
     }
 
     @SuppressWarnings({"unchecked"})
-    public void plot() throws FileNotFoundException {
+    public void plot() throws IOException {
         String[] files = directory.list();
 
         Map<String, List> opMap = new HashMap<String,List>();
@@ -66,37 +57,108 @@ public class PlotRuntimeResultsCsv {
             if( !nameLevel0.contains(".csv"))
                 continue;
 
-            String opName = nameLevel0.split(".")[0];
+            String opName = nameLevel0.split("[.]")[0];
 
-            List<Integer>  matrixDimen = new ArrayList<Integer>();
+            System.out.println("processing op: "+opName);
 
-            InputStream is = new FileInputStream(directory.getAbsolutePath()+"/"+nameLevel0);
+            BufferedReader r =
+                        new BufferedReader(new InputStreamReader(new FileInputStream(directory.getAbsolutePath()+"/"+nameLevel0)));
 
-            // read in list of libraries processed
+            // read in the results
+            RuntimePlotData plotData = readResults(r);
 
-            // go through line by line reading in results
-
-            // create dummy
-
-        }
-        for( String key : opMap.keySet() ) {
-            List<OperationResults> l = opMap.get(key);
-
-            String fileNameVar = directory.getPath()+"/plots/variability/"+key;
-            String fileNameRel = directory.getPath()+"/plots/relative/"+key;
-            String fileNameAbs = directory.getPath()+"/plots/absolute/"+key;
-
-            ResultPlotter.Reference refType = ResultPlotter.Reference.MAX;
-            ResultPlotter.variabilityPlots(l, fileNameVar,true,false);
-            ResultPlotter.relativePlots(l, refType,null,fileNameRel,0,true,true);
-            ResultPlotter.absolutePlots(l, fileNameAbs,0,true,false);
+            // create the plots
+            savePlots(opName,plotData);
         }
     }
 
-    public static void main( String args[] ) throws FileNotFoundException {
+    private void savePlots( String plotName , RuntimePlotData data ) {
+        String fileNameRel = directory.getPath()+"/plots/relative/"+plotName;
+        String fileNameAbs = directory.getPath()+"/plots/absolute/"+plotName;
+
+        RuntimeResultPlotter.Reference refType = RuntimeResultPlotter.Reference.MAX;
+        RuntimeResultPlotter.relativePlots(data, refType,null,fileNameRel,plotName,true,true);
+        RuntimeResultPlotter.absolutePlots(data, fileNameAbs,plotName,true,false);
+    }
+
+    /**
+     * Creates the results in for a particular file ignoring comments.
+     */
+    private RuntimePlotData readResults( BufferedReader r ) throws IOException {
+        // read the file in as a series of string arrays
+        String[] libs = readLine(r);
+        String[] libIds = readLine(r);
+
+        List<String[]> data = new ArrayList<String[]>();
+
+        for( String[] a = readLine(r); a != null; a = readLine(r) ) {
+            data.add(a);
+        }
+
+        int matrixSize[] = new int[ data.size() ];
+        for( int i = 0; i < matrixSize.length; i++ ) {
+            matrixSize[i] = Integer.parseInt(data.get(i)[0]);
+        }
+
+        // convert results from strings to numbers
+        RuntimePlotData ret = new RuntimePlotData(matrixSize,libs.length-1);
+
+        for( int i = 0; i < libs.length-1; i++ ) {
+            ret.labels[i] = libs[i+1];
+            ret.plotLineType[i] = Integer.parseInt(libIds[i]);
+        }
+
+        for( int i = 0; i < matrixSize.length; i++ ) {
+            String[] d = data.get(i);
+
+            for( int j = 0; j < ret.labels.length; j++ ) {
+                ret.results[j][i] = Double.parseDouble(d[j+1]);
+            }
+        }
+
+        return ret;
+    }
+
+    /**
+     * Reads a line from the file and splits it into substrings based upon whitespace.
+     * Lines that begin with the comment character are ignored.  Relative runtime plots are displayed
+     * on the screen and both relative runtime and absolute results are saved in the plots directory.
+     */
+    public static String[] readLine( BufferedReader r ) throws IOException {
+        while( true ) {
+            String line = r.readLine();
+            if( line == null )
+                return null;
+            if( line.length() == 0 )
+                continue;
+            
+            if( line.charAt(0) == '#')
+                continue;
+
+            String[] raw = line.split("\\s");
+
+            // strip away empty strings
+            int count = 0;
+            for( int i = 0; i < raw.length; i++ ) {
+                if( raw[i].length() > 0 )
+                    count++;
+            }
+
+            String[] ret = new String[count];
+
+            int c = 0;
+            for( int i = 0; i < raw.length; i++ ) {
+                if( raw[i].length() > 0 )
+                    ret[c++] = raw[i];
+            }
+
+            return ret;
+        }
+    }
+
+    public static void main( String args[] ) throws IOException {
 
         String inputDirectory = args.length == 0 ? PlotRuntimeResultsXml.findMostRecentDirectory() : args[0];
-
 
         PlotRuntimeResultsCsv p = new PlotRuntimeResultsCsv(inputDirectory);
 

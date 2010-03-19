@@ -124,8 +124,19 @@ public class CheckForErrorsInResultsXml {
         System.out.println();
     }
 
+    public static void printHelp() {
+        System.out.println("This program runs through the logs and looks for any notable exceptions that occured.");
+        System.out.println("If any exceptions happened then a summary is printed out.");
+        System.out.println();
+        System.out.println("arguments: <results directory>");
+        System.out.println();
+        System.out.println("If the results directory is not specified then the most recent directory is used.");
+    }
+
     public static void main( String args[] ) {
-        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml("/home/pja/projects/jmatbench/trunk/results/PentiumM_2010_02");
+        String dir = args.length == 0 ? PlotRuntimeResultsXml.findMostRecentDirectory() : args[0];
+
+        CheckForErrorsInResultsXml p = new CheckForErrorsInResultsXml(dir);
 
         p.examine();
     }

@@ -34,7 +34,8 @@ import java.util.Map;
 
 
 /**
- * Converts results from xml format into a CSV (column space value) format.
+ * Converts results from xml format into a CSV (comma space value) format. '#' is a comment character
+ * and tabs \\t denote each data element.
  *
  * @author Peter Abeles
  */
@@ -54,8 +55,13 @@ public class ConvertRuntimeResultsXmlToCSV {
         }
     }
 
+    /**
+     * Reads in the results from serialized XML files and converts them into a stripped down CSV format.
+     *
+     * @param whichMetric Which performance metric is being used.
+     */
     @SuppressWarnings({"unchecked"})
-    public void plot(int whichMetric) {
+    public void convert(int whichMetric) {
         String[] files = directory.list();
 
         Map<String, List> opMap = new HashMap<String,List>();
@@ -93,6 +99,11 @@ public class ConvertRuntimeResultsXmlToCSV {
             String fileName = directory.getPath()+"/"+key+".csv";
             System.out.println("Writing file: "+fileName);
             try {
+                File temp = new File(fileName);
+                if( temp.exists() )
+                    if( !temp.delete() )
+                        throw new RuntimeException("Can't delete old file. "+fileName);
+
                 PrintStream fileStream = new PrintStream(new FileOutputStream(fileName));
                 printResults(fileStream,l,whichMetric,key);
             } catch (FileNotFoundException e) {
@@ -103,6 +114,14 @@ public class ConvertRuntimeResultsXmlToCSV {
         }
     }
 
+    /**
+     * Saves the results into a tab separated file.
+     *
+     * @param fileStream
+     * @param results
+     * @param metricType
+     * @param opName
+     */
     private void printResults( PrintStream fileStream,
                                List<OperationResults> results ,
                                int metricType ,
@@ -111,9 +130,18 @@ public class ConvertRuntimeResultsXmlToCSV {
 
         fileStream.println("# Operation: "+opName);
         fileStream.println("# Metric:    "+metricType);
-        fileStream.print("#");
+        
+        // save all the names of each library
+        fileStream.print("size\t");
         for( OperationResults r : results ) {
             fileStream.print("\t"+r.getLibrary().getPlotName());
+        }
+        fileStream.println();
+
+        // save the library number so that the plots use the same color line when plotting
+        fileStream.print("\t");
+        for( OperationResults r : results ) {
+            fileStream.print("\t"+r.getLibrary().getPlotLineType());
         }
         fileStream.println();
 
@@ -170,7 +198,7 @@ public class ConvertRuntimeResultsXmlToCSV {
 
         ConvertRuntimeResultsXmlToCSV p = new ConvertRuntimeResultsXmlToCSV(dir);
 
-        p.plot(RuntimeEvaluationMetrics.METRIC_MAX);
+        p.convert(RuntimeEvaluationMetrics.METRIC_MAX);
 
         System.out.println("Done");
     }
