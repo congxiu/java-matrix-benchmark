@@ -20,7 +20,6 @@
 package jmbench.tools.runtime.evaluation;
 
 import jmbench.tools.EvaluationTarget;
-import jmbench.tools.ResultPlotter;
 import jmbench.tools.runtime.OperationResults;
 import jmbench.tools.runtime.RuntimeEvaluationMetrics;
 import pja.util.UtilXmlSerialization;
@@ -33,7 +32,8 @@ import java.util.Map;
 
 
 /**
- * Creates plots for all the results in a directory
+ * Creates plots for all the results in a directory from raw xml files.  Plots are saved
+ * int the plots directory.
  *
  * @author Peter Abeles
  */
@@ -43,6 +43,9 @@ public class PlotRuntimeResultsXml {
 
     // should it include native libraries while plotting results
     boolean plotNativeLibraries = true;
+
+    // should it display results to the screen
+    boolean displayResults = true;
 
     public PlotRuntimeResultsXml( String dir ) {
         directory = new File(dir);
@@ -99,18 +102,43 @@ public class PlotRuntimeResultsXml {
             }
 
         }
+
         for( String key : opMap.keySet() ) {
             List<OperationResults> l = opMap.get(key);
+
+            RuntimePlotData plotData = convertToPlotData(l,whichMetric);
 
             String fileNameVar = directory.getPath()+"/plots/variability/"+key;
             String fileNameRel = directory.getPath()+"/plots/relative/"+key;
             String fileNameAbs = directory.getPath()+"/plots/absolute/"+key;
 
-            ResultPlotter.Reference refType = ResultPlotter.Reference.MAX;
-            ResultPlotter.variabilityPlots(l, fileNameVar,true,false);
-            ResultPlotter.relativePlots(l, refType,null,fileNameRel,whichMetric,true,true);
-            ResultPlotter.absolutePlots(l, fileNameAbs,whichMetric,true,false);
+            RuntimeResultPlotter.Reference refType = RuntimeResultPlotter.Reference.MAX;
+            RuntimeResultPlotter.variabilityPlots(l, fileNameVar,true,false);
+            RuntimeResultPlotter.relativePlots(plotData, refType,null,fileNameRel,key,true,true);
+            RuntimeResultPlotter.absolutePlots(plotData, fileNameAbs,key,true,false);
         }
+    }
+
+    private RuntimePlotData convertToPlotData( List<OperationResults> results , int whichMetric ) {
+        OperationResults a = results.get(0);
+
+        RuntimePlotData ret = new RuntimePlotData(a.matDimen,results.size());
+
+        for( int i = 0; i < results.size(); i++ ) {
+            a = results.get(i);
+            ret.labels[i] = a.getOpName();
+            ret.plotLineType[i] = a.getLibrary().getPlotLineType();
+
+            double r[] = ret.results[i];
+
+            for( int j = 0; j < a.matDimen.length; j++ ) {
+                RuntimeEvaluationMetrics m = a.getMetrics()[j];
+                if( m != null )
+                    r[j] = m.getMetric(whichMetric);
+            }
+        }
+
+        return ret;
     }
 
     /**
@@ -161,9 +189,13 @@ public class PlotRuntimeResultsXml {
     }
 
     public static void printHelp() {
+        System.out.println("Creates plots from raw XML file results.  The plots can be generated from " +
+                "different statistical metric and filtered based on library features.");
+        System.out.println();
         System.out.println("--PlotNative=<true|false>    : Turns plotting results from native libraries on and off.");
         System.out.println("--Metric=<?>                 : Changes the metric that is plotted.");
         System.out.println("                             : MAX,MIN,STDEV,MEDIAN,MEAN");
+        System.out.println("--Display=<true|false>       : If true some results will be displayed.");
         System.out.println();
         System.out.println("The last argument is the directory that contains the results.  If this is not specified");
         System.out.println("then the most recently modified directory is used.");
@@ -173,6 +205,7 @@ public class PlotRuntimeResultsXml {
         String inputDirectory = null;
         boolean plotNative = true;
         int metric = RuntimeEvaluationMetrics.METRIC_MAX;
+        boolean displayResults = true;
 
         boolean failed = false;
 
@@ -207,7 +240,11 @@ public class PlotRuntimeResultsXml {
                 } else {
                     throw new RuntimeException("Unknown metric: "+splits[1]);
                 }
-            }  else {
+            } else if( flag.compareTo("Display") ==0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                displayResults = Boolean.parseBoolean(splits[1]);
+                System.out.println("Display = "+displayResults);
+            } else {
                 System.out.println("Unknown flag: "+flag);
                 failed = true;
                 break;
@@ -225,6 +262,7 @@ public class PlotRuntimeResultsXml {
         PlotRuntimeResultsXml p = new PlotRuntimeResultsXml(inputDirectory);
 
         p.plotNativeLibraries = plotNative;
+        p.displayResults = displayResults;
         p.plot(metric);
     }
 }

@@ -7,11 +7,12 @@
 - Turned off LU,QR, Cholesky decompositions from runtime performance test.  Not often used directly and
   the functions which use them and are used directory (solve,inv,symm inv) are already included.
 - Turned off jscience by default since its weak and taking up room in the plots.
-- Flagged all libaries as using native code or not
+- Flagged all libraries as using native code or not
 - For runtime performance plots, libraries can be filtered by using native code or not.
 - Added command line tool in jar file for launching other tools
 - Change the way the desired runtime of a test and the maximum allowed runtime for a test are handled to make
   processing of larger matrices easier.
+- Can plot results from CSV file
 
 ----- Version 0.5
 

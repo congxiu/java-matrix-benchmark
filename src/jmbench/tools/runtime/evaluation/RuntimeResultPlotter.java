@@ -17,7 +17,7 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.tools;
+package jmbench.tools.runtime.evaluation;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.plots.OperationsVersusSizePlot;
@@ -34,7 +34,7 @@ import java.util.List;
  *
  * @author Peter Abeles
  */
-public class ResultPlotter {
+public class RuntimeResultPlotter {
 
     public static void variabilityPlots( List<OperationResults> data ,
                                       String fileName ,
@@ -86,43 +86,39 @@ public class ResultPlotter {
             splot.displayWindow(600, 500);
     }
 
-    public static void absolutePlots( List<OperationResults> data ,
+    public static void absolutePlots( RuntimePlotData data ,
                                       String fileName ,
-                                      int whichMetric ,
+                                      String opName,
                                       boolean savePDF ,
                                       boolean showWindow )
     {
-        String opName = data.get(0).getOpName();
         OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Time Per Op (s)");
 
         splot.setLogScale(true,true);
 
-        int numMatrixSizes = getNumMatrices(data);
+        int numMatrixSizes = data.matrixSize.length;
 
         double results[] = new double[ numMatrixSizes ];
-        int matDimen[] = new int[ numMatrixSizes ];
+        int matDimen[] = data.matrixSize;
 
         if( fileName == null ) {
             fileName = opName;
         }
 
-        for( int i = 0; i < numMatrixSizes; i++ ){
-            matDimen[i] = getMatrixSize(data,i);
-        }
 
-        for( OperationResults ops : data ) {
-            RuntimeEvaluationMetrics[]metrics = ops.metrics;
+        for( int libIndex = 0; libIndex < data.labels.length; libIndex++ ) {
 
             for( int i = 0; i < numMatrixSizes; i++ ) {
-                if( metrics[i] != null ) {
-                    results[i] = 1.0/metrics[i].getMetric(whichMetric);
+                double libResult = data.results[libIndex][i];
+                if( !Double.isNaN(libResult) ) {
+                    results[i] = 1.0/libResult;
                 } else {
                     results[i] = Double.NaN;
                 }
             }
 
-            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),numMatrixSizes,
-                    ops.getLibrary().getPlotLineType());
+            splot.addResults(matDimen,results,data.labels[libIndex],numMatrixSizes,
+                    data.plotLineType[libIndex]);
         }
 
         if( savePDF )
@@ -131,59 +127,47 @@ public class ResultPlotter {
             splot.displayWindow(600, 500);
     }
 
-    public static void relativePlots( List<OperationResults> data ,
+    public static void relativePlots( RuntimePlotData data ,
                                       Reference referenceType ,
-                                      MatrixLibrary refLib ,
+                                      String refLib ,
                                       String fileName ,
-                                      int whichMetric ,
+                                      String opName ,
                                       boolean savePDF ,
                                       boolean showWindow )
     {
-        OperationResults refResults = null;
-        if( refLib != null ) {
-            refResults = findReferenceResults(data, refLib);
+        int refIndex = refLib == null ? -1 : data.findLibrary(refLib);
 
-            if( refResults == null ) {
-                System.out.println("Can't find reference.");
-                return;
-            }
-        }
 
-        String opName = data.get(0).getOpName();
         OperationsVersusSizePlot splot = new OperationsVersusSizePlot(opName,"Relative Performance");
 
         splot.setLogScale(true,true);
         splot.setRange(0.01,2);
 
-        int numMatrixSizes = getNumMatrices(data);
+        int numMatrixSizes = data.matrixSize.length;
 
         double results[] = new double[ numMatrixSizes ];
         double refValue[] = new double[ numMatrixSizes ];
-        int matDimen[] = new int[ numMatrixSizes ];
+        int matDimen[] = data.matrixSize;
 
         if( fileName == null ) {
             fileName = opName;
         }
 
-        computeReferenceValues(data, referenceType, whichMetric, refResults, numMatrixSizes, refValue);
+        computeReferenceValues(data, referenceType, refIndex, numMatrixSizes, refValue);
 
-        for( int i = 0; i < numMatrixSizes; i++ ){
-            matDimen[i] = getMatrixSize(data,i);
-        }
-
-        for( OperationResults ops : data ) {
-            RuntimeEvaluationMetrics[]metrics = ops.metrics;
-
+        for( int libIndex = 0; libIndex < data.labels.length; libIndex++ ) {
             for( int i = 0; i < numMatrixSizes; i++ ) {
-                if( !Double.isNaN(refValue[i]) && metrics[i] != null ) {
-                    results[i] = metrics[i].getMetric(whichMetric)/refValue[i];
+                double libResult = data.results[libIndex][i];
+
+                if( !Double.isNaN(libResult) ) {
+                    results[i] = libResult/refValue[i];
                 } else {
                     results[i] = Double.NaN;
                 }
             }
 
-            splot.addResults(matDimen,results,ops.getLibrary().getPlotName(),numMatrixSizes,
-                    ops.getLibrary().getPlotLineType());
+            splot.addResults(matDimen,results,data.labels[libIndex],numMatrixSizes,
+                    data.plotLineType[libIndex]);
         }
         
         if( savePDF )
@@ -192,10 +176,9 @@ public class ResultPlotter {
             splot.displayWindow(500, 350);
     }
 
-    private static void computeReferenceValues(List<OperationResults> data,
+    private static void computeReferenceValues(RuntimePlotData data,
                                                Reference referenceType,
-                                               int whichMetric,
-                                               OperationResults refResults,
+                                               int refIndex,
                                                int numMatrixSizes,
                                                double[] refValue) {
         if( referenceType == Reference.NONE ) {
@@ -204,7 +187,7 @@ public class ResultPlotter {
             }
         } else {
             for( int i = 0; i <numMatrixSizes; i++ ) {
-                refValue[i] = getReferenceValue(data,refResults,i,whichMetric,referenceType);
+                refValue[i] = getReferenceValue(data,refIndex,i,referenceType);
 //                System.out.println("i = "+refValue[i]);
             }
 //            System.out.println();
@@ -237,32 +220,26 @@ public class ResultPlotter {
         throw new RuntimeException("Couldnt find a match");
     }
 
-    private static double getReferenceValue( List<OperationResults> data ,
-                                             OperationResults refLib ,
+    private static double getReferenceValue( RuntimePlotData data ,
+                                             int refIndex ,
                                              int matrixSize ,
-                                             int whichMetric ,
                                              Reference referenceType )
     {
         if( referenceType == Reference.LIBRARY ) {
-            RuntimeEvaluationMetrics[]opsRef = refLib.getMetrics();
-
-            if( matrixSize >= opsRef.length || opsRef[matrixSize] == null ) {
-                return Double.NaN;
-            }
-
-            return opsRef[matrixSize].getMetric(whichMetric);
+            return data.results[refIndex][matrixSize];
         }
 
         List<Double> results = new ArrayList<Double>();
 
-        for( OperationResults d : data ) {
-            RuntimeEvaluationMetrics[]opsRef = d.getMetrics();
+        // get results from each library at this matrix size
+        for( int i = 0; i < data.labels.length; i++ ) {
+            double r = data.results[i][matrixSize];
 
-            if( matrixSize >= opsRef.length || opsRef[matrixSize] == null ) {
+            if( Double.isNaN(r) || Double.isInfinite(r)) {
                 continue;
             }
 
-            results.add( opsRef[matrixSize].getMetric(whichMetric) );
+            results.add(r);
         }
 
         if( results.size() == 0 )

@@ -20,6 +20,7 @@
 package jmbench.tools;
 
 import jmbench.tools.runtime.RuntimeBenchmarkMaster;
+import jmbench.tools.runtime.evaluation.CheckForErrorsInResultsXml;
 import jmbench.tools.runtime.evaluation.PlotRuntimeResultsXml;
 
 import java.io.IOException;
@@ -37,12 +38,14 @@ public class BenchmarkToolsMasterApp {
     public static void printHelp() {
         System.out.println("<tool> <tool arguments>");
         System.out.println("The first argument specifies which tool is to be run:" +
-                " <stability|runtime|plotRuntime|displayStability>");
+                " <stability|runtime|checkRuntime|plotRuntime|displayStability>");
         System.out.println();
         System.out.println("For runtime tool:");
         RuntimeBenchmarkMaster.printHelp();
         System.out.println("For runtime plot tool:");
         PlotRuntimeResultsXml.printHelp();
+        System.out.println("For runtime check tool:");
+        CheckForErrorsInResultsXml.printHelp();
         System.exit(0);
     }
 
@@ -63,6 +66,8 @@ public class BenchmarkToolsMasterApp {
             RuntimeBenchmarkMaster.main(pruned);
         } else if( tool.compareToIgnoreCase("stability") == 0) {
             System.out.println("Not supported yet "+tool);
+        } else if( tool.compareToIgnoreCase("checkRuntime") == 0) {
+            CheckForErrorsInResultsXml.main(pruned);    
         } else if( tool.compareToIgnoreCase("plotRuntime") == 0) {
             PlotRuntimeResultsXml.main(pruned);
         } else if( tool.compareToIgnoreCase("displayStability") == 0) {

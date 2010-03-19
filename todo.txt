@@ -4,6 +4,8 @@
 - stability of BigDecimal matrices?
 - stability for jblas
 
-- determine memory requirements
+- option to not run correctness check on data
 
-- Plot program for CSV format
+- convert results to excel format
+
+- determine memory requirements
