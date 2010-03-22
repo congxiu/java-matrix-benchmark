@@ -137,7 +137,7 @@ public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
 
             // There are two SVD algorithms. Piotr Wendykier said this one is faster.
             for( long i = 0; i < numTrials; i++ ) {
-                DenseDoubleSingularValueDecompositionDC s = alg.svdDC(matA);
+                DenseDoubleSingularValueDecomposition s = alg.svd(matA);
                 U = s.getU();
                 S = s.getS();
                 V = s.getV();

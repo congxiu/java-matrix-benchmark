@@ -126,24 +126,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ujmp-svn/ujmp-complete-0.2.5-with-deps.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/parallelcolt-0.9.3/arpack-combo.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jblas-1.0.2/jblas-1.0.2.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -219,6 +201,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/parallelcolt-0.9.4/optimization.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/ujmp-svn/ujmp-complete-0.2.5-with-deps.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
