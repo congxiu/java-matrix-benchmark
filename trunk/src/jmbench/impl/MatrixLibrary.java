@@ -36,9 +36,9 @@ public class MatrixLibrary implements Serializable {
     public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","SEJML 0.7","",true, false, 3);
     public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math-2.1a","Commons Math 2.1a","",true, false, 4);
     public static final MatrixLibrary JSCIENCE = new MatrixLibrary("JScience","jscience-4.3","JScience 4.3","",true, false, 5);
-    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo-28.37","ojAlgo 28.37","2010-02-13",true, false, 6);
+    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo-29.0","ojAlgo 29.0","2010-03-20",true, false, 6);
     public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt-1.2","Colt 1.2","",true, false, 7);
-    public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt-0.9.3","Parallel Colt 0.9.3","2010-02-28",true, false, 8);
+    public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt-0.9.4","Parallel Colt 0.9.4","2010-03-20",true, false, 8);
     public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp-svn","UJMP svn","2010-03-02",true, true, 9);
     public static final MatrixLibrary JBLAS = new MatrixLibrary("JBLAS","jblas-1.0.2","JBLAS 1.0.2","2010-02-26",true, true, 10);
 
