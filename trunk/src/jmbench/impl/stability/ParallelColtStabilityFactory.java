@@ -22,7 +22,7 @@ package jmbench.impl.stability;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleEigenvalueDecomposition;
-import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecompositionDC;
+import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
@@ -86,7 +86,7 @@ public class ParallelColtStabilityFactory implements StabilityFactory {
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            DenseDoubleSingularValueDecompositionDC s = alg.svdDC(matA);
+            DenseDoubleSingularValueDecomposition s = alg.svd(matA);
 
             DenseMatrix64F ejmlU = parallelColtToEjml(s.getU());
             DenseMatrix64F ejmlS = parallelColtToEjml(s.getS());
