@@ -56,9 +56,7 @@ These results show the performance of libraries that have code written entirely 
 
 ==Java: Matrix Decompositions==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/LU.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/svd.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/EigSymm.png ||
 
 ----
 = Mixed Java and Native Libraries =
@@ -78,6 +76,4 @@ These results show the performance of libraries that either use pure Java or cal
 
 ==Mixed: Matrix Decompositions==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/LU.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/svd.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/EigSymm.png ||
