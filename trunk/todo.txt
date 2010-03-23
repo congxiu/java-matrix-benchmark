@@ -9,3 +9,6 @@
 - convert results to excel format
 
 - determine memory requirements
+
+- Note some place that EJML is always included so libraries that depend on it will use whatever version
+the benchmark is using
