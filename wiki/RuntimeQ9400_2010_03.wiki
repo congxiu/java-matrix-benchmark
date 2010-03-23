@@ -1,0 +1,82 @@
+#summary Benchmark results for Q9400 Vista 64
+
+There are a few changes in this benchmark since the last one.  
+  * Several libraries have been updated
+  * LU, Chol, and QR benchmarks have been removed
+  * JScience was removed
+  * Maximum matrix size has increased
+  * QUICK RESULTS
+
+Links to the results:
+  * [#Pure_Java_Libraries Pure Java Results]
+    * [#Java:_Basic_Operation_Results Basic Operations]
+    * [#Java:_Solving_Linear_Systems Solving Linear Systems]
+    * [#Java:_Matrix_Decompositions Matrix Decompositions]
+  * [#Mixed_Java_and_Native_Libraries Java and Native Results]
+    * [#Mixed:_Basic_Operation_Results Basic Operations]
+    * [#Mixed:_Solving_Linear_Systems Solving Linear Systems]
+    * [#Mixed:_Matrix_Decompositions Matrix Decompositions]
+
+=Test Environment =
+
+Test Environment:
+|| Date || 2010.03.23 ||
+|| OS || Vista 64bit ||
+|| CPU || Q9400 - 2.66 Ghz - 4 cores ||
+|| JVM || Java HotSpot(TM) 64-Bit Server VM 1.6.0_16 ||
+|| Benchmark || 0.6pre ||
+
+Tested Libraries:
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.1a (2010/1/29) ||
+|| EJML ||  0.10.1         ||
+|| Jama || 1.0.2           ||
+|| JBlas || 1.0.2          ||
+|| MTJ || 0.9.12           || 
+|| OjAlgo || 29.0          || 
+|| Parallel Colt || 0.9.4  ||
+|| UJMP || SVN (2010/2/20) ||
+
+= Pure Java Libraries =
+
+These results show the performance of libraries that have code written entirely in Java.
+
+==Java: Basic Operation Results==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/multTranA.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/tran.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/invSymmPosDef.png ||
+
+==Java: Solving Linear Systems==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/solveOver.png||
+
+==Java: Matrix Decompositions==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/LU.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/svd.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/EigSymm.png ||
+
+----
+= Mixed Java and Native Libraries =
+
+These results show the performance of libraries that either use pure Java or calls to native libraries.
+
+==Mixed: Basic Operation Results==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/multTranA.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/tran.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/invSymmPosDef.png ||
+
+==Mixed: Solving Linear Systems==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/solveOver.png||
+
+==Mixed: Matrix Decompositions==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/cholesky.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/LU.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/QR.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/svd.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeQ9400_2010_03.attach/native/EigSymm.png ||
