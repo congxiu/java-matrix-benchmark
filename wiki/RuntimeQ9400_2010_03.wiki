@@ -4,6 +4,7 @@ There are a few changes in this benchmark since the last one.
   * Several libraries have been updated
   * LU, Chol, and QR benchmarks have been removed
   * JScience was removed
+  * UJMP is flagged as a native library since it uses JBlas now
   * Maximum matrix size has increased
   * QUICK RESULTS
 
