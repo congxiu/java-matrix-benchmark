@@ -30,7 +30,7 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class MatrixLibrary implements Serializable {
-    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","EJML 0.10.1a","2010-02-21",false,false,0);
+    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","EJML 0.11a","2010-03-10",false,false,0);
     public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama-1.0.2","Jama 1.0.2","",false, false, 1);
     public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj-0.9.12","MTJ 0.9.12","",true, false, 2);
     public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","SEJML 0.7","",true, false, 3);
