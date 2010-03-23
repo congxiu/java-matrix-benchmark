@@ -126,7 +126,7 @@ public class PlotRuntimeResultsXml {
 
         for( int i = 0; i < results.size(); i++ ) {
             a = results.get(i);
-            ret.labels[i] = a.getOpName();
+            ret.labels[i] = a.getLibrary().getPlotName();
             ret.plotLineType[i] = a.getLibrary().getPlotLineType();
 
             double r[] = ret.results[i];
