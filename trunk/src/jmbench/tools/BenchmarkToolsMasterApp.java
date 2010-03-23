@@ -49,8 +49,6 @@ public class BenchmarkToolsMasterApp {
         System.exit(0);
     }
 
-
-
     public static void main( String args[] ) throws IOException, InterruptedException {
 
         if( args.length == 0 ) {
