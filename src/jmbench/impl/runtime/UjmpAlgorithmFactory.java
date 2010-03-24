@@ -28,7 +28,6 @@ import org.ejml.ops.CommonOps;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.MatrixFactory;
 import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
-import org.ujmp.core.doublematrix.DoubleMatrix2D;
 
 /**
  *
@@ -272,7 +271,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 			DenseDoubleMatrix2D matB = convertToUjmp(inputs[1]);
 
-			DenseDoubleMatrix2D result = DoubleMatrix2D.factory.dense(matA
+			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matA.getColumnCount());
 
 			long prev = System.currentTimeMillis();
@@ -299,7 +298,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 			DenseDoubleMatrix2D matB = convertToUjmp(inputs[1]);
 
-			DenseDoubleMatrix2D result = DoubleMatrix2D.factory.dense(matA
+			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matB.getColumnCount());
 
 			long prev = System.currentTimeMillis();
@@ -351,7 +350,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 				long numTrials) {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 
-			DenseDoubleMatrix2D result = DoubleMatrix2D.factory.dense(matA
+			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matA.getColumnCount());
 
 			long prev = System.currentTimeMillis();
@@ -409,7 +408,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 				long numTrials) {
 			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
 
-			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.dense(matA
+			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getColumnCount(), matA.getRowCount());
 
 			long prev = System.currentTimeMillis();
@@ -425,7 +424,7 @@ public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
 	}
 
 	public static DenseDoubleMatrix2D convertToUjmp(DenseMatrix64F orig) {
-		DenseDoubleMatrix2D ret = DenseDoubleMatrix2D.factory.dense(orig
+		DenseDoubleMatrix2D ret = DenseDoubleMatrix2D.factory.zeros(orig
 				.getNumRows(), orig.getNumCols());
 
 		for (int i = 0; i < orig.numRows; i++) {
