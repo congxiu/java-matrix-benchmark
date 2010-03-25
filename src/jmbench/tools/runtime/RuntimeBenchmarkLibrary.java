@@ -228,10 +228,7 @@ public class RuntimeBenchmarkLibrary {
 
         OperationResults r = computeResults(e, state.matrixIndex , randSeed[state.blockIndex] , score , state.results);
 
-        if( r == null )
-            return true;
-        
-        boolean done = tooSlow;
+        boolean done = tooSlow || caseFailed;
 
         // increment the number of blocks
         if( !done && ++state.blockIndex >= config.numBlocks ) {
@@ -268,17 +265,16 @@ public class RuntimeBenchmarkLibrary {
             System.out.println("      ---- ***** -----");
             System.out.println("Evaluation Case Failed ");
             System.out.println("      ---- ***** -----");
-            return null;
         } else {
             rawResults.addAll(opsPerSecond);
-
-            // save the results
-            score[matrixIndex] = new RuntimeEvaluationMetrics(rawResults);
-            OperationResults results = new OperationResults(e.getOpName(),
-                    libraryType,e.getDimens(),score);
-
-            return results;
         }
+
+        // save the results
+        score[matrixIndex] = new RuntimeEvaluationMetrics(rawResults);
+        OperationResults results = new OperationResults(e.getOpName(),
+                libraryType,e.getDimens(),score);
+
+        return results;
     }
 
 
