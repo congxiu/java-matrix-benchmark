@@ -228,6 +228,9 @@ public class RuntimeBenchmarkLibrary {
 
         OperationResults r = computeResults(e, state.matrixIndex , randSeed[state.blockIndex] , score , state.results);
 
+        if( r == null )
+            return true;
+
         boolean done = tooSlow || caseFailed;
 
         // increment the number of blocks
@@ -269,12 +272,16 @@ public class RuntimeBenchmarkLibrary {
             rawResults.addAll(opsPerSecond);
         }
 
-        // save the results
-        score[matrixIndex] = new RuntimeEvaluationMetrics(rawResults);
-        OperationResults results = new OperationResults(e.getOpName(),
-                libraryType,e.getDimens(),score);
+        // see if there are any results to save
+        if( !rawResults.isEmpty() ) {
+            score[matrixIndex] = new RuntimeEvaluationMetrics(rawResults);
+            OperationResults results = new OperationResults(e.getOpName(),
+                    libraryType,e.getDimens(),score);
 
-        return results;
+            return results;
+        } else {
+            return null;
+        }
     }
 
 
