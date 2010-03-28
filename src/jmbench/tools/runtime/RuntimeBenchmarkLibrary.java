@@ -229,7 +229,7 @@ public class RuntimeBenchmarkLibrary {
         OperationResults r = computeResults(e, state.matrixIndex , randSeed[state.blockIndex] , score , state.results);
 
         if( r == null )
-            return true;
+            throw new RuntimeException("Shouldn't return null any more.  Thsi is a bug.");
 
         boolean done = tooSlow || caseFailed;
 
@@ -275,13 +275,12 @@ public class RuntimeBenchmarkLibrary {
         // see if there are any results to save
         if( !rawResults.isEmpty() ) {
             score[matrixIndex] = new RuntimeEvaluationMetrics(rawResults);
-            OperationResults results = new OperationResults(e.getOpName(),
-                    libraryType,e.getDimens(),score);
-
-            return results;
-        } else {
-            return null;
         }
+
+        OperationResults results = new OperationResults(e.getOpName(),
+                libraryType,e.getDimens(),score);
+
+        return results;
     }
 
 
