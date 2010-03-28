@@ -82,6 +82,7 @@
         <zipgroupfileset dir="${jar.dir}" includes="${ant.project.name}.jar"/>
         <zipgroupfileset dir="lib" includes="EJML.jar"/>
         <zipgroupfileset dir="lib" includes="libpja.jar"/>
+        <zipgroupfileset dir="lib" includes="jfreechart*/*.jar"/>
 
         <manifest>
             <attribute name="Main-Class" value="jmbench.tools.BenchmarkToolsMasterApp"/>
