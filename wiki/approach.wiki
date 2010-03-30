@@ -22,3 +22,16 @@ The runtime performance benchmark is designed to measure the best possible perfo
 There are some real-world situations that would not be accurately represented by this benchmark.  Writing efficient code can be time consuming and is often not necessary.  If all one wants to do is to prove something is possible, why spend the extra time optimizing the code?  A significant amount of development time can be saved by not learning all the intricate details of a library, calling generic operations, and by managing memory in an ad hoc manor.  In these situations the practical performance merits of a library might be different than what is suggested in this benchmark.  However, this benchmark should still provide some insight.
 
 It should also be mentioned that the developer of this benchmark is also the developer of Efficient Java Matrix Library (EJML).
+
+= Acknowledgements = 
+
+Thanks to the comments and feedback from several people the quality of this benchmark been improved.  In particular the authors of several of the libraries tested have provided invaluable feedback.
+
+In no meaningful order:
+
+|| Anders Peterson  ||
+|| Luc Maisonobe ||
+|| Holger Arndt ||
+|| Mikio Braun ||
+|| Frode Carlsen ||
+|| Piotr Wendykier ||
