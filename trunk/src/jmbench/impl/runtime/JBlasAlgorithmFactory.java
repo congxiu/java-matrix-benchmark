@@ -63,7 +63,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(U);
+            outputs[0] = jblasToEjml(U);
             CommonOps.transpose(outputs[0]);
             return elapsed;
         }
@@ -93,9 +93,9 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(L);
-            outputs[1] = jamaToJBlas(U);
-            outputs[2] = jamaToJBlas(P);
+            outputs[0] = jblasToEjml(L);
+            outputs[1] = jblasToEjml(U);
+            outputs[2] = jblasToEjml(P);
             CommonOps.transpose(outputs[2]);
             return elapsed;
         }
@@ -129,8 +129,8 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(D);
-            outputs[1] = jamaToJBlas(V);
+            outputs[0] = jblasToEjml(D);
+            outputs[1] = jblasToEjml(V);
             return elapsed;
         }
     }
@@ -165,7 +165,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -190,7 +190,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -215,7 +215,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -240,7 +240,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -265,7 +265,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -289,7 +289,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -319,7 +319,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -343,7 +343,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToJBlas(result);
+            outputs[0] = jblasToEjml(result);
             return elapsed;
         }
     }
@@ -361,7 +361,7 @@ public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
         return ret;
     }
 
-    public static DenseMatrix64F jamaToJBlas( DoubleMatrix orig )
+    public static DenseMatrix64F jblasToEjml( DoubleMatrix orig )
     {
         if( orig == null )
             return null;

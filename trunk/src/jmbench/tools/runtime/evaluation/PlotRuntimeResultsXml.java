@@ -114,6 +114,7 @@ public class PlotRuntimeResultsXml {
 
             RuntimeResultPlotter.Reference refType = RuntimeResultPlotter.Reference.MAX;
             RuntimeResultPlotter.variabilityPlots(l, fileNameVar,true,false);
+            // TODO change key in the line below to plot name
             RuntimeResultPlotter.relativePlots(plotData, refType,null,fileNameRel,key,true,true);
             RuntimeResultPlotter.absolutePlots(plotData, fileNameAbs,key,true,false);
         }

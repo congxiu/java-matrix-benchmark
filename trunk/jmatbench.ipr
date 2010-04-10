@@ -2,14 +2,6 @@
 <project version="4">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
-    <buildFile url="file://$PROJECT_DIR$/../../java/ejml/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <maximumStackSize value="2" />
-      <properties />
-    </buildFile>
     <buildFile url="file://$PROJECT_DIR$/build.xml">
       <additionalClassPath />
       <antReference projectDefault="true" />
@@ -441,7 +433,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../java/ejml/ejml.iml" filepath="$PROJECT_DIR$/../../java/ejml/ejml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../ejml/trunk/ejml.iml" filepath="$PROJECT_DIR$/../../ejml/trunk/ejml.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatbench.iml" filepath="$PROJECT_DIR$/jmatbench.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../java/libpjajava/libpja.iml" filepath="$PROJECT_DIR$/../../java/libpjajava/libpja.iml" />
     </modules>
@@ -531,13 +523,6 @@
   <component name="SvnBranchConfigurationManager">
     <option name="myConfigurationMap">
       <map>
-        <entry key="$PROJECT_DIR$/../../java/ejml">
-          <value>
-            <SvnBranchConfiguration>
-              <option name="trunkUrl" value="file:///opt/repos/math/ejml/trunk" />
-            </SvnBranchConfiguration>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/../../java/libpjajava">
           <value>
             <SvnBranchConfiguration>
@@ -570,7 +555,7 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/../../java/ejml" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../../ejml/trunk" vcs="svn" />
     <mapping directory="$PROJECT_DIR$/../../java/libpjajava" vcs="svn" />
   </component>
   <component name="VssConfiguration">

@@ -42,6 +42,7 @@ public class StabilityBenchmarkConfig implements Serializable {
     public static EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceStabilityFactory.class.getName());
     public static EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, ParallelColtStabilityFactory.class.getName());
     public static EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpStabilityFactory.class.getName());
+    public static EvaluationTarget jblas = new EvaluationTarget( MatrixLibrary.JBLAS, JBlasStabilityFactory.class.getName());
 
 
     public long randomSeed;
@@ -111,9 +112,10 @@ public class StabilityBenchmarkConfig implements Serializable {
         config.targets.add(commons);
         config.targets.add(colt);
         config.targets.add(mtj);
-        config.targets.add(jsci);
+//        config.targets.add(jsci);
         config.targets.add(pcolt);
         config.targets.add(ujmp);
+        config.targets.add(jblas);
 
         return config;
     }
