@@ -132,6 +132,7 @@ public class RuntimeBenchmarkMaster {
         System.out.println("  --TrailTime=<ms>         |  The minimum amount of time spent in each trial.  Typical is 3000.");
         System.out.println("  --MaxTime=<ms>           |  Maximum number of milliseconds it can spend in a single test.  Typical is 30000.");
         System.out.println("  --Resume=<directory>     |  It will resume an unfinished benchmark at the specified directory.");
+        System.out.println("  --FixedMemory=<MB>       |  Use a fixed amount of memory in each trial.  In megabytes.");
         System.out.println();
         System.out.println("If no options are specified then a default configuration will be used and the results" +
                 "will be saved to a directory in results with the name of the current system time in milliseconds.");
@@ -196,6 +197,10 @@ public class RuntimeBenchmarkMaster {
                 config = UtilXmlSerialization.deserializeXml(splits[1]+"/config.xml");
                 master.performBenchmark(config);
                 return;
+            } else if( flag.compareTo("FixedMemory") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                config.memoryFixed = Integer.parseInt(splits[1]);
+                System.out.println("Memory used in each test will be "+config.maxTrialTime+" (MB).");
             } else {
                 System.out.println("Unknown flag: "+flag);
                 failed = true;

@@ -84,8 +84,14 @@ public class RuntimeBenchmarkConfig implements Serializable {
     // the maximum amount of time a trial can last for
     public int maxTrialTime;
 
-    public int memorySlaveBase;// 10
-    public int memorySlaveScale;// 8
+    // specifies a fixed amount of memory that is to be allocated to the slave.
+    // if set to zero then the memory will be dynamically allocated
+    // memory here is in megabytes
+    public int memoryFixed;
+
+    // if memory is dynamically allocated this specifies how much is allocated
+    public int memorySlaveBase;
+    public int memorySlaveScale;
 
     // largest size matrix it can process
     public int maxMatrixSize;
@@ -105,6 +111,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.numBlocks = 5;
         config.trialTime = 3000;
         config.maxTrialTime = 120000;
+        config.memoryFixed = 0;
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
         config.randizeOrder = true;
@@ -351,5 +358,13 @@ public class RuntimeBenchmarkConfig implements Serializable {
 
     public void setMaxTrialTime(int maxTrialTime) {
         this.maxTrialTime = maxTrialTime;
+    }
+
+    public int getMemoryFixed() {
+        return memoryFixed;
+    }
+
+    public void setMemoryFixed(int memoryFixed) {
+        this.memoryFixed = memoryFixed;
     }
 }

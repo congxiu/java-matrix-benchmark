@@ -38,6 +38,8 @@ public class BenchmarkTools {
     int requestID= new Random().nextInt();
     // how many MC trials should the slave perform
     int numTrials = 1;
+    // if not zero it will allocate this much memory
+    long overrideMemory = 0;
     // amount of memory it always adds in megs
     long baseMemory = 10;
     // used to increase or decrease the added memory
@@ -102,6 +104,10 @@ public class BenchmarkTools {
 
     public void setFrozenDefaultTime(long frozenDefaultTime) {
         this.frozenDefaultTime = frozenDefaultTime;
+    }
+
+    public void setOverrideMemory(long overrideMemory) {
+        this.overrideMemory = overrideMemory;
     }
 
     /**
@@ -184,8 +190,8 @@ public class BenchmarkTools {
         String classPath = getClassPath();
         String app = System.getProperty("java.home")+"/bin/java";
 
-        // compute required memory in bytes
-        allocatedMemory = test.getInputMemorySize()*memoryScale/1024/1024+baseMemory;
+        // compute required memory in mega bytes
+        allocatedMemory = overrideMemory > 0 ? overrideMemory : test.getInputMemorySize()*memoryScale/1024/1024+baseMemory;
 
         if( VERBOSE )
             System.out.println("Memory = "+allocatedMemory+" MB");

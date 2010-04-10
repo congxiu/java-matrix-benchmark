@@ -283,6 +283,13 @@ public class RuntimeBenchmarkLibrary {
         return results;
     }
 
+    private List<RuntimeResults> evaluateCase( RuntimeEvaluationCase e , long seed , int indexDimen) {
+        if( config.memoryFixed == 0 ) {
+            return evaluateCaseDynamic(e,seed,indexDimen);
+        } else {
+            return evaluateCaseFixedMemory(e,seed,indexDimen);
+        }
+    }
 
     /**
      * Computes performance metrics for the specified case.
@@ -291,7 +298,7 @@ public class RuntimeBenchmarkLibrary {
      * @return The operations per second for this case.
      */
     @SuppressWarnings({"RedundantCast", "unchecked"})
-    private List<RuntimeResults> evaluateCase( RuntimeEvaluationCase e , long seed , int indexDimen) {
+    private List<RuntimeResults> evaluateCaseDynamic( RuntimeEvaluationCase e , long seed , int indexDimen) {
         EvaluationTest test = e.createTest(indexDimen,config.trialTime,config.maxTrialTime);
         test.setRandomSeed(seed);
 
@@ -304,36 +311,18 @@ public class RuntimeBenchmarkLibrary {
         for( int attempts = 0; attempts < 5; attempts++ ) {
             tools.setMemoryScale(config.memorySlaveScale*(1+attempts));
 
-            EvaluatorSlave.Results r = tools.runTest(test);
-//            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
+            EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
 
-            if( r == null ) {
-                logStream.println("*** RunTest returned null: op = "+e.getOpName()+" matrix size = "+matrixSize);
-                caseFailed = true;
-                return null;
-            } else if( r.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ){
-                System.out.println("  Not enough memory given to slave.");
-                logStream.println("Not enough memory for op.  Attempt num "+attempts+"  op name = "+e.getOpName()+" matrix size = "+matrixSize);
-                // have it run again, which will up the memory
-            } else {
-                if( r.failed != null ) {
-                    if( r.failed == EvaluatorSlave.FailReason.TOO_SLOW ) {
-                        logStream.println("    Case was too slow: op = "+e.getOpName()+" matrix size = "+matrixSize);
-                        tooSlow = true;
-                    } else {
-                        logStream.println("    Case failed: reason = "+r.failed+" op = "+e.getOpName()+" matrix size = "+matrixSize);
-                        if( r.detailedError != null ) {
-                            logStream.println(r.detailedError);
-                        }
-                        caseFailed = true;
-                    }
-                }
-
-                if( caseFailed ) {
+            if( caseFailed )  {
+                if( r.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ){
+                    // have it run again, which will up the memory
+                    System.out.println("  Not enough memory given to slave.");
+                    logStream.println("Not enough memory for op.  Attempt num "+attempts+"  op name = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
+                } else {
                     return null;
                 }
-
-                return (List<RuntimeResults>)((List)r.results);
+            }else {
+                 return (List<RuntimeResults>)((List)r.results);
             }
 
         }
@@ -341,6 +330,56 @@ public class RuntimeBenchmarkLibrary {
         // never had enough memory
         caseFailed = true;
         return null;
+    }
+
+    /**
+     * Computes performance metrics for the specified case only allocating the specified amount of memory.
+     *
+     * @param indexDimen Which matrix size it should use.
+     * @return The operations per second for this case.
+     */
+    @SuppressWarnings({"RedundantCast", "unchecked"})
+    private List<RuntimeResults> evaluateCaseFixedMemory( RuntimeEvaluationCase e , 
+                                                          long seed , int indexDimen) {
+        EvaluationTest test = e.createTest(indexDimen,config.trialTime,config.maxTrialTime);
+        test.setRandomSeed(seed);
+
+        int matrixSize = e.getDimens()[indexDimen];
+
+        tooSlow = false;
+        caseFailed = false;
+
+        tools.setOverrideMemory(config.memoryFixed);
+
+        EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
+
+        if( caseFailed ) {
+            return null;
+        }
+
+        return (List<RuntimeResults>)((List)r.results);
+    }
+
+    private EvaluatorSlave.Results callRunTest(RuntimeEvaluationCase e, EvaluationTest test, int matrixSize) {
+        EvaluatorSlave.Results r = tools.runTest(test);
+//            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
+
+        if( r == null ) {
+            logStream.println("*** RunTest returned null: op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
+            caseFailed = true;
+        } else if( r.failed != null ) {
+            if( r.failed == EvaluatorSlave.FailReason.TOO_SLOW ) {
+                logStream.println("    Case was too slow: op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
+                tooSlow = true;
+            } else {
+                logStream.println("    Case failed: reason = "+r.failed+" op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
+                if( r.detailedError != null ) {
+                    logStream.println(r.detailedError);
+                }
+                caseFailed = true;
+            }
+        }
+        return r;
     }
 
     private static List<Double> convertToDoubleList( List<TestResults> l ){

@@ -13,6 +13,7 @@
 - Change the way the desired runtime of a test and the maximum allowed runtime for a test are handled to make
   processing of larger matrices easier.
 - Can plot results from CSV file
+- Added JBlas to stability benchmark
 
 ----- Version 0.5
 
