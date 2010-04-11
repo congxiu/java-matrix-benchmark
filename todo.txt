@@ -1,13 +1,10 @@
-
+- benchmark java version of UJMP
 - remember amount of memory previously allocated for a particular matrix size
 - flush memory between trials on slave
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
 - stability of BigDecimal matrices?
-- stability for jblas
 - Use plot name for naming the plots
-
-- option to not run correctness check on data
 
 - convert results to excel format
 

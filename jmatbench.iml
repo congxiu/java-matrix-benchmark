@@ -9,6 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="ejml" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -112,19 +113,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/commons-math-2.1a/commons-math-2.1-SNAPSHOT.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/lib/commons-math-2.1a/commons-math-2.1-SNAPSHOT-doc.zip!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/commons-math-2.1a/commons-math-2.1-SNAPSHOT-src.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jblas-1.0.2/jblas-1.0.2.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -212,6 +200,19 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-math-2.1/commons-math-2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/lib/commons-math-2.1/commons-math-2.1-doc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/commons-math-2.1/commons-math-2.1-src.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>
