@@ -30,11 +30,11 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class MatrixLibrary implements Serializable {
-    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","EJML 0.11a","2010-03-10",false,false,0);
+    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","EJML 0.11","2010-04-07",false,false,0);
     public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama-1.0.2","Jama 1.0.2","",false, false, 1);
     public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj-0.9.12","MTJ 0.9.12","",true, false, 2);
     public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","SEJML 0.7","",true, false, 3);
-    public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math-2.1a","Commons Math 2.1a","",true, false, 4);
+    public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math-2.1","Commons Math 2.1","2010-04-05",true, false, 4);
     public static final MatrixLibrary JSCIENCE = new MatrixLibrary("JScience","jscience-4.3","JScience 4.3","",true, false, 5);
     public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo-29.0","ojAlgo 29.0","2010-03-20",true, false, 6);
     public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt-1.2","Colt 1.2","",true, false, 7);
