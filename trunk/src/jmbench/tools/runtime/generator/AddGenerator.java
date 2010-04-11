@@ -36,13 +36,14 @@ public class AddGenerator implements InputOutputGenerator {
     DenseMatrix64F C;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
         DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
         DenseMatrix64F B = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
 
-        C = new DenseMatrix64F(matrixSize,matrixSize);
-
-        CommonOps.add(A,B,C);
+        if( checkResults ) {
+            C = new DenseMatrix64F(matrixSize,matrixSize);
+            CommonOps.add(A,B,C);
+        }
 
         return new DenseMatrix64F[]{A,B};
     }

@@ -299,7 +299,7 @@ public class RuntimeBenchmarkLibrary {
      */
     @SuppressWarnings({"RedundantCast", "unchecked"})
     private List<RuntimeResults> evaluateCaseDynamic( RuntimeEvaluationCase e , long seed , int indexDimen) {
-        EvaluationTest test = e.createTest(indexDimen,config.trialTime,config.maxTrialTime);
+        EvaluationTest test = e.createTest(indexDimen,config.trialTime,config.maxTrialTime,config.sanityCheck);
         test.setRandomSeed(seed);
 
         int matrixSize = e.getDimens()[indexDimen];
@@ -341,7 +341,7 @@ public class RuntimeBenchmarkLibrary {
     @SuppressWarnings({"RedundantCast", "unchecked"})
     private List<RuntimeResults> evaluateCaseFixedMemory( RuntimeEvaluationCase e , 
                                                           long seed , int indexDimen) {
-        EvaluationTest test = e.createTest(indexDimen,config.trialTime,config.maxTrialTime);
+        EvaluationTest test = e.createTest(indexDimen,config.trialTime,config.maxTrialTime,config.sanityCheck);
         test.setRandomSeed(seed);
 
         int matrixSize = e.getDimens()[indexDimen];

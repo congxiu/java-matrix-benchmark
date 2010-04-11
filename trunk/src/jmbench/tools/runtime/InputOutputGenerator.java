@@ -40,9 +40,10 @@ public interface InputOutputGenerator {
      * Creates a set of inputs for each library to process.
      *
      * @param rand Random number generator used to create the matrices.
+     * @param checkResults If the results will be checked.  If false less memory is needed.
      * @return List of input matrices.
      */
-    DenseMatrix64F[] createRandomInputs( Random rand , int matrixSize );
+    DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults);
 
     /**
      * Checks to see if anything is wrong with the computed output.

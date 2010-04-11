@@ -33,7 +33,7 @@ import java.util.Random;
 public class DeterminantGenerator implements InputOutputGenerator {
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
         DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
 
         return new DenseMatrix64F[]{A};

@@ -37,10 +37,11 @@ public class EigSymmGenerator implements InputOutputGenerator {
     SimpleMatrix A;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
         DenseMatrix64F A = RandomMatrices.createSymmetric(matrixSize,-1,1,rand);
 
-        this.A = SimpleMatrix.wrap(A);
+        if( checkResults )
+            this.A = SimpleMatrix.wrap(A);
 
         return new DenseMatrix64F[]{A};
     }

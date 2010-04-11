@@ -49,6 +49,9 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     private volatile DenseMatrix64F inputs[];
     private volatile DenseMatrix64F outputs[];
 
+    // should it make sure the tested operation is performing the expected oepration
+    private boolean sanityCheck;
+
     // an estimate of how many cycles it will take to finish the test in the desired
     // amount of time
     private volatile long estimatedTrials;
@@ -66,12 +69,14 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     public RuntimeEvaluationTest( int dimen ,
                                   MatrixProcessorInterface alg ,
                                   InputOutputGenerator generator ,
+                                  boolean sanityCheck ,
                                   long goalRuntime, long maxRuntime , long randomSeed )
     {
         super(randomSeed);
         this.dimen = dimen;
         this.alg = alg;
         this.generator = generator;
+        this.sanityCheck = sanityCheck;
         this.goalRuntime = goalRuntime;
         this.maxRuntime = maxRuntime;
     }
@@ -101,7 +106,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     @Override
     public void setupTrial()
     {
-        inputs = generator.createRandomInputs(rand,dimen);
+        inputs = generator.createRandomInputs(rand,dimen, sanityCheck);
         outputs = new DenseMatrix64F[ generator.numOutputs() ];
     }
 
@@ -185,7 +190,8 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     private RuntimeResults compileResults( double opsPerSecond )
     {
         RuntimeResults results = new RuntimeResults(opsPerSecond,Runtime.getRuntime().totalMemory());
-        results.error = generator.checkResults(outputs,MAX_ERROR_THRESHOLD);
+        if( sanityCheck )
+            results.error = generator.checkResults(outputs,MAX_ERROR_THRESHOLD);
 
         return results;
     }
@@ -220,6 +226,14 @@ public class RuntimeEvaluationTest extends EvaluationTest {
 
     public void setGoalRuntime(long goalRuntime) {
         this.goalRuntime = goalRuntime;
+    }
+
+    public boolean isSanityCheck() {
+        return sanityCheck;
+    }
+
+    public void setSanityCheck(boolean sanityCheck) {
+        this.sanityCheck = sanityCheck;
     }
 
     @Override

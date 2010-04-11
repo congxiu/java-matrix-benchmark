@@ -39,12 +39,14 @@ public class ScaleGenerator implements InputOutputGenerator {
 
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
         DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
 
-        C = new DenseMatrix64F(matrixSize,matrixSize);
+        if( checkResults ) {
+            C = new DenseMatrix64F(matrixSize,matrixSize);
 
-        CommonOps.scale(SCALE,A,C);
+            CommonOps.scale(SCALE,A,C);
+        }
 
         return new DenseMatrix64F[]{A};
     }
