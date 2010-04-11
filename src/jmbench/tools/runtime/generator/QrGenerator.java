@@ -38,8 +38,12 @@ public class QrGenerator implements InputOutputGenerator {
 
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
+        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+
+        if( A == null ) {
+            this.A = A;
+        }
 
         return new DenseMatrix64F[]{A};
     }

@@ -38,9 +38,14 @@ public class SolveEqGenerator implements InputOutputGenerator {
     DenseMatrix64F B;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
-        B = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
+        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+        DenseMatrix64F B = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
+
+        if( checkResults ) {
+            this.A = A;
+            this.B = B;
+        }
 
         return new DenseMatrix64F[]{A,B};
     }

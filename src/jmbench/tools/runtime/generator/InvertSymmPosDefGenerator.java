@@ -36,8 +36,11 @@ public class InvertSymmPosDefGenerator implements InputOutputGenerator {
     DenseMatrix64F A;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        A = RandomMatrices.createSymmPosDef(matrixSize,rand);
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
+        DenseMatrix64F A = RandomMatrices.createSymmPosDef(matrixSize,rand);
+
+        if( checkResults )
+            this.A = A;
 
         return new DenseMatrix64F[]{A};
     }

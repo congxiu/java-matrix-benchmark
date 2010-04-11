@@ -98,6 +98,11 @@ public class RuntimeBenchmarkConfig implements Serializable {
     // the smallest matrix size it will process
     public int minMatrixSize;
 
+    // should it perform a sanity check on the operations it tests
+    // this requires more memory and time, but can make sure the operation is
+    // really doing what it should be doing.
+    public boolean sanityCheck;
+
     /**
      * This config will process everything
      *
@@ -117,6 +122,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.randizeOrder = true;
         config.maxMatrixSize = 5000;
         config.minMatrixSize = 2;
+        config.sanityCheck = true;
 
 //        config.chol = true;
 //        config.lu = true;

@@ -39,12 +39,17 @@ public class SolveOverGenerator implements InputOutputGenerator {
     DenseMatrix64F X;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand , int matrixSize ) {
-        A = RandomMatrices.createRandom(3*matrixSize,matrixSize,-1,1,rand);
-        X = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
-        B = new DenseMatrix64F(3*matrixSize,1);
+    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
+        DenseMatrix64F A = RandomMatrices.createRandom(3*matrixSize,matrixSize,-1,1,rand);
+        DenseMatrix64F X = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
+        DenseMatrix64F B = new DenseMatrix64F(3*matrixSize,1);
 
-        CommonOps.mult(A,X,B);
+        if( checkResults ) {
+            CommonOps.mult(A,X,B);
+            this.A = A;
+            this.B = B;
+            this.X = X;
+        }
 
         return new DenseMatrix64F[]{A,B};
     }
