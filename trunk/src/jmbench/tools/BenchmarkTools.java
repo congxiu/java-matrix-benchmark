@@ -64,6 +64,9 @@ public class BenchmarkTools {
 
     PrintStream errorStream = System.err;
 
+    // arguments passed to slave jvm
+    String []params;
+
     public BenchmarkTools(){}
 
     public BenchmarkTools( int numTrials , long baseMemory , long memoryScale , List<String> jarNames ){
@@ -196,7 +199,7 @@ public class BenchmarkTools {
         if( VERBOSE )
             System.out.println("Memory = "+allocatedMemory+" MB");
 
-        String []params = new String[10];
+        params = new String[10];
         params[0] = app;
         params[1] = "-server";
         params[2] = "-Xms"+allocatedMemory+"M";
@@ -359,5 +362,14 @@ public class BenchmarkTools {
      */
     public long getAllocatedMemory() {
         return allocatedMemory;
+    }
+
+    /**
+     * Returns parameters passed to slave jvm
+     *
+     * @return jvm parameters
+     */
+    public String[] getParams() {
+        return params;
     }
 }

@@ -15,6 +15,7 @@
 - Can plot results from CSV file
 - Added JBlas to stability benchmark
 - Added the ability to turn on and off sanity checks in runtime benchmark
+- Logs slave command line arguments when a failure occurs.
 
 ----- Version 0.5
 

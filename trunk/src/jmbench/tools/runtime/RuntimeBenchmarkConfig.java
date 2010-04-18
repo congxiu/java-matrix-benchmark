@@ -115,7 +115,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.numBlockTrials = 5;
         config.numBlocks = 5;
         config.trialTime = 3000;
-        config.maxTrialTime = 120000;
+        config.maxTrialTime = 300000;
         config.memoryFixed = 0;
         config.memorySlaveBase = 10;
         config.memorySlaveScale = 8;
