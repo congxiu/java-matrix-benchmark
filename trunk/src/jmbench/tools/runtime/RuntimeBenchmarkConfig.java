@@ -373,4 +373,12 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public void setMemoryFixed(int memoryFixed) {
         this.memoryFixed = memoryFixed;
     }
+
+    public boolean isSanityCheck() {
+        return sanityCheck;
+    }
+
+    public void setSanityCheck(boolean sanityCheck) {
+        this.sanityCheck = sanityCheck;
+    }
 }
