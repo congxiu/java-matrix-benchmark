@@ -48,6 +48,11 @@ public class StabilityBenchmarkConfig implements Serializable {
     public long randomSeed;
     public long maxProcessingTime;
 
+    // how much memory it will add to the operation requested memory
+    public long baseMemory;
+    // how much operation requested memory will be scaled
+    public long scaleMemory;
+
     // at which point is the error considered too large
     public double breakingPoint;
 
@@ -83,6 +88,9 @@ public class StabilityBenchmarkConfig implements Serializable {
 
         config.randomSeed = 0xdeadbeef;//new Random().nextLong();
         config.maxProcessingTime = 15*60*1000;
+
+        config.baseMemory = 20;
+        config.scaleMemory = 2;
 
         config.breakingPoint = 0.001;
 
@@ -254,5 +262,21 @@ public class StabilityBenchmarkConfig implements Serializable {
 
     public void setOverFlowFactor(int overFlowFactor) {
         this.overFlowFactor = overFlowFactor;
+    }
+
+    public long getBaseMemory() {
+        return baseMemory;
+    }
+
+    public void setBaseMemory(long baseMemory) {
+        this.baseMemory = baseMemory;
+    }
+
+    public long getScaleMemory() {
+        return scaleMemory;
+    }
+
+    public void setScaleMemory(long scaleMemory) {
+        this.scaleMemory = scaleMemory;
     }
 }

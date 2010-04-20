@@ -72,7 +72,7 @@ public class StabilityBenchmarkLibrary {
 
         this.directorySave = outputDir;
 
-        tools = new BenchmarkTools(1,20,2,jarNames);
+        tools = new BenchmarkTools(1,config.baseMemory,config.scaleMemory,jarNames);
         tools.setFrozenDefaultTime(config.maxProcessingTime);
 
         if( directorySave != null ) {
