@@ -17,7 +17,7 @@ By viewing these plots it is easy to tell how fast a particular library runs rel
 The benchmark also produces plots which show the absolute runtime.  These have not been posted online for take of simplicity.  Absolute runtime plots are in general more useful for understanding the behavior of an individual library and not for comparing performance across several libraries.
 
 = Absolute Runtime Plots =
-http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePerformanceBenchmark.attach/absoluteScale.png
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePerformanceBenchmark.attach/absoluteScale.jpg
 
 In addition to relative runtime plots, plots of the absolute runtime are computed.  These plots show on a log log scale how long each operation takes to run for each library.  It is easier to see how the performance of each library changes as a function of time and how CPU caches affect it.  However it is harder to see how much faster or slower each library is and the plots require more room to be clear.
 
