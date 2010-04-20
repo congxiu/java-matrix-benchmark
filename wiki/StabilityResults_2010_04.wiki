@@ -23,7 +23,7 @@ Tested Libraries:
 || Name || Version         ||
 || Colt ||  1.2            ||
 || Commons Math || 2.1     ||
-|| EJML ||  0.11pre        ||
+|| EJML ||  0.11        ||
 || Jama || 1.0.2           ||
 || JBlas || 1.0.2          ||
 || MTJ || 0.9.12           || 
