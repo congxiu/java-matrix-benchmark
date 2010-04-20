@@ -136,11 +136,11 @@ public class EvaluatorSlave {
             if( VERBOSE ) System.out.print("  results = "+r);
             results.add(r);
 
-            if( (after-before) > maximumRuntime) {
+            if( maximumRuntime > -1 && (after-before) > maximumRuntime) {
                 fail = FailReason.TOO_SLOW;
                 // if a single trial takes too long then it is just stop
                 if( VERBOSE )
-                    System.out.println("\nSingle test too long: DT = "+(after-before));
+                    System.out.println("\nSingle test too long: DT = "+(after-before)+" max = "+maximumRuntime);
                 break;
             }
 

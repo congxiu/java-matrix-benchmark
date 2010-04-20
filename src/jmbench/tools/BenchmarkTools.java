@@ -308,7 +308,7 @@ public class BenchmarkTools {
 
                 // make sure these results are not stale
                 if( ret.getRequestID() != requestID ) {
-                    errorStream.println("Stail request ID");
+                    errorStream.println("Stale request ID");
                     ret = null;
                 }
             }
