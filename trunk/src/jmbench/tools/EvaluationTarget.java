@@ -95,7 +95,7 @@ public class EvaluationTarget implements Serializable {
     /**
      * Creates a new instance of the algorithm factory for this library
      *
-     * @return The LibraryAlgorithmFactory for this library.
+     * @return The RuntimePerformanceFactory for this library.
      */
     @SuppressWarnings({"unchecked"})
     public <T extends LibraryFactory> T loadAlgorithmFactory() {

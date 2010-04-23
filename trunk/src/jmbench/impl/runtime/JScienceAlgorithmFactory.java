@@ -22,7 +22,7 @@ package jmbench.impl.runtime;
 import jmbench.PackageMatrixConversion;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.jscience.mathematics.number.Float64;
@@ -35,7 +35,7 @@ import org.jscience.mathematics.vector.Matrix;
 /**
  * @author Peter Abeles
  */
-public class JScienceAlgorithmFactory implements LibraryAlgorithmFactory {
+public class JScienceAlgorithmFactory implements RuntimePerformanceFactory {
 
     private static abstract class MyInterface implements AlgorithmInterface
     {

@@ -22,7 +22,7 @@ package jmbench.impl.runtime;
 import Jama.*;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.SpecializedOps;
@@ -31,7 +31,7 @@ import org.ejml.ops.SpecializedOps;
 /**
  * @author Peter Abeles
  */
-public class JamaAlgorithmFactory implements LibraryAlgorithmFactory {
+public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     private static abstract class MyInterface implements AlgorithmInterface
     {

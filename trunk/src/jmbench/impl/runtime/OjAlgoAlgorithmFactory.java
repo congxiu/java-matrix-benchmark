@@ -22,7 +22,7 @@ package jmbench.impl.runtime;
 import jmbench.PackageMatrixConversion;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
@@ -41,7 +41,7 @@ import org.ojalgo.matrix.store.TransposedStore;
  * @author Anders Peterson (apete)
  */
 @SuppressWarnings( { "unchecked" })
-public class OjAlgoAlgorithmFactory implements LibraryAlgorithmFactory {
+public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class OpAdd extends MyInterface {
 

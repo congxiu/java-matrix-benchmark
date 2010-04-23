@@ -21,7 +21,7 @@ package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
@@ -34,7 +34,7 @@ import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
  * @author Peter Abeles
  * @author Holger Arndt
  */
-public class UjmpAlgorithmFactory implements LibraryAlgorithmFactory {
+public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	private static abstract class MyInterface implements AlgorithmInterface {
 		@Override

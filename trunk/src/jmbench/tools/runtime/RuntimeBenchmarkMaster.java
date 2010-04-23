@@ -19,7 +19,7 @@
 
 package jmbench.tools.runtime;
 
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.EvaluationTarget;
 import jmbench.tools.SystemInfo;
 import pja.util.UtilXmlSerialization;
@@ -84,7 +84,7 @@ public class RuntimeBenchmarkMaster {
             }
 
             // run the benchmark
-            LibraryAlgorithmFactory l = desc.loadAlgorithmFactory();
+            RuntimePerformanceFactory l = desc.loadAlgorithmFactory();
 
             RuntimeBenchmarkLibrary benchmark = new RuntimeBenchmarkLibrary(libOutputDir,l,
                     desc.getJarFiles(),desc.getLib(),

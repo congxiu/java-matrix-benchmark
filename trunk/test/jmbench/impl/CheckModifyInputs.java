@@ -20,8 +20,8 @@
 package jmbench.impl;
 
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
 import jmbench.interfaces.MatrixGenerator;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.misc.PosDefSymGenerator;
 import jmbench.misc.RandomMatrixGenerator;
 import org.ejml.data.DenseMatrix64F;
@@ -46,7 +46,7 @@ public class CheckModifyInputs {
 
 
 
-    public static void checkFactory( LibraryAlgorithmFactory factory ) {
+    public static void checkFactory( RuntimePerformanceFactory factory ) {
         List<AlgorithmInterface> operation = new ArrayList<AlgorithmInterface>();
 
         operation.add(factory.det());

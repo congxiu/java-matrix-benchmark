@@ -21,7 +21,7 @@ package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
 import org.ejml.data.DenseMatrix64F;
@@ -31,7 +31,7 @@ import org.ejml.data.SimpleMatrix;
 /**
  * @author Peter Abeles
  */
-public class SejmlAlgorithmFactory implements LibraryAlgorithmFactory {
+public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     private static abstract class MyInterface implements AlgorithmInterface
     {
