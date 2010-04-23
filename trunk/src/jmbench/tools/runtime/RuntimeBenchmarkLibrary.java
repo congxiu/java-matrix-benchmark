@@ -304,11 +304,8 @@ public class RuntimeBenchmarkLibrary {
 
         int matrixSize = e.getDimens()[indexDimen];
 
-        tooSlow = false;
-
         // try running the application a few times and see if its size increases
         for( int attempts = 0; attempts < 5; attempts++ ) {
-            caseFailed = false;
             tools.setMemoryScale(config.memorySlaveScale*(1+attempts));
 
             EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
@@ -347,9 +344,6 @@ public class RuntimeBenchmarkLibrary {
 
         int matrixSize = e.getDimens()[indexDimen];
 
-        tooSlow = false;
-        caseFailed = false;
-
         tools.setOverrideMemory(config.memoryFixed);
 
         EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
@@ -362,6 +356,8 @@ public class RuntimeBenchmarkLibrary {
     }
 
     private EvaluatorSlave.Results callRunTest(RuntimeEvaluationCase e, EvaluationTest test, int matrixSize) {
+        tooSlow = false;
+        caseFailed = false;
         EvaluatorSlave.Results r = tools.runTest(test);
 //            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
 
