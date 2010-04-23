@@ -85,6 +85,6 @@ public class SolveOverGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize*12;
+        return matrixSize*matrixSize*16;
     }
 }

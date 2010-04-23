@@ -305,16 +305,16 @@ public class RuntimeBenchmarkLibrary {
         int matrixSize = e.getDimens()[indexDimen];
 
         tooSlow = false;
-        caseFailed = false;
 
         // try running the application a few times and see if its size increases
         for( int attempts = 0; attempts < 5; attempts++ ) {
+            caseFailed = false;
             tools.setMemoryScale(config.memorySlaveScale*(1+attempts));
 
             EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
 
             if( caseFailed )  {
-                if( r.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ){
+                if( r != null && r.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ){
                     // have it run again, which will up the memory
                     System.out.println("  Not enough memory given to slave.");
                     logStream.println("Not enough memory for op.  Attempt num "+attempts+"  op name = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
@@ -327,6 +327,7 @@ public class RuntimeBenchmarkLibrary {
 
         }
 
+        logStream.println("Case failed since not enough memory could be allocated.");
         // never had enough memory
         caseFailed = true;
         return null;
@@ -383,12 +384,12 @@ public class RuntimeBenchmarkLibrary {
                 if( r.detailedError != null ) {
                     logStream.println(r.detailedError);
                 }
-                String param[] = tools.getParams();
-                logStream.println("Command line arguments:");
-                for( int i = 0; i < param.length; i++ ) {
-                    logStream.println("["+i+"]   "+param[i]);
-                }
-                logStream.println("------------------------------------------------");
+//                String param[] = tools.getParams();
+//                logStream.println("Command line arguments:");
+//                for( int i = 0; i < param.length; i++ ) {
+//                    logStream.println("["+i+"]   "+param[i]);
+//                }
+//                logStream.println("------------------------------------------------");
                 caseFailed = true;
             }
         }
