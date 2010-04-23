@@ -21,9 +21,11 @@ package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.alg.dense.decomposition.*;
+import org.ejml.alg.dense.linsol.LinearSolver;
+import org.ejml.alg.dense.linsol.LinearSolverFactory;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.ejml.ops.CovarianceOps;
@@ -33,7 +35,7 @@ import org.ejml.ops.EigenOps;
 /**
  * @author Peter Abeles
  */
-public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
+public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     private static abstract class MyInterface implements AlgorithmInterface
     {
@@ -372,15 +374,9 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
     @Override
     public AlgorithmInterface solveExact() {
-        return new Solve();
+        return new SolveExact();
     }
-
-    @Override
-    public AlgorithmInterface solveOver() {
-        return new Solve();
-    }
-
-    public static class Solve extends MyInterface {
+    public static class SolveExact extends MyInterface {
         @Override
         public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
             DenseMatrix64F matA = inputs[0];
@@ -388,10 +384,45 @@ public class EjmlAlgorithmFactory implements LibraryAlgorithmFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matB.numCols);
 
+            LinearSolver solver = LinearSolverFactory.linear();
+
             long prev = System.currentTimeMillis();
 
             for( long i = 0; i < numTrials; i++ ) {
-                CommonOps.solve(matA,matB,result);
+                if( !solver.setA(matA))
+                    throw new IllegalArgumentException("Bad A");
+
+                solver.solve(matB,result);
+            }
+
+            long elapsedTime = System.currentTimeMillis() - prev;
+            outputs[0] = result;
+            return elapsedTime;
+        }
+    }
+
+    @Override
+    public AlgorithmInterface solveOver() {
+        return new SolveOver();
+    }
+
+    public static class SolveOver extends MyInterface {
+        @Override
+        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0];
+            DenseMatrix64F matB = inputs[1];
+
+            DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matB.numCols);
+
+            LinearSolver solver = LinearSolverFactory.leastSquares();
+
+            long prev = System.currentTimeMillis();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                if( !solver.setA(matA))
+                    throw new IllegalArgumentException("Bad A");
+
+                solver.solve(matB,result);
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;

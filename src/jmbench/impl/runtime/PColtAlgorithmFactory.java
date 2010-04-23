@@ -27,7 +27,7 @@ import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import cern.jet.math.tdouble.DoubleFunctions;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.SpecializedOps;
@@ -36,7 +36,7 @@ import org.ejml.ops.SpecializedOps;
 /**
  * @author Peter Abeles
  */
-public class PColtAlgorithmFactory implements LibraryAlgorithmFactory {
+public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
     private static abstract class MyInterface implements AlgorithmInterface
     {

@@ -3,7 +3,7 @@
 2010/XX/XX
 
 - Updated version of OjAlgo, ParallelColt, UJMP
-- Added JBlas to benchmark
+- Added JBlas to runtime and stability benchmarks
 - Turned off LU,QR, Cholesky decompositions from runtime performance test.  Not often used directly and
   the functions which use them and are used directory (solve,inv,symm inv) are already included.
 - Turned off jscience by default since its weak and taking up room in the plots.
@@ -13,9 +13,9 @@
 - Change the way the desired runtime of a test and the maximum allowed runtime for a test are handled to make
   processing of larger matrices easier.
 - Can plot results from CSV file
-- Added JBlas to stability benchmark
 - Added the ability to turn on and off sanity checks in runtime benchmark
 - Logs slave command line arguments when a failure occurs.
+- EJML now uses LinearSolver in the runtime benchmark.
 
 ----- Version 0.5
 

@@ -21,7 +21,7 @@ package jmbench.tools.runtime;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.impl.runtime.EjmlAlgorithmFactory;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.BenchmarkTools;
 import jmbench.tools.EvaluationTest;
 import jmbench.tools.EvaluatorSlave;
@@ -92,7 +92,7 @@ public class RuntimeBenchmarkLibrary {
     // is it too slow to continue testing
     private boolean tooSlow;
 
-    private LibraryAlgorithmFactory library;
+    private RuntimePerformanceFactory library;
 
     private BenchmarkTools tools;
 
@@ -100,7 +100,7 @@ public class RuntimeBenchmarkLibrary {
 
     private RuntimeBenchmarkConfig config;
 
-    public RuntimeBenchmarkLibrary( String outputDir , LibraryAlgorithmFactory library  ,
+    public RuntimeBenchmarkLibrary( String outputDir , RuntimePerformanceFactory library  ,
                              List<String> jarNames , MatrixLibrary libraryType,
                              RuntimeBenchmarkConfig config )
     {

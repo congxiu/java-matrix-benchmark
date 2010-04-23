@@ -23,7 +23,7 @@ package jmbench.interfaces;
 /**
  * @author Peter Abeles
  */
-public interface LibraryAlgorithmFactory extends LibraryFactory {
+public interface RuntimePerformanceFactory extends LibraryFactory {
 
     AlgorithmInterface chol();
 

@@ -20,7 +20,7 @@
 package jmbench.tools.runtime;
 
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.*;
 
 import java.util.ArrayList;
@@ -31,11 +31,11 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class FactoryRuntimeEvaluationCase {
-    LibraryAlgorithmFactory factory;
+    RuntimePerformanceFactory factory;
 
     RuntimeBenchmarkConfig config;
 
-    public FactoryRuntimeEvaluationCase( LibraryAlgorithmFactory factory , RuntimeBenchmarkConfig config ) {
+    public FactoryRuntimeEvaluationCase( RuntimePerformanceFactory factory , RuntimeBenchmarkConfig config ) {
         this.factory = factory;
         this.config = config;
     }

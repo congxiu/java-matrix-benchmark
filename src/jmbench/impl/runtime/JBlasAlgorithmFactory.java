@@ -21,7 +21,7 @@ package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.LibraryAlgorithmFactory;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
@@ -34,7 +34,7 @@ import org.jblas.Solve;
 /**
  * @author Peter Abeles
  */
-public class JBlasAlgorithmFactory implements LibraryAlgorithmFactory {
+public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     private static abstract class MyInterface implements AlgorithmInterface
     {
