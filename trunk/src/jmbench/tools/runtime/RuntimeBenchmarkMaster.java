@@ -125,7 +125,7 @@ public class RuntimeBenchmarkMaster {
 
     public static void printHelp() {
         System.out.println("The following options are valid for runtime benchmark:");
-        System.out.println("  --Config=<file>          |  To tell it to use the specified xml file for its config.");
+        System.out.println("  --Config=<file>          |  Configure using the specified xml file.");
         System.out.println("  --Size=min:max           |  Test matrices from the specified minimum size to the specified maximum size.");
         System.out.println("  --Quick                  |  Generate results much faster by sacrificing accuracy/stability of the results.");
         System.out.println("  --Seed=<number>          |  used to set the random seed to the specified value.");

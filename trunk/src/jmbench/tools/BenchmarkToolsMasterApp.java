@@ -19,9 +19,11 @@
 
 package jmbench.tools;
 
+import jmbench.tools.memory.MemoryBenchmarkLibrary;
 import jmbench.tools.runtime.RuntimeBenchmarkMaster;
 import jmbench.tools.runtime.evaluation.CheckForErrorsInResultsXml;
 import jmbench.tools.runtime.evaluation.PlotRuntimeResultsXml;
+import jmbench.tools.stability.StabilityBenchmark;
 
 import java.io.IOException;
 
@@ -38,7 +40,7 @@ public class BenchmarkToolsMasterApp {
     public static void printHelp() {
         System.out.println("<tool> <tool arguments>");
         System.out.println("The first argument specifies which tool is to be run:" +
-                " <stability|runtime|checkRuntime|plotRuntime|displayStability>");
+                " <stability|runtime|memory|checkRuntime|plotRuntime|displayStability>");
         System.out.println();
         System.out.println("For runtime tool:");
         RuntimeBenchmarkMaster.printHelp();
@@ -63,7 +65,9 @@ public class BenchmarkToolsMasterApp {
         if( tool.compareToIgnoreCase("runtime") == 0) {
             RuntimeBenchmarkMaster.main(pruned);
         } else if( tool.compareToIgnoreCase("stability") == 0) {
-            System.out.println("Not supported yet "+tool);
+            StabilityBenchmark.main(pruned);
+        } else if( tool.compareToIgnoreCase("memory") == 0 ) {
+            MemoryBenchmarkLibrary.main(pruned);
         } else if( tool.compareToIgnoreCase("checkRuntime") == 0) {
             CheckForErrorsInResultsXml.main(pruned);    
         } else if( tool.compareToIgnoreCase("plotRuntime") == 0) {

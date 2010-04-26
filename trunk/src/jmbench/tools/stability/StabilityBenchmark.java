@@ -182,18 +182,63 @@ public class StabilityBenchmark {
         return left*right;
     }
 
+//    public static void main( String args[] ) throws IOException, InterruptedException {
+//        StabilityBenchmark master = new StabilityBenchmark();
+//
+//        if( args.length > 0 ) {
+//            System.out.println("Loading config from xml...");
+//            StabilityBenchmarkConfig config = UtilXmlSerialization.deserializeXml(args[0]);
+//            if( config == null )
+//                throw new IllegalArgumentException("No config file found!");
+//
+//            master.performBenchmark(config);
+//        } else {
+//            master.performBenchmark(StabilityBenchmarkConfig.createDefault());
+//        }
+//    }
+    public static void printHelp() {
+        System.out.println("Stability Benchmark: The following options are valid:");
+        System.out.println("  --Config=<file>          |  COnfigure using the specified xml file.");
+        System.out.println();
+        System.out.println("If no options are specified then a default configuration will be used.");
+    }
+
     public static void main( String args[] ) throws IOException, InterruptedException {
-        StabilityBenchmark master = new StabilityBenchmark();
+        boolean failed = false;
 
-        if( args.length > 0 ) {
-            System.out.println("Loading config from xml...");
-            StabilityBenchmarkConfig config = UtilXmlSerialization.deserializeXml(args[0]);
-            if( config == null )
-                throw new IllegalArgumentException("No config file found!");
+        StabilityBenchmarkConfig config = StabilityBenchmarkConfig.createDefault();
 
+        System.out.println("** Parsing Command Line **");
+        System.out.println();
+        for( int i = 0; i < args.length; i++ ) {
+            String splits[] = args[i].split("=");
+
+            String flag = splits[0];
+
+            if( flag.length() < 2 || flag.charAt(0) != '-' || flag.charAt(0) != '-') {
+                failed = true;
+                break;
+            }
+
+            flag = flag.substring(2);
+
+            if( flag.compareTo("Config") == 0 ) {
+                if( splits.length != 2 || args.length != 1 ) {failed = true; break;}
+                System.out.println("Loading config: "+splits[1]);
+                config = UtilXmlSerialization.deserializeXml(splits[1]);
+            } else {
+                System.out.println("Unknown flag: "+flag);
+                failed = true;
+                break;
+            }
+        }
+        System.out.println("\n** Done parsing command line **\n");
+
+        if( !failed ) {
+            StabilityBenchmark master = new StabilityBenchmark();
             master.performBenchmark(config);
         } else {
-            master.performBenchmark(StabilityBenchmarkConfig.createDefault());
+            printHelp();
         }
     }
 }
