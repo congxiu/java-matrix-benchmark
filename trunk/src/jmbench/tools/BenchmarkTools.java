@@ -60,7 +60,7 @@ public class BenchmarkTools {
     // how long the process ran for in milliseconds
     long durationMilli;
 
-    boolean VERBOSE = true;
+    boolean VERBOSE = false;
 
     PrintStream errorStream = System.err;
 
@@ -74,11 +74,15 @@ public class BenchmarkTools {
         this.numTrials = numTrials;
         this.memoryScale = memoryScale;
 
+        setJars(jarNames);
+    }
+
+    public void setJars(List<String> jarNames) {
         String sep = System.getProperty("path.separator");
 
         if( jarNames != null ) {
             extraJars = "";
-            
+
             for( String s : jarNames ) {
                 extraJars = extraJars + sep + s;
             }
