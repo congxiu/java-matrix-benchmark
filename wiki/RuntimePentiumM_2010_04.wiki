@@ -1,4 +1,4 @@
-#summary Benchmark results for PentiumM Linux 32bit
+#summary Benchmark results for Pentium-M Linux 32bit
 
 There are a few changes in this benchmark since the last one.  
   * Several libraries have been updated
@@ -29,8 +29,8 @@ Test Environment:
 Tested Libraries:
 || Name || Version         ||
 || Colt ||  1.2            ||
-|| Commons Math || 2.1a (2010/1/29) ||
-|| EJML ||  0.11pre        ||
+|| Commons Math || 2.1     ||
+|| EJML ||  0.11           ||
 || Jama || 1.0.2           ||
 || JBlas || 1.0.2          ||
 || MTJ || 0.9.12           || 
