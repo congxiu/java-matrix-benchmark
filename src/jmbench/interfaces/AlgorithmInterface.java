@@ -22,7 +22,7 @@ package jmbench.interfaces;
 /**
  * @author Peter Abeles
  */
-public interface AlgorithmInterface extends MatrixProcessorInterface{
+public interface AlgorithmInterface extends MatrixProcessorInterface {
 
     public String getName();
 }

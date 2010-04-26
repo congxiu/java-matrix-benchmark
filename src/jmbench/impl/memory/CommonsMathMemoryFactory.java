@@ -22,11 +22,8 @@ package jmbench.impl.memory;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
-import org.ejml.alg.dense.decomposition.DecompositionFactory;
-import org.ejml.alg.dense.decomposition.EigenDecomposition;
-import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
-import org.ejml.data.DenseMatrix64F;
-import org.ejml.ops.CommonOps;
+import org.apache.commons.math.linear.*;
+import org.apache.commons.math.util.MathUtils;
 
 import java.util.Random;
 
@@ -34,12 +31,12 @@ import java.util.Random;
 /**
  * @author Peter Abeles
  */
-public class EjmlMemoryFactory implements MemoryFactory {
+public class CommonsMathMemoryFactory implements MemoryFactory {
 
 
     @Override
     public MatrixLibrary getLibraryInfo() {
-        return MatrixLibrary.EJML;
+        return MatrixLibrary.CM;
     }
 
     private static abstract class MyInterface implements MemoryProcessorInterface
@@ -59,19 +56,19 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
-            DenseMatrix64F B = new DenseMatrix64F(size,size);
-            DenseMatrix64F C = new DenseMatrix64F(size,size);
+            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
+            RealMatrix B = MatrixUtils.createRealMatrix(size,size);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
+                    A.setEntry(i,j,rand.nextDouble());
+                    B.setEntry(i,j,rand.nextDouble());
                 }
             }
 
-            for( int i = 0; i < numCycles; i++ )
-                CommonOps.mult(A,B,C);
+            for( int i = 0; i < numCycles; i++ ) {
+                A.multiply(B);
+            }
         }
     }
 
@@ -84,19 +81,19 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
-            DenseMatrix64F B = new DenseMatrix64F(size,size);
-            DenseMatrix64F C = new DenseMatrix64F(size,size);
+            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
+            RealMatrix B = MatrixUtils.createRealMatrix(size,size);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
+                    A.setEntry(i,j,rand.nextDouble());
+                    B.setEntry(i,j,rand.nextDouble());
                 }
             }
 
-            for( int i = 0; i < numCycles; i++ )
-                CommonOps.add(A,B,C);
+            for( int i = 0; i < numCycles; i++ ) {
+                A.add(B);
+            }
         }
     }
 
@@ -109,19 +106,21 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
-            DenseMatrix64F x = new DenseMatrix64F(size,1);
-            DenseMatrix64F y = new DenseMatrix64F(size,1);
+            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
+            RealMatrix y = MatrixUtils.createRealMatrix(size,1);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
+                    A.setEntry(i,j,rand.nextDouble());
                 }
-                y.set(i,0,rand.nextDouble());
+                y.setEntry(i,0,rand.nextDouble());
             }
 
-            for( int i = 0; i < numCycles; i++ )
-                CommonOps.solve(A,x,y);
+            for( int i = 0; i < numCycles; i++ ) {
+                LUDecomposition lu = new LUDecompositionImpl(A);
+                lu.getSolver().solve(y);
+            }
+
         }
     }
 
@@ -137,19 +136,20 @@ public class EjmlMemoryFactory implements MemoryFactory {
             int numRows = size*2;
             int numCols = size;
 
-            DenseMatrix64F A = new DenseMatrix64F(numRows,numCols);
-            DenseMatrix64F x = new DenseMatrix64F(numCols,1);
-            DenseMatrix64F y = new DenseMatrix64F(numRows,1);
+            RealMatrix A = MatrixUtils.createRealMatrix(numRows,numCols);
+            RealMatrix y = MatrixUtils.createRealMatrix(numRows,1);
 
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
+            for( int i = 0; i < size; i++ ) {
+                for( int j = 0; j < size; j++ ) {
+                    A.setEntry(i,j,rand.nextDouble());
                 }
-                y.set(i,0,rand.nextDouble());
+                y.setEntry(i,0,rand.nextDouble());
             }
 
-            for( int i = 0; i < numCycles; i++ )
-                CommonOps.solve(A,y,x);
+            for( int i = 0; i < numCycles; i++ ) {
+                QRDecomposition qr = new QRDecompositionImpl(A);
+                qr.getSolver().solve(y);
+            }
         }
     }
 
@@ -164,22 +164,19 @@ public class EjmlMemoryFactory implements MemoryFactory {
         public void process(int size, int numCycles, Random rand) {
             int numRows = size*2;
             int numCols = size;
-            DenseMatrix64F A = new DenseMatrix64F(numRows,numCols);
+            RealMatrix A = MatrixUtils.createRealMatrix(numRows,numCols);
 
             for( int i = 0; i < numRows; i++ ) {
                 for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
+                    A.setEntry(i,j,rand.nextDouble());
                 }
             }
-
-            SingularValueDecomposition svd = DecompositionFactory.svd();
-
             for( int i = 0; i < numCycles; i++ ) {
-                svd.decompose(A);
-
-                DenseMatrix64F U = svd.getU();
-                DenseMatrix64F V = svd.getV();
-                DenseMatrix64F S = svd.getW(null);
+                org.apache.commons.math.linear.SingularValueDecomposition svd = new SingularValueDecompositionImpl(A);
+                // need to call this functions so that it performs the full decomposition
+                RealMatrix U = svd.getU();
+                RealMatrix S = svd.getS();
+                RealMatrix V = svd.getV();
             }
         }
     }
@@ -193,24 +190,20 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
+            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = i; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    A.set(j,i,A.get(i,j));
+                    A.setEntry(i,j,rand.nextDouble());
+                    A.setEntry(j,i,A.getEntry(i,j));
                 }
             }
 
-            EigenDecomposition eig = DecompositionFactory.eig();
-
             for( int i = 0; i < numCycles; i++ ) {
-                eig.decompose(A);
-
-                DenseMatrix64F v[] = new DenseMatrix64F[size];
-                for( int j = 0; j < size; j++ ) {
-                    v[j] = eig.getEigenVector(j);
-                }
+                EigenDecompositionImpl eig = new EigenDecompositionImpl(A, MathUtils.SAFE_MIN);
+                // need to do this so that it computes the complete eigen vector
+                RealMatrix V = eig.getV();
+                RealMatrix D = eig.getD();
             }
         }
     }

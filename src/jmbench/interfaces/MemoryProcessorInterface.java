@@ -19,29 +19,13 @@
 
 package jmbench.interfaces;
 
-import jmbench.impl.MatrixLibrary;
+import java.util.Random;
 
 
 /**
- * Memory tests see how much memory it takes a library to perform the specified operation. For
- * each operation tested the inputs should be created and filled with random elements in a row
- * major fashion.
- *
  * @author Peter Abeles
  */
-public interface MemoryFactory extends LibraryFactory {
+public interface MemoryProcessorInterface {
 
-    public MatrixLibrary getLibraryInfo();
-
-    public MemoryProcessorInterface mult();
-
-    public MemoryProcessorInterface add();
-
-    public MemoryProcessorInterface solveEq();
-    
-    public MemoryProcessorInterface solveLS();
-
-    public MemoryProcessorInterface svd();
-
-    public MemoryProcessorInterface eig();
+    public void process( int size , int numCycles , Random rand );
 }
