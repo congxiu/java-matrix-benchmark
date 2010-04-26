@@ -188,6 +188,7 @@ public class MemoryBenchmarkLibrary {
             EvaluatorSlave.Results results = tool.runTest(test);
 
             if( results == null ) {
+                System.out.println("Returned NULL");
                 return -1;
             }
 
