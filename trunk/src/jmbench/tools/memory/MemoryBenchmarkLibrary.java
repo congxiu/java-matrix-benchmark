@@ -172,13 +172,12 @@ public class MemoryBenchmarkLibrary {
         // upper bound for memory
         long upperMem=Long.MAX_VALUE;
         // what is currently being tested
-        long testPoint = task.matrixSize*task.memoryScale;
+        long testPoint = (8*task.matrixSize*task.matrixSize/1024/1024)*task.memoryScale;
 
         int numFroze = 0;
 
 
         while( upperMem - lowerMem > config.accuracy ) {
-            System.out.print("*");
             tool.setFrozenDefaultTime(task.timeout);
             tool.setOverrideMemory(testPoint);
 
@@ -224,11 +223,18 @@ public class MemoryBenchmarkLibrary {
                 return -1;
             }
 
+            long prevTestPoint = testPoint;
+
             if( upperMem == Long.MAX_VALUE ) {
                 testPoint *= 2;
             } else {
                 testPoint = (upperMem+lowerMem)/2;
             }
+
+            if( prevTestPoint < testPoint )
+                System.out.print("+");
+            else
+                System.out.print("-");
         }
 
         return (upperMem+lowerMem)/2;

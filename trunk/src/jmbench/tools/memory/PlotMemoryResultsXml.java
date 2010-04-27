@@ -105,10 +105,10 @@ public class PlotMemoryResultsXml {
 
             MemoryPlotData plotData = convertToPlotData(l);
 
-            int N = l.size();
+            int N = plotData.libNames.size();
 
             for( int i = 0; i < N; i++ ) {
-                plot.addResult(key,plotData.libNames[i],plotData.memory[i]);
+                plot.addResult(key,plotData.libNames.get(i),plotData.memory.get(i));
             }
         }
 
@@ -120,17 +120,22 @@ public class PlotMemoryResultsXml {
 
         for( MemoryResults m : l ) {
             long d = m.getMinimumMemory();
-            if( max < d )
+            if( d < Long.MAX_VALUE && max < d )
                 max = d;
         }
 
-        MemoryPlotData data = new MemoryPlotData(l.size());
+        MemoryPlotData data = new MemoryPlotData();
 
         for( int i = 0; i < l.size(); i++ ) {
             MemoryResults m = l.get(i);
 
-            data.libNames[i] = m.getNameLibrary();
-            data.memory[i] = (double)m.getMinimumMemory()/(double)max;
+            long val = m.getMinimumMemory();
+
+            if( val == Long.MAX_VALUE )
+                continue;
+
+            data.libNames.add( m.getNameLibrary() );
+            data.memory.add( (double)val/(double)max );
         }
 
         return data;

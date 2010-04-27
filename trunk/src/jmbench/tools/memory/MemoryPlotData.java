@@ -19,16 +19,14 @@
 
 package jmbench.tools.memory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author Peter Abeles
  */
 public class MemoryPlotData {
-    String libNames[];
-    double memory[];
-
-    public MemoryPlotData( int N ) {
-        libNames = new String[N];
-        memory = new double[N];
-    }
+    List<String> libNames = new ArrayList<String>();
+    List<Double> memory = new ArrayList<Double>();
 }

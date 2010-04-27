@@ -266,7 +266,7 @@ public class StabilityBenchmarkLibrary {
                 fatalError = FatalError.RETURNED_NULL;
             } else if( results.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ){
                 System.out.println("  Not enough memory given to slave.");
-                logStream.println("Not enough memory for op.  Attempt num "+attempts+"  op = "+e.getTestName());
+                logStream.println("Not enough memory for op.  Attempt num "+attempts+"  op = "+e.getTestName()+" memory "+tools.getAllocatedMemory());
                 // have it run again, which will up the memory
                 continue;
             } else {
@@ -278,7 +278,7 @@ public class StabilityBenchmarkLibrary {
                         logStream.println("    Slave: Frozen = "+e.getTestName());
                         fatalError = FatalError.FROZE;
                     } else {
-                        logStream.println("    Slave: Case failed = "+results.failed+" op = "+e.getTestName());
+                        logStream.println("    Slave: Case failed = "+results.failed+" op = "+e.getTestName()+" memory "+tools.getAllocatedMemory());
                         if( results.detailedError != null ) {
                             logStream.println(results.detailedError);
                         }

@@ -202,7 +202,7 @@ public class BenchmarkTools {
         String app = System.getProperty("java.home")+"/bin/java";
 
         // compute required memory in mega bytes
-        allocatedMemory = overrideMemory > 0 ? overrideMemory : test.getInputMemorySize()*memoryScale/1024/1024+baseMemory;
+        allocatedMemory = overrideMemory > 0 ? overrideMemory : (test.getInputMemorySize()/1024/1024+baseMemory)*memoryScale;
 
         if(verbose)
             System.out.println("Memory = "+allocatedMemory+" MB");

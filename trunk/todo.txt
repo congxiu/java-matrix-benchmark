@@ -1,6 +1,5 @@
 - benchmark java version of UJMP
 - remember amount of memory previously allocated for a particular matrix size
-- flush memory between trials on slave
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
 - stability of BigDecimal matrices?
@@ -8,7 +7,7 @@
 
 - convert results to excel format
 
-- determine memory requirements
+- Create a memory leak test
 
 - Note some place that EJML is always included so libraries that depend on it will use whatever version
 the benchmark is using
