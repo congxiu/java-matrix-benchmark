@@ -33,14 +33,14 @@ import java.util.List;
 public class MemoryConfig {
 
     public static EvaluationTarget ejml = new EvaluationTarget( MatrixLibrary.EJML, EjmlMemoryFactory.class.getName());
+    public static EvaluationTarget sejml = new EvaluationTarget( MatrixLibrary.SEJML, SejmlMemoryFactory.class.getName());
     public static EvaluationTarget jama = new EvaluationTarget( MatrixLibrary.JAMA, JamaMemoryFactory.class.getName());
-//    public static EvaluationTarget ojalgo = new EvaluationTarget( MatrixLibrary.OJALGO, OjAlgoStabilityFactory.class.getName());
+    public static EvaluationTarget ojalgo = new EvaluationTarget( MatrixLibrary.OJALGO, OjAlgoMemoryFactory.class.getName());
     public static EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, CommonsMathMemoryFactory.class.getName());
     public static EvaluationTarget colt = new EvaluationTarget( MatrixLibrary.COLT, ColtMemoryFactory.class.getName());
-//    public static EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjStabilityFactory.class.getName());
-//    public static EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceStabilityFactory.class.getName());
-//    public static EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, ParallelColtStabilityFactory.class.getName());
-//    public static EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpStabilityFactory.class.getName());
+    public static EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjMemoryFactory.class.getName());
+    public static EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, PColtMemoryFactory.class.getName());
+    public static EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpMemoryFactory.class.getName());
     public static EvaluationTarget jblas = new EvaluationTarget( MatrixLibrary.JBLAS, JBlasMemoryFactory.class.getName());
 
     // random seed
@@ -83,6 +83,11 @@ public class MemoryConfig {
         ret.libraries.add( commons );
         ret.libraries.add( colt );
         ret.libraries.add( jblas );
+        ret.libraries.add( mtj );
+        ret.libraries.add( ojalgo );
+        ret.libraries.add( sejml);
+        ret.libraries.add( pcolt );
+        ret.libraries.add( ujmp );
 
         ret.seed = 234234;
 

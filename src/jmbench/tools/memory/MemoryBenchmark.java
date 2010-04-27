@@ -81,9 +81,10 @@ public class MemoryBenchmark {
             MemoryBenchmarkLibrary bench = new MemoryBenchmarkLibrary(config,l,desc.getJarFiles(),libOutputDir);
 
             bench.process();
-        }
 
-        System.out.println("Finished Library Benchmark");
+            System.out.println("Finished Library Benchmark");
+            System.out.println();
+        }
     }
 
     /**
