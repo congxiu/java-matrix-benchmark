@@ -27,4 +27,4 @@ Tested Libraries:
 
 = Results =
 
-http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_04.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_04.attach/scale.png
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2010_04.attach/plot_memory.jpg
