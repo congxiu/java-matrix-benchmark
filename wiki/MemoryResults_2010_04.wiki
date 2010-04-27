@@ -1,0 +1,30 @@
+#summary Memory Benchmark Results as of April 2010
+
+= Comments =
+ * First memory benchmark
+
+
+= Test Setup =
+
+Test environment:
+|| Date || 2010 / 04 / 27 ||
+|| Java Version || 1.6.0_17 ||
+|| OS || Ubuntu 9.10 ||
+|| CPU || Quad Core 6600 ||
+|| Benchmark || 0.6 SVN ||
+
+Tested Libraries:
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.1     ||
+|| EJML ||  0.11        ||
+|| Jama || 1.0.2           ||
+|| JBlas || 1.0.2          ||
+|| MTJ || 0.9.12           || 
+|| OjAlgo || 29.0          || 
+|| Parallel Colt || 0.9.4  ||
+|| UJMP || SVN (2010/3/23) ||
+
+= Results =
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_04.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_04.attach/scale.png
