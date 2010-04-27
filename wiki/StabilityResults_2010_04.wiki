@@ -171,7 +171,7 @@ Test Configuration
 <TR><TH>JBLAS</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 16.7%</TD><TD> 83.3%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-321</TD><TD>1.0e-321</TD><TD>1.0e-320</TD><TD>  1.0%</TD><TD></TD><TD></TD><TD> 99.0%</TD><TD></TD></TR>
 </TABLE>
 
-= Medium =
+= Medium Matrices =
 
 == Linear Solve ==
 
@@ -305,4 +305,4 @@ Test Configuration
 <TR><TH>JBLAS</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 </TABLE>
 
-= Large =
+= Large Matrices =
