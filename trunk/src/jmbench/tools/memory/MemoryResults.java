@@ -42,6 +42,18 @@ public class MemoryResults implements Serializable {
 
     }
 
+    public long getMinimumMemory() {
+        long min = Long.MAX_VALUE;
+
+        for( long l : results ) {
+            if( l < min ) {
+                min = l;
+            }
+        }
+
+        return min;
+    }
+
     public String getNameLibrary() {
         return nameLibrary;
     }

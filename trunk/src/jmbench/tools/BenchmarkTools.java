@@ -60,7 +60,7 @@ public class BenchmarkTools {
     // how long the process ran for in milliseconds
     long durationMilli;
 
-    boolean VERBOSE = false;
+    boolean verbose = true;
 
     PrintStream errorStream = System.err;
 
@@ -87,6 +87,10 @@ public class BenchmarkTools {
                 extraJars = extraJars + sep + s;
             }
         }
+    }
+
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
     }
 
     public void setErrorStream(PrintStream errorStream) {
@@ -131,7 +135,7 @@ public class BenchmarkTools {
 
         String[] params = setupSlave(test);
 
-        if( VERBOSE ) {
+        if(verbose) {
             System.out.println("Test random seed = "+test.getRandomSeed());
         }
 
@@ -200,7 +204,7 @@ public class BenchmarkTools {
         // compute required memory in mega bytes
         allocatedMemory = overrideMemory > 0 ? overrideMemory : test.getInputMemorySize()*memoryScale/1024/1024+baseMemory;
 
-        if( VERBOSE )
+        if(verbose)
             System.out.println("Memory = "+allocatedMemory+" MB");
 
         params = new String[10];

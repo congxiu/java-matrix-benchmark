@@ -63,6 +63,7 @@ public class MemoryBenchmarkLibrary {
         this.libInfo = factory.getLibraryInfo();
 
         tool.setJars(jarNames);
+        tool.setVerbose(false);
 
         String libraryName = factory.getLibraryInfo().getPlotName();
 

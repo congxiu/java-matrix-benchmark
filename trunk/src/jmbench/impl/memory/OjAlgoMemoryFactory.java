@@ -22,11 +22,10 @@ package jmbench.impl.memory;
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
-import org.ejml.alg.dense.decomposition.DecompositionFactory;
-import org.ejml.alg.dense.decomposition.EigenDecomposition;
-import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
-import org.ejml.data.DenseMatrix64F;
-import org.ejml.ops.CommonOps;
+import org.ojalgo.function.implementation.PrimitiveFunction;
+import org.ojalgo.matrix.decomposition.*;
+import org.ojalgo.matrix.store.PhysicalStore;
+import org.ojalgo.matrix.store.PrimitiveDenseStore;
 
 import java.util.Random;
 
@@ -34,12 +33,12 @@ import java.util.Random;
 /**
  * @author Peter Abeles
  */
-public class EjmlMemoryFactory implements MemoryFactory {
+public class OjAlgoMemoryFactory implements MemoryFactory {
 
 
     @Override
     public MatrixLibrary getLibraryInfo() {
-        return MatrixLibrary.EJML;
+        return MatrixLibrary.OJALGO;
     }
 
     private static abstract class MyInterface implements MemoryProcessorInterface
@@ -59,9 +58,9 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
-            DenseMatrix64F B = new DenseMatrix64F(size,size);
-            DenseMatrix64F C = new DenseMatrix64F(size,size);
+            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
+            PhysicalStore B = PrimitiveDenseStore.FACTORY.makeZero(size,size);
+            PhysicalStore C = PrimitiveDenseStore.FACTORY.makeZero(size,size);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = 0; j < size; j++ ) {
@@ -71,7 +70,7 @@ public class EjmlMemoryFactory implements MemoryFactory {
             }
 
             for( int i = 0; i < numCycles; i++ )
-                CommonOps.mult(A,B,C);
+                C.fillByMultiplying(A, B);
         }
     }
 
@@ -84,9 +83,9 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
-            DenseMatrix64F B = new DenseMatrix64F(size,size);
-            DenseMatrix64F C = new DenseMatrix64F(size,size);
+            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
+            PhysicalStore B = PrimitiveDenseStore.FACTORY.makeZero(size,size);
+            PhysicalStore C = PrimitiveDenseStore.FACTORY.makeZero(size,size);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = 0; j < size; j++ ) {
@@ -96,7 +95,7 @@ public class EjmlMemoryFactory implements MemoryFactory {
             }
 
             for( int i = 0; i < numCycles; i++ )
-                CommonOps.add(A,B,C);
+                C.fillMatching(A, PrimitiveFunction.ADD, B);
         }
     }
 
@@ -109,9 +108,8 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
-            DenseMatrix64F x = new DenseMatrix64F(size,1);
-            DenseMatrix64F y = new DenseMatrix64F(size,1);
+            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
+            PhysicalStore y = PrimitiveDenseStore.FACTORY.makeZero(size,1);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = 0; j < size; j++ ) {
@@ -120,8 +118,12 @@ public class EjmlMemoryFactory implements MemoryFactory {
                 y.set(i,0,rand.nextDouble());
             }
 
-            for( int i = 0; i < numCycles; i++ )
-                CommonOps.solve(A,y,x);
+            final LU<Double> lu = LUDecomposition.makePrimitive();
+
+            for( int i = 0; i < numCycles; i++ ){
+                lu.compute(A);
+                lu.solve(y);
+            }
         }
     }
 
@@ -137,9 +139,8 @@ public class EjmlMemoryFactory implements MemoryFactory {
             int numRows = size*2;
             int numCols = size;
 
-            DenseMatrix64F A = new DenseMatrix64F(numRows,numCols);
-            DenseMatrix64F x = new DenseMatrix64F(numCols,1);
-            DenseMatrix64F y = new DenseMatrix64F(numRows,1);
+            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(numRows,numCols);
+            PhysicalStore y = PrimitiveDenseStore.FACTORY.makeZero(numRows,1);
 
             for( int i = 0; i < numRows; i++ ) {
                 for( int j = 0; j < numCols; j++ ) {
@@ -148,8 +149,12 @@ public class EjmlMemoryFactory implements MemoryFactory {
                 y.set(i,0,rand.nextDouble());
             }
 
-            for( int i = 0; i < numCycles; i++ )
-                CommonOps.solve(A,y,x);
+            final QR<Double> qr = QRDecomposition.makePrimitive();
+
+            for( int i = 0; i < numCycles; i++ ){
+                qr.compute(A);
+                qr.solve(y);
+            }
         }
     }
 
@@ -164,7 +169,7 @@ public class EjmlMemoryFactory implements MemoryFactory {
         public void process(int size, int numCycles, Random rand) {
             int numRows = size*2;
             int numCols = size;
-            DenseMatrix64F A = new DenseMatrix64F(numRows,numCols);
+            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(numRows,numCols);
 
             for( int i = 0; i < numRows; i++ ) {
                 for( int j = 0; j < numCols; j++ ) {
@@ -172,14 +177,15 @@ public class EjmlMemoryFactory implements MemoryFactory {
                 }
             }
 
-            SingularValueDecomposition svd = DecompositionFactory.svd();
+            final SingularValue<Double> svd = SingularValueDecomposition.makePrimitive();
 
             for( int i = 0; i < numCycles; i++ ) {
-                svd.decompose(A);
-
-                DenseMatrix64F U = svd.getU();
-                DenseMatrix64F V = svd.getV();
-                DenseMatrix64F S = svd.getW(null);
+                if (!svd.compute(A)) {
+                    throw new RuntimeException("Decomposition failed");
+                }
+                svd.getQ1();
+                svd.getD();
+                svd.getQ2();
             }
         }
     }
@@ -193,7 +199,7 @@ public class EjmlMemoryFactory implements MemoryFactory {
     {
         @Override
         public void process(int size, int numCycles, Random rand) {
-            DenseMatrix64F A = new DenseMatrix64F(size,size);
+            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
 
             for( int i = 0; i < size; i++ ) {
                 for( int j = i; j < size; j++ ) {
@@ -202,15 +208,14 @@ public class EjmlMemoryFactory implements MemoryFactory {
                 }
             }
 
-            EigenDecomposition eig = DecompositionFactory.eig();
+            final Eigenvalue<Double> eig = EigenvalueDecomposition.makePrimitive();
 
             for( int i = 0; i < numCycles; i++ ) {
-                eig.decompose(A);
-
-                DenseMatrix64F v[] = new DenseMatrix64F[size];
-                for( int j = 0; j < size; j++ ) {
-                    v[j] = eig.getEigenVector(j);
+                if (!eig.computeSymmetric(A)) {
+                    throw new RuntimeException("Decomposition failed");
                 }
+                eig.getD();
+                eig.getV();
             }
         }
     }
