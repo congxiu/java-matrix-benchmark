@@ -91,13 +91,12 @@ public class MemoryConfig {
 
         ret.seed = 234234;
 
-
         ret.maxTestTimeMilli = 5*60*1000;
         ret.numCycles = 1;
         ret.numTrials = 1;
         ret.accuracy = 2;
         ret.matrixSizeSmall = 1000;
-        ret.matrixSizeLarge = 2000;
+        ret.matrixSizeLarge = 1500;
 
         ret.mult = true;
         ret.add = true;

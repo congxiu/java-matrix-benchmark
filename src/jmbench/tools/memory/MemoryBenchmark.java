@@ -63,9 +63,14 @@ public class MemoryBenchmark {
             throw new RuntimeException(e);
         }
 
+        long startTime = System.currentTimeMillis();
+
         processLibraries(config.libraries,config);
 
+        long stopTime = System.currentTimeMillis();
+
         System.out.println("Finished Benchmark");
+        System.out.println("  elapsed time "+(stopTime-startTime)+" (ms)");
     }
 
     private void processLibraries( List<EvaluationTarget> libs, MemoryConfig config ) {
