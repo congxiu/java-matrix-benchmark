@@ -6,6 +6,8 @@ There are a few changes in this benchmark since the last one.
   * JScience was removed
   * UJMP is flagged as a native library since it uses JBlas now
   * Maximum matrix size has increased
+  * Both UJMP and JBlas are run on a 32 JVM since there is an issue with running them in 64bit JVM
+    * There are no results for matrices of size 5000 for UJMP and JBlas because the 32bit VM can't allocate enough memory.
 
 Links to the results:
   * [#Pure_Java_Libraries Pure Java Results]
