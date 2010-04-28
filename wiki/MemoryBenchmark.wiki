@@ -6,7 +6,7 @@ How much memory a library uses can be a significant factor, especially when deal
 
 = Procedure =
 
-Several operations are tested in each library. For each test a new virtual matrix is created with a different amount of memory.  The amount of memory is specified using -Xms and -Xmx flags.  Most of the time if there is not enough memory an out of memory exception is thrown.  If there is just barely enough memory then the operation will take an excessive amount of time to finish.  In the later case a time out is used to detect it and is treated as if an out of memory exception was thrown.
+Several operations are tested in each library. For each test a new virtual machine is created with a different amount of memory.  The amount of memory is specified using -Xms and -Xmx flags.  Most of the time if there is not enough memory an out of memory exception is thrown.  If there is just barely enough memory then the operation will take an excessive amount of time to finish.  In the later case a time out is used to detect it and is treated as if an out of memory exception was thrown.
 
 The benchmark determines how much memory is required by performing a binary search.  This is done until it converges to within 2 MB of the minimum required memory.  The results are then saved and it moves on to the next operation/library to test.
 
