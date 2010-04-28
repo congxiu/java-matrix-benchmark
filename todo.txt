@@ -3,7 +3,6 @@
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
 - stability of BigDecimal matrices?
-- Use plot name for naming the plots
 
 - convert results to excel format
 
