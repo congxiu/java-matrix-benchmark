@@ -25,7 +25,7 @@ It should also be mentioned that the developer of this benchmark is also the dev
 
 = Acknowledgements = 
 
-Thanks to the comments and feedback from several people the quality of this benchmark been improved.  In particular the authors of several of the libraries tested have provided invaluable feedback.
+Thanks to the comments and feedback from several people the quality of this benchmark been improved.
 
 In no meaningful order:
 
