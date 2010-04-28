@@ -8,7 +8,7 @@ Quick Links:
 
 = Comments =
 
-  * There appears to be a memory leak in parallel colt in the small matrix test.  In some operations it would run out of memory no matter how much memory it was given.  I gave up after 1200 MB.
+  * There appears to be a memory leak in parallel colt when dealing with small matrices.  In some operations it would run out of memory no matter how much memory it was given.  I gave up after 1200 MB.
 
 = Test Setup =
 
