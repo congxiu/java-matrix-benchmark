@@ -18,6 +18,7 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.01.22 || [RuntimeQ9400_2010_01_22] ||
 || 2010.01.31 || [RuntimeQ9400_2010_01_31] ||
 || 2010.02.22 || [RuntimeQ9400_2010_02] ||
+|| 2010.04.27 || [RuntimeQ9400_2010_04] ||
 
 == Intel Pentium M 1.7 GHz ==
 
@@ -26,6 +27,12 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.01.22 || [RuntimePentiumM_2010_01_22] ||
 || 2010.01.31 || [RuntimePentiumM_2010_01_31] ||
 || 2010.02.23 || [RuntimePentiumM_2010_02] ||
+|| 2010.04.27 || [RuntimePentiumM_2010_04] ||
+
+= Memory Performance =
+
+|| Date || Benchmark ||
+|| 2010.04.27 || [MemoryResults_2010_04] ||
 
 = Stability Performance =
 
@@ -34,3 +41,4 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.01.20 || [StabilityResults_2010_01_20] ||
 || 2010.01.30 || [StabilityResults_2010_01_30] ||
 || 2010.02.22 || [StabilityResults_2010_02] ||
+|| 2010.04.27 || [StabilityResults_2010_07] ||
