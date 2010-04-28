@@ -35,7 +35,7 @@ public class UjmpMemoryFactory implements MemoryFactory {
 
     @Override
     public MatrixLibrary getLibraryInfo() {
-        return MatrixLibrary.EJML;
+        return MatrixLibrary.UJMP;
     }
 
     private static abstract class MyInterface implements MemoryProcessorInterface

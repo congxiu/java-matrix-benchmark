@@ -40,7 +40,7 @@ public class PColtMemoryFactory implements MemoryFactory {
 
     @Override
     public MatrixLibrary getLibraryInfo() {
-        return MatrixLibrary.COLT;
+        return MatrixLibrary.PCOLT;
     }
 
     private static abstract class MyInterface implements MemoryProcessorInterface

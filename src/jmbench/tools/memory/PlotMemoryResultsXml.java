@@ -20,6 +20,7 @@
 package jmbench.tools.memory;
 
 import jmbench.plots.MemoryRelativeBarPlot;
+import jmbench.tools.runtime.evaluation.PlotRuntimeResultsXml;
 import pja.util.UtilXmlSerialization;
 
 import java.io.File;
@@ -98,7 +99,7 @@ public class PlotMemoryResultsXml {
     }
 
     private void plotResults(  Map<String, List> opMap ) {
-        MemoryRelativeBarPlot plot = new MemoryRelativeBarPlot("Relative Memory");
+        MemoryRelativeBarPlot plot = new MemoryRelativeBarPlot("Library Memory Usage");
 
         for( String key : opMap.keySet() ) {
             List<MemoryResults> l = opMap.get(key);
@@ -112,7 +113,8 @@ public class PlotMemoryResultsXml {
             }
         }
 
-        plot.displayWindow(600,300);
+        plot.displayWindow(900,300);
+        plot.savePDF(directory.getPath()+"/plot_memory.pdf",900,300);
     }
 
     private MemoryPlotData convertToPlotData( List<MemoryResults> l ) {
@@ -142,7 +144,16 @@ public class PlotMemoryResultsXml {
     }
 
     public static void main( String args[] ) {
-        String dir = "/home/pja/projects/jmatbench/trunk/results/1272326136260";
+
+        String dir;
+
+        if( args.length == 0 ) {
+            dir = PlotRuntimeResultsXml.findMostRecentDirectory();
+        } else {
+            dir = args[0];
+        }
+
+        //dir = "results/memory_2010_04";
 
         PlotMemoryResultsXml plotter = new PlotMemoryResultsXml(dir);
 
