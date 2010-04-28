@@ -1,4 +1,5 @@
 #summary Stability Benchmark Results as of 2010 / 2 / 22
+#labels Deprecated
 
 Quick Links:
 
