@@ -2,8 +2,11 @@
 
 = Introduction =
 
-Add your content here.
+How much memory a library uses can be a significant factor, especially when dealing with larger matrices.  It is often the case that faster algorithms require more memory to cache results or to make a concurrent algorithm faster.  If a library requires so much memory that it cannot run on your system then it simply cannot be used.
 
+= Procedure =
+
+Several operations are tested in each library.  
 
 = Details =
 
