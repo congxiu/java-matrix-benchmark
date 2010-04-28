@@ -1,6 +1,6 @@
 ----- Version 0.6
 
-2010/XX/XX
+2010/04/28
 
 - Updated version of OjAlgo, ParallelColt, UJMP
 - Added JBlas to runtime and stability benchmarks
@@ -15,7 +15,8 @@
 - Can plot results from CSV file
 - Added the ability to turn on and off sanity checks in runtime benchmark
 - Logs slave command line arguments when a failure occurs.
-- EJML now uses LinearSolver in the runtime benchmark.
+- EJML runtime benchmark now uses LinearSolver.
+- Added memory usage benchmark
 
 ----- Version 0.5
 
