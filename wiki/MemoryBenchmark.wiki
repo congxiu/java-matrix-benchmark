@@ -6,11 +6,15 @@ How much memory a library uses can be a significant factor, especially when deal
 
 = Procedure =
 
-Several operations are tested in each library.  
+Several operations are tested in each library. For each test a new virtual matrix is created with a different amount of memory.  The amount of memory is specified using -Xms and -Xmx flags.  Most of the time if there is not enough memory an out of memory exception is thrown.  If there is just barely enough memory then the operation will take an excessive amount of time to finish.  In the later case a time out is used to detect it and is treated as if an out of memory exception was thrown.
 
-= Details =
+The benchmark determines how much memory is required by performing a binary search.  This is done until it converges to within 2 MB of the minimum required memory.  The results are then saved and it moves on to the next operation/library to test.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+The size of the matrix being processed by each library varies by operation.  Some operations are much slower than others so they process small matrices.  In general it is desirable to test this with as large of a matrix as possible since that's when memory efficiency is in general more important.
+
+= Results =
+
+Results are shown in a bar chart, as is shown below. Only relative memory is shown since different operations use different sized matrices.
+
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2010_04.attach/plot_memory.jpg
