@@ -90,6 +90,10 @@ public class MemoryRelativeBarPlot {
         window.setVisible(true);
     }
 
+    public void savePDF( String fileName , int width , int height ) {
+        UtilPlotPdf.saveAsPdf(chart,fileName,width,height);
+    }
+
     public static void main( String args[] ) {
        MemoryRelativeBarPlot plot = new MemoryRelativeBarPlot("Library Memory Usage");
 

@@ -27,6 +27,7 @@ package jmbench.tools.runtime.evaluation;
  */
 public class RuntimePlotData {
 
+    public String plotName;
     public int matrixSize[];
 
     public double[][] results;

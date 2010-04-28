@@ -89,6 +89,7 @@ public class PlotRuntimeResultsXml {
                             continue;
                         }
 
+
                         List l;
                         if( opMap.containsKey(stripName) ) {
                             l = opMap.get(stripName);
@@ -115,8 +116,8 @@ public class PlotRuntimeResultsXml {
             RuntimeResultPlotter.Reference refType = RuntimeResultPlotter.Reference.MAX;
             RuntimeResultPlotter.variabilityPlots(l, fileNameVar,true,false);
             // TODO change key in the line below to plot name
-            RuntimeResultPlotter.relativePlots(plotData, refType,null,fileNameRel,key,true,true);
-            RuntimeResultPlotter.absolutePlots(plotData, fileNameAbs,key,true,false);
+            RuntimeResultPlotter.relativePlots(plotData, refType,null,fileNameRel,plotData.plotName,true,true);
+            RuntimeResultPlotter.absolutePlots(plotData, fileNameAbs,plotData.plotName,true,false);
         }
     }
 
@@ -124,6 +125,8 @@ public class PlotRuntimeResultsXml {
         OperationResults a = results.get(0);
 
         RuntimePlotData ret = new RuntimePlotData(a.matDimen,results.size());
+
+        ret.plotName = a.getOpName();
 
         for( int i = 0; i < results.size(); i++ ) {
             a = results.get(i);
@@ -259,6 +262,8 @@ public class PlotRuntimeResultsXml {
 
         if( inputDirectory == null )
             inputDirectory = findMostRecentDirectory();
+
+        System.out.println("Parsing "+inputDirectory);
 
         PlotRuntimeResultsXml p = new PlotRuntimeResultsXml(inputDirectory);
 
