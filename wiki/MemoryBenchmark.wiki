@@ -14,7 +14,7 @@ The size of the matrix being processed by each library varies by operation.  Som
 
 = Results =
 
-Results are shown in a bar chart, as is shown below. Only relative memory is shown since different operations use different sized matrices.
+Results are shown in a bar chart, see below. Only relative memory is shown since different operations use different sized matrices.
 
 
 http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2010_04.attach/plot_memory.jpg
