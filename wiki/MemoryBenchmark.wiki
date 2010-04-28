@@ -12,6 +12,26 @@ The benchmark determines how much memory is required by performing a binary sear
 
 The size of the matrix being processed by each library varies by operation.  Some operations are much slower than others so they process small matrices.  In general it is desirable to test this with as large of a matrix as possible since that's when memory efficiency is in general more important.
 
+= Running =
+
+Best way to run the benchmark is from the command line.  You need to first compile benchmark_app.jar using ant.  Then type "java -jar build/jar/benchmark_app.jar memory" from the appropriate directory and you should see something like:
+
+{{{
+pja@silent:~/projects/jmatbench/trunk$ java -jar build/jar/benchmark_app.jar memory
+Colt 1.2 operation solveLinear
+-+++++  memory: 50
+Colt 1.2 operation eig
++-+-+-  memory: 33
+Colt 1.2 operation mult
++--+-++  memory: 68
+Colt 1.2 operation svd
+++
+Master is still alive: Wed Apr 28 07:59:17 EDT 2010
+
+Master is still alive: Wed Apr 28 08:00:17 EDT 2010
+-
+}}}
+
 = Results =
 
 Results are shown in a bar chart, see below. Only relative memory is shown since different operations use different sized matrices.
