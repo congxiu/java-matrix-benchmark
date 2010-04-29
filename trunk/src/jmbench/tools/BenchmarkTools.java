@@ -165,7 +165,6 @@ public class BenchmarkTools {
      * @return The results of the experiment.
      */
     public EvaluatorSlave.Results runTestNoSpawn( EvaluationTest test ) {
-
         requestID++;
         List<TestResults> results = new ArrayList<TestResults>();
 

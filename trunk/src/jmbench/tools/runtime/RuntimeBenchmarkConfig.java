@@ -112,13 +112,13 @@ public class RuntimeBenchmarkConfig implements Serializable {
         RuntimeBenchmarkConfig config = new RuntimeBenchmarkConfig();
 
         config.seed = 0xDEADBEEF;//new Random().nextLong();
-        config.numBlockTrials = 5;
-        config.numBlocks = 5;
+        config.numBlockTrials = 1;
+        config.numBlocks = 1;
         config.trialTime = 3000;
         config.maxTrialTime = 300000;
         config.memoryFixed = 0;
-        config.memorySlaveBase = 10;
-        config.memorySlaveScale = 8;
+        config.memorySlaveBase = 20;
+        config.memorySlaveScale = 1;
         config.randizeOrder = true;
         config.maxMatrixSize = 5000;
         config.minMatrixSize = 2;

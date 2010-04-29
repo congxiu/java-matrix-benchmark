@@ -77,6 +77,6 @@ public class SvdGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize*12;
+        return 8*matrixSize*matrixSize*12;
     }
 }
