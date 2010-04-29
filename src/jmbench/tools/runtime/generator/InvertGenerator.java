@@ -64,6 +64,6 @@ public class InvertGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return matrixSize*matrixSize*8;
+        return 8*matrixSize*matrixSize*8;
     }
 }

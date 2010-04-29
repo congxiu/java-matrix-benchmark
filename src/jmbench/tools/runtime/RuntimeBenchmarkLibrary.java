@@ -359,7 +359,7 @@ public class RuntimeBenchmarkLibrary {
         tooSlow = false;
         caseFailed = false;
         EvaluatorSlave.Results r = tools.runTest(test);
-//            EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
+//        EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
 
         if( r == null ) {
             logStream.println("*** RunTest returned null: op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
