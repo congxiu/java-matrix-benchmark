@@ -84,6 +84,6 @@ public class LuGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return 8*matrixSize*matrixSize*12;
+        return 8L*matrixSize*matrixSize*8L;
     }
 }
