@@ -362,7 +362,7 @@ public class RuntimeBenchmarkLibrary {
 //        EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
 
         if( r == null ) {
-            logStream.println("*** RunTest returned null: op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
+            logStream.println("*** RunTest returned null: op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb duration = "+tools.getDurationMilli());
             String param[] = tools.getParams();
             logStream.println("Command line arguments:");
             for( int i = 0; i < param.length; i++ ) {
@@ -376,7 +376,7 @@ public class RuntimeBenchmarkLibrary {
                 logStream.println("    Case was too slow: op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
                 tooSlow = true;
             } else {
-                logStream.println("    Case failed: reason = "+r.failed+" op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
+                logStream.println("    Case failed: reason = "+r.failed+" op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb duration = "+tools.getDurationMilli());
                 if( r.detailedError != null ) {
                     logStream.println(r.detailedError);
                 }
