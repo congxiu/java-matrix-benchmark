@@ -130,7 +130,7 @@ public class RuntimeBenchmarkMaster {
         System.out.println("  --Quick                  |  Generate results much faster by sacrificing accuracy/stability of the results.");
         System.out.println("  --Seed=<number>          |  used to set the random seed to the specified value.");
         System.out.println("  --TrailTime=<ms>         |  The minimum amount of time spent in each trial.  Typical is 3000.");
-        System.out.println("  --MaxTime=<ms>           |  Maximum number of milliseconds it can spend in a single test.  Typical is 30000.");
+        System.out.println("  --MaxTime=<ms>           |  Maximum number of milliseconds it can spend in a single test.  Typical is 300000.");
         System.out.println("  --Resume=<directory>     |  It will resume an unfinished benchmark at the specified directory.");
         System.out.println("  --FixedMemory=<MB>       |  Use a fixed amount of memory in each trial.  In megabytes.");
         System.out.println("  --SanityCheck=<boolean>  |  Should it check the output for correctness?  Adds time and memory.");
