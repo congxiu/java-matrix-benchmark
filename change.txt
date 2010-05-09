@@ -3,6 +3,8 @@
 2010/XX/XX
 
 - Updated runtime memory allocations so that they are a more accurate prediction initially.
+- Libraries can configure themselves at runtime
+- 
 
 ----- Version 0.6
 

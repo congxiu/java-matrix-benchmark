@@ -25,6 +25,7 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.ConfigureLibrary;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
+
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 import org.ejml.ops.SpecializedOps;
@@ -255,15 +256,15 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
         public long process(final DenseMatrix64F[] inputs, final DenseMatrix64F[] outputs, final long numTrials) {
 
-            final PhysicalStore matA = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]);
+            final MatrixStore matAT = new TransposedStore<Number>(OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[0]));
             final PhysicalStore matB = OjAlgoAlgorithmFactory.convertToOjAlgo(inputs[1]);
 
-            final PhysicalStore result = PrimitiveDenseStore.FACTORY.makeEmpty(matA.getColDim(), matB.getColDim());
+            final PhysicalStore result = PrimitiveDenseStore.FACTORY.makeEmpty(matAT.getRowDim(), matB.getColDim());
 
             final long prev = System.currentTimeMillis();
 
             for (long i = 0; i < numTrials; i++) {
-                result.fillByMultiplying(matA.transpose(), matB);
+                result.fillByMultiplying(matAT, matB);
             }
 
             final long elapsedTime = System.currentTimeMillis() - prev;
