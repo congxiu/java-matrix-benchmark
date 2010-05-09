@@ -17,47 +17,16 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.interfaces;
+package jmbench.impl.runtime;
 
 
 /**
+ * Algorithm factory for UJMP that does not use native libraries, just pure java.
+ * 
  * @author Peter Abeles
  */
-public interface RuntimePerformanceFactory extends LibraryFactory {
-
-    ConfigureLibrary configure();
-
-    AlgorithmInterface chol();
-
-    AlgorithmInterface lu();
-
-    AlgorithmInterface svd();
-
-    AlgorithmInterface qr();
-
-    AlgorithmInterface eigSymm();
-
-    // should it test against asymmetric matrices?
-//    AlgorithmInterface eigASymm();
-
-
-    AlgorithmInterface det();
-
-    AlgorithmInterface invert();
-
-    AlgorithmInterface invertSymmPosDef();
-
-    AlgorithmInterface add();
-
-    AlgorithmInterface mult();
-
-    AlgorithmInterface multTransA();
-
-    AlgorithmInterface scale();
-
-    AlgorithmInterface solveExact();
-
-    AlgorithmInterface solveOver();
-
-    AlgorithmInterface transpose();
+public class UjmpJavaAlgorithmFactory extends UjmpAlgorithmFactory {
+    public UjmpJavaAlgorithmFactory() {
+        super(false);
+    }
 }

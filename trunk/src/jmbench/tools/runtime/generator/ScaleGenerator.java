@@ -63,6 +63,6 @@ public class ScaleGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return 8L*matrixSize*matrixSize*6L;
+        return 8L*matrixSize*matrixSize*4L;
     }
 }

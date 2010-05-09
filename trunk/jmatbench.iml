@@ -13,17 +13,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mtj-0.9.12/mtj.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/mtj-0.9.12/mtj-src.zip!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.7.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -31,15 +20,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="libpja" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ujmp-svn/ujmp-complete-0.2.5-with-deps.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -188,6 +168,24 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/commons-math/commons-math-2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/mtj/mtj-0.9.12.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/ujmp/ujmp-complete-0.2.5-with-deps.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -30,21 +30,25 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class MatrixLibrary implements Serializable {
-    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","EJML 0.11","2010-04-07",false,false,0);
-    public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama","Jama 1.0.2","",false, false, 1);
-    public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj","MTJ 0.9.12","",true, false, 2);
-    public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","SEJML 0.7","",true, false, 3);
-    public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math","Commons Math 2.1","2010-04-05",true, false, 4);
-    public static final MatrixLibrary JSCIENCE = new MatrixLibrary("JScience","jscience","JScience 4.3","",true, false, 5);
-    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo","ojAlgo 29.0","2010-03-20",true, false, 6);
-    public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt","Colt 1.2","",true, false, 7);
-    public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt","Parallel Colt 0.9.4","2010-03-20",true, false, 8);
-    public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp-svn","UJMP svn","2010-04-28",true, true, 9);
-    public static final MatrixLibrary JBLAS = new MatrixLibrary("JBLAS","jblas","JBLAS 1.0.2","2010-02-26",true, true, 10);
+    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","ejml","EJML 0.11","2010-04-07",false,false,0);
+    public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama","jama","Jama 1.0.2","",false, false, 1);
+    public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj","mtj","MTJ 0.9.12","",true, false, 2);
+    public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","sejml","SEJML 0.7","",true, false, 3);
+    public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math","commons-math","Commons Math 2.1","2010-04-05",true, false, 4);
+    public static final MatrixLibrary JSCIENCE = new MatrixLibrary("JScience","jscience","jscience","JScience 4.3","",true, false, 5);
+    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo","ojalgo","ojAlgo 29.0","2010-03-20",true, false, 6);
+    public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt","colt","Colt 1.2","",true, false, 7);
+    public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt","parallelcolt","Parallel Colt 0.9.4","2010-03-20",true, false, 8);
+    public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp","ujmp","UJMP","2010-04-28",true, true, 9);
+    public static final MatrixLibrary UJMP_JAVA = new MatrixLibrary("UJMP-J","ujmp","ujmp-java","UJMP-Java","2010-04-28",true,false, 9);
+    public static final MatrixLibrary JBLAS = new MatrixLibrary("JBLAS","jblas","jblas","JBLAS 1.0.2","2010-02-26",true, true, 10);
 
     public String plotName;
     public String versionName;
-    public String dirName;
+    // directory that it loads its libraries from
+    public String libraryDirName;
+    // directory the results are saved into
+    public String saveDirName;
     // the date the library was last updated
     public String dateModified;
     // does the slave need to load additional libraries
@@ -55,12 +59,14 @@ public class MatrixLibrary implements Serializable {
     // when plotted what color and stroke should be used
     public int plotLineType;
 
-    public MatrixLibrary(String plotName, String dirName, String versionName, String dateModified,
+    public MatrixLibrary(String plotName, String libraryDirName, String saveDirName ,
+                         String versionName, String dateModified,
                          boolean extraLibs, boolean nativeCode, int plotLineType)
     {
         this.plotName = plotName;
         this.versionName = versionName;
-        this.dirName = dirName;
+        this.libraryDirName = libraryDirName;
+        this.saveDirName = saveDirName;
         this.dateModified = dateModified;
         this.extraLibs = extraLibs;
         this.nativeCode = nativeCode;
@@ -69,23 +75,6 @@ public class MatrixLibrary implements Serializable {
 
     public MatrixLibrary() {
 
-    }
-
-    public static List<MatrixLibrary> getAll() {
-        List<MatrixLibrary> all = new ArrayList<MatrixLibrary>();
-
-        all.add(EJML);
-        all.add(JAMA);
-        all.add(MTJ);
-        all.add(SEJML);
-        all.add(CM);
-        all.add(JSCIENCE);
-        all.add(OJALGO);
-        all.add(COLT);
-        all.add(PCOLT);
-        all.add(UJMP);
-
-        return all;
     }
 
     public String getPlotName() {
@@ -104,12 +93,12 @@ public class MatrixLibrary implements Serializable {
         this.versionName = versionName;
     }
 
-    public String getDirName() {
-        return dirName;
+    public String getLibraryDirName() {
+        return libraryDirName;
     }
 
-    public void setDirName(String dirName) {
-        this.dirName = dirName;
+    public void setLibraryDirName(String libraryDirName) {
+        this.libraryDirName = libraryDirName;
     }
 
     public String getDateModified() {
@@ -142,5 +131,13 @@ public class MatrixLibrary implements Serializable {
 
     public void setNativeCode(boolean nativeCode) {
         this.nativeCode = nativeCode;
+    }
+
+    public String getSaveDirName() {
+        return saveDirName;
+    }
+
+    public void setSaveDirName(String saveDirName) {
+        this.saveDirName = saveDirName;
     }
 }

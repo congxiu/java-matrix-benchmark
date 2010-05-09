@@ -73,7 +73,7 @@ public class RuntimeBenchmarkMaster {
 
         for( EvaluationTarget desc : libs ) {
 
-            String libOutputDir = directorySave+"/"+desc.getLib().getDirName();
+            String libOutputDir = directorySave+"/"+desc.getLib().getSaveDirName();
 
             // save the description so that where this came from can be easily extracted
             try {

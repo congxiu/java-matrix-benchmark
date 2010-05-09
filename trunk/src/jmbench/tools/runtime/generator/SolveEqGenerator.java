@@ -81,6 +81,6 @@ public class SolveEqGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return 8L*matrixSize*matrixSize*8L;
+        return 8L*matrixSize*matrixSize*6L;
     }
 }

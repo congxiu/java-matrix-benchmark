@@ -91,7 +91,7 @@ public class StabilityBenchmark {
     {
         for( EvaluationTarget desc : libs ) {
             try {
-                String outputFile = directorySave+"/"+desc.getLib().getDirName()+".xml";
+                String outputFile = directorySave+"/"+desc.getLib().getLibraryDirName()+".xml";
                 UtilXmlSerialization.serializeXml(desc,outputFile);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
@@ -108,7 +108,7 @@ public class StabilityBenchmark {
 //            if( desc.getLib() != MatrixLibrary.JAMA )
 //                continue;
 
-            String libOutputDir = directorySave+"/"+dirSize+"/"+desc.getLib().getDirName();
+            String libOutputDir = directorySave+"/"+dirSize+"/"+desc.getLib().getLibraryDirName();
 
             // run the benchmark
             StabilityFactory l = desc.loadAlgorithmFactory();
