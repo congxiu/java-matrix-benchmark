@@ -21,6 +21,7 @@ package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
+import jmbench.interfaces.ConfigureLibrary;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import no.uib.cipr.matrix.*;
@@ -39,6 +40,11 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
         public String getName() {
             return MatrixLibrary.MTJ.getVersionName();
         }
+    }
+
+    @Override
+    public ConfigureLibrary configure() {
+        return null;
     }
 
     @Override

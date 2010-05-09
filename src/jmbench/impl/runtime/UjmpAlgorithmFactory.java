@@ -21,6 +21,7 @@ package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.AlgorithmInterface;
+import jmbench.interfaces.ConfigureLibrary;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
@@ -28,6 +29,7 @@ import org.ejml.ops.CommonOps;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.MatrixFactory;
 import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
+import org.ujmp.core.util.UJMPSettings;
 
 /**
  *
@@ -36,7 +38,46 @@ import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
  */
 public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
-	private static abstract class MyInterface implements AlgorithmInterface {
+    boolean useNative = true;
+
+    public UjmpAlgorithmFactory() {
+    }
+
+    public UjmpAlgorithmFactory( boolean useNative ) {
+        this.useNative = useNative;
+    }
+
+    @Override
+    public ConfigureLibrary configure() {
+        return new MyConfigure(useNative);
+    }
+
+    public static class MyConfigure implements ConfigureLibrary {
+
+        boolean useNative;
+
+        public MyConfigure(boolean useNative) {
+            this.useNative = useNative;
+        }
+
+        public MyConfigure() {
+        }
+
+        @Override
+        public void configure() {
+            UJMPSettings.setUseJBlas(useNative);
+        }
+
+        public boolean isUseNative() {
+            return useNative;
+        }
+
+        public void setUseNative(boolean useNative) {
+            this.useNative = useNative;
+        }
+    }
+
+    private static abstract class MyInterface implements AlgorithmInterface {
 		@Override
 		public String getName() {
 			return MatrixLibrary.UJMP.getVersionName();

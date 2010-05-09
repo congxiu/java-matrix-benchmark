@@ -62,12 +62,12 @@ public class EvaluationTarget implements Serializable {
      */
     private void loadJarNames() {
 
-        if( lib.dirName == null )
+        if( lib.libraryDirName == null )
             return;
 
         List<String> jarNames = new ArrayList<String>();
 
-        File rootDir = new File("lib/"+ lib.dirName);
+        File rootDir = new File("lib/"+ lib.libraryDirName);
 
         File files[] = rootDir.listFiles();
         if( files == null)

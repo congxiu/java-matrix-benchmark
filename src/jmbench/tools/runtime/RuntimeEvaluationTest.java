@@ -20,6 +20,7 @@
 package jmbench.tools.runtime;
 
 import jmbench.interfaces.AlgorithmInterface;
+import jmbench.interfaces.ConfigureLibrary;
 import jmbench.interfaces.MatrixProcessorInterface;
 import jmbench.tools.EvaluationTest;
 import jmbench.tools.TestResults;
@@ -36,6 +37,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     public static final double MAX_ERROR_THRESHOLD = 0.05;
 
     private int dimen;
+    private ConfigureLibrary configure;
     private MatrixProcessorInterface alg;
     private InputOutputGenerator generator;
 
@@ -60,6 +62,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      * Creates a new evaluation test.
      *
      * @param dimen How big the matrices are that are being processed.
+     * @param configure Performs any runtime configurations that need to be done.
      * @param alg The algorithm that is being processed.
      * @param generator Creates the inputs and expected outputs for the tested operation
      * @param goalRuntime  How long it wants to try to run the test for in milliseconds
@@ -67,6 +70,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      * @param randomSeed The random seed used for the tests.
      */
     public RuntimeEvaluationTest( int dimen ,
+                                  ConfigureLibrary configure,
                                   MatrixProcessorInterface alg ,
                                   InputOutputGenerator generator ,
                                   boolean sanityCheck ,
@@ -74,6 +78,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     {
         super(randomSeed);
         this.dimen = dimen;
+        this.configure = configure;
         this.alg = alg;
         this.generator = generator;
         this.sanityCheck = sanityCheck;
@@ -135,6 +140,9 @@ public class RuntimeEvaluationTest extends EvaluationTest {
         if( numTrials <= 0 ) {
             numTrials = 1;
         }
+
+        if( configure != null )
+            configure.configure();
 
         // translate it to nanoseconds
         long goalDuration = this.goalRuntime *1000000;
@@ -234,6 +242,14 @@ public class RuntimeEvaluationTest extends EvaluationTest {
 
     public void setSanityCheck(boolean sanityCheck) {
         this.sanityCheck = sanityCheck;
+    }
+
+    public ConfigureLibrary getConfigure() {
+        return configure;
+    }
+
+    public void setConfigure(ConfigureLibrary configure) {
+        this.configure = configure;
     }
 
     @Override

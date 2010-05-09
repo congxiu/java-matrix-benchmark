@@ -19,45 +19,15 @@
 
 package jmbench.interfaces;
 
+import java.io.Serializable;
+
 
 /**
+ * Performs any runtime configurations that might be needed.
+ *
  * @author Peter Abeles
  */
-public interface RuntimePerformanceFactory extends LibraryFactory {
+public interface ConfigureLibrary extends Serializable {
 
-    ConfigureLibrary configure();
-
-    AlgorithmInterface chol();
-
-    AlgorithmInterface lu();
-
-    AlgorithmInterface svd();
-
-    AlgorithmInterface qr();
-
-    AlgorithmInterface eigSymm();
-
-    // should it test against asymmetric matrices?
-//    AlgorithmInterface eigASymm();
-
-
-    AlgorithmInterface det();
-
-    AlgorithmInterface invert();
-
-    AlgorithmInterface invertSymmPosDef();
-
-    AlgorithmInterface add();
-
-    AlgorithmInterface mult();
-
-    AlgorithmInterface multTransA();
-
-    AlgorithmInterface scale();
-
-    AlgorithmInterface solveExact();
-
-    AlgorithmInterface solveOver();
-
-    AlgorithmInterface transpose();
+    public void configure();
 }

@@ -81,7 +81,7 @@ public class MemoryBenchmark {
             // run the benchmark
             MemoryFactory l = desc.loadAlgorithmFactory();
 
-            String libOutputDir = directorySave+"/"+l.getLibraryInfo().getDirName();
+            String libOutputDir = directorySave+"/"+l.getLibraryInfo().getLibraryDirName();
 
             MemoryBenchmarkLibrary bench = new MemoryBenchmarkLibrary(config,l,desc.getJarFiles(),libOutputDir);
 
@@ -99,7 +99,7 @@ public class MemoryBenchmark {
     {
         for( EvaluationTarget desc : libs ) {
             try {
-                String outputFile = directorySave+"/"+desc.getLib().getDirName()+".xml";
+                String outputFile = directorySave+"/"+desc.getLib().getLibraryDirName()+".xml";
                 UtilXmlSerialization.serializeXml(desc,outputFile);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
