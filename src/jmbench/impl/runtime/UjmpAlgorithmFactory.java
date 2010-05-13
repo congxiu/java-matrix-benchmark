@@ -20,8 +20,9 @@
 package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.UjmpBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
@@ -48,33 +49,8 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public ConfigureLibrary configure() {
-        return new MyConfigure(useNative);
-    }
-
-    public static class MyConfigure implements ConfigureLibrary {
-
-        boolean useNative;
-
-        public MyConfigure(boolean useNative) {
-            this.useNative = useNative;
-        }
-
-        public MyConfigure() {
-        }
-
-        @Override
-        public void configure() {
-            UJMPSettings.setUseJBlas(useNative);
-        }
-
-        public boolean isUseNative() {
-            return useNative;
-        }
-
-        public void setUseNative(boolean useNative) {
-            this.useNative = useNative;
-        }
+    public void configure() {
+        UJMPSettings.setUseJBlas(useNative);
     }
 
     private static abstract class MyInterface implements AlgorithmInterface {
@@ -84,16 +60,26 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 		}
 	}
 
-	@Override
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap( DenseDoubleMatrix2D.factory.zeros(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new UjmpBenchmarkMatrix((Matrix)matrix);
+    }
+
+    @Override
 	public AlgorithmInterface chol() {
 		return new CholOp();
 	}
 
 	public static class CholOp extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
+			Matrix matA = inputs[0].getOriginal();
 
 			Matrix U = null;
 
@@ -105,8 +91,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 			long elapsedTime = System.currentTimeMillis() - prev;
 
-			outputs[0] = ujmpToEjml(U);
-			CommonOps.transpose(outputs[0]);
+			outputs[0] = new UjmpBenchmarkMatrix(U.transpose());
 			return elapsedTime;
 		}
 	}
@@ -118,9 +103,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class LU extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
+			Matrix matA = inputs[0].getOriginal();
 
 			Matrix L = null;
 			Matrix U = null;
@@ -137,9 +122,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(L);
-			outputs[1] = ujmpToEjml(U);
-			outputs[2] = ujmpToEjml(P);
+			outputs[0] = new UjmpBenchmarkMatrix(L);
+			outputs[1] = new UjmpBenchmarkMatrix(U);
+			outputs[2] = new UjmpBenchmarkMatrix(P);
 			return elapsedTime;
 		}
 	}
@@ -151,9 +136,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class SVD extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
+			Matrix matA = inputs[0].getOriginal();
 
 			Matrix[] svd = null;
 
@@ -165,9 +150,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(svd[0]);
-			outputs[1] = ujmpToEjml(svd[1]);
-			outputs[2] = ujmpToEjml(svd[2]);
+			outputs[0] = new UjmpBenchmarkMatrix(svd[0]);
+			outputs[1] = new UjmpBenchmarkMatrix(svd[1]);
+			outputs[2] = new UjmpBenchmarkMatrix(svd[2]);
 			return elapsedTime;
 		}
 	}
@@ -179,9 +164,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Eig extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
+			DenseDoubleMatrix2D matA = inputs[0].getOriginal();
 
 			Matrix result[] = null;
 
@@ -192,8 +177,8 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result[1]);
-			outputs[1] = ujmpToEjml(result[0]);
+			outputs[0] = new UjmpBenchmarkMatrix(result[1]);
+			outputs[1] = new UjmpBenchmarkMatrix(result[0]);
 			return elapsedTime;
 		}
 	}
@@ -205,9 +190,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class QR extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
+			DenseDoubleMatrix2D matA = inputs[0].getOriginal();
 
 			Matrix Q = null;
 			Matrix R = null;
@@ -222,8 +207,8 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(Q);
-			outputs[1] = ujmpToEjml(R);
+			outputs[0] = new UjmpBenchmarkMatrix(Q);
+			outputs[1] = new UjmpBenchmarkMatrix(R);
 			return elapsedTime;
 		}
 	}
@@ -235,9 +220,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Det extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
+			Matrix matA = inputs[0].getOriginal();
 
 			long prev = System.currentTimeMillis();
 
@@ -256,9 +241,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Inv extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
+			Matrix matA = inputs[0].getOriginal();
 
 			Matrix result = null;
 
@@ -269,7 +254,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -281,9 +266,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class InvSymmPosDef extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
+			Matrix matA = inputs[0].getOriginal();
 
 			Matrix result = null;
 			Matrix eye = MatrixFactory.eye(matA.getSize());
@@ -295,7 +280,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -307,10 +292,10 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Add extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
-			DenseDoubleMatrix2D matB = convertToUjmp(inputs[1]);
+			DenseDoubleMatrix2D matA = inputs[0].getOriginal();
+			DenseDoubleMatrix2D matB = inputs[1].getOriginal();
 
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matA.getColumnCount());
@@ -322,7 +307,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -334,10 +319,10 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Mult extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
-			DenseDoubleMatrix2D matB = convertToUjmp(inputs[1]);
+			DenseDoubleMatrix2D matA = inputs[0].getOriginal();
+			DenseDoubleMatrix2D matB = inputs[1].getOriginal();
 
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matB.getColumnCount());
@@ -349,7 +334,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -361,10 +346,10 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class MulTranA extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
-			Matrix matB = convertToUjmp(inputs[1]);
+			Matrix matA = inputs[0].getOriginal();
+			Matrix matB = inputs[1].getOriginal();
 
 			long prev = System.currentTimeMillis();
 
@@ -375,7 +360,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -387,9 +372,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Scale extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
+			DenseDoubleMatrix2D matA = inputs[0].getOriginal();
 
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matA.getColumnCount());
@@ -402,7 +387,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -414,10 +399,10 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Solve extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			Matrix matA = convertToUjmp(inputs[0]);
-			Matrix matB = convertToUjmp(inputs[1]);
+			Matrix matA = inputs[0].getOriginal();
+			Matrix matB = inputs[1].getOriginal();
 
 			Matrix result = null;
 
@@ -428,7 +413,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -445,9 +430,9 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 	public static class Transpose extends MyInterface {
 		@Override
-		public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs,
+		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
-			DenseDoubleMatrix2D matA = convertToUjmp(inputs[0]);
+			DenseDoubleMatrix2D matA = inputs[0].getOriginal();
 
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getColumnCount(), matA.getRowCount());
@@ -459,7 +444,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			}
 
 			long elapsedTime = System.currentTimeMillis() - prev;
-			outputs[0] = ujmpToEjml(result);
+			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
@@ -493,12 +478,11 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 		return ret;
 	}
 
-	public static void main(String args[]) {
-		MyInterface add = new MulTranA();
+    public boolean isUseNative() {
+        return useNative;
+    }
 
-		DenseMatrix64F a = new DenseMatrix64F(1000, 1000);
-		DenseMatrix64F b = new DenseMatrix64F(1000, 1000);
-
-		add.process(new DenseMatrix64F[] { a, b }, new DenseMatrix64F[3], 3);
-	}
+    public void setUseNative(boolean useNative) {
+        this.useNative = useNative;
+    }
 }

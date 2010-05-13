@@ -19,13 +19,19 @@
 
 package jmbench.interfaces;
 
+import java.io.Serializable;
+
 
 /**
  * @author Peter Abeles
  */
-public interface RuntimePerformanceFactory extends LibraryFactory {
+public interface RuntimePerformanceFactory extends LibraryFactory , Serializable  {
 
-    ConfigureLibrary configure();
+    void configure();
+
+    BenchmarkMatrix create( int numRows , int numCols );
+
+    BenchmarkMatrix wrap( Object matrix );
 
     AlgorithmInterface chol();
 

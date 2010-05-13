@@ -19,6 +19,9 @@
 
 package jmbench.tools.runtime.generator;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.misc.RandomizeMatrices;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import org.ejml.data.DenseMatrix64F;
@@ -36,21 +39,33 @@ public class AddGenerator implements InputOutputGenerator {
     DenseMatrix64F C;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
-        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
-        DenseMatrix64F B = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+                                           boolean checkResults , int size ) {
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[2];
+
+        inputs[0] = factory.create(size,size);
+        inputs[1] = factory.create(size,size);
+
+        RandomizeMatrices.randomize(inputs[0],-1,1,rand);
+        RandomizeMatrices.randomize(inputs[1],-1,1,rand);
 
         if( checkResults ) {
-            C = new DenseMatrix64F(matrixSize,matrixSize);
+            DenseMatrix64F A = RandomizeMatrices.convertToEjml(inputs[0]);
+            DenseMatrix64F B = RandomizeMatrices.convertToEjml(inputs[1]);
+
+            C = new DenseMatrix64F(A.numRows,A.numCols);
             CommonOps.add(A,B,C);
         }
 
-        return new DenseMatrix64F[]{A,B};
+        return inputs;
     }
 
     @Override
-    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        return ResultsChecking.checkResult(output[0],C,tol);
+    public OutputError checkResults(BenchmarkMatrix[] output, double tol) {
+
+        DenseMatrix64F o = RandomizeMatrices.convertToEjml(output[0]);
+
+        return ResultsChecking.checkResult(o,C,tol);
     }
 
     @Override

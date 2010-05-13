@@ -17,16 +17,45 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.interfaces;
+package jmbench.impl.wrapper;
 
-import org.ejml.data.DenseMatrix64F;
+import jmbench.interfaces.BenchmarkMatrix;
+import no.uib.cipr.matrix.Matrix;
 
 
 /**
  * @author Peter Abeles
  */
-public interface MatrixProcessorInterface {
+public class MtjBenchmarkMatrix implements BenchmarkMatrix {
 
-    public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials);
+    Matrix mat;
 
+    public MtjBenchmarkMatrix(Matrix mat) {
+        this.mat = mat;
+    }
+
+    @Override
+    public double get(int row, int col) {
+        return mat.get(row,col);
+    }
+
+    @Override
+    public void set(int row, int col, double value) {
+        mat.set(row,col,value);
+    }
+
+    @Override
+    public int numRows() {
+        return mat.numRows();
+    }
+
+    @Override
+    public int numCols() {
+        return mat.numColumns();
+    }
+
+    @Override
+    public <T> T getOriginal() {
+        return (T)mat;
+    }
 }

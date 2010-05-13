@@ -107,7 +107,7 @@ public class CheckForErrorsInResultsXml {
             return;
         }
 
-        System.out.print(r.getLibrary()+" "+r.getOpName()+" ");
+        System.out.print(r.getLibrary().getPlotName()+" "+r.getOpName()+" ");
 
         if( numNull != 0 ) {
             System.out.printf("null %d",numNull);

@@ -17,23 +17,45 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.impl;
+package jmbench.impl.wrapper;
 
-import jmbench.impl.runtime.MtjAlgorithmFactory;
-import org.junit.Test;
+import cern.colt.matrix.DoubleMatrix2D;
+import jmbench.interfaces.BenchmarkMatrix;
 
 
 /**
  * @author Peter Abeles
  */
-public class TestMtjAlgorithmFactory {
-    /**
-     * Checks to see if all the functions don't modify their inputs.
-     *
-     * Right now this only really tests ejml since all the other ones work with a copy.
-     */
-    @Test
-    public void testModInputs() {
-        CheckModifyInputs.checkFactory( new MtjAlgorithmFactory() );
+public class ColtBenchmarkMatrix implements BenchmarkMatrix {
+
+    DoubleMatrix2D mat;
+
+    public ColtBenchmarkMatrix(DoubleMatrix2D mat) {
+        this.mat = mat;
+    }
+
+    @Override
+    public double get(int row, int col) {
+        return mat.get(row,col);
+    }
+
+    @Override
+    public void set(int row, int col, double value) {
+        mat.set(row,col,value);
+    }
+
+    @Override
+    public int numRows() {
+        return mat.rows();
+    }
+
+    @Override
+    public int numCols() {
+        return mat.columns();
+    }
+
+    @Override
+    public <T> T getOriginal() {
+        return (T)mat;
     }
 }

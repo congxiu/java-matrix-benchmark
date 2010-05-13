@@ -19,6 +19,9 @@
 
 package jmbench.tools.runtime.generator;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.misc.RandomizeMatrices;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import jmbench.tools.stability.StabilityBenchmark;
@@ -38,22 +41,24 @@ public class CholeskyGenerator implements InputOutputGenerator {
     DenseMatrix64F A;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
-        A = RandomMatrices.createSymmPosDef(matrixSize,rand);
+    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+                                           boolean checkResults , int size ) {
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[1];
 
-        DenseMatrix64F[] ret = new DenseMatrix64F[]{A};
+        inputs[0] = factory.create(size,size);
+
+        RandomizeMatrices.symmPosDef(inputs[0],rand);
 
         if( checkResults ) {
-            return ret;
-        } else {
-            A = null;
-            return ret;
+            A = RandomizeMatrices.convertToEjml(inputs[0]);
         }
+
+        return inputs;
     }
 
     @Override
-    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        DenseMatrix64F L = output[0];
+    public OutputError checkResults(BenchmarkMatrix[] output, double tol) {
+        DenseMatrix64F L = RandomizeMatrices.convertToEjml(output[0]);
 
         if( L == null ) {
             return OutputError.MISC;

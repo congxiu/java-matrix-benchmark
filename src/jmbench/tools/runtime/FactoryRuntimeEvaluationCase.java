@@ -103,7 +103,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Mult c=a*b","mult",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createMatrixAdd( RuntimePerformanceFactory factory ,
@@ -114,7 +114,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Add c=a+b","add",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createTranspose( RuntimePerformanceFactory factory ,
@@ -125,7 +125,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Transpose b=a^T","tran",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createScale( RuntimePerformanceFactory factory ,
@@ -136,7 +136,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Scale b=alpha*a","scale",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createDeterminant( RuntimePerformanceFactory factory ,
@@ -147,7 +147,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Determinant","det",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createInvert( RuntimePerformanceFactory factory ,
@@ -158,7 +158,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Invert b=inv(a)","inv",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createInvertSymmPosDef( RuntimePerformanceFactory factory ,
@@ -169,7 +169,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Invert Symm b=inv(a)","invSymmPosDef",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createSVD( RuntimePerformanceFactory factory ,
@@ -180,7 +180,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("SVD","svd",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createCholesky( RuntimePerformanceFactory factory ,
@@ -191,7 +191,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Cholesky","cholesky",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createMultTranA( RuntimePerformanceFactory factory ,
@@ -202,7 +202,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Mult c=a^t * b","multTranA",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     /**
@@ -216,7 +216,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Solve m=n","solveEq",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     /**
@@ -230,7 +230,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Solve m>n","solveOver",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createQR( RuntimePerformanceFactory factory ,
@@ -241,7 +241,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("QR","QR",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createLU( RuntimePerformanceFactory factory ,
@@ -252,7 +252,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("LU","LU",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createEigSymm( RuntimePerformanceFactory factory ,
@@ -262,7 +262,7 @@ public class FactoryRuntimeEvaluationCase {
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
         return new RuntimeEvaluationCase("Eigen for Symm Matrices","EigSymm",matDimen,
-                factory.configure(),alg,generator);
+                factory,alg,generator);
     }
 
     private static int[] createDimenList( int min , int max ) {

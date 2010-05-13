@@ -17,23 +17,45 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.impl;
+package jmbench.impl.wrapper;
 
-import jmbench.impl.runtime.EjmlAlgorithmFactory;
-import org.junit.Test;
+import jmbench.interfaces.BenchmarkMatrix;
+import org.apache.commons.math.linear.RealMatrix;
 
 
 /**
  * @author Peter Abeles
  */
-public class TestEjmlAlgorithmFactory {
-    /**
-     * Checks to see if all the functions don't modify their inputs.
-     *
-     * Right now this only really tests ejml since all the other ones work with a copy.
-     */
-    @Test
-    public void testModInputs() {
-        CheckModifyInputs.checkFactory( new EjmlAlgorithmFactory() );
+public class CommonsMathBenchmarkMatrix implements BenchmarkMatrix  {
+
+    private RealMatrix mat;
+
+    public CommonsMathBenchmarkMatrix(RealMatrix mat) {
+        this.mat = mat;
+    }
+
+    @Override
+    public double get(int row, int col) {
+        return mat.getEntry(row,col);
+    }
+
+    @Override
+    public void set(int row, int col, double value) {
+        mat.setEntry(row,col,value);
+    }
+
+    @Override
+    public int numRows() {
+        return mat.getRowDimension();
+    }
+
+    @Override
+    public int numCols() {
+        return mat.getColumnDimension();
+    }
+
+    @Override
+    public <T> T getOriginal() {
+        return (T)mat;
     }
 }

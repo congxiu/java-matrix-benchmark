@@ -20,12 +20,12 @@
 package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.SejmlBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
-import org.ejml.data.DenseMatrix64F;
 import org.ejml.data.SimpleMatrix;
 
 
@@ -43,10 +43,19 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public ConfigureLibrary configure() {
-        return null;
+    public void configure() {
     }
-    
+
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap( new SimpleMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new SejmlBenchmarkMatrix((SimpleMatrix)matrix);
+    }
+
     @Override
     public AlgorithmInterface chol() {
         return null;
@@ -64,8 +73,8 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -97,8 +106,8 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -117,8 +126,8 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -142,9 +151,9 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
-            SimpleMatrix matB = new SimpleMatrix(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
+            SimpleMatrix matB = inputs[1].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -163,9 +172,9 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
-            SimpleMatrix matB = new SimpleMatrix(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
+            SimpleMatrix matB = inputs[1].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -184,9 +193,9 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
-            SimpleMatrix matB = new SimpleMatrix(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
+            SimpleMatrix matB = inputs[1].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -205,8 +214,8 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -231,9 +240,9 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
-            SimpleMatrix matB = new SimpleMatrix(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
+            SimpleMatrix matB = inputs[1].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -252,8 +261,8 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            SimpleMatrix matA = new SimpleMatrix(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 

@@ -20,8 +20,9 @@
 package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.JBlasBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
@@ -46,8 +47,17 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public ConfigureLibrary configure() {
-        return null;
+    public void configure() {
+    }
+
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(new DoubleMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new JBlasBenchmarkMatrix((DoubleMatrix)matrix);
     }
 
     @Override
@@ -57,8 +67,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
 
             DoubleMatrix U = null;
 
@@ -69,8 +79,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(U);
-            CommonOps.transpose(outputs[0]);
+            outputs[0] = new JBlasBenchmarkMatrix(U.transpose());
             return elapsed;
         }
     }
@@ -82,8 +91,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
 
             DoubleMatrix L = null;
             DoubleMatrix U = null;
@@ -99,10 +108,9 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(L);
-            outputs[1] = jblasToEjml(U);
-            outputs[2] = jblasToEjml(P);
-            CommonOps.transpose(outputs[2]);
+            outputs[0] = new JBlasBenchmarkMatrix(L);
+            outputs[1] = new JBlasBenchmarkMatrix(U);
+            outputs[2] = new JBlasBenchmarkMatrix(P.transpose());
             return elapsed;
         }
     }
@@ -120,8 +128,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MyEig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
 
             DoubleMatrix D = null;
             DoubleMatrix V = null;
@@ -135,8 +143,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(D);
-            outputs[1] = jblasToEjml(V);
+            outputs[0] = new JBlasBenchmarkMatrix(D);
+            outputs[1] = new JBlasBenchmarkMatrix(V);
             return elapsed;
         }
     }
@@ -158,8 +166,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
 
             DoubleMatrix I = DoubleMatrix.eye(matA.getRows());
             DoubleMatrix result = null;
@@ -171,7 +179,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -183,8 +191,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class InvSymmPosDef extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
 
             DoubleMatrix I = DoubleMatrix.eye(matA.getRows());
             DoubleMatrix result = null;
@@ -196,7 +204,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -208,9 +216,9 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
-            DoubleMatrix matB = convertToJBlas(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
+            DoubleMatrix matB = inputs[1].getOriginal();
 
             DoubleMatrix result = null;
 
@@ -221,7 +229,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -233,9 +241,9 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
-            DoubleMatrix matB = convertToJBlas(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
+            DoubleMatrix matB = inputs[1].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -246,7 +254,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -258,9 +266,9 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
-            DoubleMatrix matB = convertToJBlas(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
+            DoubleMatrix matB = inputs[1].getOriginal();
 
             DoubleMatrix result = null;
 
@@ -271,7 +279,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -283,8 +291,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
 
             DoubleMatrix result = null;
 
@@ -295,7 +303,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -312,9 +320,9 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MySolve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
-            DoubleMatrix matB = convertToJBlas(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
+            DoubleMatrix matB = inputs[1].getOriginal();
 
             DoubleMatrix result = null;
 
@@ -325,7 +333,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -337,8 +345,8 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DoubleMatrix matA = convertToJBlas(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix matA = inputs[0].getOriginal();
 
             DoubleMatrix result = null;
 
@@ -349,7 +357,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jblasToEjml(result);
+            outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }

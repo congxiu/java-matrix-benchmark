@@ -20,7 +20,7 @@
 package jmbench.tools.runtime;
 
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.RuntimePerformanceFactory;
 
 import java.io.Serializable;
 
@@ -34,7 +34,7 @@ public class RuntimeEvaluationCase implements Serializable {
     // the different matrix sizes that can be evalued
     private int dimens[];
     // configures the librarys runtime environment
-    private ConfigureLibrary configure;
+    private RuntimePerformanceFactory factory;
     // list of algorithms it it can run
     private AlgorithmInterface alg;
     // what creates the matrices it processes
@@ -45,13 +45,13 @@ public class RuntimeEvaluationCase implements Serializable {
     private volatile RuntimeEvaluationTest theTest = new RuntimeEvaluationTest();
 
     public RuntimeEvaluationCase( String opName , String fileName , int dimens[] ,
-                                  ConfigureLibrary configure ,
+                                  RuntimePerformanceFactory factory ,
                                   AlgorithmInterface alg ,
                                   InputOutputGenerator generator )
     {
         this.opName = opName;
         this.dimens = dimens.clone();
-        this.configure = configure;
+        this.factory = factory;
         this.alg = alg;
         this.generator = generator;
         this.fileName = fileName;
@@ -64,7 +64,7 @@ public class RuntimeEvaluationCase implements Serializable {
                                              boolean sanityCheck ) {
         theTest.setDimen(dimens[dimenIndex]);
         theTest.setAlg(alg);
-        theTest.setConfigure(configure);
+        theTest.setFactory(factory);
         theTest.setGenerator(generator);
         theTest.setGoalRuntime(duration);
         theTest.setMaximumRuntime(maxRuntime);

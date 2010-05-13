@@ -20,8 +20,9 @@
 package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.EjmlBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.alg.dense.decomposition.*;
@@ -47,8 +48,18 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public ConfigureLibrary configure() {
-        return null;
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new EjmlBenchmarkMatrix((DenseMatrix64F)matrix);
+    }
+
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        DenseMatrix64F A = new DenseMatrix64F(numRows,numCols);
+        return wrap(A);
+    }
+
+    @Override
+    public void configure() {
     }
 
     @Override
@@ -58,8 +69,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             CholeskyDecomposition chol = DecompositionFactory.chol(matA.numRows, false, true);
 
@@ -75,7 +86,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = L;
+            outputs[0] = new EjmlBenchmarkMatrix(L);
             return elapsedTime;
         }
     }
@@ -87,8 +98,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             LUDecomposition lu = DecompositionFactory.lu();
 
@@ -108,9 +119,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = L;
-            outputs[1] = U;
-            outputs[2] = P;
+            outputs[0] = new EjmlBenchmarkMatrix(L);
+            outputs[1] = new EjmlBenchmarkMatrix(U);
+            outputs[2] = new EjmlBenchmarkMatrix(P);
             return elapsedTime;
         }
     }
@@ -122,8 +133,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             SingularValueDecomposition svd = DecompositionFactory.svd();
 
@@ -142,9 +153,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = U;
-            outputs[1] = S;
-            outputs[2] = V;
+            outputs[0] = new EjmlBenchmarkMatrix(U);
+            outputs[1] = new EjmlBenchmarkMatrix(S);
+            outputs[2] = new EjmlBenchmarkMatrix(V);
             return elapsedTime;
         }
     }
@@ -156,8 +167,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MyEig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             EigenDecomposition eig = EigenOps.decompositionSymmetric();
 
@@ -172,8 +183,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = EigenOps.createMatrixD(eig);
-            outputs[1] = EigenOps.createMatrixV(eig);
+            outputs[0] = new EjmlBenchmarkMatrix(EigenOps.createMatrixD(eig));
+            outputs[1] = new EjmlBenchmarkMatrix(EigenOps.createMatrixV(eig));
             return elapsedTime;
         }
     }
@@ -185,8 +196,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             QRDecomposition qr = DecompositionFactory.qr();
             DenseMatrix64F Q = null;
@@ -203,8 +214,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = Q;
-            outputs[1] = R;
+            outputs[0] = new EjmlBenchmarkMatrix(Q);
+            outputs[1] = new EjmlBenchmarkMatrix(R);
             return elapsedTime;
         }
     }
@@ -216,8 +227,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -236,8 +247,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matA.numCols);
 
@@ -249,7 +260,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -261,8 +272,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class InvSymmPosDef extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matA.numCols);
 
@@ -274,7 +285,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -286,9 +297,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
-            DenseMatrix64F matB = inputs[1];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
+            DenseMatrix64F matB = inputs[1].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA);
 
@@ -299,7 +310,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -311,9 +322,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
-            DenseMatrix64F matB = inputs[1];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
+            DenseMatrix64F matB = inputs[1].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matB.numCols);
 
@@ -324,7 +335,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -336,9 +347,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
-            DenseMatrix64F matB = inputs[1];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
+            DenseMatrix64F matB = inputs[1].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matB.numCols);
 
@@ -349,7 +360,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -361,8 +372,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matA.numCols);
 
@@ -373,7 +384,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -384,9 +395,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
     }
     public static class SolveExact extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
-            DenseMatrix64F matB = inputs[1];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
+            DenseMatrix64F matB = inputs[1].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matB.numCols);
 
@@ -402,7 +413,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -414,9 +425,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class SolveOver extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
-            DenseMatrix64F matB = inputs[1];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
+            DenseMatrix64F matB = inputs[1].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matB.numCols);
 
@@ -432,7 +443,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -444,8 +455,8 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix64F matA = inputs[0];
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix64F matA = inputs[0].getOriginal();
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matA.numRows);
 
@@ -456,7 +467,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis() - prev;
-            outputs[0] = result;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }

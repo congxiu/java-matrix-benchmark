@@ -20,8 +20,10 @@
 package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.EjmlBenchmarkMatrix;
+import jmbench.impl.wrapper.MtjBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import no.uib.cipr.matrix.*;
@@ -43,8 +45,17 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public ConfigureLibrary configure() {
-        return null;
+    public void configure() {
+    }
+
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(new DenseMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new MtjBenchmarkMatrix((DenseMatrix)matrix);
     }
 
     @Override
@@ -54,8 +65,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             DenseCholesky cholesky = new DenseCholesky(matA.numRows(),false);
             LowerSPDDenseMatrix uspd = new LowerSPDDenseMatrix(matA);
@@ -75,7 +86,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(L);
+            outputs[0] = new MtjBenchmarkMatrix(L);
             return elapsedTime;
         }
     }
@@ -87,8 +98,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             DenseLU lu = new DenseLU(matA.numRows(),matA.numColumns());
             DenseMatrix tmp = new DenseMatrix(matA);
@@ -114,8 +125,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             // I believe that MTJ is generating some buggy row pivots since they go outside
             // the matrix bounds
 
-            outputs[0] = mtjToEjml(L);
-            outputs[1] = mtjToEjml(U);
+            outputs[0] = new MtjBenchmarkMatrix(L);
+            outputs[1] = new MtjBenchmarkMatrix(U);
 //            outputs[2] = SpecializedOps.pivotMatrix(null, pivots, pivots.length);
             return elapsedTime;
         }
@@ -128,8 +139,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MySVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             no.uib.cipr.matrix.SVD svd = new no.uib.cipr.matrix.SVD(matA.numRows(),matA.numColumns());
             DenseMatrix tmp = new DenseMatrix(matA);
@@ -154,10 +165,9 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(U);
-            outputs[1] = CommonOps.diag(S);
-            outputs[2] = mtjToEjml(Vt);
-            CommonOps.transpose(outputs[2]);
+            outputs[0] = new MtjBenchmarkMatrix(U);
+            outputs[1] = new EjmlBenchmarkMatrix(CommonOps.diag(S));
+            outputs[2] = new MtjBenchmarkMatrix(Vt.transpose());
             return elapsedTime;
         }
     }
@@ -169,8 +179,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Eig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             no.uib.cipr.matrix.EVD eig = new no.uib.cipr.matrix.EVD(matA.numRows());
             DenseMatrix tmp = new DenseMatrix(matA);
@@ -193,8 +203,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = CommonOps.diag(D);
-            outputs[1] = mtjToEjml(V);
+            outputs[0] = new EjmlBenchmarkMatrix(CommonOps.diag(D));
+            outputs[1] = new MtjBenchmarkMatrix(V);
             return elapsedTime;
         }
     }
@@ -206,8 +216,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             no.uib.cipr.matrix.QR qr = new no.uib.cipr.matrix.QR(matA.numRows(),matA.numColumns());
             DenseMatrix tmp = new DenseMatrix(matA);
@@ -227,8 +237,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(Q);
-            outputs[1] = mtjToEjml(R);
+            outputs[0] = new MtjBenchmarkMatrix(Q);
+            outputs[1] = new MtjBenchmarkMatrix(R);
             return elapsedTime;
         }
     }
@@ -245,8 +255,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             DenseMatrix I = Matrices.identity(matA.numColumns());
             DenseMatrix inv = new DenseMatrix(matA.numColumns(),matA.numColumns());
@@ -258,7 +268,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(inv);
+            outputs[0] = new MtjBenchmarkMatrix(inv);
             return elapsedTime;
         }
     }
@@ -270,8 +280,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class InvSymmPosDef extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             DenseCholesky cholesky = new DenseCholesky(matA.numRows(),false);
             LowerSPDDenseMatrix uspd = new LowerSPDDenseMatrix(matA);
@@ -291,7 +301,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(result);
+            outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -303,9 +313,9 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
-            DenseMatrix matB = convertToMtj(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
+            DenseMatrix matB = inputs[1].getOriginal();
 
             DenseMatrix result = new DenseMatrix(matA.numRows(),matB.numColumns());
 
@@ -318,7 +328,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(result);
+            outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -330,9 +340,9 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
-            DenseMatrix matB = convertToMtj(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
+            DenseMatrix matB = inputs[1].getOriginal();
 
             DenseMatrix result = new DenseMatrix(matA.numRows(),matB.numColumns());
 
@@ -343,7 +353,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(result);
+            outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -355,9 +365,9 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
-            DenseMatrix matB = convertToMtj(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
+            DenseMatrix matB = inputs[1].getOriginal();
 
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matB.numColumns());
 
@@ -368,7 +378,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(result);
+            outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -380,8 +390,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
 
             DenseMatrix mod = new DenseMatrix(matA.numRows(),matA.numColumns());
 
@@ -394,7 +404,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(mod);
+            outputs[0] = new MtjBenchmarkMatrix(mod);
             return elapsedTime;
         }
     }
@@ -411,9 +421,9 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
-            DenseMatrix matB = convertToMtj(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
+            DenseMatrix matB = inputs[1].getOriginal();
 
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matB.numColumns());
 
@@ -424,7 +434,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(result);
+            outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -436,8 +446,8 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            DenseMatrix matA = convertToMtj(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix matA = inputs[0].getOriginal();
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matA.numRows());
 
             long prev = System.currentTimeMillis();
@@ -447,15 +457,15 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = mtjToEjml(result);
+            outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
     
     /**
-     * Converts a DenseMatrix64F in EML into a DenseMatrix in MTJ
+     * Converts a BenchmarkMatrix in EML into a DenseMatrix in MTJ
      *
-     * @param orig A DenseMatrix64F in EML
+     * @param orig A BenchmarkMatrix in EML
      * @return A DenseMatrix in MTJ
      */
     public static DenseMatrix convertToMtj( DenseMatrix64F orig )

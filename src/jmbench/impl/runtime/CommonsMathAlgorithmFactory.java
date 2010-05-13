@@ -20,8 +20,9 @@
 package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.CommonsMathBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.apache.commons.math.linear.*;
@@ -43,8 +44,17 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public ConfigureLibrary configure() {
-        return null;
+    public void configure() {
+    }
+
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(MatrixUtils.createRealMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new CommonsMathBenchmarkMatrix( (RealMatrix)matrix );
     }
 
     @Override
@@ -54,8 +64,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix L = null;
 
@@ -73,7 +83,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(L);
+            outputs[0] = new CommonsMathBenchmarkMatrix(L);
             return elapsedTime;
         }
     }
@@ -85,8 +95,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix L = null;
             RealMatrix U = null;
@@ -103,9 +113,9 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(L);
-            outputs[1] = realToEjml(U);
-            outputs[2] = realToEjml(P);
+            outputs[0] = new CommonsMathBenchmarkMatrix(L);
+            outputs[1] = new CommonsMathBenchmarkMatrix(U);
+            outputs[2] = new CommonsMathBenchmarkMatrix(P);
             return elapsedTime;
         }
     }
@@ -117,8 +127,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix U = null;
             RealMatrix S = null;
@@ -135,9 +145,9 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(U);
-            outputs[1] = realToEjml(S);
-            outputs[2] = realToEjml(V);
+            outputs[0] = new CommonsMathBenchmarkMatrix(U);
+            outputs[1] = new CommonsMathBenchmarkMatrix(S);
+            outputs[2] = new CommonsMathBenchmarkMatrix(V);
             return elapsedTime;
         }
     }
@@ -149,8 +159,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Eig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix V = null;
             RealMatrix D = null;
@@ -165,8 +175,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(D);
-            outputs[1] = realToEjml(V);
+            outputs[0] = new CommonsMathBenchmarkMatrix(D);
+            outputs[1] = new CommonsMathBenchmarkMatrix(V);
             return elapsedTime;
         }
     }
@@ -178,8 +188,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix Q = null;
             RealMatrix R = null;
@@ -195,8 +205,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(Q);
-            outputs[1] = realToEjml(R);
+            outputs[0] = new CommonsMathBenchmarkMatrix(Q);
+            outputs[1] = new CommonsMathBenchmarkMatrix(R);
             return elapsedTime;
         }
     }
@@ -208,8 +218,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -231,8 +241,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -245,7 +255,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -257,8 +267,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class InvSymmPosDef extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -278,7 +288,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -290,9 +300,9 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
-            RealMatrix matB = convertToReal(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
+            RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -302,7 +312,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -314,9 +324,9 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
-            RealMatrix matB = convertToReal(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
+            RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -326,7 +336,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -338,9 +348,9 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
-            RealMatrix matB = convertToReal(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
+            RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -350,7 +360,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -362,8 +372,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -373,7 +383,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -390,9 +400,9 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class SolveExact extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
-            RealMatrix matB = convertToReal(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
+            RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -403,16 +413,16 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
 
     public static class SolveOver extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
-            RealMatrix matB = convertToReal(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
+            RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -422,7 +432,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 result = qr.getSolver().solve(matB);
             }
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
@@ -434,8 +444,8 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            RealMatrix matA = convertToReal(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
             long prev = System.currentTimeMillis();
@@ -445,15 +455,15 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsedTime = System.currentTimeMillis()-prev;
-            outputs[0] = realToEjml(result);
+            outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
     
     /**
-     * Converts DenseMatrix64F used in EML into a RealMatrix found in commons-math.
+     * Converts BenchmarkMatrix used in EML into a RealMatrix found in commons-math.
      *
-     * @param orig A DenseMatrix64F in EML
+     * @param orig A BenchmarkMatrix in EML
      * @return A RealMatrix in CommonsMath
      */
     public static BlockRealMatrix convertToBlockReal( DenseMatrix64F orig )
@@ -473,7 +483,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
      * Uses MatrixUtils.createRealMatrix() to declare the matrix.  This function
      * creates a different matrix depending on size.
      *
-     * @param orig A DenseMatrix64F in EML
+     * @param orig A BenchmarkMatrix in EML
      * @return A RealMatrix in CommonsMath
      */
     public static RealMatrix convertToReal( DenseMatrix64F orig )

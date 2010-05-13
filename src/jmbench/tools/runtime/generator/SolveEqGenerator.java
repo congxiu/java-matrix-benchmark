@@ -19,14 +19,20 @@
 
 package jmbench.tools.runtime.generator;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.data.SimpleMatrix;
+import org.ejml.ops.CommonOps;
 import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
+
+import static jmbench.misc.RandomizeMatrices.convertToEjml;
+import static jmbench.misc.RandomizeMatrices.randomize;
 
 
 /**
@@ -38,25 +44,31 @@ public class SolveEqGenerator implements InputOutputGenerator {
     DenseMatrix64F B;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
-        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
-        DenseMatrix64F B = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
+    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+                                           boolean checkResults , int size ) {
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[2];
+
+        inputs[0] = factory.create(size,size);
+        inputs[1] = factory.create(size,1);
+
+        randomize(inputs[0],-1,1,rand);
+        randomize(inputs[1],-1,1,rand);
 
         if( checkResults ) {
-            this.A = A;
-            this.B = B;
+            A = convertToEjml(inputs[0]);
+            B = convertToEjml(inputs[1]);
         }
 
-        return new DenseMatrix64F[]{A,B};
+        return inputs;
     }
 
     @Override
-    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
+    public OutputError checkResults(BenchmarkMatrix[] output, double tol) {
         if( output[0] == null ) {
             return OutputError.MISC;
         }
 
-        SimpleMatrix X = SimpleMatrix.wrap(output[0]);
+        SimpleMatrix X = SimpleMatrix.wrap(convertToEjml(output[0]));
 
         if( X.hasUncountable() ) {
             return OutputError.UNCOUNTABLE;

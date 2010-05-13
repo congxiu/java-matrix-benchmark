@@ -19,6 +19,8 @@
 
 package jmbench.tools.runtime.generator;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import jmbench.tools.stability.StabilityBenchmark;
@@ -27,6 +29,9 @@ import org.ejml.data.SimpleMatrix;
 import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
+
+import static jmbench.misc.RandomizeMatrices.convertToEjml;
+import static jmbench.misc.RandomizeMatrices.randomize;
 
 
 /**
@@ -38,25 +43,30 @@ public class QrGenerator implements InputOutputGenerator {
 
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
-        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+                                           boolean checkResults , int size ) {
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[1];
 
-        if( A == null ) {
-            this.A = A;
+        inputs[0] = factory.create(size,size);
+
+        randomize(inputs[0],-1,1,rand);
+
+        if( checkResults ) {
+            A = convertToEjml(inputs[0]);
         }
 
-        return new DenseMatrix64F[]{A};
+        return inputs;
     }
 
     @Override
-    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
+    public OutputError checkResults(BenchmarkMatrix[] output, double tol) {
 
         if( output[0] == null || output[1] == null ) {
             return OutputError.MISC;
         }
 
-        SimpleMatrix Q = SimpleMatrix.wrap(output[0]);
-        SimpleMatrix R = SimpleMatrix.wrap(output[1]);
+        SimpleMatrix Q = SimpleMatrix.wrap(convertToEjml(output[0]));
+        SimpleMatrix R = SimpleMatrix.wrap(convertToEjml(output[1]));
 
         if( Q.hasUncountable() || R.hasUncountable() ) {
             return OutputError.UNCOUNTABLE;
