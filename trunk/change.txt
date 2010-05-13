@@ -4,7 +4,10 @@
 
 - Updated runtime memory allocations so that they are a more accurate prediction initially.
 - Libraries can configure themselves at runtime
-- 
+- Changed the way input matrices are created for runtime benchmark
+  * The same amount of benchmark overhead is now created for each library, making the test more fair.
+  * Total memory requirements should be reduced.
+- Totally dropping support for JScience since it does not provide a set(row,col) method as far as I can tell.
 
 ----- Version 0.6
 

@@ -21,8 +21,10 @@ package jmbench.impl.runtime;
 
 import Jama.*;
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.EjmlBenchmarkMatrix;
+import jmbench.impl.wrapper.JavaBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
@@ -43,8 +45,17 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public ConfigureLibrary configure() {
-        return null;
+    public void configure() {
+    }
+
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(new Matrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new JavaBenchmarkMatrix((Matrix)matrix);
     }
 
     @Override
@@ -54,8 +65,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Chol extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix L = null;
 
@@ -70,7 +81,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(L);
+            outputs[0] = new JavaBenchmarkMatrix(L);
             return elapsed;
         }
     }
@@ -82,8 +93,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class LU extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix L = null;
             Matrix U = null;
@@ -99,9 +110,9 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(L);
-            outputs[1] = jamaToEjml(U);
-            outputs[2] = SpecializedOps.pivotMatrix(null, pivot, pivot.length,false);
+            outputs[0] = new JavaBenchmarkMatrix(L);
+            outputs[1] = new JavaBenchmarkMatrix(U);
+            outputs[2] = new EjmlBenchmarkMatrix(SpecializedOps.pivotMatrix(null, pivot, pivot.length,false));
             return elapsed;
         }
     }
@@ -113,8 +124,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class SVD extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix U = null;
             Matrix S = null;
@@ -130,9 +141,9 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(U);
-            outputs[1] = jamaToEjml(S);
-            outputs[2] = jamaToEjml(V);
+            outputs[0] = new JavaBenchmarkMatrix(U);
+            outputs[1] = new JavaBenchmarkMatrix(S);
+            outputs[2] = new JavaBenchmarkMatrix(V);
             return elapsed;
         }
     }
@@ -144,8 +155,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Eig extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix D = null;
             Matrix V = null;
@@ -159,8 +170,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(D);
-            outputs[1] = jamaToEjml(V);
+            outputs[0] = new JavaBenchmarkMatrix(D);
+            outputs[1] = new JavaBenchmarkMatrix(V);
             return elapsed;
         }
     }
@@ -172,8 +183,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class QR extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix Q = null;
             Matrix R = null;
@@ -188,8 +199,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(Q);
-            outputs[1] = jamaToEjml(R);
+            outputs[0] = new JavaBenchmarkMatrix(Q);
+            outputs[1] = new JavaBenchmarkMatrix(R);
             return elapsed;
         }
     }
@@ -201,8 +212,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Det extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -221,8 +232,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Inv extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix result = null;
 
@@ -233,7 +244,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -245,8 +256,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class InvSymmPosDef extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix result = null;
 
@@ -259,7 +270,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -271,9 +282,9 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Add extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
-            Matrix matB = convertToJama(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
+            Matrix matB = inputs[1].getOriginal();
 
             Matrix result = null;
 
@@ -284,7 +295,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -296,9 +307,9 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Mult extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
-            Matrix matB = convertToJama(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
+            Matrix matB = inputs[1].getOriginal();
 
             long prev = System.currentTimeMillis();
 
@@ -309,7 +320,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -321,9 +332,9 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class MulTranA extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
-            Matrix matB = convertToJama(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
+            Matrix matB = inputs[1].getOriginal();
 
             Matrix result = null;
 
@@ -334,7 +345,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -346,8 +357,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Scale extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix result = null;
 
@@ -358,7 +369,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -375,9 +386,9 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Solve extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
-            Matrix matB = convertToJama(inputs[1]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
+            Matrix matB = inputs[1].getOriginal();
 
             Matrix result = null;
 
@@ -388,7 +399,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
@@ -400,8 +411,8 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
     public static class Transpose extends MyInterface {
         @Override
-        public long process(DenseMatrix64F[] inputs, DenseMatrix64F[] outputs, long numTrials) {
-            Matrix matA = convertToJama(inputs[0]);
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix matA = inputs[0].getOriginal();
 
             Matrix result = null;
 
@@ -412,7 +423,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             }
 
             long elapsed = System.currentTimeMillis()-prev;
-            outputs[0] = jamaToEjml(result);
+            outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }

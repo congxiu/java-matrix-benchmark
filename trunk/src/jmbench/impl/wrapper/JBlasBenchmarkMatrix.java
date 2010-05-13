@@ -17,23 +17,45 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.impl;
+package jmbench.impl.wrapper;
 
-import jmbench.impl.runtime.JamaAlgorithmFactory;
-import org.junit.Test;
+import jmbench.interfaces.BenchmarkMatrix;
+import org.jblas.DoubleMatrix;
 
 
 /**
  * @author Peter Abeles
  */
-public class TestJamaAlgorithmFactory {
-    /**
-     * Checks to see if all the functions don't modify their inputs.
-     *
-     * Right now this only really tests ejml since all the other ones work with a copy.
-     */
-    @Test
-    public void testModInputs() {
-        CheckModifyInputs.checkFactory( new JamaAlgorithmFactory() );
+public class JBlasBenchmarkMatrix implements BenchmarkMatrix {
+
+    DoubleMatrix mat;
+
+    public JBlasBenchmarkMatrix(DoubleMatrix mat) {
+        this.mat = mat;
+    }
+
+    @Override
+    public double get(int row, int col) {
+        return mat.get(row,col);
+    }
+
+    @Override
+    public void set(int row, int col, double value) {
+        mat.put(row,col,value);
+    }
+
+    @Override
+    public int numRows() {
+        return mat.getRows();
+    }
+
+    @Override
+    public int numCols() {
+        return mat.getColumns();
+    }
+
+    @Override
+    public <T> T getOriginal() {
+        return (T)mat;
     }
 }

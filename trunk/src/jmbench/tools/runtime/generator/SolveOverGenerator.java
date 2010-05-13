@@ -19,6 +19,9 @@
 
 package jmbench.tools.runtime.generator;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.misc.RandomizeMatrices;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import jmbench.tools.stability.StabilityBenchmark;
@@ -29,53 +32,48 @@ import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
 
+import static jmbench.misc.RandomizeMatrices.convertToBm;
+import static jmbench.misc.RandomizeMatrices.convertToEjml;
+import static jmbench.misc.RandomizeMatrices.randomize;
+
 
 /**
  * @author Peter Abeles
  */
 public class SolveOverGenerator implements InputOutputGenerator {
-    DenseMatrix64F A;
-    DenseMatrix64F B;
     DenseMatrix64F X;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
-        DenseMatrix64F A = RandomMatrices.createRandom(3*matrixSize,matrixSize,-1,1,rand);
-        DenseMatrix64F X = RandomMatrices.createRandom(matrixSize,1,-1,1,rand);
-        DenseMatrix64F B = new DenseMatrix64F(3*matrixSize,1);
+    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+                                           boolean checkResults , int size ) {
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[3];
+
+        inputs[0] = factory.create(3*size,size);  // A
+        inputs[1] = factory.create(3*size,1);     // B
+
+        randomize(inputs[0],-1,1,rand);
+
+        // make sure an exact solution exists
+        DenseMatrix64F A = convertToEjml(inputs[0]);
+        DenseMatrix64F B = new DenseMatrix64F(3*size,1);
+        DenseMatrix64F X = RandomMatrices.createRandom(size,1,-1,1,rand);
+
+        CommonOps.mult(A,X,B);
+
+        convertToBm(B,inputs[1]);
 
         if( checkResults ) {
-            CommonOps.mult(A,X,B);
-            this.A = A;
-            this.B = B;
             this.X = X;
         }
 
-        return new DenseMatrix64F[]{A,B};
+        return inputs;
     }
 
     @Override
-    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
-        if( output[0] == null ) {
-            return OutputError.MISC;
-        }
+    public OutputError checkResults(BenchmarkMatrix[] output, double tol) {
+        DenseMatrix64F o = RandomizeMatrices.convertToEjml(output[0]);
 
-        SimpleMatrix X = SimpleMatrix.wrap(output[0]);
-
-        if( X.hasUncountable() ) {
-            return OutputError.UNCOUNTABLE;
-        }
-
-        SimpleMatrix B_found = SimpleMatrix.wrap(A).mult(X);
-
-
-        double error = StabilityBenchmark.residualError(B_found.getMatrix(),B);
-        if( error > tol ) {
-//            P.print();
-            return OutputError.LARGE_ERROR;
-        }
-
-        return OutputError.NO_ERROR;
+        return ResultsChecking.checkResult(o,X,tol);
     }
 
     @Override

@@ -17,17 +17,44 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.interfaces;
+package jmbench.impl.wrapper;
 
-import java.io.Serializable;
+import jmbench.interfaces.BenchmarkMatrix;
+import org.ejml.data.SimpleMatrix;
 
 
 /**
- * Performs any runtime configurations that might be needed.
- *
  * @author Peter Abeles
  */
-public interface ConfigureLibrary extends Serializable {
+public class SejmlBenchmarkMatrix implements BenchmarkMatrix {
+    SimpleMatrix mat;
 
-    public void configure();
+    public SejmlBenchmarkMatrix(SimpleMatrix mat) {
+        this.mat = mat;
+    }
+
+    @Override
+    public double get(int row, int col) {
+        return mat.get(row,col);
+    }
+
+    @Override
+    public void set(int row, int col, double value) {
+        mat.set(row,col,value);
+    }
+
+    @Override
+    public int numRows() {
+        return mat.numRows();
+    }
+
+    @Override
+    public int numCols() {
+        return mat.numCols();
+    }
+
+    @Override
+    public <T> T getOriginal() {
+        return (T)mat;
+    }
 }

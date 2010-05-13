@@ -19,6 +19,9 @@
 
 package jmbench.tools.runtime.generator;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.misc.RandomizeMatrices;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import jmbench.tools.stability.StabilityBenchmark;
@@ -37,23 +40,29 @@ public class EigSymmGenerator implements InputOutputGenerator {
     SimpleMatrix A;
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
-        DenseMatrix64F A = RandomMatrices.createSymmetric(matrixSize,-1,1,rand);
+    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+                                           boolean checkResults , int size ) {
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[1];
 
-        if( checkResults )
-            this.A = SimpleMatrix.wrap(A);
+        inputs[0] = factory.create(size,size);
 
-        return new DenseMatrix64F[]{A};
+        RandomizeMatrices.symmetric(inputs[0],-1,1,rand);
+
+        if( checkResults ) {
+            this.A = SimpleMatrix.wrap(RandomizeMatrices.convertToEjml(inputs[0]));
+        }
+
+        return inputs;
     }
 
     @Override
-    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
+    public OutputError checkResults(BenchmarkMatrix[] output, double tol) {
         if( output[0] == null || output[1] == null ) {
             return OutputError.MISC;
         }
 
-        SimpleMatrix D = SimpleMatrix.wrap(output[0]);
-        SimpleMatrix V = SimpleMatrix.wrap(output[1]);
+        SimpleMatrix D = SimpleMatrix.wrap(RandomizeMatrices.convertToEjml(output[0]));
+        SimpleMatrix V = SimpleMatrix.wrap(RandomizeMatrices.convertToEjml(output[1]));
 
         SimpleMatrix L = A.mult(V);
         SimpleMatrix R = V.mult(D);

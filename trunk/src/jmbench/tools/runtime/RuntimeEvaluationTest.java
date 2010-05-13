@@ -20,8 +20,9 @@
 package jmbench.tools.runtime;
 
 import jmbench.interfaces.AlgorithmInterface;
-import jmbench.interfaces.ConfigureLibrary;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MatrixProcessorInterface;
+import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.EvaluationTest;
 import jmbench.tools.TestResults;
 import org.ejml.data.DenseMatrix64F;
@@ -37,7 +38,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     public static final double MAX_ERROR_THRESHOLD = 0.05;
 
     private int dimen;
-    private ConfigureLibrary configure;
+    private RuntimePerformanceFactory factory;
     private MatrixProcessorInterface alg;
     private InputOutputGenerator generator;
 
@@ -48,8 +49,8 @@ public class RuntimeEvaluationTest extends EvaluationTest {
 
     // randomly generated input matrices
     private volatile Random rand;
-    private volatile DenseMatrix64F inputs[];
-    private volatile DenseMatrix64F outputs[];
+    private volatile BenchmarkMatrix inputs[];
+    private volatile BenchmarkMatrix outputs[];
 
     // should it make sure the tested operation is performing the expected oepration
     private boolean sanityCheck;
@@ -62,7 +63,6 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      * Creates a new evaluation test.
      *
      * @param dimen How big the matrices are that are being processed.
-     * @param configure Performs any runtime configurations that need to be done.
      * @param alg The algorithm that is being processed.
      * @param generator Creates the inputs and expected outputs for the tested operation
      * @param goalRuntime  How long it wants to try to run the test for in milliseconds
@@ -70,7 +70,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
      * @param randomSeed The random seed used for the tests.
      */
     public RuntimeEvaluationTest( int dimen ,
-                                  ConfigureLibrary configure,
+                                  RuntimePerformanceFactory factory,
                                   MatrixProcessorInterface alg ,
                                   InputOutputGenerator generator ,
                                   boolean sanityCheck ,
@@ -78,7 +78,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     {
         super(randomSeed);
         this.dimen = dimen;
-        this.configure = configure;
+        this.factory = factory;
         this.alg = alg;
         this.generator = generator;
         this.sanityCheck = sanityCheck;
@@ -111,8 +111,8 @@ public class RuntimeEvaluationTest extends EvaluationTest {
     @Override
     public void setupTrial()
     {
-        inputs = generator.createRandomInputs(rand,dimen, sanityCheck);
-        outputs = new DenseMatrix64F[ generator.numOutputs() ];
+        inputs = generator.createInputs(factory,rand,sanityCheck,dimen);
+        outputs = new BenchmarkMatrix[ generator.numOutputs() ];
     }
 
     /**
@@ -141,8 +141,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
             numTrials = 1;
         }
 
-        if( configure != null )
-            configure.configure();
+        factory.configure();
 
         // translate it to nanoseconds
         long goalDuration = this.goalRuntime *1000000;
@@ -244,12 +243,12 @@ public class RuntimeEvaluationTest extends EvaluationTest {
         this.sanityCheck = sanityCheck;
     }
 
-    public ConfigureLibrary getConfigure() {
-        return configure;
+    public RuntimePerformanceFactory getFactory() {
+        return factory;
     }
 
-    public void setConfigure(ConfigureLibrary configure) {
-        this.configure = configure;
+    public void setFactory(RuntimePerformanceFactory factory) {
+        this.factory = factory;
     }
 
     @Override

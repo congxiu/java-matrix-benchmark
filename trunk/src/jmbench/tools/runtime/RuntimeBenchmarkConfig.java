@@ -43,7 +43,6 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public static final EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, CommonsMathAlgorithmFactory.class.getName());
     public static final EvaluationTarget colt = new EvaluationTarget( MatrixLibrary.COLT, ColtAlgorithmFactory.class.getName());
     public static final EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjAlgorithmFactory.class.getName());
-    public static final EvaluationTarget jsci = new EvaluationTarget( MatrixLibrary.JSCIENCE, JScienceAlgorithmFactory.class.getName());
     public static final EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, PColtAlgorithmFactory.class.getName());
     public static final EvaluationTarget ujmp = new EvaluationTarget( MatrixLibrary.UJMP, UjmpAlgorithmFactory.class.getName());
     public static final EvaluationTarget ujmp_j = new EvaluationTarget( MatrixLibrary.UJMP_JAVA , UjmpJavaAlgorithmFactory.class.getName());
@@ -113,8 +112,8 @@ public class RuntimeBenchmarkConfig implements Serializable {
         RuntimeBenchmarkConfig config = new RuntimeBenchmarkConfig();
 
         config.seed = 0xDEADBEEF;//new Random().nextLong();
-        config.numBlockTrials = 1;
-        config.numBlocks = 1;
+        config.numBlockTrials = 5;
+        config.numBlocks = 5;
         config.trialTime = 3000;
         config.maxTrialTime = 300000;
         config.memoryFixed = 0;
@@ -152,7 +151,6 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.targets.add(colt);
         config.targets.add(pcolt);
         config.targets.add(mtj);
-//        config.targets.add(jsci);
         config.targets.add(ujmp);
         config.targets.add(ujmp_j);
         config.targets.add(jblas);

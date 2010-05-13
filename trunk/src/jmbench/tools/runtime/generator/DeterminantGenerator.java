@@ -19,6 +19,9 @@
 
 package jmbench.tools.runtime.generator;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.misc.RandomizeMatrices;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import org.ejml.data.DenseMatrix64F;
@@ -33,14 +36,19 @@ import java.util.Random;
 public class DeterminantGenerator implements InputOutputGenerator {
 
     @Override
-    public DenseMatrix64F[] createRandomInputs(Random rand, int matrixSize, boolean checkResults) {
-        DenseMatrix64F A = RandomMatrices.createRandom(matrixSize,matrixSize,-1,1,rand);
+    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+                                           boolean checkResults , int size ) {
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[1];
 
-        return new DenseMatrix64F[]{A};
+        inputs[0] = factory.create(size,size);
+
+        RandomizeMatrices.randomize(inputs[0],-1,1,rand);
+
+        return inputs;
     }
 
     @Override
-    public OutputError checkResults(DenseMatrix64F[] output, double tol) {
+    public OutputError checkResults(BenchmarkMatrix[] output, double tol) {
         return null;
     }
 

@@ -17,23 +17,45 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.impl;
+package jmbench.impl.wrapper;
 
-import jmbench.impl.runtime.OjAlgoAlgorithmFactory;
-import org.junit.Test;
+import jmbench.interfaces.BenchmarkMatrix;
+import org.ojalgo.matrix.store.PhysicalStore;
 
 
 /**
  * @author Peter Abeles
  */
-public class TestOjAlgoAlgorithmFactory {
-    /**
-     * Checks to see if all the functions don't modify their inputs.
-     *
-     * Right now this only really tests ejml since all the other ones work with a copy.
-     */
-    @Test
-    public void testModInputs() {
-        CheckModifyInputs.checkFactory( new OjAlgoAlgorithmFactory() );
+public class OjAlgoBenchmarkMatrix implements BenchmarkMatrix {
+
+    PhysicalStore mat;
+
+    public OjAlgoBenchmarkMatrix(PhysicalStore mat) {
+        this.mat = mat;
+    }
+
+    @Override
+    public double get(int row, int col) {
+        return mat.get(row,col).doubleValue();
+    }
+
+    @Override
+    public void set(int row, int col, double value) {
+        mat.set(row,col,value);
+    }
+
+    @Override
+    public int numRows() {
+        return mat.getRowDim();
+    }
+
+    @Override
+    public int numCols() {
+        return mat.getColDim();
+    }
+
+    @Override
+    public <T> T getOriginal() {
+        return (T)mat;
     }
 }
