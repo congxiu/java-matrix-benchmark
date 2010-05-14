@@ -36,7 +36,7 @@ public class OjAlgoBenchmarkMatrix implements BenchmarkMatrix {
 
     @Override
     public double get(int row, int col) {
-        return mat.get(row,col).doubleValue();
+        return mat.doubleValue(row,col);
     }
 
     @Override
