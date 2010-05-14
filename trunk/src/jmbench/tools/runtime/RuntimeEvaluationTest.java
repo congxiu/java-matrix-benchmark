@@ -143,6 +143,10 @@ public class RuntimeEvaluationTest extends EvaluationTest {
 
         factory.configure();
 
+        // try to purge all temporary data that has yet to be clean up so that the GC won't run
+        // while performance is being measured
+        runGarbageCollector();
+
         // translate it to nanoseconds
         long goalDuration = this.goalRuntime *1000000;
 
@@ -170,12 +174,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
 //                    System.out.println("Got smaller!?!?" );
                 }
             }
-
-            // try to get it to clean up some
-            System.gc();
-            Thread.yield();
-            System.gc();
-            Thread.yield();
+            runGarbageCollector();
 
 //            if( elapsedTime > 1e7 ) { // 0.01 seconds
 //                // for smaller periods of time its better just to blindly increment it
@@ -188,6 +187,16 @@ public class RuntimeEvaluationTest extends EvaluationTest {
             if( cycles++ > 20 ) {
                 throw new RuntimeException("Exceeded the opsPerSecondMax cycles");
             }
+        }
+    }
+
+    private void runGarbageCollector() {
+        // try to get it to clean up some
+        for( int i = 0; i < 5; i++ ) {
+            System.gc();
+            Thread.yield();
+            System.gc();
+            Thread.yield();
         }
     }
 

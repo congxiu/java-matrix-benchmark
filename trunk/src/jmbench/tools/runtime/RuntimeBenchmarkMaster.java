@@ -201,7 +201,7 @@ public class RuntimeBenchmarkMaster {
             } else if( flag.compareTo("FixedMemory") == 0 ) {
                 if( splits.length != 2 ) {failed = true; break;}
                 config.memoryFixed = Integer.parseInt(splits[1]);
-                System.out.println("Memory used in each test will be "+config.maxTrialTime+" (MB).");
+                System.out.println("Memory used in each test will be "+config.memoryFixed+" (MB).");
             } else if( flag.compareTo("SanityCheck") == 0 ) {
                 if( splits.length != 2 ) {failed = true; break;}
                 config.sanityCheck = Boolean.parseBoolean(splits[1]);
