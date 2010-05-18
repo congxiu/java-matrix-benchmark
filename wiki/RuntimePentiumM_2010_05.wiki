@@ -4,7 +4,7 @@ Comments:
 
   * Modified benchmark so that intermediate matrices are not created and converted into the native format.
     * Reduced memory overhead
-    * Significantly changed results for add, scale, and transpose benchmarks
+    * Significantly changed results for add, scale, and transpose benchmarks on larger matrices.
   * Added UJMP that runs in native mode only
   * Updated libraries
 
