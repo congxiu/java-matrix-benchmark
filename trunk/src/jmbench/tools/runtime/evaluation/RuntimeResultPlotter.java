@@ -62,9 +62,10 @@ public class RuntimeResultPlotter {
 
         for( OperationResults ops : data ) {
             RuntimeEvaluationMetrics[]metrics = ops.metrics;
+            int n = ops.getMatDimen().length;
 
             for( int i = 0; i < numMatrixSizes; i++ ) {
-                if( metrics[i] != null && metrics[i].getRawResults().size() > 5 ) {
+                if( i < n && metrics[i] != null && metrics[i].getRawResults().size() > 5 ) {
 //                    double max = 1.0/metrics[i].getMin();
 //                    double min = 1.0/metrics[i].getMax();
                     double max = metrics[i].getMax();
@@ -212,7 +213,7 @@ public class RuntimeResultPlotter {
         for( OperationResults d : data ) {
             int sizes[] = d.getMatDimen();
 
-            if( sizes.length >= index ) {
+            if( sizes.length > index ) {
                 return sizes[index];
             }
         }

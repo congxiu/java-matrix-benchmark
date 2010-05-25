@@ -135,7 +135,11 @@ public class PlotRuntimeResultsXml {
 
             double r[] = ret.results[i];
 
-            for( int j = 0; j < a.matDimen.length; j++ ) {
+            int n = a.getMatDimen().length;
+            if( r.length < n )
+                n = r.length;
+
+            for( int j = 0; j < n; j++ ) {
                 RuntimeEvaluationMetrics m = a.getMetrics()[j];
                 if( m != null )
                     r[j] = m.getMetric(whichMetric);
