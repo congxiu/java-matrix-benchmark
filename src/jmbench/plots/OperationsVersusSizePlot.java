@@ -194,6 +194,9 @@ public class OperationsVersusSizePlot
             case 10:
                 return Color.orange;
 
+            case 11:
+                return Color.MAGENTA;
+
 
             default:
                 throw new RuntimeException("add some more");
@@ -234,6 +237,9 @@ public class OperationsVersusSizePlot
 
             case 10:
                 return SimpleStrokeFactory.createStroke(".",size,patternSize);
+
+            case 11:
+                return SimpleStrokeFactory.createStroke("-.",size,patternSize);
 
             default:
                 throw new RuntimeException("add some more: "+num);
