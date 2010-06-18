@@ -36,7 +36,7 @@ import static jmbench.misc.RandomizeMatrices.randomize;
 /**
  * @author Peter Abeles
  */
-public class MultTranAGenerator implements InputOutputGenerator {
+public class MultTranBGenerator implements InputOutputGenerator {
 
     DenseMatrix64F C;
 
@@ -57,7 +57,7 @@ public class MultTranAGenerator implements InputOutputGenerator {
             DenseMatrix64F B = convertToEjml(inputs[1]);
 
             C = new DenseMatrix64F(A.numRows,A.numCols);
-            CommonOps.multTransA(A,B,C);
+            CommonOps.multTransB(A,B,C);
         }
 
         return inputs;

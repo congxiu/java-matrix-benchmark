@@ -65,7 +65,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public boolean invertSymmPosDef;
     public boolean add;
     public boolean mult;
-    public boolean multTransA;
+    public boolean multTransB;
     public boolean scale;
     public boolean solveExact;
     public boolean solveOver;
@@ -135,7 +135,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.invertSymmPosDef = true;
         config.add = true;
         config.mult = true;
-        config.multTransA = true;
+        config.multTransB = true;
         config.scale = true;
         config.solveExact = true;
         config.solveOver = true;
@@ -238,12 +238,12 @@ public class RuntimeBenchmarkConfig implements Serializable {
         this.mult = mult;
     }
 
-    public boolean isMultTransA() {
-        return multTransA;
+    public boolean isMultTransB() {
+        return multTransB;
     }
 
-    public void setMultTransA(boolean multTransA) {
-        this.multTransA = multTransA;
+    public void setMultTransB(boolean multTransB) {
+        this.multTransB = multTransB;
     }
 
     public boolean isScale() {

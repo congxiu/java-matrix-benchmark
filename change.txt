@@ -8,6 +8,9 @@
   * The same amount of benchmark overhead is now created for each library, making the test more fair.
   * Total memory requirements should be reduced.
 - Totally dropping support for JScience since it does not provide a set(row,col) method as far as I can tell.
+- multTranA test is changed to multTranB test.  transposing A was arbitrary, but it created two scenarios where
+  a column major format had an advantage.  Might as well give one where a row major has an advantage.
+- Fixed bug where overhead was being measured in runtime benchmark
 
 ----- Version 0.6
 

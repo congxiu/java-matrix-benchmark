@@ -73,7 +73,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
             LowerTriangDenseMatrix L = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // the input matrix is over written
@@ -85,7 +85,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 L = cholesky.getL();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(L);
             return elapsedTime;
         }
@@ -108,7 +108,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             UpperTriangDenseMatrix U = null;
             int pivots[] = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // the input matrix is over written
@@ -120,7 +120,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 pivots = lu.getPivots();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
 
             // I believe that MTJ is generating some buggy row pivots since they go outside
             // the matrix bounds
@@ -149,7 +149,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             double[] S = null;
             DenseMatrix Vt = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 try {
@@ -164,7 +164,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 }
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(U);
             outputs[1] = new EjmlBenchmarkMatrix(CommonOps.diag(S));
             outputs[2] = new MtjBenchmarkMatrix(Vt.transpose());
@@ -188,7 +188,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             DenseMatrix V = null;
             double []D = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 try {
@@ -202,7 +202,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 }
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new EjmlBenchmarkMatrix(CommonOps.diag(D));
             outputs[1] = new MtjBenchmarkMatrix(V);
             return elapsedTime;
@@ -225,7 +225,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             DenseMatrix Q = null;
             UpperTriangDenseMatrix R = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // the input matrix is over written
@@ -236,7 +236,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 R = qr.getR();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(Q);
             outputs[1] = new MtjBenchmarkMatrix(R);
             return elapsedTime;
@@ -261,13 +261,13 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             DenseMatrix I = Matrices.identity(matA.numColumns());
             DenseMatrix inv = new DenseMatrix(matA.numColumns(),matA.numColumns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.solve(I,inv);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(inv);
             return elapsedTime;
         }
@@ -288,7 +288,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // the input matrix is over written
@@ -300,7 +300,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 result = cholesky.solve(Matrices.identity(matA.numColumns()));
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -319,7 +319,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix result = new DenseMatrix(matA.numRows(),matB.numColumns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -327,7 +327,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 result.add(matB);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -346,24 +346,24 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix result = new DenseMatrix(matA.numRows(),matB.numColumns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.mult(matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
 
     @Override
-    public AlgorithmInterface multTransA() {
-        return new MulTranA();
+    public AlgorithmInterface multTransB() {
+        return new MulTranB();
     }
 
-    public static class MulTranA extends MyInterface {
+    public static class MulTranB extends MyInterface {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             DenseMatrix matA = inputs[0].getOriginal();
@@ -371,13 +371,13 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matB.numColumns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transAmult(matB,result);
+                matA.transBmult(matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -395,7 +395,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix mod = new DenseMatrix(matA.numRows(),matA.numColumns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -403,7 +403,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
                 mod.scale(ScaleGenerator.SCALE);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(mod);
             return elapsedTime;
         }
@@ -427,13 +427,13 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matB.numColumns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.solve(matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -450,13 +450,13 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
             DenseMatrix matA = inputs[0].getOriginal();
             DenseMatrix result = new DenseMatrix(matA.numColumns(),matA.numRows());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.transpose(result);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new MtjBenchmarkMatrix(result);
             return elapsedTime;
         }

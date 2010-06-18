@@ -72,13 +72,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix U = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 U = Decompose.cholesky(matA);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(U.transpose());
             return elapsed;
         }
@@ -98,7 +98,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix U = null;
             DoubleMatrix P = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 Decompose.LUDecomposition<DoubleMatrix> lu = Decompose.lu(matA);
@@ -107,7 +107,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
                 P = lu.p;
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(L);
             outputs[1] = new JBlasBenchmarkMatrix(U);
             outputs[2] = new JBlasBenchmarkMatrix(P.transpose());
@@ -134,7 +134,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix D = null;
             DoubleMatrix V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DoubleMatrix[] evd = Eigen.symmetricEigenvectors(matA);
@@ -142,7 +142,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
                 V = evd[0];
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(D);
             outputs[1] = new JBlasBenchmarkMatrix(V);
             return elapsed;
@@ -172,13 +172,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix I = DoubleMatrix.eye(matA.getRows());
             DoubleMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = Solve.solve(matA,I);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
@@ -197,13 +197,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix I = DoubleMatrix.eye(matA.getRows());
             DoubleMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = Solve.solveSymmetric(matA,I);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
@@ -222,13 +222,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.add(matB);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
@@ -245,7 +245,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix matA = inputs[0].getOriginal();
             DoubleMatrix matB = inputs[1].getOriginal();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             DoubleMatrix result = null;
 
@@ -253,18 +253,18 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
                 result = matA.mmul(matB);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
     }
 
     @Override
-    public AlgorithmInterface multTransA() {
-        return new MulTranA();
+    public AlgorithmInterface multTransB() {
+        return new MulTranB();
     }
 
-    public static class MulTranA extends MyInterface {
+    public static class MulTranB extends MyInterface {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             DoubleMatrix matA = inputs[0].getOriginal();
@@ -272,13 +272,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.transpose().mmul(matB);
+                result = matA.mmul(matB.transpose());
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
@@ -296,13 +296,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.mul(ScaleGenerator.SCALE);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
@@ -326,13 +326,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = Solve.solve(matA,matB);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }
@@ -350,13 +350,13 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.transpose();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JBlasBenchmarkMatrix(result);
             return elapsed;
         }

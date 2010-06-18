@@ -83,13 +83,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 			Matrix U = null;
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				U = DenseDoubleMatrix2D.chol.calc(matA);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 
 			outputs[0] = new UjmpBenchmarkMatrix(U.transpose());
 			return elapsedTime;
@@ -111,7 +111,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			Matrix U = null;
 			Matrix P = null;
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				Matrix[] decomp = DenseDoubleMatrix2D.lu.calc(matA);
@@ -121,7 +121,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 				P = decomp[2];
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(L);
 			outputs[1] = new UjmpBenchmarkMatrix(U);
 			outputs[2] = new UjmpBenchmarkMatrix(P);
@@ -142,14 +142,14 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 			Matrix[] svd = null;
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				// it should be extracting all the components all the time
 				svd = DenseDoubleMatrix2D.svd.calc(matA);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(svd[0]);
 			outputs[1] = new UjmpBenchmarkMatrix(svd[1]);
 			outputs[2] = new UjmpBenchmarkMatrix(svd[2]);
@@ -170,13 +170,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 			Matrix result[] = null;
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				result = DenseDoubleMatrix2D.eig.calc(matA);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result[1]);
 			outputs[1] = new UjmpBenchmarkMatrix(result[0]);
 			return elapsedTime;
@@ -197,7 +197,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			Matrix Q = null;
 			Matrix R = null;
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				Matrix decomp[] = DenseDoubleMatrix2D.qr.calc(matA);
@@ -206,7 +206,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 				R = decomp[1];
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(Q);
 			outputs[1] = new UjmpBenchmarkMatrix(R);
 			return elapsedTime;
@@ -224,13 +224,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 				long numTrials) {
 			Matrix matA = inputs[0].getOriginal();
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				matA.det();
 			}
 
-			return System.currentTimeMillis() - prev;
+			return System.nanoTime() - prev;
 		}
 	}
 
@@ -247,13 +247,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 			Matrix result = null;
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				result = DenseDoubleMatrix2D.inv.calc(matA);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
@@ -273,13 +273,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			Matrix result = null;
 			Matrix eye = MatrixFactory.eye(matA.getSize());
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				result = DenseDoubleMatrix2D.chol.solve(matA, eye);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
@@ -300,13 +300,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matA.getColumnCount());
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				DenseDoubleMatrix2D.plusMatrix.calc(matA, matB, result);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
@@ -327,39 +327,39 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matB.getColumnCount());
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				DenseDoubleMatrix2D.mtimes.calc(matA, matB, result);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
 	}
 
 	@Override
-	public AlgorithmInterface multTransA() {
-		return new MulTranA();
+	public AlgorithmInterface multTransB() {
+		return new MulTranB();
 	}
 
-	public static class MulTranA extends MyInterface {
+	public static class MulTranB extends MyInterface {
 		@Override
 		public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs,
 				long numTrials) {
 			Matrix matA = inputs[0].getOriginal();
 			Matrix matB = inputs[1].getOriginal();
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			Matrix result = null;
 
 			for (long i = 0; i < numTrials; i++) {
-				result = matA.transpose().mtimes(matB);
+				result = matA.mtimes(matB.transpose());
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
@@ -379,14 +379,14 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getRowCount(), matA.getColumnCount());
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				DenseDoubleMatrix2D.timesScalar.calc(matA,
 						ScaleGenerator.SCALE, result);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
@@ -406,13 +406,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 
 			Matrix result = null;
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				result = matA.solve(matB);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}
@@ -437,13 +437,13 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
 			DenseDoubleMatrix2D result = DenseDoubleMatrix2D.factory.zeros(matA
 					.getColumnCount(), matA.getRowCount());
 
-			long prev = System.currentTimeMillis();
+			long prev = System.nanoTime();
 
 			for (long i = 0; i < numTrials; i++) {
 				DenseDoubleMatrix2D.transpose.calc(matA, result);
 			}
 
-			long elapsedTime = System.currentTimeMillis() - prev;
+			long elapsedTime = System.nanoTime() - prev;
 			outputs[0] = new UjmpBenchmarkMatrix(result);
 			return elapsedTime;
 		}

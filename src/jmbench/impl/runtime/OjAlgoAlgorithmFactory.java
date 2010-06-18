@@ -71,13 +71,13 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             final PhysicalStore<Double> result = FACTORY.makeEmpty(matA.getRowDim(), matA.getColDim());
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 result.fillMatching(matA, PrimitiveFunction.ADD, matB);
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -92,7 +92,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
             MatrixStore<Double> L = null;
             final Cholesky<Double> chol = CholeskyDecomposition.makePrimitive();
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!chol.compute(matA)) {
@@ -101,7 +101,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 L = chol.getL();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
 
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(L);
 
@@ -118,7 +118,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
             MatrixStore<Double> inverse = null;
             final Cholesky<Double> chol = CholeskyDecomposition.makePrimitive();
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!chol.compute(matA)) {
@@ -127,7 +127,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 inverse = chol.getInverse();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoBenchmarkMatrix(inverse.transpose());
             return elapsedTime;
         }
@@ -141,7 +141,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             final LU<Double> lu = LUDecomposition.makePrimitive();
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!lu.compute(matA)) {
@@ -150,7 +150,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 lu.getDeterminant();
             }
 
-            return System.currentTimeMillis() - prev;
+            return System.nanoTime() - prev;
         }
     }
 
@@ -165,7 +165,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
             MatrixStore<Double> D = null;
             MatrixStore<Double> V = null;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!eig.computeSymmetric(matA)) {
@@ -175,7 +175,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 V = eig.getV();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(D);
             outputs[1] = new OjAlgoMatrixStoreBenchmarkMatrix(V);
             return elapsedTime;
@@ -192,7 +192,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             MatrixStore result = null;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!lu.compute(matA)) {
@@ -201,7 +201,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 result = lu.getInverse();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -220,7 +220,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
             MatrixStore<Double> U = null;
             int pivot[] = null;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!lu.compute(matA)) {
@@ -232,7 +232,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 pivot = lu.getPivotOrder();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
 
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(L);
             outputs[1] = new OjAlgoMatrixStoreBenchmarkMatrix(U);
@@ -251,34 +251,34 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             final PhysicalStore result = PrimitiveDenseStore.FACTORY.makeEmpty(matA.getRowDim(), matB.getColDim());
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 result.fillByMultiplying(matA, matB);
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
 
-    public static class OpMultTransA extends MyInterface {
+    public static class OpMultTransB extends MyInterface {
 
         public long process(final BenchmarkMatrix[] inputs, final BenchmarkMatrix[] outputs, final long numTrials) {
 
-            final MatrixStore matAT = new TransposedStore<Number>((MatrixStore<Number>)inputs[0].getOriginal());
-            final PhysicalStore matB = inputs[1].getOriginal();
+            final PhysicalStore matA = inputs[1].getOriginal();
+            final MatrixStore matBT = new TransposedStore<Number>((MatrixStore<Number>)inputs[0].getOriginal());
 
-            final PhysicalStore result = PrimitiveDenseStore.FACTORY.makeEmpty(matAT.getRowDim(), matB.getColDim());
+            final PhysicalStore result = PrimitiveDenseStore.FACTORY.makeEmpty(matA.getRowDim(), matBT.getColDim());
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
-                result.fillByMultiplying(matAT, matB);
+                result.fillByMultiplying(matA, matBT);
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -295,7 +295,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
             MatrixStore<Double> Q = null;
             MatrixStore<Double> R = null;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!qr.compute(matA)) {
@@ -306,7 +306,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 R = qr.getR();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(Q);
             outputs[1] = new OjAlgoMatrixStoreBenchmarkMatrix(R);
             return elapsedTime;
@@ -323,13 +323,13 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             final Double tmpArg = ScaleGenerator.SCALE;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 result.fillMatching(matA, PrimitiveFunction.MULTIPLY, tmpArg);
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -346,14 +346,14 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             MatrixStore result = null;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 lu.compute(matA);
                 result = lu.solve(matB);
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -370,14 +370,14 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             MatrixStore result = null;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 qr.compute(matA);
                 result = qr.solve(matB);
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -395,7 +395,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
             MatrixStore<Double> S = null;
             MatrixStore<Double> V = null;
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 if (!svd.compute(matA)) {
@@ -406,7 +406,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
                 V = svd.getQ2();
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoMatrixStoreBenchmarkMatrix(U);
             outputs[1] = new OjAlgoMatrixStoreBenchmarkMatrix(S);
             outputs[2] = new OjAlgoMatrixStoreBenchmarkMatrix(V);
@@ -422,13 +422,13 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
             final PhysicalStore<Double> result = PrimitiveDenseStore.FACTORY.makeEmpty(matA.getColDim(), matA.getRowDim());
 
-            final long prev = System.currentTimeMillis();
+            final long prev = System.nanoTime();
 
             for (long i = 0; i < numTrials; i++) {
                 result.fillMatching(new TransposedStore<Double>(matA));
             }
 
-            final long elapsedTime = System.currentTimeMillis() - prev;
+            final long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new OjAlgoBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -466,22 +466,27 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
         return ret;
     }
 
+    @Override
     public AlgorithmInterface add() {
         return new OpAdd();
     }
 
+    @Override
     public AlgorithmInterface chol() {
         return new OpChol();
     }
 
+    @Override
     public AlgorithmInterface det() {
         return new OpDet();
     }
 
+    @Override
     public AlgorithmInterface eigSymm() {
         return new OpEigSymm();
     }
 
+    @Override
     public AlgorithmInterface invert() {
         return new OpInvert();
     }
@@ -491,38 +496,47 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
         return new OpCholInvertSymmPosDef();
     }
 
+    @Override
     public AlgorithmInterface lu() {
         return new OpLu();
     }
 
+    @Override
     public AlgorithmInterface mult() {
         return new OpMult();
     }
 
-    public AlgorithmInterface multTransA() {
-        return new OpMultTransA();
+    @Override
+    public AlgorithmInterface multTransB() {
+        return new OpMultTransB();
     }
 
+    @Override
     public AlgorithmInterface qr() {
         return new OpQr();
     }
 
+    @Override
     public AlgorithmInterface scale() {
         return new OpScale();
     }
 
+    @Override
     public AlgorithmInterface solveExact() {
         return new OpSolveExact();
     }
 
+    @Override
     public AlgorithmInterface solveOver() {
         return new OpSolveOver();
     }
 
+    @Override
     public AlgorithmInterface svd() {
         return new OpSvd();
     }
 
+    @Override
     public AlgorithmInterface transpose() {
         return new OpTranspose();
     }

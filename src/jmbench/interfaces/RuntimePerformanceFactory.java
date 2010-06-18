@@ -57,7 +57,7 @@ public interface RuntimePerformanceFactory extends LibraryFactory , Serializable
 
     AlgorithmInterface mult();
 
-    AlgorithmInterface multTransA();
+    AlgorithmInterface multTransB();
 
     AlgorithmInterface scale();
 

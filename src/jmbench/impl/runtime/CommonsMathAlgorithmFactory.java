@@ -69,7 +69,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
             RealMatrix L = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 try {
@@ -82,7 +82,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 }
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(L);
             return elapsedTime;
         }
@@ -102,7 +102,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix U = null;
             RealMatrix P = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 LUDecompositionImpl LU = new LUDecompositionImpl(matA);
@@ -112,7 +112,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 P = LU.getP();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(L);
             outputs[1] = new CommonsMathBenchmarkMatrix(U);
             outputs[2] = new CommonsMathBenchmarkMatrix(P);
@@ -134,7 +134,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix S = null;
             RealMatrix V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition svd = new SingularValueDecompositionImpl(matA);
@@ -144,7 +144,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 V = svd.getV();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(U);
             outputs[1] = new CommonsMathBenchmarkMatrix(S);
             outputs[2] = new CommonsMathBenchmarkMatrix(V);
@@ -165,7 +165,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix V = null;
             RealMatrix D = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 EigenDecompositionImpl eig = new EigenDecompositionImpl(matA, MathUtils.SAFE_MIN);
@@ -174,7 +174,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 D = eig.getD();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(D);
             outputs[1] = new CommonsMathBenchmarkMatrix(V);
             return elapsedTime;
@@ -194,7 +194,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix Q = null;
             RealMatrix R = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 QRDecompositionImpl decomp = new QRDecompositionImpl(matA);
@@ -204,7 +204,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
 
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(Q);
             outputs[1] = new CommonsMathBenchmarkMatrix(R);
             return elapsedTime;
@@ -221,7 +221,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             RealMatrix matA = inputs[0].getOriginal();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             // LU decompose is a bit of a mess because of all the depreciated stuff everywhere
             // I believe this is the way the designers want you to do it
@@ -230,7 +230,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 lu.getDeterminant();
             }
 
-            return System.currentTimeMillis()-prev;
+            return System.nanoTime()-prev;
         }
     }
 
@@ -245,7 +245,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             // LU decompose is a bit of a mess because of all the depreciated stuff everywhere
             // I believe this is the way the designers want you to do it
@@ -254,7 +254,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 result = lu.getSolver().getInverse();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -271,7 +271,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             // LU decompose is a bit of a mess because of all the depreciated stuff everywhere
             // I believe this is the way the designers want you to do it
@@ -287,7 +287,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
                 result = chol.getSolver().getInverse();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -305,13 +305,13 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.add(matB);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -329,37 +329,37 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.multiply(matB);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
 
     @Override
-    public AlgorithmInterface multTransA() {
-        return new MulTranA();
+    public AlgorithmInterface multTransB() {
+        return new MulTranB();
     }
 
-    public static class MulTranA extends MyInterface {
+    public static class MulTranB extends MyInterface {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             RealMatrix matA = inputs[0].getOriginal();
             RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.transpose().multiply(matB);
+                result = matA.multiply(matB.transpose());
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -376,13 +376,13 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.scalarMultiply(ScaleGenerator.SCALE);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -405,14 +405,14 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 LUDecomposition lu = new LUDecompositionImpl(matA);
                 result = lu.getSolver().solve(matB);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -425,13 +425,13 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matB = inputs[1].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 QRDecomposition qr = new QRDecompositionImpl(matA);
                 result = qr.getSolver().solve(matB);
             }
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -448,13 +448,13 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
             RealMatrix matA = inputs[0].getOriginal();
 
             RealMatrix result = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.transpose();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new CommonsMathBenchmarkMatrix(result);
             return elapsedTime;
         }

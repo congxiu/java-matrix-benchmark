@@ -152,11 +152,8 @@ public class RuntimeEvaluationTest extends EvaluationTest {
 
         while( true ) {
             // nano is more precise than the millisecond timer
-            long startTime = System.nanoTime();
-            alg.process(inputs, outputs, numTrials);
-            long stopTime = System.nanoTime();
+            long elapsedTime = alg.process(inputs, outputs, numTrials);
 
-            long elapsedTime = stopTime-startTime;
 //            System.out.println("elapsed time = "+elapsedTime + "  numTrials "+numTrials+"  ops/sec "+(double)numTrials/(elapsedTime/1e9));
 //            System.out.println("  in seconds "+(elapsedTime/1e9));
             if( elapsedTime > goalDuration*0.9 )  {
