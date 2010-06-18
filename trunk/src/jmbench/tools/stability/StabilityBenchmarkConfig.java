@@ -119,7 +119,6 @@ public class StabilityBenchmarkConfig implements Serializable {
         config.targets.add(commons);
         config.targets.add(colt);
         config.targets.add(mtj);
-//        config.targets.add(jsci);
         config.targets.add(pcolt);
         config.targets.add(ujmp);
         config.targets.add(jblas);

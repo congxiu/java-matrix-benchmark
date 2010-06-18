@@ -76,7 +76,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F L = new DenseMatrix64F(matA.numRows,matA.numCols);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !chol.decompose(matA) ) {
@@ -85,7 +85,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
                 chol.getT(L);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(L);
             return elapsedTime;
         }
@@ -107,7 +107,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             DenseMatrix64F U = new DenseMatrix64F(matA.numRows,matA.numCols);
             DenseMatrix64F P = new DenseMatrix64F(matA.numRows,matA.numCols);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !lu.decompose(matA) )
@@ -118,7 +118,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
                 lu.getPivot(P);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(L);
             outputs[1] = new EjmlBenchmarkMatrix(U);
             outputs[2] = new EjmlBenchmarkMatrix(P);
@@ -142,7 +142,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             DenseMatrix64F S = null;
             DenseMatrix64F V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !svd.decompose(matA) )
@@ -152,7 +152,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
                 V = svd.getV();
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(U);
             outputs[1] = new EjmlBenchmarkMatrix(S);
             outputs[2] = new EjmlBenchmarkMatrix(V);
@@ -170,9 +170,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             DenseMatrix64F matA = inputs[0].getOriginal();
 
-            EigenDecomposition eig = EigenOps.decompositionSymmetric();
+            EigenDecomposition eig = EigenOps.decompositionSymmetric(true);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !eig.decompose(matA) )
@@ -182,7 +182,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
                 eig.getEigenVector(0);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(EigenOps.createMatrixD(eig));
             outputs[1] = new EjmlBenchmarkMatrix(EigenOps.createMatrixV(eig));
             return elapsedTime;
@@ -203,7 +203,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             DenseMatrix64F Q = null;
             DenseMatrix64F R = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !qr.decompose(matA) )
@@ -213,7 +213,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
                 R = qr.getR(null,true);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(Q);
             outputs[1] = new EjmlBenchmarkMatrix(R);
             return elapsedTime;
@@ -230,13 +230,13 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             DenseMatrix64F matA = inputs[0].getOriginal();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.det(matA);
             }
 
-            return System.currentTimeMillis() - prev;
+            return System.nanoTime() - prev;
         }
     }
 
@@ -252,14 +252,14 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matA.numCols);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !CommonOps.invert(matA,result) )
                     throw new RuntimeException("Inversion failed");
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -277,14 +277,14 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matA.numCols);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !CovarianceOps.invert(matA,result) )
                     throw new RuntimeException("Inversion failed");
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -303,13 +303,13 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.add(matA,matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -328,24 +328,24 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matB.numCols);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.mult(matA,matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
 
     @Override
-    public AlgorithmInterface multTransA() {
-        return new MulTranA();
+    public AlgorithmInterface multTransB() {
+        return new MulTranB();
     }
 
-    public static class MulTranA extends MyInterface {
+    public static class MulTranB extends MyInterface {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             DenseMatrix64F matA = inputs[0].getOriginal();
@@ -353,13 +353,13 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matB.numCols);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                CommonOps.multTransA(matA,matB,result);
+                CommonOps.multTransB(matA,matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -377,13 +377,13 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numRows,matA.numCols);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.scale(ScaleGenerator.SCALE,matA,result);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -403,7 +403,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             LinearSolver solver = LinearSolverFactory.linear();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !solver.setA(matA))
@@ -412,7 +412,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
                 solver.solve(matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -433,7 +433,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             LinearSolver solver = LinearSolverFactory.leastSquares();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 if( !solver.setA(matA))
@@ -442,7 +442,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
                 solver.solve(matB,result);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -460,13 +460,13 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseMatrix64F result = new DenseMatrix64F(matA.numCols,matA.numRows);
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CommonOps.transpose(matA,result);
             }
 
-            long elapsedTime = System.currentTimeMillis() - prev;
+            long elapsedTime = System.nanoTime() - prev;
             outputs[0] = new EjmlBenchmarkMatrix(result);
             return elapsedTime;
         }

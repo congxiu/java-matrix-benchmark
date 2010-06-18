@@ -78,7 +78,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D L = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // can't decompose a matrix with the same decomposition algorithm
@@ -87,7 +87,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 L = chol.getL();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(L);
             return elapsedTime;
         }
@@ -112,7 +112,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D U = null;
             int[] pivot = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // input matrix is overwritten
@@ -126,7 +126,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 pivot = decomp.getPivot();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(L);
             outputs[1] = new PColtBenchmarkMatrix(U);
             outputs[2] = new EjmlBenchmarkMatrix(SpecializedOps.pivotMatrix(null,pivot,pivot.length,false));
@@ -150,7 +150,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D S = null;
             DoubleMatrix2D V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             // There are two SVD algorithms. Piotr Wendykier said this one is faster.
             for( long i = 0; i < numTrials; i++ ) {
@@ -160,7 +160,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 V = s.getV();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(U);
             outputs[1] = new PColtBenchmarkMatrix(S);
             outputs[2] = new PColtBenchmarkMatrix(V);
@@ -183,7 +183,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D D = null;
             DoubleMatrix2D V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DenseDoubleEigenvalueDecomposition e = alg.eig(matA);
@@ -191,7 +191,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 V = e.getV();
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(D);
             outputs[1] = new PColtBenchmarkMatrix(V);
             return elapsedTime;
@@ -213,7 +213,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D Q = null;
             DoubleMatrix2D R = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 DenseDoubleQRDecomposition decomp = alg.qr(matA);
@@ -222,7 +222,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 R = decomp.getR(true);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(Q);
             outputs[1] = new PColtBenchmarkMatrix(R);
             return elapsedTime;
@@ -241,13 +241,13 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.det(matA);
             }
 
-            return System.currentTimeMillis()-prev;
+            return System.nanoTime()-prev;
         }
     }
 
@@ -265,13 +265,13 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = alg.inverse(matA);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -292,7 +292,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // can't decompose a matrix with the same decomposition algorithm
@@ -302,7 +302,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 chol.solve(result);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -321,7 +321,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = createMatrix(matA.rows(),matA.columns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -329,7 +329,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 result.assign(matB, DoubleFunctions.plus);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -349,24 +349,24 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = alg.mult(matA,matB);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(result);
             return elapsedTime;
         }
     }
 
     @Override
-    public AlgorithmInterface multTransA() {
-        return new MulTranA();
+    public AlgorithmInterface multTransB() {
+        return new MulTranB();
     }
 
-    public static class MulTranA extends MyInterface {
+    public static class MulTranB extends MyInterface {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             DoubleMatrix2D matA = inputs[0].getOriginal();
@@ -374,13 +374,13 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = createMatrix(matA.columns(),matB.columns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.zMult(matB, result, 1, 0, true, false);
+                result = matA.zMult(matB, result, 1, 0, false, true);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -398,7 +398,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = createMatrix(matA.rows(),matA.columns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -406,7 +406,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
                 result.assign(DoubleFunctions.mult(ScaleGenerator.SCALE));
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(result);
             return elapsedTime;
         }
@@ -431,13 +431,13 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = alg.solve(matA,matB);
             }
 
-            long elapsedTime = System.currentTimeMillis()-prev;
+            long elapsedTime = System.nanoTime()-prev;
             outputs[0] = new PColtBenchmarkMatrix(result);
             return elapsedTime;
         }

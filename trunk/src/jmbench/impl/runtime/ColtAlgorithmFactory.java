@@ -74,7 +74,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
             DenseDoubleMatrix2D matA = inputs[0].getOriginal();
 
             DoubleMatrix2D L = null;
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CholeskyDecomposition chol = new CholeskyDecomposition(matA);
@@ -86,7 +86,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                 L = chol.getL();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new ColtBenchmarkMatrix(L);
             return elapsed;
         }
@@ -109,7 +109,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D U = null;
             int pivot[] = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 tmp.assign(matA);
@@ -123,7 +123,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                     throw new RuntimeException("Singular matrix");
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new ColtBenchmarkMatrix(L);
             outputs[1] = new ColtBenchmarkMatrix(U);
             outputs[2] = new EjmlBenchmarkMatrix(SpecializedOps.pivotMatrix(null, pivot, pivot.length,false));
@@ -145,7 +145,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D S = null;
             DoubleMatrix2D V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition s = new SingularValueDecomposition(matA);
@@ -154,7 +154,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                 V = s.getV();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new ColtBenchmarkMatrix(U);
             outputs[1] = new ColtBenchmarkMatrix(S);
             outputs[2] = new ColtBenchmarkMatrix(V);
@@ -175,7 +175,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D D = null;
             DoubleMatrix2D V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 EigenvalueDecomposition eig = new EigenvalueDecomposition(matA);
@@ -184,7 +184,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                 V = eig.getV();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new ColtBenchmarkMatrix(D);
             outputs[1] = new ColtBenchmarkMatrix(V);
             return elapsed;
@@ -204,7 +204,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
             DoubleMatrix2D Q = null;
             DoubleMatrix2D R = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 QRDecomposition qr = new QRDecomposition(matA);
@@ -213,7 +213,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                 R = qr.getR();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new ColtBenchmarkMatrix(Q);
             outputs[1] = new ColtBenchmarkMatrix(R);
             return elapsed;
@@ -232,13 +232,13 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             Algebra alg = new Algebra();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 alg.det(matA);
             }
 
-            return System.currentTimeMillis()-prev;
+            return System.nanoTime()-prev;
         }
     }
 
@@ -256,13 +256,13 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = alg.inverse(matA);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
 
             outputs[0] = new ColtBenchmarkMatrix(result);
 
@@ -282,7 +282,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CholeskyDecomposition chol = new CholeskyDecomposition(matA);
@@ -290,7 +290,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                 result = chol.solve(DoubleFactory2D.dense.identity(matA.rows()));
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new ColtBenchmarkMatrix(result);
             return elapsed;
         }
@@ -309,7 +309,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // In-place operation here
@@ -317,7 +317,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                 result.assign(matB, cern.jet.math.Functions.plus);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
 
             outputs[0] = new ColtBenchmarkMatrix(result);
 
@@ -339,13 +339,13 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
             Algebra alg = new Algebra();
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = alg.mult(matA,matB);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
 
             outputs[0] = new ColtBenchmarkMatrix(result);
 
@@ -354,11 +354,11 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
     }
 
     @Override
-    public AlgorithmInterface multTransA() {
-        return new MulTranA();
+    public AlgorithmInterface multTransB() {
+        return new MulTranB();
     }
 
-    public static class MulTranA extends MyInterface {
+    public static class MulTranB extends MyInterface {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             DenseDoubleMatrix2D matA = inputs[0].getOriginal();
@@ -366,13 +366,13 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.columns(),matB.columns());
             
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.zMult(matB, result, 1, 0, true, false);
+                result = matA.zMult(matB, result, 1, 0, false, true);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
 
             outputs[0] = new ColtBenchmarkMatrix(result);
 
@@ -392,7 +392,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             DoubleMatrix2D result = new DenseDoubleMatrix2D(matA.rows(),matA.columns());
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 // in-place operator
@@ -400,7 +400,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
                 result.assign(cern.jet.math.Functions.mult(ScaleGenerator.SCALE));
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
 
             outputs[0] = new ColtBenchmarkMatrix(result);
 
@@ -427,7 +427,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
             Algebra alg = new Algebra();
             DoubleMatrix2D result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = alg.solve(matA,matB);
@@ -435,7 +435,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
 
             outputs[0] = new ColtBenchmarkMatrix(result);
 
-            return System.currentTimeMillis()-prev;
+            return System.nanoTime()-prev;
         }
     }
 

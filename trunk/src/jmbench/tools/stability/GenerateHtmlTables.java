@@ -37,13 +37,13 @@ public class GenerateHtmlTables extends TablesCommon {
     @Override
     protected void printTables(Map<String, List> opMap) {
         System.out.println("== Linear Solve ==\n");
-        printSolvingLinear(opMap);
-        System.out.println("\n== Least Squares Solve ==");
-        System.out.println();
-        printSolvingLeastSquares(opMap);
-        System.out.println("\n== Singular Value Decomposition ==");
-        System.out.println();
-        printSvd(opMap);
+//        printSolvingLinear(opMap);
+//        System.out.println("\n== Least Squares Solve ==");
+//        System.out.println();
+//        printSolvingLeastSquares(opMap);
+//        System.out.println("\n== Singular Value Decomposition ==");
+//        System.out.println();
+//        printSvd(opMap);
         System.out.println("\n== Symmetric Eigenvalue Decomposition ==");
         System.out.println();
         printSymmEig(opMap);
@@ -241,7 +241,7 @@ public class GenerateHtmlTables extends TablesCommon {
     }
 
     public static void main( String args[] ) {
-        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/jmatbench/trunk/results/stability_2010_04/large");
+        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/jmatbench/trunk/results/1275997027409/medium");
 
         p.plot();
     }

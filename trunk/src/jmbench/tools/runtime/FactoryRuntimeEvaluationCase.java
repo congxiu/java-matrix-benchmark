@@ -73,8 +73,8 @@ public class FactoryRuntimeEvaluationCase {
         alg = factory.chol();
         if( config.chol && alg != null ) ret.add( createCholesky(factory,alg));
 
-        alg = factory.multTransA();
-        if( config.multTransA && alg != null ) ret.add( createMultTranA(factory,alg));
+        alg = factory.multTransB();
+        if( config.multTransB && alg != null ) ret.add( createMultTranB(factory,alg));
 
         alg = factory.solveExact();
         if( config.solveExact &&  alg != null ) ret.add( createSolveEq(factory,alg));
@@ -194,14 +194,14 @@ public class FactoryRuntimeEvaluationCase {
                 factory,alg,generator);
     }
 
-    public RuntimeEvaluationCase createMultTranA( RuntimePerformanceFactory factory ,
+    public RuntimeEvaluationCase createMultTranB( RuntimePerformanceFactory factory ,
                                                   AlgorithmInterface alg) {
 
-        InputOutputGenerator generator = new MultTranAGenerator();
+        InputOutputGenerator generator = new MultTranBGenerator();
 
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
-        return new RuntimeEvaluationCase("Mult c=a^t * b","multTranA",matDimen,
+        return new RuntimeEvaluationCase("Mult c=a*b^T","multTranB",matDimen,
                 factory,alg,generator);
     }
 

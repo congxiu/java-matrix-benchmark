@@ -70,7 +70,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             Matrix L = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 CholeskyDecomposition chol = matA.chol();
@@ -80,7 +80,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
                 L = chol.getL();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(L);
             return elapsed;
         }
@@ -100,7 +100,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             Matrix U = null;
             int pivot[] = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 LUDecomposition lu = matA.lu();
@@ -109,7 +109,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
                 pivot = lu.getPivot();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(L);
             outputs[1] = new JavaBenchmarkMatrix(U);
             outputs[2] = new EjmlBenchmarkMatrix(SpecializedOps.pivotMatrix(null, pivot, pivot.length,false));
@@ -131,7 +131,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             Matrix S = null;
             Matrix V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition s = matA.svd();
@@ -140,7 +140,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
                 V = s.getV();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(U);
             outputs[1] = new JavaBenchmarkMatrix(S);
             outputs[2] = new JavaBenchmarkMatrix(V);
@@ -161,7 +161,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             Matrix D = null;
             Matrix V = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 EigenvalueDecomposition e = matA.eig();
@@ -169,7 +169,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
                 V = e.getV();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(D);
             outputs[1] = new JavaBenchmarkMatrix(V);
             return elapsed;
@@ -189,7 +189,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             Matrix Q = null;
             Matrix R = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 QRDecomposition decomp = matA.qr();
@@ -198,7 +198,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
                 R = decomp.getR();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(Q);
             outputs[1] = new JavaBenchmarkMatrix(R);
             return elapsed;
@@ -215,13 +215,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             Matrix matA = inputs[0].getOriginal();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 matA.det();
             }
 
-            return System.currentTimeMillis()-prev;
+            return System.nanoTime()-prev;
         }
     }
 
@@ -237,13 +237,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             Matrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.inverse();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
@@ -263,13 +263,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             int N = matA.getColumnDimension();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.chol().solve(Matrix.identity(N,N));
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
@@ -288,13 +288,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             Matrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.plus(matB);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
@@ -311,7 +311,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
             Matrix matA = inputs[0].getOriginal();
             Matrix matB = inputs[1].getOriginal();
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             Matrix result = null;
 
@@ -319,18 +319,18 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
                 result = matA.times(matB);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
     }
 
     @Override
-    public AlgorithmInterface multTransA() {
-        return new MulTranA();
+    public AlgorithmInterface multTransB() {
+        return new MulTranB();
     }
 
-    public static class MulTranA extends MyInterface {
+    public static class MulTranB extends MyInterface {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             Matrix matA = inputs[0].getOriginal();
@@ -338,13 +338,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             Matrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.transpose().times(matB);
+                result = matA.times(matB.transpose());
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
@@ -362,13 +362,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             Matrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.times(ScaleGenerator.SCALE);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
@@ -392,13 +392,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             Matrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.solve(matB);
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
@@ -416,13 +416,13 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
 
             Matrix result = null;
 
-            long prev = System.currentTimeMillis();
+            long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 result = matA.transpose();
             }
 
-            long elapsed = System.currentTimeMillis()-prev;
+            long elapsed = System.nanoTime()-prev;
             outputs[0] = new JavaBenchmarkMatrix(result);
             return elapsed;
         }
