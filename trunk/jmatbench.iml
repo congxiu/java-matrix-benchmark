@@ -9,7 +9,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="ejml" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -170,7 +169,9 @@
           <root url="jar://$MODULE_DIR$/lib/mtj/mtj-0.9.12.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/mtj/mtj-src.zip!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -182,6 +183,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="ejml" />
   </component>
   <component name="copyright">
     <Base>

@@ -121,75 +121,96 @@ public class StabilityBenchmarkLibrary {
     private void createOperationsList(StabilityFactory library) {
         operations = new ArrayList<StabilityTestBase>();
 
-        operations.add( new SolverOverflow(config.randomSeed,
-                library.createLinearSolver(),
-                numSolve/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,true,true) );
+        if( config.checkOverflow ) {
+            if( config.checkLinear )
+                operations.add( new SolverOverflow(config.randomSeed,
+                        library.createLinearSolver(),
+                        numSolve/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,true,true) );
 
-        operations.add( new SolverOverflow(config.randomSeed,
-                library.createLSSolver(),
-                numSolve/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,false,true) );
+            if( config.checkLS )
+                operations.add( new SolverOverflow(config.randomSeed,
+                        library.createLSSolver(),
+                        numSolve/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,false,true) );
 
-        operations.add( new SolverOverflow(config.randomSeed,
-                library.createLinearSolver(),
-                numSolve/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,true,false) );
+            if( config.checkSVD )
+                operations.add( new SvdOverflow(config.randomSeed,
+                        library.createSvd(),
+                        numSvd/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,true) );
 
-        operations.add( new SolverOverflow(config.randomSeed,
-                library.createLSSolver(),
-                numSolve/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,false,false) );
+            if( config.checkEVD )
+                operations.add( new EigSymmOverflow(config.randomSeed,
+                        library.createSymmEigen(),
+                        numSvd/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,true) );
+        }
 
-        operations.add( new SolverSingular(config.randomSeed,
-                library.createLinearSolver(),
-                numSolve/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,true) );
+        if( config.checkUnderflow ) {
+            if( config.checkLinear )
+                operations.add( new SolverOverflow(config.randomSeed,
+                        library.createLinearSolver(),
+                        numSolve/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,true,false) );
 
-        operations.add( new SolverSingular(config.randomSeed,
-                library.createLSSolver(),
-                numSolve/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,false) );
+            if( config.checkLS )
+                operations.add( new SolverOverflow(config.randomSeed,
+                        library.createLSSolver(),
+                        numSolve/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,false,false) );
 
-        operations.add( new SolverAccuracy(config.randomSeed,
-                library.createLinearSolver(),
-                numSolve,
-                config.breakingPoint,sizeMin,sizeMax,true) );
+            if( config.checkSVD )
+                operations.add( new SvdOverflow(config.randomSeed,
+                        library.createSvd(),
+                        numSvd/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,false) );
 
-        operations.add( new SolverAccuracy(config.randomSeed,
-                library.createLSSolver(),
-                numSolve,
-                config.breakingPoint,sizeMin,sizeMax,false) );
+            if( config.checkEVD )
+                operations.add( new EigSymmOverflow(config.randomSeed,
+                        library.createSymmEigen(),
+                        numSvd/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,false) );
+        }
 
-        operations.add( new SvdAccuracy(config.randomSeed,
-                library.createSvd(),
-                numSvd,
-                sizeMin,sizeMax) );
+        if( config.checkNearlySingular ) {
+            if( config.checkLinear )
+                operations.add( new SolverSingular(config.randomSeed,
+                        library.createLinearSolver(),
+                        numSolve/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,true) );
 
-        operations.add( new SvdOverflow(config.randomSeed,
-                library.createSvd(),
-                numSvd/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,true) );
+            if( config.checkLS )
+                operations.add( new SolverSingular(config.randomSeed,
+                        library.createLSSolver(),
+                        numSolve/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,false) );
+        }
+        if( config.checkAccuracy ) {
+            if( config.checkLinear )
+                operations.add( new SolverAccuracy(config.randomSeed,
+                        library.createLinearSolver(),
+                        numSolve,
+                        config.breakingPoint,sizeMin,sizeMax,true) );
 
-        operations.add( new SvdOverflow(config.randomSeed,
-                library.createSvd(),
-                numSvd/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,false) );
+            if( config.checkLS )
+                operations.add( new SolverAccuracy(config.randomSeed,
+                        library.createLSSolver(),
+                        numSolve,
+                        config.breakingPoint,sizeMin,sizeMax,false) );
 
-        operations.add( new EigSymmAccuracy(config.randomSeed,
-                library.createSymmEigen(),
-                numSvd,
-                sizeMin,sizeMax) );
+            if( config.checkSVD )
+                operations.add( new SvdAccuracy(config.randomSeed,
+                        library.createSvd(),
+                        numSvd,
+                        sizeMin,sizeMax) );
 
-        operations.add( new EigSymmOverflow(config.randomSeed,
-                library.createSymmEigen(),
-                numSvd/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,true) );
-
-        operations.add( new EigSymmOverflow(config.randomSeed,
-                library.createSymmEigen(),
-                numSvd/config.overFlowFactor,
-                config.breakingPoint,sizeMin,sizeMax,false) );
+            if( config.checkEVD )
+                operations.add( new EigSymmAccuracy(config.randomSeed,
+                        library.createSymmEigen(),
+                        numSvd,
+                        sizeMin,sizeMax) );
+        }
     }
 
     public void process() {

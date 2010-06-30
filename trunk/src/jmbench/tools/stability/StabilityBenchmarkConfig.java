@@ -79,6 +79,16 @@ public class StabilityBenchmarkConfig implements Serializable {
     public int trialsMediumSvd;
     public int trialsLargeSvd;
 
+    // which tests it should run
+    public boolean checkAccuracy;
+    public boolean checkOverflow;
+    public boolean checkUnderflow;
+    public boolean checkNearlySingular;
+    public boolean checkLinear;
+    public boolean checkLS;
+    public boolean checkSVD;
+    public boolean checkEVD;
+
     // which libraries are to be evaluated
     public List<EvaluationTarget> targets = new ArrayList<EvaluationTarget>();
 
@@ -122,6 +132,15 @@ public class StabilityBenchmarkConfig implements Serializable {
         config.targets.add(pcolt);
         config.targets.add(ujmp);
         config.targets.add(jblas);
+
+        config.checkAccuracy = true;
+        config.checkOverflow = true;
+        config.checkUnderflow = true;
+        config.checkNearlySingular = true;
+        config.checkLinear = true;
+        config.checkLS = true;
+        config.checkSVD = true;
+        config.checkEVD = true;
 
         return config;
     }

@@ -25,7 +25,6 @@ import jmbench.interfaces.MatrixProcessorInterface;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.EvaluationTest;
 import jmbench.tools.TestResults;
-import org.ejml.data.DenseMatrix64F;
 
 import java.util.Random;
 
@@ -165,22 +164,12 @@ public class RuntimeEvaluationTest extends EvaluationTest {
                 long oldNumTrials = numTrials;
                 
                 numTrials = (long)Math.ceil(goalDuration * (double)numTrials / (double)elapsedTime);
-//                System.out.println("numTrials A = "+numTrials);
                 if( oldNumTrials > numTrials ) {
                     numTrials = oldNumTrials;
-//                    System.out.println("Got smaller!?!?" );
                 }
             }
             runGarbageCollector();
 
-//            if( elapsedTime > 1e7 ) { // 0.01 seconds
-//                // for smaller periods of time its better just to blindly increment it
-//                numTrials *= 10;
-////                System.out.println("numTrials B = "+numTrials);
-//            } else {
-//                numTrials *= 100;
-////                System.out.println("numTrials C = "+numTrials);
-//            }
             if( cycles++ > 20 ) {
                 throw new RuntimeException("Exceeded the opsPerSecondMax cycles");
             }
