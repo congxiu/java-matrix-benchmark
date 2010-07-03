@@ -177,8 +177,8 @@ public class EjmlMemoryFactory implements MemoryFactory {
             for( int i = 0; i < numCycles; i++ ) {
                 svd.decompose(A);
 
-                DenseMatrix64F U = svd.getU();
-                DenseMatrix64F V = svd.getV();
+                DenseMatrix64F U = svd.getU(true);
+                DenseMatrix64F V = svd.getV(true);
                 DenseMatrix64F S = svd.getW(null);
             }
         }

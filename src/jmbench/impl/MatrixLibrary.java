@@ -20,8 +20,6 @@
 package jmbench.impl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -30,12 +28,12 @@ import java.util.List;
  * @author Peter Abeles
  */
 public class MatrixLibrary implements Serializable {
-    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","ejml","EJML 0.12","2010-06-18",false,false,0);
+    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","ejml","EJML 0.13pre","2010-07-02",false,false,0);
     public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama","jama","Jama 1.0.2","",false, false, 1);
     public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj","mtj","MTJ 0.9.12","",true, false, 2);
     public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","sejml","SEJML 0.7","",true, false, 3);
     public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math","commons-math","Commons Math 2.1","2010-04-05",true, false, 4);
-    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo","ojalgo","ojAlgo 29.0","2010-03-20",true, false, 6);
+    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo","ojalgo","ojAlgo 29.8","2010-03-20",true, false, 6);
     public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt","colt","Colt 1.2","",true, false, 7);
     public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt","parallelcolt","Parallel Colt 0.9.4","2010-03-20",true, false, 8);
     public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp","ujmp","UJMP","2010-04-28",true, true, 9);

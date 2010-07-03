@@ -90,9 +90,9 @@ public class EjmlStabilityFactory implements StabilityFactory {
             if( !svd.decompose(A) )
                 return null;
 
-            DenseMatrix64F U = svd.getU();
+            DenseMatrix64F U = svd.getU(false);
             DenseMatrix64F S = svd.getW(null);
-            DenseMatrix64F V = svd.getV();
+            DenseMatrix64F V = svd.getV(false);
 
             return new DenseMatrix64F[]{U,S,V};
         }

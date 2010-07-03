@@ -25,7 +25,6 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
-import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
 import org.ejml.data.SimpleMatrix;
 
 
@@ -79,9 +78,9 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                SingularValueDecomposition s = matA.computeSVD();
+                SimpleMatrix.SVD s = matA.svd();
                 s.getU();
-                s.getW(null);
+                s.getW();
                 s.getV();
             }
 
