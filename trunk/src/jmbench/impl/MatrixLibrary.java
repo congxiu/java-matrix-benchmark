@@ -19,6 +19,8 @@
 
 package jmbench.impl;
 
+import org.ejml.UtilEjml;
+
 import java.io.Serializable;
 
 
@@ -28,7 +30,7 @@ import java.io.Serializable;
  * @author Peter Abeles
  */
 public class MatrixLibrary implements Serializable {
-    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","ejml","EJML 0.13pre","2010-07-02",false,false,0);
+    public static final MatrixLibrary EJML = new MatrixLibrary("EJML","ejml","ejml","EJML "+ UtilEjml.VERSION,"2010-07-02",false,false,0);
     public static final MatrixLibrary JAMA = new MatrixLibrary("JAMA","jama","jama","Jama 1.0.2","",false, false, 1);
     public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj","mtj","MTJ 0.9.12","",true, false, 2);
     public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","sejml","SEJML 0.7","",true, false, 3);

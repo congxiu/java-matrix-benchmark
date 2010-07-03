@@ -28,9 +28,7 @@ import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
-
 import org.ejml.data.DenseMatrix64F;
-import org.ejml.ops.CommonOps;
 import org.ejml.ops.SpecializedOps;
 import org.ojalgo.function.implementation.PrimitiveFunction;
 import org.ojalgo.matrix.decomposition.*;
@@ -267,8 +265,8 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
 
         public long process(final BenchmarkMatrix[] inputs, final BenchmarkMatrix[] outputs, final long numTrials) {
 
-            final PhysicalStore matA = inputs[1].getOriginal();
-            final MatrixStore matBT = new TransposedStore<Number>((MatrixStore<Number>)inputs[0].getOriginal());
+            final PhysicalStore matA = inputs[0].getOriginal();
+            final MatrixStore matBT = new TransposedStore<Number>((MatrixStore<Number>)inputs[1].getOriginal());
 
             final PhysicalStore result = PrimitiveDenseStore.FACTORY.makeEmpty(matA.getRowDim(), matBT.getColDim());
 

@@ -147,9 +147,9 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
             for( long i = 0; i < numTrials; i++ ) {
                 if( !svd.decompose(matA) )
                     throw new RuntimeException("Decomposition failed");
-                U = svd.getU(true);
+                U = svd.getU(false);
                 S = svd.getW(S);
-                V = svd.getV(true);
+                V = svd.getV(false);
             }
 
             long elapsedTime = System.nanoTime() - prev;
