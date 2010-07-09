@@ -1,0 +1,150 @@
+#summary Stability Benchmark Results as of April 2010
+
+Quick Links:
+
+  * [#Small_Matrices Small Matrices]
+  * [#Medium_Matrices Medium Matrices]
+  * [#Large_Matrices Large Matrices]
+
+= Comments =
+
+= Test Setup =
+
+Test environment:
+|| Date || 2010 / 07 / 08 ||
+|| Java Version || 1.6.0_16 ||
+|| OS || Ubuntu 9.10 ||
+|| CPU || Quad Core 6600 ||
+|| Benchmark || 0.6 SVN ||
+
+Tested Libraries:
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.1     ||
+|| EJML ||  0.13        ||
+|| Jama || 1.0.2           ||
+|| JBlas || 1.0.2          ||
+|| MTJ || 0.9.12           || 
+|| OjAlgo || 29.8          || 
+|| Parallel Colt || 0.9.4  ||
+|| UJMP || SVN (2010/4/28) ||
+
+Test Configuration
+||  || Min || Max ||
+|| Small  || 2    || 20   || 
+|| Medium || 100  || 200  ||
+|| Large  || 500  || 600  ||
+
+= Small Matrices =
+
+== Linear Solve ==
+
+
+== Symmetric Eigenvalue Decomposition ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="8"> Accuracy </TH></TR>
+
+<TR><TH/><TH colspan="3"> Accuracy </TH><TH colspan="5"> Unexpected Error </TH></TR>
+<TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>MTJ</TH><TD> 5.5e-16</TD><TD> 1.6e-15</TD><TD> 2.2e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD> 4.7e-16</TD><TD> 1.1e-15</TD><TD> 1.7e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD> 4.7e-16</TD><TD> 1.1e-15</TD><TD> 1.7e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD> 4.2e-16</TD><TD> 1.1e-15</TD><TD> 1.4e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD> 3.9e-16</TD><TD> 9.8e-16</TD><TD> 1.4e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD> 4.7e-16</TD><TD> 1.1e-15</TD><TD> 1.7e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD> 4.7e-16</TD><TD> 1.1e-15</TD><TD> 1.7e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD> 4.3e-16</TD><TD> 9.8e-16</TD><TD> 1.3e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JBLAS</TH><TD> 1.5e-15</TD><TD> 2.4e-15</TD><TD> 3.2e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+</TABLE>
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="8"> Overflow </TH><TH colspan="8"> Underflow </TH></TR>
+
+<TR><TH/><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH></TR>
+<TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>MTJ</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 16.7%</TD><TD> 83.3%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-321</TD><TD>1.0e-321</TD><TD>1.0e-320</TD><TD>  1.0%</TD><TD></TD><TD></TD><TD> 99.0%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+156</TD><TD>  4.3%</TD><TD>  0.3%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+156</TD><TD>  4.3%</TD><TD>  0.3%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+154</TD><TD>1.0e+154</TD><TD>1.0e+155</TD><TD>  4.5%</TD><TD>  0.3%</TD><TD>  5.8%</TD><TD> 89.3%</TD><TD></TD><TD> 1.0e-15</TD><TD> 1.0e-14</TD><TD> 1.0e-13</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>  7.3%</TD><TD>  0.7%</TD><TD></TD><TD>  3.5%</TD><TD> 88.5%</TD><TD>1.0e-315</TD><TD>1.0e-307</TD><TD>1.0e-305</TD><TD></TD><TD></TD><TD></TD><TD>  8.8%</TD><TD> 91.2%</TD></TR>
+<TR><TH>Colt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+156</TD><TD>  4.3%</TD><TD>  0.3%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+156</TD><TD>  4.3%</TD><TD>  0.3%</TD><TD> 95.3%</TD><TD></TD><TD></TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+154</TD><TD>1.0e+154</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD></TD><TD>  3.3%</TD><TD> 96.7%</TD><TD>1.0e-155</TD><TD>1.0e-154</TD><TD>1.0e-154</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
+<TR><TH>JBLAS</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 16.7%</TD><TD> 83.3%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-321</TD><TD>1.0e-321</TD><TD>1.0e-320</TD><TD>  1.0%</TD><TD></TD><TD></TD><TD> 99.0%</TD><TD></TD></TR>
+</TABLE>
+
+= Medium Matrices =
+
+== Linear Solve ==
+
+
+== Symmetric Eigenvalue Decomposition ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="8"> Accuracy </TH></TR>
+
+<TR><TH/><TH colspan="3"> Accuracy </TH><TH colspan="5"> Unexpected Error </TH></TR>
+<TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>MTJ</TH><TD> 4.5e-15</TD><TD> 5.2e-15</TD><TD> 5.9e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD> 3.1e-15</TD><TD> 3.3e-15</TD><TD> 3.6e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD> 3.9e-15</TD><TD> 4.7e-15</TD><TD> 5.5e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD> 3.3e-15</TD><TD> 3.8e-15</TD><TD> 4.3e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD> 3.7e-15</TD><TD> 4.5e-15</TD><TD> 5.3e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD> 3.9e-15</TD><TD> 4.7e-15</TD><TD> 5.5e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD> 3.9e-15</TD><TD> 4.7e-15</TD><TD> 5.5e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD> 3.1e-15</TD><TD> 3.7e-15</TD><TD> 4.1e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JBLAS</TH><TD> 3.1e-15</TD><TD> 3.3e-15</TD><TD> 3.6e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+</TABLE>
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="8"> Overflow </TH><TH colspan="8"> Underflow </TH></TR>
+
+<TR><TH/><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH></TR>
+<TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>MTJ</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+154</TD><TD>1.0e+154</TD><TD>1.0e+154</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+308</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD>1.0e-304</TD><TD>1.0e-303</TD><TD>1.0e-303</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
+<TR><TH>Colt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD>1.0e-161</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+154</TD><TD>1.0e+154</TD><TD>1.0e+154</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD>1.0e-155</TD><TD>1.0e-154</TD><TD>1.0e-154</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
+<TR><TH>JBLAS</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD>1.0e-320</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+</TABLE>
+
+= Large Matrices =
+
+== Linear Solve ==
+
+
+== Symmetric Eigenvalue Decomposition ==
+
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="8"> Accuracy </TH></TR>
+
+<TR><TH/><TH colspan="3"> Accuracy </TH><TH colspan="5"> Unexpected Error </TH></TR>
+<TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>MTJ</TH><TH colspan="8"> TIMED OUT </TH></TR>
+<TR><TH>UJMP</TH><TD> 3.9e-15</TD><TD> 4.4e-15</TD><TD> 4.6e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD> 9.3e-15</TD><TD> 9.9e-15</TD><TD> 1.1e-14</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD> 6.7e-15</TD><TD> 7.1e-15</TD><TD> 7.5e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD> 9.4e-15</TD><TD> 1.1e-14</TD><TD> 1.3e-14</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD> 9.3e-15</TD><TD> 9.9e-15</TD><TD> 1.1e-14</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD> 9.3e-15</TD><TD> 9.9e-15</TD><TD> 1.1e-14</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD> 6.7e-15</TD><TD> 7.0e-15</TD><TD> 7.3e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JBLAS</TH><TD> 3.9e-15</TD><TD> 4.4e-15</TD><TD> 4.6e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+</TABLE>
+<TABLE border="1" cellpadding="5">
+<TR><TH></TH><TH colspan="8"> Overflow </TH><TH colspan="8"> Underflow </TH></TR>
+
+<TR><TH/><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH></TR>
+<TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
+<TR><TH>MTJ</TH><TH colspan="8"> TIMED OUT </TH><TH colspan="8"> TIMED OUT </TH></TR>
+<TR><TH>UJMP</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
+<TR><TH>PColt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD>1.0e-162</TD><TD>1.0e-162</TD><TD>1.0e-161</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+153</TD><TD>1.0e+153</TD><TD>1.0e+153</TD><TD>  0.0%</TD><TD></TD><TD> 57.1%</TD><TD> 42.9%</TD><TD></TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD>1.0e-303</TD><TD>1.0e-301</TD><TD>1.0e-300</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
+<TR><TH>Colt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD>1.0e-162</TD><TD>1.0e-162</TD><TD>1.0e-161</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD>1.0e-162</TD><TD>1.0e-162</TD><TD>1.0e-161</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+153</TD><TD>1.0e+153</TD><TD>1.0e+153</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD>1.0e-155</TD><TD>1.0e-154</TD><TD>1.0e-154</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
+<TR><TH>JBLAS</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
+</TABLE>
