@@ -44,3 +44,4 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.01.30 || [StabilityResults_2010_01_30] ||
 || 2010.02.22 || [StabilityResults_2010_02] ||
 || 2010.04.27 || [StabilityResults_2010_04] ||
+|| 2010.07.08 || [StabilityResults_2010_07] ||
