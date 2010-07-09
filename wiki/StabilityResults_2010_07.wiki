@@ -12,7 +12,7 @@ Quick Links:
 
 Test environment:
 || Date || 2010 / 07 / 08 ||
-|| Java Version || 1.6.0_16 ||
+|| Java Version || 1.6.0_20 ||
 || OS || Ubuntu 9.10 ||
 || CPU || Quad Core 6600 ||
 || Benchmark || 0.6 SVN ||
