@@ -1,4 +1,4 @@
-#summary Stability Benchmark Results as of April 2010
+#summary Stability Benchmark Results as of July 2010
 
 Quick Links:
 
@@ -15,7 +15,7 @@ Test environment:
 || Java Version || 1.6.0_20 ||
 || OS || Ubuntu 9.10 ||
 || CPU || Quad Core 6600 ||
-|| Benchmark || 0.6 SVN ||
+|| Benchmark || 0.7 SVN ||
 
 Tested Libraries:
 || Name || Version         ||
