@@ -296,4 +296,68 @@ public class StabilityBenchmarkConfig implements Serializable {
     public void setScaleMemory(long scaleMemory) {
         this.scaleMemory = scaleMemory;
     }
+
+    public boolean isCheckAccuracy() {
+        return checkAccuracy;
+    }
+
+    public void setCheckAccuracy(boolean checkAccuracy) {
+        this.checkAccuracy = checkAccuracy;
+    }
+
+    public boolean isCheckOverflow() {
+        return checkOverflow;
+    }
+
+    public void setCheckOverflow(boolean checkOverflow) {
+        this.checkOverflow = checkOverflow;
+    }
+
+    public boolean isCheckUnderflow() {
+        return checkUnderflow;
+    }
+
+    public void setCheckUnderflow(boolean checkUnderflow) {
+        this.checkUnderflow = checkUnderflow;
+    }
+
+    public boolean isCheckNearlySingular() {
+        return checkNearlySingular;
+    }
+
+    public void setCheckNearlySingular(boolean checkNearlySingular) {
+        this.checkNearlySingular = checkNearlySingular;
+    }
+
+    public boolean isCheckLinear() {
+        return checkLinear;
+    }
+
+    public void setCheckLinear(boolean checkLinear) {
+        this.checkLinear = checkLinear;
+    }
+
+    public boolean isCheckLS() {
+        return checkLS;
+    }
+
+    public void setCheckLS(boolean checkLS) {
+        this.checkLS = checkLS;
+    }
+
+    public boolean isCheckSVD() {
+        return checkSVD;
+    }
+
+    public void setCheckSVD(boolean checkSVD) {
+        this.checkSVD = checkSVD;
+    }
+
+    public boolean isCheckEVD() {
+        return checkEVD;
+    }
+
+    public void setCheckEVD(boolean checkEVD) {
+        this.checkEVD = checkEVD;
+    }
 }
