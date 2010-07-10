@@ -1,4 +1,5 @@
-- benchmark java version of UJMP
+- Symmetric inverse stability benchmark
+
 - remember amount of memory previously allocated for a particular matrix size
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
