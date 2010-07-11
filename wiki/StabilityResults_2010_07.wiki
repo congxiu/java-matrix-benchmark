@@ -15,7 +15,7 @@ Changes failure threshold from 0.001 to 1e-9 to make it more realistic.
 Test environment:
 || Date || 2010 / 07 / 11 ||
 || Java Version || 1.6.0_20 ||
-|| OS || Ubuntu 9.10 ||
+|| OS || Ubuntu 10.04 ||
 || CPU || Quad Core 6600 ||
 || Benchmark || 0.7 SVN ||
 
