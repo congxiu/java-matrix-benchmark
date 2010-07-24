@@ -160,7 +160,7 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.invert();
+                result = matA.invert();
             }
 
             long elapsedTime = System.nanoTime()-prev;
@@ -237,7 +237,7 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.mult(matB.transpose());
+                result = matA.mult(matB.transpose());
             }
 
             long elapsedTime = System.nanoTime()-prev;
