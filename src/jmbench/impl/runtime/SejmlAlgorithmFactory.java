@@ -20,12 +20,14 @@
 package jmbench.impl.runtime;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.EjmlBenchmarkMatrix;
 import jmbench.impl.wrapper.SejmlBenchmarkMatrix;
 import jmbench.interfaces.AlgorithmInterface;
 import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.SimpleMatrix;
+import org.ejml.ops.EigenOps;
 
 
 /**
@@ -75,22 +77,48 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             SimpleMatrix matA = inputs[0].getOriginal();
 
+            SimpleMatrix U=null,W=null,V=null;
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
                 SimpleMatrix.SVD s = matA.svd();
-                s.getU();
-                s.getW();
-                s.getV();
+                U=s.getU();
+                W=s.getW();
+                V=s.getV();
             }
 
-            return System.nanoTime()-prev;
+            long elapsedTime = System.nanoTime() - prev;
+            outputs[0] = new EjmlBenchmarkMatrix(U);
+            outputs[1] = new EjmlBenchmarkMatrix(W);
+            outputs[2] = new EjmlBenchmarkMatrix(V);
+            return elapsedTime;
         }
     }
 
     @Override
     public AlgorithmInterface eigSymm() {
-        return null;
+        return new MyEig();
+    }
+
+    public static class MyEig extends MyInterface {
+        @Override
+        public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix matA = inputs[0].getOriginal();
+
+            SimpleMatrix.EVD evd = null;
+            long prev = System.nanoTime();
+
+            for( long i = 0; i < numTrials; i++ ) {
+                evd = matA.eig();
+                evd.getEigenvalue(0);
+                evd.getEigenVector(0);
+            }
+
+            long elapsedTime = System.nanoTime() - prev;
+            outputs[0] = new EjmlBenchmarkMatrix(EigenOps.createMatrixD(evd.getEVD()));
+            outputs[1] = new EjmlBenchmarkMatrix(EigenOps.createMatrixV(evd.getEVD()));
+            return elapsedTime;
+        }
     }
 
     @Override
@@ -127,6 +155,7 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             SimpleMatrix matA = inputs[0].getOriginal();
+            SimpleMatrix result = null;
 
             long prev = System.nanoTime();
 
@@ -134,7 +163,9 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
                 matA.invert();
             }
 
-            return System.nanoTime() - prev;
+            long elapsedTime = System.nanoTime()-prev;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
+            return elapsedTime;
         }
     }
 
@@ -153,14 +184,17 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             SimpleMatrix matA = inputs[0].getOriginal();
             SimpleMatrix matB = inputs[1].getOriginal();
+            SimpleMatrix result = null;
 
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.plus(matB);
+                result = matA.plus(matB);
             }
 
-            return System.nanoTime()-prev;
+            long elapsedTime = System.nanoTime()-prev;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
+            return elapsedTime;
         }
     }
 
@@ -174,14 +208,17 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             SimpleMatrix matA = inputs[0].getOriginal();
             SimpleMatrix matB = inputs[1].getOriginal();
+            SimpleMatrix result = null;
 
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                 matA.mult(matB);
+                 result = matA.mult(matB);
             }
 
-            return System.nanoTime()-prev;
+            long elapsedTime = System.nanoTime()-prev;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
+            return elapsedTime;
         }
     }
 
@@ -195,6 +232,7 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             SimpleMatrix matA = inputs[0].getOriginal();
             SimpleMatrix matB = inputs[1].getOriginal();
+            SimpleMatrix result = null;
 
             long prev = System.nanoTime();
 
@@ -202,7 +240,9 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
                 matA.mult(matB.transpose());
             }
 
-            return System.nanoTime()-prev;
+            long elapsedTime = System.nanoTime()-prev;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
+            return elapsedTime;
         }
     }
 
@@ -215,15 +255,17 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             SimpleMatrix matA = inputs[0].getOriginal();
+            SimpleMatrix result = null;
 
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.scale(ScaleGenerator.SCALE);
+                result = matA.elementMult(ScaleGenerator.SCALE);
             }
 
-
-            return System.nanoTime()-prev;
+            long elapsedTime = System.nanoTime()-prev;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
+            return elapsedTime;
         }
     }
 
@@ -243,13 +285,17 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
             SimpleMatrix matA = inputs[0].getOriginal();
             SimpleMatrix matB = inputs[1].getOriginal();
 
+            SimpleMatrix result = null;
+
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.solve(matB);
+                result = matA.solve(matB);
             }
 
-            return System.nanoTime()-prev;
+            long elapsedTime = System.nanoTime()-prev;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
+            return elapsedTime;
         }
     }
 
@@ -262,13 +308,17 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
         @Override
         public long process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
             SimpleMatrix matA = inputs[0].getOriginal();
+            SimpleMatrix result = null;
 
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                matA.transpose();
+                result = matA.transpose();
             }
-            return System.nanoTime()-prev;
+
+            long elapsedTime = System.nanoTime()-prev;
+            outputs[0] = new EjmlBenchmarkMatrix(result);
+            return elapsedTime;
         }
     }
 }

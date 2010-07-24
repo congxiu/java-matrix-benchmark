@@ -11,6 +11,7 @@
 - multTranA test is changed to multTranB test.  transposing A was arbitrary, but it created two scenarios where
   a column major format had an advantage.  Might as well give one where a row major has an advantage.
 - Fixed bug where overhead was being measured in runtime benchmark
+- Made stability benchmark's accuracy criteria more rigid
 
 ----- Version 0.6
 

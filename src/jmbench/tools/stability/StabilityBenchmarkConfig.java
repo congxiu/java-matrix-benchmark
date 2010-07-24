@@ -101,7 +101,9 @@ public class StabilityBenchmarkConfig implements Serializable {
         config.baseMemory = 20;
         config.scaleMemory = 2;
 
-        config.breakingPoint = 0.001;
+        // some what arbitrary.  selected so that it will work on small and large
+        // matrices with a generous cushion.  really should be a function of matrix size.
+        config.breakingPoint = 1e-9;
 
         int off = 4;
         config.overFlowFactor = off;

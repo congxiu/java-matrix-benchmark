@@ -21,6 +21,7 @@ package jmbench.impl.wrapper;
 
 import jmbench.interfaces.BenchmarkMatrix;
 import org.ejml.data.DenseMatrix64F;
+import org.ejml.data.SimpleMatrix;
 
 
 /**
@@ -32,6 +33,10 @@ public class EjmlBenchmarkMatrix implements BenchmarkMatrix {
 
     public EjmlBenchmarkMatrix(DenseMatrix64F mat) {
         this.mat = mat;
+    }
+
+    public EjmlBenchmarkMatrix(SimpleMatrix mat) {
+        this.mat = mat.getMatrix();
     }
 
     @Override
