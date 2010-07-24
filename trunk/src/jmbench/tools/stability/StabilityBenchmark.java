@@ -67,7 +67,12 @@ public class StabilityBenchmark {
             throw new RuntimeException(e);
         }
 
+        long timeBefore = System.currentTimeMillis();
         processLibraries(config.targets,config);
+        long timeAfter = System.currentTimeMillis();
+
+        System.out.println();
+        System.out.println("Done with stability benchmark. Processing time "+(timeAfter-timeBefore)+" (ms)");
     }
 
     private void processLibraries( List<EvaluationTarget> libs, StabilityBenchmarkConfig config ) {
