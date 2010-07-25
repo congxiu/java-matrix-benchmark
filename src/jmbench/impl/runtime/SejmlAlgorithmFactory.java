@@ -260,7 +260,7 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
             long prev = System.nanoTime();
 
             for( long i = 0; i < numTrials; i++ ) {
-                result = matA.elementMult(ScaleGenerator.SCALE);
+                result = matA.scale(ScaleGenerator.SCALE);
             }
 
             long elapsedTime = System.nanoTime()-prev;

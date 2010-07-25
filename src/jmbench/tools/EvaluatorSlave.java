@@ -93,7 +93,7 @@ public class EvaluatorSlave {
             }
             writeOutFailure(requestID,FailReason.MISC_EXCEPTION,message);
         } catch( OutOfMemoryError e ) {
-            if( VERBOSE) System.out.println("Slave is out of memory!");
+            if( VERBOSE) System.out.println("OutOfMemoryError: Slave is out of memory!");
             writeOutFailure(requestID,FailReason.OUT_OF_MEMORY,null);
         }
 
