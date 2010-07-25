@@ -47,9 +47,6 @@ public class BenchmarkTools {
     // jar that need to be added
     String extraJars = "";
 
-    // how much past the expected time should it wait before declaring it frozen
-    int frozenScale = 20;
-
     // if no estimated processing time is provided it should wait this long before
     // declaring the process to be frozen
     long frozenDefaultTime = 10*60*1000;
@@ -107,10 +104,6 @@ public class BenchmarkTools {
 
     public String getClassPath() {
         return System.getProperty("java.class.path")+extraJars;
-    }
-
-    public void setFrozenScale(int frozenScale) {
-        this.frozenScale = frozenScale;
     }
 
     public void setFrozenDefaultTime(long frozenDefaultTime) {
@@ -320,7 +313,8 @@ public class BenchmarkTools {
                 }
             }
         } else {
-            System.out.println("Killing a frozen slave");
+            errorStream.println("BenchmarkTools: Killing a frozen slave.");
+            System.out.println("BenchmarkTools: Killing a frozen slave.");
             // kill the frozen process
             pr.destroy();
             pr.waitFor();

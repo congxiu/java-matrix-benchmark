@@ -128,7 +128,6 @@ public class RuntimeBenchmarkLibrary {
         }
 
         tools = new BenchmarkTools(config.numBlockTrials,config.memorySlaveBase,config.memorySlaveScale,jarNames);
-        tools.setFrozenScale(20);
 
         this.libraryType = libraryType;
     }
@@ -229,7 +228,7 @@ public class RuntimeBenchmarkLibrary {
         OperationResults r = computeResults(e, state.matrixIndex , randSeed[state.blockIndex] , score , state.results);
 
         if( r == null )
-            throw new RuntimeException("Shouldn't return null any more.  Thsi is a bug.");
+            throw new RuntimeException("Shouldn't return null any more.  This is a bug.");
 
         boolean done = tooSlow || caseFailed;
 
@@ -313,7 +312,7 @@ public class RuntimeBenchmarkLibrary {
             if( caseFailed )  {
                 if( r != null && r.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ){
                     // have it run again, which will up the memory
-                    System.out.println("  Not enough memory given to slave.");
+                    System.out.println("  Not enough memory given to slave. Attempt "+attempts);
                     logStream.println("Not enough memory for op.  Attempt num "+attempts+"  op name = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb");
                 } else {
                     return null;

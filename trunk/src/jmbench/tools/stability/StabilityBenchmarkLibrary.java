@@ -286,7 +286,7 @@ public class StabilityBenchmarkLibrary {
                 logStream.println("*** WTF runTest returned null = "+e.getTestName());
                 fatalError = FatalError.RETURNED_NULL;
             } else if( results.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ){
-                System.out.println("  Not enough memory given to slave.");
+                System.out.println("  Not enough memory given to slave. Attempt "+attempts);
                 logStream.println("Not enough memory for op.  Attempt num "+attempts+"  op = "+e.getTestName()+" memory "+tools.getAllocatedMemory());
                 // have it run again, which will up the memory
                 continue;
