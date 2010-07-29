@@ -10,6 +10,8 @@ By default results for all new tests are stored in a new directory created in th
 
 == Runtime Performance Benchmark ==
 
+THIS IS OUT OF DATE!!!  AN APPLICATION IS NOW USED.
+
   * Run a new benchmark using the default configuration.
     * Command line: ant benchmarkRuntime
   * Start a new benchmark using a specific configuration file.
