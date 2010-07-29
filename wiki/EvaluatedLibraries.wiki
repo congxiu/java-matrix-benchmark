@@ -46,9 +46,10 @@ Below is a summary of each of the libraries that were tested.  The columns indic
 || MTJ ||                 || True  ||      || True ||
 || OjAlgo || True         ||       || True ||      ||
 || Parallel Colt || True  ||       ||      || True ||
-|| UJMP || True [1]       || True  ||      ||      ||
+|| UJMP || True (1)       || True  ||      ||      ||
 || JBlas ||               || True  ||      ||      ||
-[1] if UJMP is multi-threaded depends on which libraries it is wrapped around.  In these benchmarks it is multi-threaded.
+
+(1) if UJMP is multi-threaded depends on which libraries it is wrapped around.  In these benchmarks it is multi-threaded.
 
 = Benchmarking Issues =
 
