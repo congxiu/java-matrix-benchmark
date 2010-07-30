@@ -54,7 +54,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     // randomize the order that the benchmarks are done in
     public boolean randizeOrder;
 
-    // all the functions that will be benchmarked
+    // all the functions that will be evaluated
     public boolean chol;
     public boolean lu;
     public boolean svd;
@@ -75,12 +75,12 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public List<EvaluationTarget> targets;
 
     // how many performance trials should it run in a block
-    public int numBlockTrials; // 5
+    public int numBlockTrials;
     // a block is a set of trials performed in a single instance of a spawned VM
     // This is the number of times a block is spawned to evaluate the same set of input parameters
-    public int numBlocks; // 5
+    public int numBlocks;
     // the minimum amount of time each trials should last for
-    public int trialTime;// 3000
+    public int trialTime;
     // the maximum amount of time a trial can last for
     public int maxTrialTime;
 
@@ -120,9 +120,9 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.memorySlaveBase = 20;
         config.memorySlaveScale = 1;
         config.randizeOrder = true;
-        config.maxMatrixSize = 5000;
+        config.maxMatrixSize = 2000;
         config.minMatrixSize = 2;
-        config.sanityCheck = true;
+        config.sanityCheck = false;
 
 //        config.chol = true;
 //        config.lu = true;
