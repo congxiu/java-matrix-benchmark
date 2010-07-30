@@ -31,11 +31,6 @@
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 
-    <path id="benchmark.classpath">
-        <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
-        <fileset dir="lib/" includes="EJML.jar"/>
-        <fileset dir="lib/" includes="libpja.jar"/>
-    </path>
 
     <path id="test.classpath">
         <path refid="project.classpath"/>
@@ -79,10 +74,10 @@
         <mkdir dir="${jar.dir}"/>
         <jar destfile="${jar.dir}/benchmark_app.jar" basedir="${classes.dir}">
 
-        <zipgroupfileset dir="${jar.dir}" includes="${ant.project.name}.jar"/>
         <zipgroupfileset dir="lib" includes="EJML.jar"/>
         <zipgroupfileset dir="lib" includes="libpja.jar"/>
         <zipgroupfileset dir="lib" includes="jfreechart*/*.jar"/>
+        <zipgroupfileset dir="${jar.dir}" includes="${ant.project.name}.jar"/>
 
         <manifest>
             <attribute name="Main-Class" value="jmbench.tools.BenchmarkToolsMasterApp"/>
@@ -118,33 +113,6 @@
             </batchtest>
         </junit>
     </target>
-
-    <target name="benchmarkRuntime" depends="jar">
-        <java classname="jmbench.tools.runtime.RuntimeBenchmarkMaster"
-              fork="true"
-              failonerror="true"
-              jvm="${java.vm}">
-             <arg line="${benchmarkconfig}" />
-            <classpath>
-                <path refid="benchmark.classpath"/>
-                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
-            </classpath>
-        </java>
-    </target>
-
-    <target name="benchmarkStability" depends="jar">
-        <java classname="jmbench.tools.stability.StabilityBenchmark"
-              fork="true"
-              failonerror="true"
-              jvm="${java.vm}">
-             <arg line="${benchmarkconfig}" />
-            <classpath>
-                <path refid="benchmark.classpath"/>
-                <fileset dir="${jar.dir}" includes="**/${ant.project.name}.jar"/>
-            </classpath>
-        </java>
-    </target>
-
 
     <target name="testreport">
         <junitreport todir="${testreport.dir}">

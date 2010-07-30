@@ -305,7 +305,12 @@ public class RuntimeBenchmarkLibrary {
 
         // try running the application a few times and see if its size increases
         for( int attempts = 0; attempts < 5; attempts++ ) {
-            tools.setMemoryScale(config.memorySlaveScale*(1+attempts));
+            int memoryScale = config.memorySlaveScale*(1+attempts);
+            // increase the amount of allocated memory if sanity checking is being done
+            if( config.sanityCheck )
+                memoryScale += config.memorySlaveScale;
+
+            tools.setMemoryScale(memoryScale);
 
             EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
 
