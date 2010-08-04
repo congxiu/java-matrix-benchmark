@@ -2,7 +2,7 @@
 
 = Introduction =
 
-The following is instructions for building and running JMatBench in the most straight forward way.  Apache ant (http://ant.apache.org/) is used to compile and build a java commandline application "benchmark_app", which can then be used to run the most common tools in a simplified interface. 
+The following is instructions for building and running JMatBench in the most straight forward way.  Apache ant (http://ant.apache.org/) is used to compile and build a java commandline application "benchmark_app", which can then be used to run the most common tools in a simple way. 
 
 = Building =
 
