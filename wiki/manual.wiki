@@ -43,7 +43,10 @@ The easiest way to run different benchmark tools is using the "benchmark_app.jar
   * Plot Runtime Results
   * Display Stability Results
 
-To get instruction on how to run these tools simply invoke benchmark_app with no arguments.  In linux make sure you are inside of the main jmatbench directory then type "java -jar build/jar/benchmark_app.jar".
+To get instruction on how to run these tools simply invoke benchmark_app with no arguments.  In linux make sure you are inside of the main jmatbench directory then type
+{{{
+java -jar build/jar/benchmark_app.jar
+}}}
 
 == Results Directory ==
 
@@ -61,6 +64,11 @@ An alternative way to configure the runtime benchmark is by editing a config.xml
 Instead of running the whole rigorous benchmark a quick and dirty trial can be run by invoking --Quick.  Results is be much less accurate (especially for small matrices) but the whole benchmark can be run in a day or so.
 
 By default the benchmark will dynamically determine the amount of memory to allocate.  This can slow the benchmark down and can cause problems if it starts using swap space.  Therefor it is recommended that a fixed amount of memory is allocated.  This can be done using --FixedMemory.
+
+To run a quick benchmark on larger matrices with a fixed memory:
+{{{
+java -jar build/jar/benchmark_app.jar runtime --Quick --Size=500:10000 --FixedMemory=7000
+}}}
 
 == Stability Benchmark ==
 
