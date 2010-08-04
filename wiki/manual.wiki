@@ -52,15 +52,30 @@ By default results for all new tests are stored in a new directory created in th
 
 == Runtime Performance Benchmark ==
 
+It can take several days for the runtime benchmark to run to completion on most systems using the default configuration.  How long it takes is some what independent of the computer it is run on.  Command line arguments are provided for modifying common parameters such as the range of matrix size it tests.
 
+An optional parameter is to turn on a runtime sanity check.  This ensure that each library is in fact performing the expected operation and generating reasonably accurate results.  The down side is that running with this feature turned on increases the memory requirements and slows down the benchmark, which is why it has been turned off by default.
+
+An alternative way to configure the runtime benchmark is by editing a config.xml file and telling the benchmark to use it.  If running the same benchmark on multiple computers this will ensure that the same random seed and other options are identical.  It is also much more flexible than the command-line arguments.
   
+Instead of running the whole rigorous benchmark a quick and dirty trial can be run by invoking --Quick.  Results can be provided in a day or say instead of a week, but the results will be much more prone to random variations.
+
 == Stability Benchmark ==
 
+Stability benchmark measures how prone each library is to errors under different conditions in different operations.  On 2.4 GHz x86 processor this takes about 2 days.
 
 == Memory Benchmark ==
 
+Estimates the amount of memory each library requires to perform different operations.
+
 == Show Runtime Check Results ==
+
+If sanity checks were turned on this will display any errors that occurred.
 
 == Plot Runtime Results ==
 
+When invoked without any parameters it will show relative runtime results and create a plots directory containing absolute and relative plots from the last runtime results created.  It is possible to specify a results directory for it to plot.
+
 == Display Stability Results ==
+
+Creates a table (html or plain text) that shows the stability benchmark results.
