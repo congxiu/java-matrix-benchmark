@@ -58,7 +58,7 @@ An optional parameter is to turn on a runtime sanity check.  This ensure that ea
 
 An alternative way to configure the runtime benchmark is by editing a config.xml file and telling the benchmark to use it.  If running the same benchmark on multiple computers this will ensure that the same random seed and other options are identical.  It is also much more flexible than the command-line arguments.
   
-Instead of running the whole rigorous benchmark a quick and dirty trial can be run by invoking --Quick.  Results can be provided in a day or say instead of a week, but the results will be much more prone to random variations.
+Instead of running the whole rigorous benchmark a quick and dirty trial can be run by invoking --Quick.  Results is be much less accurate (especially for small matrices) but the whole benchmark can be run in a day or so.
 
 By default the benchmark will dynamically determine the amount of memory to allocate.  This can slow the benchmark down and can cause problems if it starts using swap space.  Therefor it is recommended that a fixed amount of memory is allocated.  This can be done using --FixedMemory.
 
