@@ -60,6 +60,8 @@ An alternative way to configure the runtime benchmark is by editing a config.xml
   
 Instead of running the whole rigorous benchmark a quick and dirty trial can be run by invoking --Quick.  Results can be provided in a day or say instead of a week, but the results will be much more prone to random variations.
 
+By default the benchmark will dynamically determine the amount of memory to allocate.  This can slow the benchmark down and can cause problems if it starts using swap space.  Therefor it is recommended that a fixed amount of memory is allocated.  This can be done using --FixedMemory.
+
 == Stability Benchmark ==
 
 Stability benchmark measures how prone each library is to errors under different conditions in different operations.  On 2.4 GHz x86 processor this takes about 2 days.
