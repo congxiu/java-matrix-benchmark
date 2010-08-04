@@ -100,6 +100,12 @@ public class RuntimeBenchmarkLibrary {
 
     private RuntimeBenchmarkConfig config;
 
+    // the most memory that it allocated to java without any issues
+    private long maxMemoryAllocated;
+
+    // should it spawn a slave to run the benchmark or do it in the same java instance as this class
+    private static final boolean SPAWN_SLAVE = true;
+
     public RuntimeBenchmarkLibrary( String outputDir , RuntimePerformanceFactory library  ,
                              List<String> jarNames , MatrixLibrary libraryType,
                              RuntimeBenchmarkConfig config )
@@ -305,12 +311,19 @@ public class RuntimeBenchmarkLibrary {
 
         // try running the application a few times and see if its size increases
         for( int attempts = 0; attempts < 5; attempts++ ) {
-            int memoryScale = config.memorySlaveScale*(1+attempts);
-            // increase the amount of allocated memory if sanity checking is being done
-            if( config.sanityCheck )
-                memoryScale += config.memorySlaveScale;
+            // estimate how much memory is needed for the operation
+            long memory = test.getInputMemorySize()/1024/1024 + config.memorySlaveBase;
 
-            tools.setMemoryScale(memoryScale);
+            // if this is less than the max it knows it can get away with set it to the max
+            // to reduce the number of attempts needed in the future.
+            if( memory < maxMemoryAllocated ) {
+                memory = maxMemoryAllocated;
+            }
+
+            // increase the amount of memory allocated if it failed last time
+            memory *= attempts+1;
+
+            tools.setOverrideMemory(memory);
 
             EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
 
@@ -322,8 +335,11 @@ public class RuntimeBenchmarkLibrary {
                 } else {
                     return null;
                 }
-            }else {
-                 return (List<RuntimeResults>)((List)r.results);
+            } else {
+                if( memory > maxMemoryAllocated ) {
+                    maxMemoryAllocated = memory;
+                }
+                return (List<RuntimeResults>)((List)r.results);
             }
 
         }
@@ -362,8 +378,11 @@ public class RuntimeBenchmarkLibrary {
     private EvaluatorSlave.Results callRunTest(RuntimeEvaluationCase e, EvaluationTest test, int matrixSize) {
         tooSlow = false;
         caseFailed = false;
-        EvaluatorSlave.Results r = tools.runTest(test);
-//        EvaluatorSlave.Results r = tools.runTestNoSpawn(test);
+        EvaluatorSlave.Results r;
+        if( SPAWN_SLAVE )
+            r = tools.runTest(test);
+        else
+            r = tools.runTestNoSpawn(test);
 
         if( r == null ) {
             logStream.println("*** RunTest returned null: op = "+e.getOpName()+" matrix size = "+matrixSize+" memory = "+tools.getAllocatedMemory()+" mb duration = "+tools.getDurationMilli());

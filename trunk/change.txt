@@ -12,6 +12,8 @@
   a column major format had an advantage.  Might as well give one where a row major has an advantage.
 - Fixed bug where overhead was being measured in runtime benchmark
 - Made stability benchmark's accuracy criteria more rigid
+- Runtime benchmark now remembers how much memory that was been successfully used in the past and allocates at least that much
+  in the future.
 
 ----- Version 0.6
 

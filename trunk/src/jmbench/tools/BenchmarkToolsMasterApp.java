@@ -38,16 +38,24 @@ public class BenchmarkToolsMasterApp {
     public static double SMALL_PERTURBATION = 1e-8;
 
     public static void printHelp() {
-        System.out.println("<tool> <tool arguments>");
-        System.out.println("The first argument specifies which tool is to be run:" +
-                " <stability|runtime|memory|checkRuntime|plotRuntime|displayStability>");
+        System.out.println("A tool must be specified:");
         System.out.println();
-        System.out.println("For runtime tool:");
-        RuntimeBenchmarkMaster.printHelp();
-        System.out.println("For runtime plot tool:");
-        PlotRuntimeResultsXml.printHelp();
-        System.out.println("For runtime check tool:");
-        CheckForErrorsInResultsXml.printHelp();
+        System.out.println("  java -jar benchmark_app.jar <tool>");
+        System.out.println();
+        System.out.println("Where tool is one of the following keywords: ");
+        System.out.println("  stability          Runs the stability benchmark.");
+        System.out.println("  runtime            Runs the runtime benchmark.");
+        System.out.println("  memory             Runs the memory benchmark.");
+        System.out.println("  checkRuntime       Outputs the runtime sanity check results.");
+        System.out.println("  plotRuntime        Generates plots from runtime results.");
+        System.out.println("  displayStability   Prints out tables showing stability results.");
+        System.out.println();
+        System.out.println("For example to run the runtime benchmark type:");
+        System.out.println("  java -jar benchmark_app.jar runtime");
+        System.out.println();
+        System.out.println("Additional help on commandline arguments for each tool can be obtained by typing:");
+        System.out.println("  java -jar <tool> help");
+        System.out.println();
         System.exit(0);
     }
 
