@@ -2,30 +2,65 @@
 
 = Introduction =
 
-For ease of use ant scripts are provided for compiling and running the code.  
+The following is instructions for building and running JMatBench in the most straight forward way.  Apache ant (http://ant.apache.org/) is used to compile and build a java commandline application "benchmark_app", which can then be used to run the most common tools in a simplified interface.  The code can be compiled inside of eclipse/IntelliJ IDE's in a straight forward manor, but this is not covered here.
+
+= Building =
+
+To build JMatBench first the source code must be acquired from either the SVN repository or from a prebuild package at http://code.google.com/p/java-matrix-benchmark/.  An ant script is provided for building "benchmark_app".  Benchmark_app is an application that provides an easy to use command line interface for running various benchmarking tools.  Running the ant script requires that both ant and java be installed.  Once that has been done simply run the "app" script inside of build.xml and it will compile the benchmark and put benchmark_app.jar inside of the "build/jar" directory.  
+
+The following is a command line example in linux:
+{{{
+$ ant app
+Buildfile: build.xml
+
+compile:
+    [mkdir] Created dir: jmatbench/build/classes
+    [javac] Compiling 129 source files to jmatbench/build/classes
+    [javac] Note: jmatbench/src/jmbench/impl/runtime/UjmpAlgorithmFactory.java uses or overrides a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+
+jar:
+    [mkdir] Created dir: jmatbench/build/jar
+      [jar] Building jar: jmatbench/build/jar/jmatbench.jar
+
+app:
+      [jar] Building jar: jmatbench/build/jar/benchmark_app.jar
+
+BUILD SUCCESSFUL
+Total time: 7 seconds
+}}}
 
 = Running the Benchmarks =
 
+The easiest way to run different benchmark tools is using the "benchmark_app.jar", which provides a command-line interface. A list of tools that it can invoke is provided below:
+
+  * Runtime Benchmark
+  * Stability Benchmark
+  * Memory Benchmark
+  * Runtime Check
+  * Plot Runtime Results
+  * Display Stability Results
+
+To get instruction on how to run these tools simply invoke benchmark_app with no arguments.  In linux make sure you are inside of the main jmatbench directory then type "java -jar build/jar/benchmark_app.jar".
+
+== Results Directory ==
+
 By default results for all new tests are stored in a new directory created in the results directory.  The name of the directory will be the time in milliseconds when the test was started.  This way old results are not accidentally overwritten.
+
 
 == Runtime Performance Benchmark ==
 
-THIS IS OUT OF DATE!!!  AN APPLICATION IS NOW USED.
 
-  * Run a new benchmark using the default configuration.
-    * Command line: ant benchmarkRuntime
-  * Start a new benchmark using a specific configuration file.
-    * Command line: ant benchmarkRuntime -Dbenchmarkconfig=/path/to/config.xml
-  * Finish a benchmark that was incomplete.  Operations that were not completely finished will be deleted.
-    * Command line: ant benchmarkRuntime -Dbenchmarkconfig=/path/to/incomplete/results/directory
   
 == Stability Benchmark ==
 
-  * Run a new benchmark using the default configuration
-    * Command line: ant benchmarkStability
 
+== Memory Benchmark ==
 
-= Creating Plots and Tables =
+== Show Runtime Check Results ==
 
+== Plot Runtime Results ==
 
-= Converting to Common Format =
+== Display Stability Results ==
