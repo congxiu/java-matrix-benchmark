@@ -45,7 +45,25 @@ The easiest way to run different benchmark tools is using the "benchmark_app.jar
 
 To get instruction on how to run these tools simply invoke benchmark_app with no arguments.  In linux make sure you are inside of the main jmatbench directory then type
 {{{
-java -jar build/jar/benchmark_app.jar
+$ java -jar build/jar/benchmark_app.jar
+
+A tool must be specified:
+
+  java -jar benchmark_app.jar <tool>
+
+Where tool is one of the following keywords: 
+  stability          Runs the stability benchmark.
+  runtime            Runs the runtime benchmark.
+  memory             Runs the memory benchmark.
+  checkRuntime       Outputs the runtime sanity check results.
+  plotRuntime        Generates plots from runtime results.
+  displayStability   Prints out tables showing stability results.
+
+For example to run the runtime benchmark type:
+  java -jar benchmark_app.jar runtime
+
+Additional help on commandline arguments for each tool can be obtained by typing:
+  java -jar <tool> help
 }}}
 
 == Results Directory ==
