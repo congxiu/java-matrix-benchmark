@@ -83,7 +83,7 @@ Instead of running the whole rigorous benchmark a quick and dirty trial can be r
 
 By default the benchmark will dynamically determine the amount of memory to allocate.  This can slow the benchmark down and can cause problems if it starts using swap space.  Therefor it is recommended that a fixed amount of memory is allocated.  This can be done using --FixedMemory.
 
-To run a quick benchmark on larger matrices with a fixed memory:
+To run a quick benchmark on larger matrices with a fixed memory of 7000 MB:
 {{{
 java -jar build/jar/benchmark_app.jar runtime --Quick --Size=500:10000 --FixedMemory=7000
 }}}
