@@ -1,4 +1,6 @@
 
+- Tool to compare two sets of benchmark results on different computers or runs.
+
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
 - stability of BigDecimal matrices?
