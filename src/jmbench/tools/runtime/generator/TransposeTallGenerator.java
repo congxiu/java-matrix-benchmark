@@ -25,7 +25,6 @@ import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
-import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
 
@@ -36,7 +35,7 @@ import static jmbench.misc.RandomizeMatrices.randomize;
 /**
  * @author Peter Abeles
  */
-public class TransposeGenerator implements InputOutputGenerator {
+public class TransposeTallGenerator implements InputOutputGenerator {
 
     DenseMatrix64F C;
 
@@ -45,7 +44,7 @@ public class TransposeGenerator implements InputOutputGenerator {
                                            boolean checkResults , int size ) {
         BenchmarkMatrix[] inputs = new  BenchmarkMatrix[1];
 
-        inputs[0] = factory.create(size,size);
+        inputs[0] = factory.create(size*2,size);
 
         randomize(inputs[0],-1,1,rand);
 
@@ -69,6 +68,6 @@ public class TransposeGenerator implements InputOutputGenerator {
 
     @Override
     public long getRequiredMemory( int matrixSize ) {
-        return 8L*matrixSize*matrixSize*8L;
+        return 8L*2*matrixSize*matrixSize*8L;
     }
 }

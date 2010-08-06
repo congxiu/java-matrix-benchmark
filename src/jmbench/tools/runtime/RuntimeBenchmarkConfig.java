@@ -69,7 +69,8 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public boolean scale;
     public boolean solveExact;
     public boolean solveOver;
-    public boolean transpose;
+    public boolean transposeSquare;
+    public boolean transposeTall;
 
     // which libraries are to be evaluated
     public List<EvaluationTarget> targets;
@@ -120,7 +121,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.memorySlaveBase = 20;
         config.memorySlaveScale = 1;
         config.randizeOrder = true;
-        config.maxMatrixSize = 2000;
+        config.maxMatrixSize = 10;
         config.minMatrixSize = 2;
         config.sanityCheck = false;
 
@@ -128,32 +129,33 @@ public class RuntimeBenchmarkConfig implements Serializable {
 //        config.lu = true;
 //        config.qr = true;
         
-        config.svd = true;
-        config.eigSymm = true;
-        config.det = true;
-        config.invert = true;
-        config.invertSymmPosDef = true;
-        config.add = true;
-        config.mult = true;
-        config.multTransB = true;
-        config.scale = true;
-        config.solveExact = true;
-        config.solveOver = true;
-        config.transpose = true;
+//        config.svd = true;
+//        config.eigSymm = true;
+//        config.det = true;
+//        config.invert = true;
+//        config.invertSymmPosDef = true;
+//        config.add = true;
+//        config.mult = true;
+//        config.multTransB = true;
+//        config.scale = true;
+//        config.solveExact = true;
+//        config.solveOver = true;
+        config.transposeSquare = true;
+        config.transposeTall = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
 
         config.targets.add(ejml);
 //        config.targets.add(sejml);
         config.targets.add(jama);
-        config.targets.add(ojalgo);
-        config.targets.add(commons);
-        config.targets.add(colt);
-        config.targets.add(pcolt);
-        config.targets.add(mtj);
-        config.targets.add(ujmp_j);
-        config.targets.add(ujmp);
-        config.targets.add(jblas);
+//        config.targets.add(ojalgo);
+//        config.targets.add(commons);
+//        config.targets.add(colt);
+//        config.targets.add(pcolt);
+//        config.targets.add(mtj);
+//        config.targets.add(ujmp_j);
+//        config.targets.add(ujmp);
+//        config.targets.add(jblas);
 
         return config;
     }
@@ -270,12 +272,20 @@ public class RuntimeBenchmarkConfig implements Serializable {
         this.solveOver = solveOver;
     }
 
-    public boolean isTranspose() {
-        return transpose;
+    public boolean isTransposeSquare() {
+        return transposeSquare;
     }
 
-    public void setTranspose(boolean transpose) {
-        this.transpose = transpose;
+    public void setTransposeSquare(boolean transposeSquare) {
+        this.transposeSquare = transposeSquare;
+    }
+
+    public boolean isTransposeTall() {
+        return transposeTall;
+    }
+
+    public void setTransposeTall(boolean transposeTall) {
+        this.transposeTall = transposeTall;
     }
 
     public List<EvaluationTarget> getTargets() {
