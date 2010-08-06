@@ -20,56 +20,46 @@
 package jmbench.tools.stability.tests;
 
 import jmbench.interfaces.StabilityOperationInterface;
-import jmbench.tools.BenchmarkToolsMasterApp;
 import jmbench.tools.OutputError;
 import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
-import org.ejml.data.SimpleMatrix;
+import org.ejml.ops.CommonOps;
 import org.ejml.ops.RandomMatrices;
 
 
 /**
+ * Overflow benchmark for inverting symmetric positive definite matrices.
+ *
  * @author Peter Abeles
  */
-public class SvdOverflow extends OverflowTestBase {
+public class InvSymmOverflow extends OverflowTestBase {
 
-    private static final double svMag = 1;
+    protected volatile DenseMatrix64F I_found;
+    protected volatile DenseMatrix64F I;
 
-    public SvdOverflow(long randomSeed, StabilityOperationInterface operation, int totalTrials,
-                       double breakingPoint, int minLength, int maxLength, boolean overflow) {
+    public InvSymmOverflow(long randomSeed, StabilityOperationInterface operation, int totalTrials,
+                           double breakingPoint, int minLength, int maxLength, boolean overflow) {
         super(randomSeed, operation, totalTrials, breakingPoint, minLength, maxLength, overflow);
     }
 
-    public SvdOverflow(){}
+    public InvSymmOverflow() {
+    }
 
     @Override
-    protected void createMatrix( int m, int n ) {
-//        System.out.println("Matrix size = ("+m+" , "+n+" )");
-        DenseMatrix64F U = RandomMatrices.createOrthogonal(m,m,rand);
-        DenseMatrix64F V = RandomMatrices.createOrthogonal(n,n,rand);
-
-        int o = Math.min(m,n);
-
-        // randomly generate singular values and put into ascending order
-        double[] sv = new double[o];
-        for( int i = 0; i < o; i++ )
-        // perturb it from being exactly svMag since that is a pathological case for some
-        // algorithms and not common in real world scenarios
-            sv[i] = svMag+rand.nextDouble()* BenchmarkToolsMasterApp.SMALL_PERTURBATION;
-
-        A = SolverCommon.createMatrix(U,V, sv);
-        Ascaled = new DenseMatrix64F(m,n);
+    protected void createMatrix(int m, int n) {
+        A = RandomMatrices.createSymmPosDef(m,rand);
+        Ascaled = new DenseMatrix64F(m,m);
+        I_found = new DenseMatrix64F(m,m);
+        I = CommonOps.identity(m);
     }
 
     @Override
     protected boolean checkResults(DenseMatrix64F[] results) {
-        SimpleMatrix U = SimpleMatrix.wrap(results[0]);
-        SimpleMatrix S = SimpleMatrix.wrap(results[1]);
-        SimpleMatrix V = SimpleMatrix.wrap(results[2]);
+        DenseMatrix64F A_inv = results[0];
 
-        DenseMatrix64F foundA = U.mult(S).mult(V.transpose()).getMatrix();
+        CommonOps.mult(Ascaled,A_inv,I_found);
 
-        double error = StabilityBenchmark.residualError(foundA,Ascaled);
+        double error = StabilityBenchmark.residualError(I_found,I);
 
         if( error > breakingPoint ) {
             reason = OutputError.LARGE_ERROR;
@@ -81,18 +71,18 @@ public class SvdOverflow extends OverflowTestBase {
 
     @Override
     public String getTestName() {
-        if( overflow)
-            return "SVD Overflow";
+        if( overflow )
+            return "Inverse Symmetric Overflow";
         else
-            return "SVD Underflow";
+            return "Inverse Symmetric Underflow";
     }
 
     @Override
     public String getFileName() {
         if( overflow )
-            return "SvdOverflow";
+            return "InvSymmOverflow";
         else
-            return "SvdUnderflow";
+            return "InvSymmUnderflow";
     }
 
     @Override

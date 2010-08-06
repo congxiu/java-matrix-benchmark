@@ -41,6 +41,9 @@ public class GenerateHtmlTables extends TablesCommon {
         System.out.println("\n== Least Squares Solve ==");
         System.out.println();
         printSolvingLeastSquares(opMap);
+        System.out.println("\n== Symmetric Positive Definite Inverse ==");
+        System.out.println();
+        printSymmInverse(opMap);
         System.out.println("\n== Singular Value Decomposition ==");
         System.out.println();
         printSvd(opMap);
@@ -89,6 +92,10 @@ public class GenerateHtmlTables extends TablesCommon {
             System.out.println("</TR>");
         }
         System.out.println("</TABLE>");
+    }
+
+    private void printSymmInverse( Map<String, List> opMap ) {
+        printDecomposition(opMap,"InvSymmOverflow","InvSymmUnderflow","InvSymmAccuracy");
     }
 
     private void printSvd( Map<String, List> opMap ) {
@@ -241,7 +248,7 @@ public class GenerateHtmlTables extends TablesCommon {
     }
 
     public static void main( String args[] ) {
-        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/jmatbench/trunk/results/1278775090786/large");
+        GenerateHtmlTables p = new GenerateHtmlTables("/home/pja/projects/jmatbench/trunk/results/1281054307820/small");
 
         p.plot();
     }

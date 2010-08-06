@@ -14,6 +14,7 @@
 - Made stability benchmark's accuracy criteria more rigid
 - Runtime benchmark now remembers how much memory that was been successfully used in the past and allocates at least that much
   in the future.
+- Added stability test for SPD inverse.
 
 ----- Version 0.6
 

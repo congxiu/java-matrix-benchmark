@@ -20,12 +20,15 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
-import static jmbench.impl.runtime.UjmpAlgorithmFactory.convertToUjmp;
-import static jmbench.impl.runtime.UjmpAlgorithmFactory.ujmpToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
 import org.ujmp.core.Matrix;
+import org.ujmp.core.MatrixFactory;
+import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
+
+import static jmbench.impl.runtime.UjmpAlgorithmFactory.convertToUjmp;
+import static jmbench.impl.runtime.UjmpAlgorithmFactory.ujmpToEjml;
 
 
 /**
@@ -106,4 +109,23 @@ public class UjmpStabilityFactory implements StabilityFactory {
         }
     }
 
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            Matrix matA = convertToUjmp(inputs[0]);
+
+            Matrix eye = MatrixFactory.eye(matA.getSize());
+
+            Matrix result = DenseDoubleMatrix2D.chol.solve(matA, eye);
+
+            DenseMatrix64F ejmlInv = ujmpToEjml(result);
+
+            return new DenseMatrix64F[]{ejmlInv};
+        }
+    }
 }

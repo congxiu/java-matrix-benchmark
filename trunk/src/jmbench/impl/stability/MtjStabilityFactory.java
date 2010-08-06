@@ -20,16 +20,14 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
-import static jmbench.impl.runtime.MtjAlgorithmFactory.convertToMtj;
-import static jmbench.impl.runtime.MtjAlgorithmFactory.mtjToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
-import no.uib.cipr.matrix.DenseMatrix;
-import no.uib.cipr.matrix.EVD;
-import no.uib.cipr.matrix.NotConvergedException;
-import no.uib.cipr.matrix.SVD;
+import no.uib.cipr.matrix.*;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
+
+import static jmbench.impl.runtime.MtjAlgorithmFactory.convertToMtj;
+import static jmbench.impl.runtime.MtjAlgorithmFactory.mtjToEjml;
 
 
 /**
@@ -127,6 +125,31 @@ public class MtjStabilityFactory implements StabilityFactory {
             DenseMatrix64F ejmlV = mtjToEjml(eig.getLeftEigenvectors());
 
             return new DenseMatrix64F[]{ejmlD,ejmlV};
+        }
+    }
+
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            DenseMatrix matA = convertToMtj(inputs[0]);
+
+            DenseCholesky cholesky = new DenseCholesky(matA.numRows(),false);
+            LowerSPDDenseMatrix uspd = new LowerSPDDenseMatrix(matA);
+
+            uspd.set(matA);
+            if( !cholesky.factor(uspd).isSPD() ) {
+                throw new RuntimeException("Is not SPD");
+            }
+
+            DenseMatrix result = cholesky.solve(Matrices.identity(matA.numColumns()));
+            DenseMatrix64F ejmlInv = mtjToEjml(result);
+
+            return new DenseMatrix64F[]{ejmlInv};
         }
     }
 }
