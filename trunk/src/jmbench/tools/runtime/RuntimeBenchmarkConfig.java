@@ -151,8 +151,8 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.targets.add(colt);
         config.targets.add(pcolt);
         config.targets.add(mtj);
-        config.targets.add(ujmp);
         config.targets.add(ujmp_j);
+        config.targets.add(ujmp);
         config.targets.add(jblas);
 
         return config;
