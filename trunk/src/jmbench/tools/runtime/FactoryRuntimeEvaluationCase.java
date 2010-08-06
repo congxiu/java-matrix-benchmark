@@ -53,7 +53,10 @@ public class FactoryRuntimeEvaluationCase {
         if( config.add && alg != null ) ret.add( createMatrixAdd(factory,alg));
 
         alg = factory.transpose();
-        if( config.transpose && alg != null ) ret.add( createTranspose(factory,alg));
+        if( config.transposeSquare && alg != null ) ret.add( createTranspose(factory,alg,false));
+
+        alg = factory.transpose();
+        if( config.transposeTall && alg != null ) ret.add( createTranspose(factory,alg,true));
 
         alg = factory.scale();
         if( config.scale && alg != null ) ret.add( createScale(factory,alg));
@@ -118,14 +121,20 @@ public class FactoryRuntimeEvaluationCase {
     }
 
     public RuntimeEvaluationCase createTranspose( RuntimePerformanceFactory factory ,
-                                                  AlgorithmInterface alg) {
+                                                  AlgorithmInterface alg,
+                                                  boolean tall) {
 
-        InputOutputGenerator generator = new TransposeGenerator();
+        InputOutputGenerator generator = new TransposeSquareGenerator();
 
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
-        return new RuntimeEvaluationCase("Transpose b=a^T","tran",matDimen,
-                factory,alg,generator);
+        if( tall ) {
+            return new RuntimeEvaluationCase("Trans Tall: b=a^T","tranTall",matDimen,
+                    factory,alg,generator);
+        } else {
+            return new RuntimeEvaluationCase("Trans Square: b=a^T","tran",matDimen,
+                    factory,alg,generator);
+        }
     }
 
     public RuntimeEvaluationCase createScale( RuntimePerformanceFactory factory ,
