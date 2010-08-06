@@ -121,7 +121,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.memorySlaveBase = 20;
         config.memorySlaveScale = 1;
         config.randizeOrder = true;
-        config.maxMatrixSize = 10;
+        config.maxMatrixSize = 2000;
         config.minMatrixSize = 2;
         config.sanityCheck = false;
 
@@ -129,17 +129,17 @@ public class RuntimeBenchmarkConfig implements Serializable {
 //        config.lu = true;
 //        config.qr = true;
         
-//        config.svd = true;
-//        config.eigSymm = true;
-//        config.det = true;
-//        config.invert = true;
-//        config.invertSymmPosDef = true;
-//        config.add = true;
-//        config.mult = true;
-//        config.multTransB = true;
-//        config.scale = true;
-//        config.solveExact = true;
-//        config.solveOver = true;
+        config.svd = true;
+        config.eigSymm = true;
+        config.det = true;
+        config.invert = true;
+        config.invertSymmPosDef = true;
+        config.add = true;
+        config.mult = true;
+        config.multTransB = true;
+        config.scale = true;
+        config.solveExact = true;
+        config.solveOver = true;
         config.transposeSquare = true;
         config.transposeTall = true;
 
@@ -148,14 +148,14 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.targets.add(ejml);
 //        config.targets.add(sejml);
         config.targets.add(jama);
-//        config.targets.add(ojalgo);
-//        config.targets.add(commons);
-//        config.targets.add(colt);
-//        config.targets.add(pcolt);
-//        config.targets.add(mtj);
-//        config.targets.add(ujmp_j);
-//        config.targets.add(ujmp);
-//        config.targets.add(jblas);
+        config.targets.add(ojalgo);
+        config.targets.add(commons);
+        config.targets.add(colt);
+        config.targets.add(pcolt);
+        config.targets.add(mtj);
+        config.targets.add(ujmp_j);
+        config.targets.add(ujmp);
+        config.targets.add(jblas);
 
         return config;
     }
