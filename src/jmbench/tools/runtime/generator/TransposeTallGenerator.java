@@ -44,7 +44,7 @@ public class TransposeTallGenerator implements InputOutputGenerator {
                                            boolean checkResults , int size ) {
         BenchmarkMatrix[] inputs = new  BenchmarkMatrix[1];
 
-        inputs[0] = factory.create(size*2,size);
+        inputs[0] = factory.create(size*2,size/2);
 
         randomize(inputs[0],-1,1,rand);
 
