@@ -29,59 +29,56 @@ import org.ejml.ops.RandomMatrices;
 
 
 /**
+ * Accuracy benchmark for inverting symmetric positive definite matrices.
+ *
  * @author Peter Abeles
  */
-public class EigSymmAccuracy extends AccuracyTestBase {
+public class InvSymmAccuracy extends AccuracyTestBase {
 
     protected volatile DenseMatrix64F A;
-    protected volatile DenseMatrix64F L;
-    protected volatile DenseMatrix64F R;
+    protected volatile DenseMatrix64F I_found;
+    protected volatile DenseMatrix64F I;
 
-    public EigSymmAccuracy(long randomSeed, StabilityOperationInterface operation,
+    public InvSymmAccuracy(long randomSeed, StabilityOperationInterface operation,
                            int totalTrials, int minLength, int maxLength) {
         super(randomSeed, operation, totalTrials, minLength, maxLength);
     }
 
-    public EigSymmAccuracy() {}
+    public InvSymmAccuracy() {}
 
     @Override
     protected void createMatrix( int m , int n ) {
-        A = RandomMatrices.createSymmetric(m,-1,1,rand);
+        A = RandomMatrices.createSymmPosDef(m,rand);
 
-        L = new DenseMatrix64F(m,m);
-        R = new DenseMatrix64F(m,m);
+        I_found = new DenseMatrix64F(m,m);
+        I = CommonOps.identity(m);
     }
 
-    @Override
     protected DenseMatrix64F[] createInputs() {
-        return new DenseMatrix64F[]{A};
+        return  new DenseMatrix64F[]{A};
     }
 
-    @Override
     protected void processResults(DenseMatrix64F[] inputs, DenseMatrix64F[] results) {
-        DenseMatrix64F D = results[0];
-        DenseMatrix64F V = results[1];
+        DenseMatrix64F A_inv = results[0];
 
-        if(MatrixFeatures.hasUncountable(D) ||
-                MatrixFeatures.hasUncountable(V)) {
+        if(MatrixFeatures.hasUncountable(A_inv) ) {
             reason = OutputError.UNCOUNTABLE;
             return;
         }
 
-        CommonOps.mult(A,V,L);
-        CommonOps.mult(V,D,R);
+        CommonOps.mult(A,A_inv,I_found);
 
-        foundResult = StabilityBenchmark.residualError(L,R);
+        foundResult = StabilityBenchmark.residualError(I_found,I);
     }
 
     @Override
     public String getTestName() {
-        return "Eigen Value Symmetric Accuracy";
+        return "Invert Symmetric Pos. Def. Accuracy";
     }
 
     @Override
     public String getFileName() {
-        return "EigSymmAccuracy";
+        return "InvSymmAccuracy";
     }
 
     @Override

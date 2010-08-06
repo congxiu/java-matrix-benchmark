@@ -27,6 +27,7 @@ import org.ejml.alg.dense.decomposition.EigenDecomposition;
 import org.ejml.alg.dense.decomposition.SingularValueDecomposition;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
+import org.ejml.ops.CovarianceOps;
 import org.ejml.ops.EigenOps;
 
 
@@ -119,6 +120,25 @@ public class EjmlStabilityFactory implements StabilityFactory {
             DenseMatrix64F V = EigenOps.createMatrixV(eig);
 
             return new DenseMatrix64F[]{D,V};
+        }
+    }
+
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation
+    {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            DenseMatrix64F A = inputs[0];
+            DenseMatrix64F A_inv = new DenseMatrix64F(A.numRows,A.numCols);
+
+            if( !CovarianceOps.invert(A,A_inv) )
+                throw new IllegalArgumentException("Not SPD");
+
+            return new DenseMatrix64F[]{A_inv};
         }
     }
 }

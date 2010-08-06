@@ -61,6 +61,8 @@ public class StabilityBenchmarkLibrary {
     // how much memory was allocated to the slave
     private long slaveMemoryMegaBytes;
 
+    boolean spawnChild = true;
+
     public StabilityBenchmarkLibrary(  String outputDir ,
                                        StabilityBenchmarkConfig config ,
                                        StabilityFactory library,
@@ -145,6 +147,12 @@ public class StabilityBenchmarkLibrary {
                         library.createSymmEigen(),
                         numSvd/config.overFlowFactor,
                         config.breakingPoint,sizeMin,sizeMax,true) );
+
+            if( config.checkSymInv )
+                operations.add( new InvSymmOverflow(config.randomSeed,
+                        library.createSymmInverse(),
+                        numSolve/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,true) );
         }
 
         if( config.checkUnderflow ) {
@@ -170,6 +178,12 @@ public class StabilityBenchmarkLibrary {
                 operations.add( new EigSymmOverflow(config.randomSeed,
                         library.createSymmEigen(),
                         numSvd/config.overFlowFactor,
+                        config.breakingPoint,sizeMin,sizeMax,false) );
+
+            if( config.checkSymInv )
+                operations.add( new InvSymmOverflow(config.randomSeed,
+                        library.createSymmInverse(),
+                        numSolve/config.overFlowFactor,
                         config.breakingPoint,sizeMin,sizeMax,false) );
         }
 
@@ -209,6 +223,12 @@ public class StabilityBenchmarkLibrary {
                 operations.add( new EigSymmAccuracy(config.randomSeed,
                         library.createSymmEigen(),
                         numSvd,
+                        sizeMin,sizeMax) );
+
+            if( config.checkSymInv )
+                operations.add( new InvSymmAccuracy(config.randomSeed,
+                        library.createSymmInverse(),
+                        numSolve,
                         sizeMin,sizeMax) );
         }
     }
@@ -278,8 +298,7 @@ public class StabilityBenchmarkLibrary {
         for( int attempts = 0; attempts < 5; attempts++ ) {
 
             tools.setMemoryScale(attempts+1);
-            EvaluatorSlave.Results results = tools.runTest(e);
-//            EvaluatorSlave.Results results = tools.runTestNoSpawn(e);
+            EvaluatorSlave.Results results = spawnChild ? tools.runTest(e) : tools.runTestNoSpawn(e);
             slaveMemoryMegaBytes = tools.getAllocatedMemory();
 
             if( results == null ) {

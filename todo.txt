@@ -1,6 +1,4 @@
-- Symmetric inverse stability benchmark
 
-- remember amount of memory previously allocated for a particular matrix size
 - only plot results if errors don't exist
 - use BigDecimal to compute accuracy of libraries
 - stability of BigDecimal matrices?
@@ -8,6 +6,3 @@
 - convert results to excel format
 
 - Create a memory leak test
-
-- Note some place that EJML is always included so libraries that depend on it will use whatever version
-the benchmark is using

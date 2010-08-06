@@ -20,19 +20,20 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
-import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.convertToBlockReal;
-import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.realToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.apache.commons.math.linear.*;
 import org.apache.commons.math.util.MathUtils;
 import org.ejml.data.DenseMatrix64F;
 
+import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.convertToBlockReal;
+import static jmbench.impl.runtime.CommonsMathAlgorithmFactory.realToEjml;
+
 
 /**
  * @author Peter Abeles
  */
-public class McBrStabilityFactory implements StabilityFactory {
+public class CommonsMathStabilityFactory implements StabilityFactory {
 
     @Override
     public MatrixLibrary getLibrary() {
@@ -136,6 +137,31 @@ public class McBrStabilityFactory implements StabilityFactory {
             DenseMatrix64F ejmlV = realToEjml(eig.getV());
 
             return new DenseMatrix64F[]{ejmlD,ejmlV};
+        }
+    }
+
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            BlockRealMatrix matA = convertToBlockReal(inputs[0]);
+
+            CholeskyDecompositionImpl chol = null;
+            try {
+                chol = new CholeskyDecompositionImpl(matA);
+            } catch (NotSymmetricMatrixException e) {
+                throw new RuntimeException(e);
+            } catch (NotPositiveDefiniteMatrixException e) {
+                throw new RuntimeException(e);
+            }
+            RealMatrix result = chol.getSolver().getInverse();
+            DenseMatrix64F ejmlInv = realToEjml(result);
+
+            return new DenseMatrix64F[]{ejmlInv};
         }
     }
 }

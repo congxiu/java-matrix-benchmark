@@ -35,5 +35,7 @@ public interface StabilityFactory extends LibraryFactory {
 
     public StabilityOperationInterface createSymmEigen();
 
+    public StabilityOperationInterface createSymmInverse();
+
     public MatrixLibrary getLibrary();
 }

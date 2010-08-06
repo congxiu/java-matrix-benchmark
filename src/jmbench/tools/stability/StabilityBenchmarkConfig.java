@@ -36,7 +36,7 @@ public class StabilityBenchmarkConfig implements Serializable {
     public static EvaluationTarget ejml = new EvaluationTarget( MatrixLibrary.EJML, EjmlStabilityFactory.class.getName());
     public static EvaluationTarget jama = new EvaluationTarget( MatrixLibrary.JAMA, JamaStabilityFactory.class.getName());
     public static EvaluationTarget ojalgo = new EvaluationTarget( MatrixLibrary.OJALGO, OjAlgoStabilityFactory.class.getName());
-    public static EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, McBrStabilityFactory.class.getName());
+    public static EvaluationTarget commons = new EvaluationTarget( MatrixLibrary.CM, CommonsMathStabilityFactory.class.getName());
     public static EvaluationTarget colt = new EvaluationTarget( MatrixLibrary.COLT, ColtStabilityFactory.class.getName());
     public static EvaluationTarget mtj = new EvaluationTarget( MatrixLibrary.MTJ, MtjStabilityFactory.class.getName());
     public static EvaluationTarget pcolt = new EvaluationTarget( MatrixLibrary.PCOLT, ParallelColtStabilityFactory.class.getName());
@@ -88,6 +88,7 @@ public class StabilityBenchmarkConfig implements Serializable {
     public boolean checkLS;
     public boolean checkSVD;
     public boolean checkEVD;
+    public boolean checkSymInv;
 
     // which libraries are to be evaluated
     public List<EvaluationTarget> targets = new ArrayList<EvaluationTarget>();
@@ -109,7 +110,7 @@ public class StabilityBenchmarkConfig implements Serializable {
         config.overFlowFactor = off;
 
         config.smallSizeMin = 2;
-        config.smallSizeMax = 20;
+        config.smallSizeMax = 10;
 
         config.mediumSizeMin = 100;
         config.mediumSizeMax = 200;
@@ -143,6 +144,7 @@ public class StabilityBenchmarkConfig implements Serializable {
         config.checkLS = true;
         config.checkSVD = true;
         config.checkEVD = true;
+        config.checkSymInv = true;
 
         return config;
     }
@@ -361,5 +363,13 @@ public class StabilityBenchmarkConfig implements Serializable {
 
     public void setCheckEVD(boolean checkEVD) {
         this.checkEVD = checkEVD;
+    }
+
+    public boolean isCheckSymInv() {
+        return checkSymInv;
+    }
+
+    public void setCheckSymInv(boolean checkSymInv) {
+        this.checkSymInv = checkSymInv;
     }
 }

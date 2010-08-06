@@ -20,18 +20,17 @@
 package jmbench.impl.stability;
 
 import jmbench.impl.MatrixLibrary;
-import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.convertToOjAlgo;
-import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.ojAlgoToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
 import org.ojalgo.matrix.BasicMatrix;
 import org.ojalgo.matrix.PrimitiveMatrix;
-import org.ojalgo.matrix.decomposition.Eigenvalue;
-import org.ojalgo.matrix.decomposition.EigenvalueDecomposition;
-import org.ojalgo.matrix.decomposition.SingularValue;
-import org.ojalgo.matrix.decomposition.SingularValueDecomposition;
+import org.ojalgo.matrix.decomposition.*;
+import org.ojalgo.matrix.store.MatrixStore;
 import org.ojalgo.matrix.store.PhysicalStore;
+
+import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.convertToOjAlgo;
+import static jmbench.impl.runtime.OjAlgoAlgorithmFactory.ojAlgoToEjml;
 
 
 /**
@@ -118,6 +117,28 @@ public class OjAlgoStabilityFactory implements StabilityFactory {
             DenseMatrix64F ejmlV = ojAlgoToEjml(eig.getV());
 
             return new DenseMatrix64F[]{ejmlD,ejmlV};
+        }
+    }
+
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            PhysicalStore matA = convertToOjAlgo(inputs[0]);
+
+            final Cholesky<Double> chol = CholeskyDecomposition.makePrimitive();
+
+            if (!chol.compute(matA)) {
+                throw new RuntimeException("Decomposition failed");
+            }
+            MatrixStore<Double> inverse = chol.getInverse();
+            DenseMatrix64F ejmlInv = ojAlgoToEjml(inverse);
+
+            return new DenseMatrix64F[]{ejmlInv};
         }
     }
 }

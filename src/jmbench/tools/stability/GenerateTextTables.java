@@ -38,6 +38,9 @@ public class GenerateTextTables extends TablesCommon {
         System.out.println("\n== Least Squares Solve ==");
         System.out.println();
         printSolvingLeastSquares(opMap);
+        System.out.println("\n== Symmetric Semi-Positive Definite Inverse ==");
+        System.out.println();
+        printSymmInvert(opMap);
         System.out.println("\n== Singular Value Decomposition ==");
         System.out.println();
         printSvd(opMap);
@@ -69,37 +72,30 @@ public class GenerateTextTables extends TablesCommon {
         }
     }
 
+    private void printSymmInvert( Map<String, List> opMap ) {
+        printOverflowAccuracy(opMap,"InvSymmOverflow","InvSymmAccuracy");
+    }
+
     private void printSvd( Map<String, List> opMap ) {
-        List<String> names = getLibraryNames(opMap);
-
-        List<StabilityTrialResults> overflow = opMap.get("SvdOverflow");
-        List<StabilityTrialResults> accuracy = opMap.get("SvdAccuracy");
-
-        printTableHeader("Overflow","Accuracy");
-
-        for( String n : names ) {
-
-
-            Data over = findByName(overflow,n);
-            Data singular = findByName(accuracy,n);
-
-            System.out.printf("%15s",n);
-            printSolveHTML(over);
-            printSolveHTML(singular);
-
-            System.out.print("\n");
-        }
+        printOverflowAccuracy(opMap,"SvdOverflow","SvdAccuracy");
     }
 
     private void printSymmEig( Map<String, List> opMap ) {
+        printOverflowAccuracy(opMap,"EigSymmOverflow","EigSymmAccuracy");
+    }
+
+    private void printOverflowAccuracy( Map<String, List> opMap ,
+                                        String nameOver , String nameAccuracy  ) {
         List<String> names = getLibraryNames(opMap);
 
-        List<StabilityTrialResults> overflow = opMap.get("EigSymmOverflow");
-        List<StabilityTrialResults> accuracy = opMap.get("EigSymmAccuracy");
+        List<StabilityTrialResults> overflow = opMap.get(nameOver);
+        List<StabilityTrialResults> accuracy = opMap.get(nameAccuracy);
 
         printTableHeader("Overflow","Accuracy");
 
         for( String n : names ) {
+
+
             Data over = findByName(overflow,n);
             Data singular = findByName(accuracy,n);
 
@@ -174,6 +170,7 @@ public class GenerateTextTables extends TablesCommon {
         } else {
             switch( d.fatalError ) {
                 case MISC:
+                case RETURNED_NULL:
                     System.out.print("|   ?   ");
                     break;
 
@@ -184,9 +181,9 @@ public class GenerateTextTables extends TablesCommon {
                 case OUT_OF_MEMORY:
                     System.out.print("|  MEM  ");
                     break;
-
+                
                 default:
-                    throw new RuntimeException("Unknown error.  Add to list");
+                    throw new RuntimeException("Unknown error.  Add to list: "+d.fatalError);
             }
         }
     }
@@ -203,7 +200,7 @@ public class GenerateTextTables extends TablesCommon {
     }
 
     public static void main( String args[] ) {
-        GenerateTextTables p = new GenerateTextTables("/home/pja/projects/java/jmatbench/results/1264002539191/small");
+        GenerateTextTables p = new GenerateTextTables("/home/pja/projects/jmatbench/trunk/results/1281054307820/small");
 
         p.plot();
     }

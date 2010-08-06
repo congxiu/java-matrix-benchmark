@@ -95,4 +95,22 @@ public class JBlasStabilityFactory implements StabilityFactory {
             return new DenseMatrix64F[]{ejmlD,ejmlV};
         }
     }
+
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            DoubleMatrix matA = convertToJBlas(inputs[0]);
+
+            DoubleMatrix I = DoubleMatrix.eye(matA.getRows());
+            DoubleMatrix result = Solve.solveSymmetric(matA,I);
+            DenseMatrix64F ejmlInv = jblasToEjml(result);
+
+            return new DenseMatrix64F[]{ejmlInv};
+        }
+    }
 }

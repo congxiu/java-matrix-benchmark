@@ -19,8 +19,10 @@
 
 package jmbench.impl.stability;
 
+import cern.colt.matrix.tdouble.DoubleFactory2D;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
+import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleCholeskyDecomposition;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleEigenvalueDecomposition;
 import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
@@ -114,6 +116,29 @@ public class ParallelColtStabilityFactory implements StabilityFactory {
             DenseMatrix64F ejmlV = parallelColtToEjml(eig.getV());
 
             return new DenseMatrix64F[]{ejmlD,ejmlV};
+        }
+    }
+
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            DoubleMatrix2D matA = convertToParallelColt(inputs[0]);
+
+            DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
+
+            // can't decompose a matrix with the same decomposition algorithm
+            DenseDoubleCholeskyDecomposition chol = alg.chol(matA);
+
+            DoubleMatrix2D result = DoubleFactory2D.dense.identity(matA.rows());
+            chol.solve(result);
+            DenseMatrix64F ejmlInv = parallelColtToEjml(result);
+
+            return new DenseMatrix64F[]{ejmlInv};
         }
     }
 }

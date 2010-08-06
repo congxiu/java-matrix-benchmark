@@ -23,11 +23,12 @@ import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
-import static jmbench.impl.runtime.JamaAlgorithmFactory.convertToJama;
-import static jmbench.impl.runtime.JamaAlgorithmFactory.jamaToEjml;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.interfaces.StabilityOperationInterface;
 import org.ejml.data.DenseMatrix64F;
+
+import static jmbench.impl.runtime.JamaAlgorithmFactory.convertToJama;
+import static jmbench.impl.runtime.JamaAlgorithmFactory.jamaToEjml;
 
 
 /**
@@ -106,6 +107,25 @@ public class JamaStabilityFactory implements StabilityFactory {
             DenseMatrix64F ejmlV = jamaToEjml(eig.getV());
 
             return new DenseMatrix64F[]{ejmlD,ejmlV};
+        }
+    }
+
+    @Override
+    public StabilityOperationInterface createSymmInverse() {
+        return new MySymmInverse();
+    }
+
+    public static class MySymmInverse extends CommonOperation {
+        @Override
+        public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
+            Matrix matA = convertToJama(inputs[0]);
+
+            int N = matA.getColumnDimension();
+            Matrix result =  matA.chol().solve(Matrix.identity(N,N));
+
+            DenseMatrix64F ejmlInv = jamaToEjml(result);
+
+            return new DenseMatrix64F[]{ejmlInv};
         }
     }
 
