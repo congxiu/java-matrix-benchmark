@@ -53,10 +53,10 @@ public class FactoryRuntimeEvaluationCase {
         if( config.add && alg != null ) ret.add( createMatrixAdd(factory,alg));
 
         alg = factory.transpose();
-        if( config.transposeSquare && alg != null ) ret.add( createTranspose(factory,alg,false));
+        if( config.transposeSquare && alg != null ) ret.add( createTransposeSquare(factory,alg));
 
         alg = factory.transpose();
-        if( config.transposeTall && alg != null ) ret.add( createTranspose(factory,alg,true));
+        if( config.transposeTall && alg != null ) ret.add( createTransposeTall(factory,alg));
 
         alg = factory.scale();
         if( config.scale && alg != null ) ret.add( createScale(factory,alg));
@@ -120,21 +120,26 @@ public class FactoryRuntimeEvaluationCase {
                 factory,alg,generator);
     }
 
-    public RuntimeEvaluationCase createTranspose( RuntimePerformanceFactory factory ,
-                                                  AlgorithmInterface alg,
-                                                  boolean tall) {
+    public RuntimeEvaluationCase createTransposeSquare( RuntimePerformanceFactory factory ,
+                                                  AlgorithmInterface alg ) {
 
         InputOutputGenerator generator = new TransposeSquareGenerator();
 
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
-        if( tall ) {
-            return new RuntimeEvaluationCase("Trans Tall: b=a^T","tranTall",matDimen,
-                    factory,alg,generator);
-        } else {
-            return new RuntimeEvaluationCase("Trans Square: b=a^T","tran",matDimen,
-                    factory,alg,generator);
-        }
+        return new RuntimeEvaluationCase("Trans Square: b=a^T","tranSq",matDimen,
+                factory,alg,generator);
+    }
+
+    public RuntimeEvaluationCase createTransposeTall( RuntimePerformanceFactory factory ,
+                                                      AlgorithmInterface alg ) {
+
+        InputOutputGenerator generator = new TransposeTallGenerator();
+
+        int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
+
+        return new RuntimeEvaluationCase("Trans Tall: b=a^T","tranTall",matDimen,
+                factory,alg,generator);
     }
 
     public RuntimeEvaluationCase createScale( RuntimePerformanceFactory factory ,
