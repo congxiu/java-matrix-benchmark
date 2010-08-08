@@ -1,4 +1,5 @@
 #summary Benchmark results for Pentium-M Linux 32bit
+#labels Deprecated
 
 Comments:
 
