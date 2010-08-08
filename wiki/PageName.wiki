@@ -9,7 +9,7 @@ Comments:
   * Changed mult a^T^b to  ab^T^
     * This was done to favor libraries with row-major matrices and specially built operator.
     * mult ab favors column-major libraries.
-    * Was a test to see if performance difference is because of the arbitrary row-major/column-major design decision.
+    * Was a test to see if some mult performance difference was because of row-major/column-major design decision.
   * EJML, ojAlgo, UJMP updated.
   * Explicitly noted that UJMP has extra libraries added to it that are needed to get the performance shown below.
 
