@@ -35,7 +35,7 @@ public class MatrixLibrary implements Serializable {
     public static final MatrixLibrary MTJ = new MatrixLibrary("MTJ","mtj","mtj","MTJ 0.9.12","",true, false, 2);
     public static final MatrixLibrary SEJML = new MatrixLibrary("SEJML","sejml","sejml","Simple "+UtilEjml.VERSION,"",true, false, 3);
     public static final MatrixLibrary CM = new MatrixLibrary("CommMath","commons-math","commons-math","Commons Math 2.1","2010-04-05",true, false, 4);
-    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo","ojalgo","ojAlgo 29.8","2010-05-12",true, false, 6);
+    public static final MatrixLibrary OJALGO = new MatrixLibrary("ojAlgo","ojalgo","ojalgo","ojAlgo 29.24","2010-08-04",true, false, 6);
     public static final MatrixLibrary COLT = new MatrixLibrary("Colt","colt","colt","Colt 1.2","",true, false, 7);
     public static final MatrixLibrary PCOLT = new MatrixLibrary("PColt","parallelcolt","parallelcolt","Parallel Colt 0.9.4","2010-03-20",true, false, 8);
     public static final MatrixLibrary UJMP = new MatrixLibrary("UJMP","ujmp","ujmp","UJMP 0.2.5","2010-06-22",true, true, 9);
