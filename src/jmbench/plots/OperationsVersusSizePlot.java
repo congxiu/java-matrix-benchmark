@@ -189,13 +189,13 @@ public class OperationsVersusSizePlot
                 return Color.blue;
 
             case 9:
-                return Color.MAGENTA;
+                return new Color(255, 0, 255,190); //magenta with translucent
 
             case 10:
-                return Color.orange;
+                return new Color(230, 150, 0); // darker orange
 
             case 11:
-                return Color.MAGENTA;
+                return new Color(255, 0, 255,190);
 
 
             default:

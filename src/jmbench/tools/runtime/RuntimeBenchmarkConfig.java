@@ -71,6 +71,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     public boolean solveOver;
     public boolean transposeSquare;
     public boolean transposeTall;
+    public boolean transposeWide;
 
     // which libraries are to be evaluated
     public List<EvaluationTarget> targets;
@@ -142,6 +143,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.solveOver = true;
         config.transposeSquare = true;
         config.transposeTall = true;
+        config.transposeWide = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
 
@@ -286,6 +288,14 @@ public class RuntimeBenchmarkConfig implements Serializable {
 
     public void setTransposeTall(boolean transposeTall) {
         this.transposeTall = transposeTall;
+    }
+
+    public boolean isTransposeWide() {
+        return transposeWide;
+    }
+
+    public void setTransposeWide(boolean transposeWide) {
+        this.transposeWide = transposeWide;
     }
 
     public List<EvaluationTarget> getTargets() {
