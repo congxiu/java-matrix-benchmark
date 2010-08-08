@@ -3,13 +3,13 @@
 Comments:
 
   * Fixed a bug where overhead was being measured.
-    = Did not change results significantly since last benchmark because an earlier change reduced overhead so much. 
-    - Explains some strange results seen a while ago.
+    * Did not change results significantly since last benchmark because an earlier change reduced overhead so much. 
+    * Explains some strange results seen a while ago.
   * Added transpose tall benchmark. Before square was being transposed.
-  * Changed mult a^T^*b to a*b^T^
-    - This was done to favor libraries with row-major matrices and specially built operator.
-    - mult a*b favors column-major libraries.
-    - Was a test to see if performance difference is because of the arbitrary row-major/column-major design decision.
+  * Changed mult a^T^b to  ab^T^
+    * This was done to favor libraries with row-major matrices and specially built operator.
+    * mult ab favors column-major libraries.
+    * Was a test to see if performance difference is because of the arbitrary row-major/column-major design decision.
   * EJML, ojAlgo, UJMP updated.
   * Explicitly noted that UJMP has extra libraries added to it that are needed to get the performance shown below.
 
