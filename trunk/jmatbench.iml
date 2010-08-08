@@ -157,22 +157,22 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mtj/mtj-0.9.12.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/ojalgo/ojalgo-29.24.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/mtj/mtj-src.zip!/" />
+          <root url="jar://$MODULE_DIR$/lib/ojalgo/ojalgo-29.24-src.zip!/" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ojalgo/ojalgo-29.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/mtj/mtj-0.9.12.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/ojalgo/ojalgo-29.8-src.zip!/" />
+          <root url="jar://$MODULE_DIR$/lib/mtj/mtj-src.zip!/" />
         </SOURCES>
       </library>
     </orderEntry>
