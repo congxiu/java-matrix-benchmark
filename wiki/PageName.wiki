@@ -6,7 +6,7 @@ Comments:
     = Did not change results significantly since last benchmark because an earlier change reduced overhead so much. 
     - Explains some strange results seen a while ago.
   * Added transpose tall benchmark. Before square was being transposed.
-  * Changed mult a^T*b to a*b^t
+  * Changed mult a^T^*b to a*b^T^
     - This was done to favor libraries with row-major matrices and specially built operator.
     - mult a*b favors column-major libraries.
     - Was a test to see if performance difference is because of the arbitrary row-major/column-major design decision.
