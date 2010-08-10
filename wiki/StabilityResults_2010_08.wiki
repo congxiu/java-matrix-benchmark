@@ -10,7 +10,8 @@ Quick Links:
 
   * Added symmetric positive definite inverse benchmark.
   * SVD of tall and wide matrices are now computed.
-    * Some libraries can't handle an arbitrarily shaped input matrix: Jama and CommonMath.
+    * Some libraries can't handle an arbitrarily shaped input matrix: Jama and Colt
+    * Since the documentation mentioned this issue the input was transposed.
 
 = Test Setup =
 
