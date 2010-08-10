@@ -8,7 +8,9 @@ Quick Links:
 
 = Comments =
 
-- Added symmetric positive definite inverse benchmark
+  * Added symmetric positive definite inverse benchmark.
+  * SVD of tall and wide matrices are now computed.
+    * Some libraries can't handle an arbitrarily shaped input matrix: Jama and CommonMath.
 
 = Test Setup =
 
