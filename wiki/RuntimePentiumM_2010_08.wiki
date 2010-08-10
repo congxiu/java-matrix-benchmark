@@ -76,9 +76,10 @@ These results show the performance of libraries that either use pure Java or cal
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/scale.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/multTranB.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/tranTall.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/tranSq.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/tranSq.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/tranTall.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/tranWide.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/invSymmPosDef.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2010_08.attach/native/det.png || ||
+
 
 ==Java: Solving Linear Systems==
 
