@@ -20,6 +20,7 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.02.22 || [RuntimeQ9400_2010_02] ||
 || 2010.04.27 || [RuntimeQ9400_2010_04] ||
 || 2010.05.14 || [RuntimeQ9400_2010_05] ||
+|| 2010.08    || [RuntimeQ9400_2010_08] ||
 
 == Intel Pentium M 1.7 GHz ==
 
