@@ -81,13 +81,25 @@ public class JamaStabilityFactory implements StabilityFactory {
         public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
             Matrix matA = convertToJama(inputs[0]);
 
-            SingularValueDecomposition s = matA.svd();
+            // Jama does not support SVD for wide matrices and in that situations
+            // the input matrix is transposed.
+            if( matA.getColumnDimension() > matA.getRowDimension() ) {
+                SingularValueDecomposition s = matA.transpose().svd();
 
-            DenseMatrix64F ejmlU = jamaToEjml(s.getU());
-            DenseMatrix64F ejmlS = jamaToEjml(s.getS());
-            DenseMatrix64F ejmlV = jamaToEjml(s.getV());
+                DenseMatrix64F ejmlU = jamaToEjml(s.getV());
+                DenseMatrix64F ejmlS = jamaToEjml(s.getS());
+                DenseMatrix64F ejmlV = jamaToEjml(s.getU());
 
-            return new DenseMatrix64F[]{ejmlU,ejmlS,ejmlV};
+                return new DenseMatrix64F[]{ejmlU,ejmlS,ejmlV};
+            } else {
+                SingularValueDecomposition s = matA.svd();
+
+                DenseMatrix64F ejmlU = jamaToEjml(s.getU());
+                DenseMatrix64F ejmlS = jamaToEjml(s.getS());
+                DenseMatrix64F ejmlV = jamaToEjml(s.getV());
+
+                return new DenseMatrix64F[]{ejmlU,ejmlS,ejmlV};
+            }
         }
     }
 

@@ -45,8 +45,8 @@ public abstract class TablesCommon {
             throw new IllegalArgumentException("Need to specify a directory");
         }
 
-        System.out.println("Reading results from: "+dir);
-        System.out.println();
+//        System.out.println("Reading results from: "+dir);
+//        System.out.println();
     }
 
     @SuppressWarnings({"unchecked"})
