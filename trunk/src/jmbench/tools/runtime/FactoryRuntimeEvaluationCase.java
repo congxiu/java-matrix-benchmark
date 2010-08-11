@@ -130,7 +130,7 @@ public class FactoryRuntimeEvaluationCase {
 
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
-        return new RuntimeEvaluationCase("Trans Square: b=a^T","tranSq",matDimen,
+        return new RuntimeEvaluationCase("Transpose Square: b=a^T","tranSq",matDimen,
                 factory,alg,generator);
     }
 
@@ -141,7 +141,7 @@ public class FactoryRuntimeEvaluationCase {
 
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
-        return new RuntimeEvaluationCase("Trans Tall: b=a^T","tranTall",matDimen,
+        return new RuntimeEvaluationCase("Transpose Tall: b=a^T","tranTall",matDimen,
                 factory,alg,generator);
     }
 
@@ -152,7 +152,7 @@ public class FactoryRuntimeEvaluationCase {
 
         int matDimen[] = createDimenList(config.minMatrixSize, config.maxMatrixSize);
 
-        return new RuntimeEvaluationCase("Trans Wide: b=a^T","tranWide",matDimen,
+        return new RuntimeEvaluationCase("Transpose Wide: b=a^T","tranWide",matDimen,
                 factory,alg,generator);
     }
 
