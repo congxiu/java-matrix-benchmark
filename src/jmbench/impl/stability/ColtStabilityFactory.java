@@ -85,15 +85,28 @@ public class ColtStabilityFactory implements StabilityFactory {
 
         @Override
         public DenseMatrix64F[] process(DenseMatrix64F[] inputs) {
-            DenseDoubleMatrix2D matA = convertToColt(inputs[0]);
+            DoubleMatrix2D matA = convertToColt(inputs[0]);
 
-            SingularValueDecomposition s = new SingularValueDecomposition(matA);
+            if( matA.rows() >= matA.columns() ) {
+                SingularValueDecomposition s = new SingularValueDecomposition(matA);
 
-            DenseMatrix64F ejmlU = coltToEjml(s.getU());
-            DenseMatrix64F ejmlS = coltToEjml(s.getS());
-            DenseMatrix64F ejmlV = coltToEjml(s.getV());
+                DenseMatrix64F ejmlU = coltToEjml(s.getU());
+                DenseMatrix64F ejmlS = coltToEjml(s.getS());
+                DenseMatrix64F ejmlV = coltToEjml(s.getV());
 
-            return new DenseMatrix64F[]{ejmlU,ejmlS,ejmlV};
+                return new DenseMatrix64F[]{ejmlU,ejmlS,ejmlV};
+            } else {
+                // Colt's SVD can't process a wide matrix so it has to be transposed first.
+                Algebra alg = new Algebra();
+                matA = alg.transpose(matA);
+                SingularValueDecomposition s = new SingularValueDecomposition(matA);
+
+                DenseMatrix64F ejmlU = coltToEjml(s.getV());
+                DenseMatrix64F ejmlS = coltToEjml(s.getS());
+                DenseMatrix64F ejmlV = coltToEjml(s.getU());
+
+                return new DenseMatrix64F[]{ejmlU,ejmlS,ejmlV};
+            }
         }
     }
 
