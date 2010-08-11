@@ -49,15 +49,15 @@ Test Configuration
 
 <TR><TH/><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH></TR>
 <TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
-<TR><TH>MTJ</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.1%</TD><TD> 11.2%</TD><TD></TD><TD> 12.7%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>UJMP</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  4.2%</TD><TD></TD><TD></TD><TD> 95.8%</TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD>1.0e+307</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 12.6%</TD><TD> 77.1%</TD><TD></TD><TD> 10.3%</TD><TD></TD><TD> 1.0e-15</TD><TD> 1.0e-15</TD><TD> 1.0e-15</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.6%</TD><TD> 10.9%</TD><TD></TD><TD> 12.5%</TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  4.2%</TD><TD></TD><TD></TD><TD> 95.8%</TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>JAMA</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  4.2%</TD><TD></TD><TD></TD><TD> 95.8%</TD><TD></TD></TR>
-<TR><TH>CommMath</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.1%</TD><TD> 11.2%</TD><TD></TD><TD> 12.7%</TD><TD></TD><TD> 1.0e-11</TD><TD> 1.0e-11</TD><TD> 1.0e-11</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
-<TR><TH>JBLAS</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 76.7%</TD><TD>  9.3%</TD><TD>  0.8%</TD><TD> 13.2%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 12.1%</TD><TD> 87.9%</TD><TD></TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.1%</TD><TD> 11.2%</TD><TD></TD><TD> 12.7%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  4.2%</TD><TD></TD><TD></TD><TD> 95.8%</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+307</TD><TD> 12.6%</TD><TD> 77.1%</TD><TD></TD><TD> 10.3%</TD><TD></TD><TD> 1.0e-15</TD><TD> 1.0e-15</TD><TD> 1.0e-15</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.6%</TD><TD> 10.9%</TD><TD></TD><TD> 12.5%</TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  4.2%</TD><TD></TD><TD></TD><TD> 95.8%</TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.7%</TD><TD> 11.1%</TD><TD></TD><TD> 12.2%</TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  4.2%</TD><TD></TD><TD></TD><TD> 95.8%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.1%</TD><TD> 11.2%</TD><TD></TD><TD> 12.7%</TD><TD></TD><TD> 1.0e-11</TD><TD> 1.0e-11</TD><TD> 1.0e-11</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
+<TR><TH>JBLAS</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 76.7%</TD><TD>  9.3%</TD><TD>  0.8%</TD><TD> 13.2%</TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 12.1%</TD><TD> 87.9%</TD><TD></TD><TD></TD></TR>
 </TABLE>
 <TABLE border="1" cellpadding="5">
 <TR><TH></TH><TH colspan="8"> Accuracy </TH><TH colspan="8"> Nearly Singular </TH></TR>
@@ -84,12 +84,12 @@ Test Configuration
 <TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
 <TR><TH>MTJ</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-320</TD><TD>1.0e-315</TD><TD>1.0e-309</TD><TD>  2.5%</TD><TD> 12.3%</TD><TD></TD><TD> 85.2%</TD><TD></TD></TR>
 <TR><TH>UJMP</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 95.4%</TD><TD>  4.6%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-314</TD><TD>1.0e-314</TD><TD>  4.3%</TD><TD></TD><TD></TD><TD> 95.7%</TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 66.9%</TD><TD> 33.1%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>1.0e-309</TD><TD></TD><TD> 12.3%</TD><TD></TD><TD> 87.7%</TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+308</TD><TD>  8.0%</TD><TD>  2.1%</TD><TD></TD><TD> 89.9%</TD><TD></TD><TD> 1.0e-15</TD><TD> 1.0e-08</TD><TD> 1.0e-07</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 66.9%</TD><TD> 33.1%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>1.0e-309</TD><TD></TD><TD> 12.3%</TD><TD></TD><TD> 87.7%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+308</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>  8.0%</TD><TD>  2.1%</TD><TD></TD><TD> 89.9%</TD><TD></TD><TD> 1.0e-15</TD><TD> 1.0e-08</TD><TD> 1.0e-07</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 95.7%</TD><TD>  4.3%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-314</TD><TD>1.0e-314</TD><TD>  4.4%</TD><TD></TD><TD></TD><TD> 95.6%</TD><TD></TD></TR>
 <TR><TH>Colt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 95.4%</TD><TD>  4.6%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JAMA</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 95.4%</TD><TD>  4.6%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-319</TD><TD>1.0e-314</TD><TD>1.0e-314</TD><TD>  4.3%</TD><TD></TD><TD></TD><TD> 95.7%</TD><TD></TD></TR>
-<TR><TH>CommMath</TH><TD>1.0e+154</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD> -0.0%</TD><TD> 67.3%</TD><TD></TD><TD> 32.7%</TD><TD></TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+154</TD><TD> -0.0%</TD><TD> 67.3%</TD><TD></TD><TD> 32.7%</TD><TD></TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
 <TABLE border="1" cellpadding="5">
@@ -134,7 +134,7 @@ Test Configuration
 <TR><TH>UJMP</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD>1.0e+308</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 89.7%</TD><TD> 10.3%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>Infinity</TD><TD>Infinity</TD><TD>1.0e+308</TD><TD> 89.7%</TD><TD> 10.3%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>Colt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JAMA</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 1.0e-11</TD><TD> 1.0e-11</TD><TD> 1.0e-11</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD></TR>
@@ -153,8 +153,8 @@ Test Configuration
 <TR><TH>PColt</TH><TD> 1.7e-16</TD><TD> 4.1e-16</TD><TD> 9.4e-16</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD> 1.8e-16</TD><TD> 4.9e-16</TD><TD> 2.1e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD> 1.6e-16</TD><TD> 4.3e-16</TD><TD> 1.1e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD> 1.3e-16</TD><TD> 6.2e-16</TD><TD> 1.4e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>JAMA</TH><TD> 1.3e-16</TD><TD> 6.2e-16</TD><TD> 1.4e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD> 1.2e-16</TD><TD> 4.0e-16</TD><TD> 9.2e-16</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD> 1.2e-16</TD><TD> 4.0e-16</TD><TD> 9.2e-16</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD> 2.4e-16</TD><TD> 2.1e-15</TD><TD> 1.5e-08</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
@@ -166,10 +166,10 @@ Test Configuration
 <TR><TH>MTJ</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  1.3%</TD><TD></TD><TD></TD><TD> 98.7%</TD><TD></TD></TR>
 <TR><TH>UJMP</TH><TH colspan="8"> TIMED OUT </TH><TD>1.0e-291</TD><TD>1.0e-283</TD><TD>1.0e-283</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>  1.3%</TD><TD></TD><TD></TD><TD> 98.7%</TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD>1.0e+155</TD><TD></TD><TD> 24.0%</TD><TD></TD><TD> 76.0%</TD><TD></TD><TD> 1.0e-08</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 40.5%</TD><TD></TD><TD></TD><TD> 24.0%</TD><TD> 35.5%</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>1.0e-314</TD><TD>  0.3%</TD><TD></TD><TD></TD><TD> 99.2%</TD><TD>  0.5%</TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+155</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD> 24.0%</TD><TD></TD><TD> 76.0%</TD><TD></TD><TD> 1.0e-08</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD> 40.5%</TD><TD></TD><TD></TD><TD> 24.0%</TD><TD> 35.5%</TD><TD>1.0e-315</TD><TD>1.0e-314</TD><TD>1.0e-314</TD><TD>  0.3%</TD><TD></TD><TD></TD><TD> 99.2%</TD><TD>  0.5%</TD></TR>
 <TR><TH>Colt</TH><TH colspan="8"> TIMED OUT </TH><TH colspan="8"> TIMED OUT </TH></TR>
-<TR><TH>JAMA</TH><TH colspan="8"> TIMED OUT </TH><TD>1.0e-283</TD><TD>1.0e-283</TD><TD> 1.0e+00</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TH colspan="8"> TIMED OUT </TH><TD>1.0e-314</TD><TD>1.0e-283</TD><TD>1.0e-283</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 99.8%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
@@ -196,15 +196,15 @@ Test Configuration
 
 <TR><TH/><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH><TH colspan="3"> Scaling Factor </TH><TH colspan="5"> Stopping Condition </TH></TR>
 <TR><TH/><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH><TH>Metric 10%</TH><TH>Metric 50%</TH><TH>Metric 90%</TH><TH>No Error</TH><TH>Uncountable</TH><TH>Exception</TH><TH>Large Error</TH><TH>Detected</TH></TR>
-<TR><TH>MTJ</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 37.8%</TD><TD> 62.2%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>  0.3%</TD><TD></TD><TD></TD><TD> 99.7%</TD><TD></TD></TR>
-<TR><TH>UJMP</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+308</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>PColt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+308</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD>1.0e+154</TD><TD>1.0e+155</TD><TD>1.0e+308</TD><TD>  8.3%</TD><TD>  1.8%</TD><TD> 11.5%</TD><TD> 78.3%</TD><TD></TD><TD> 1.0e-13</TD><TD> 1.0e-07</TD><TD> 1.0e-07</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 20.0%</TD><TD>  0.8%</TD><TD></TD><TD>  4.0%</TD><TD> 75.2%</TD><TD>1.0e-315</TD><TD>1.0e-309</TD><TD>1.0e-307</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 22.2%</TD><TD> 77.7%</TD></TR>
-<TR><TH>Colt</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+308</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>JAMA</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+308</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>CommMath</TH><TD>1.0e+154</TD><TD>1.0e+154</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD></TD><TD>  6.3%</TD><TD> 93.7%</TD><TD>1.0e-155</TD><TD>1.0e-154</TD><TD>1.0e-154</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
-<TR><TH>JBLAS</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 37.8%</TD><TD> 62.2%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>  0.3%</TD><TD></TD><TD></TD><TD> 99.7%</TD><TD></TD></TR>
+<TR><TH>MTJ</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD> 37.8%</TD><TD> 62.2%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>  0.3%</TD><TD></TD><TD></TD><TD> 99.7%</TD><TD></TD></TR>
+<TR><TH>UJMP</TH><TD>1.0e+308</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>PColt</TH><TD>1.0e+308</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+308</TD><TD>1.0e+155</TD><TD>1.0e+154</TD><TD>  8.3%</TD><TD>  1.8%</TD><TD> 11.5%</TD><TD> 78.3%</TD><TD></TD><TD> 1.0e-13</TD><TD> 1.0e-07</TD><TD> 1.0e-07</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD> 20.0%</TD><TD>  0.8%</TD><TD></TD><TD>  4.0%</TD><TD> 75.2%</TD><TD>1.0e-315</TD><TD>1.0e-309</TD><TD>1.0e-307</TD><TD>  0.2%</TD><TD></TD><TD></TD><TD> 22.2%</TD><TD> 77.7%</TD></TR>
+<TR><TH>Colt</TH><TD>1.0e+308</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>1.0e+308</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>  7.7%</TD><TD>  1.8%</TD><TD> 90.5%</TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-158</TD><TD>1.0e-158</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+155</TD><TD>1.0e+154</TD><TD>1.0e+154</TD><TD></TD><TD></TD><TD></TD><TD>  6.3%</TD><TD> 93.7%</TD><TD>1.0e-155</TD><TD>1.0e-154</TD><TD>1.0e-154</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
+<TR><TH>JBLAS</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD> 37.8%</TD><TD> 62.2%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>1.0e-315</TD><TD>  0.3%</TD><TD></TD><TD></TD><TD> 99.7%</TD><TD></TD></TR>
 </TABLE>
 
 = Medium Matrices =
@@ -219,7 +219,7 @@ Test Configuration
 <TR><TH>MTJ</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>UJMP</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD>1.0e+304</TD><TD>1.0e+306</TD><TD>1.0e+306</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+306</TD><TD>1.0e+306</TD><TD>1.0e+304</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>Colt</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JAMA</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
@@ -253,10 +253,10 @@ Test Configuration
 <TR><TH>UJMP</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e-15</TD><TD> 1.0e-15</TD><TD> 1.0e-15</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD>1.0e+155</TD><TD>1.0e+155</TD><TD>1.0e+155</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e-08</TD><TD> 1.0e-08</TD><TD> 1.0e-08</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>EJML</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 18.0%</TD><TD> 82.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 10.0%</TD><TD> 90.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>JAMA</TH><TD>1.0e+308</TD><TD>1.0e+308</TD><TD>Infinity</TD><TD> 10.0%</TD><TD> 90.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
-<TR><TH>CommMath</TH><TD>1.0e+154</TD><TD>1.0e+154</TD><TD>1.0e+155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>EJML</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD> 18.0%</TD><TD> 82.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD> 10.0%</TD><TD> 90.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD>1.0e-309</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD>Infinity</TD><TD>1.0e+308</TD><TD>1.0e+308</TD><TD> 10.0%</TD><TD> 90.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>CommMath</TH><TD>1.0e+155</TD><TD>1.0e+154</TD><TD>1.0e+154</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD>1.0e-155</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
 <TABLE border="1" cellpadding="5">
@@ -320,8 +320,8 @@ Test Configuration
 <TR><TH>PColt</TH><TD> 1.9e-15</TD><TD> 2.5e-15</TD><TD> 2.9e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD> 2.1e-15</TD><TD> 2.1e-14</TD><TD> 4.4e-11</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD> 1.6e-15</TD><TD> 4.0e-15</TD><TD> 6.3e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD> 2.4e-15</TD><TD> 6.8e-15</TD><TD> 1.4e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>JAMA</TH><TD> 2.4e-15</TD><TD> 6.8e-15</TD><TD> 1.4e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD> 2.3e-15</TD><TD> 4.4e-15</TD><TD> 6.2e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD> 2.3e-15</TD><TD> 4.4e-15</TD><TD> 6.2e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD> 2.0e-08</TD><TD>     NaN</TD><TD>     NaN</TD><TD> 31.9%</TD><TD></TD><TD></TD><TD></TD><TD> 68.1%</TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
@@ -335,8 +335,8 @@ Test Configuration
 <TR><TH>PColt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 94.4%</TD><TD></TD><TD></TD><TD></TD><TD>  5.6%</TD><TD>1.0e-308</TD><TD>1.0e-307</TD><TD>1.0e-306</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD></TR>
-<TR><TH>Colt</TH><TD> 1.0e+00</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 55.6%</TD><TD></TD><TD></TD><TD> 44.4%</TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
-<TR><TH>JAMA</TH><TD> 1.0e+00</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 55.6%</TD><TD></TD><TD></TD><TD> 44.4%</TD><TD></TD><TD>1.0e-283</TD><TD>1.0e-283</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
+<TR><TH>JAMA</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-283</TD><TD>1.0e-283</TD><TD>1.0e-283</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
@@ -386,7 +386,7 @@ Test Configuration
 <TR><TH>MTJ</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>UJMP</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD></TR>
 <TR><TH>PColt</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>ojAlgo</TH><TD>1.0e+304</TD><TD>1.0e+305</TD><TD>1.0e+305</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>ojAlgo</TH><TD>1.0e+305</TD><TD>1.0e+305</TD><TD>1.0e+304</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD> 1.0e-14</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>Colt</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD>1.0e-308</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>JAMA</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD>1.0e-313</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
@@ -487,8 +487,8 @@ Test Configuration
 <TR><TH>PColt</TH><TD> 3.1e-15</TD><TD> 3.9e-15</TD><TD> 4.1e-15</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>ojAlgo</TH><TD> 4.9e-15</TD><TD> 1.6e-14</TD><TD> 5.6e-12</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD> 2.7e-15</TD><TD> 8.8e-15</TD><TD> 1.5e-14</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>Colt</TH><TD> 4.2e-15</TD><TD> 1.4e+00</TD><TD> 1.4e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
-<TR><TH>JAMA</TH><TD> 4.2e-15</TD><TD> 1.4e+00</TD><TD> 1.4e+00</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD> 4.0e-15</TD><TD> 9.8e-15</TD><TD> 1.4e-14</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<TR><TH>JAMA</TH><TD> 4.0e-15</TD><TD> 9.8e-15</TD><TD> 1.4e-14</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD>     NaN</TD><TD>     NaN</TD><TD>     NaN</TD><TD>  7.1%</TD><TD></TD><TD></TD><TD></TD><TD> 92.9%</TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
@@ -502,8 +502,8 @@ Test Configuration
 <TR><TH>PColt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
 <TR><TH>ojAlgo</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>EJML</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
-<TR><TH>Colt</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD>Infinity</TD><TD> 28.6%</TD><TD></TD><TD></TD><TD> 71.4%</TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
-<TR><TH>JAMA</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD>Infinity</TD><TD> 28.6%</TD><TD></TD><TD></TD><TD> 71.4%</TD><TD></TD><TD>1.0e-283</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
+<TR><TH>Colt</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TH colspan="8"> TIMED OUT </TH></TR>
+<TR><TH>JAMA</TH><TD>Infinity</TD><TD>Infinity</TD><TD>Infinity</TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>1.0e-283</TD><TD>1.0e-283</TD><TD>1.0e-283</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>CommMath</TH><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD> 1.0e+00</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 <TR><TH>JBLAS</TH><TD colspan="8"> Not Supported </TD><TD colspan="8"> Not Supported </TD></TR>
 </TABLE>
