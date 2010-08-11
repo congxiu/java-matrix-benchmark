@@ -129,6 +129,8 @@ public class RuntimeBenchmarkConfig implements Serializable {
 //        config.chol = true;
 //        config.lu = true;
 //        config.qr = true;
+//        config.transposeTall = true;
+//        config.transposeWide = true;
         
         config.svd = true;
         config.eigSymm = true;
@@ -142,8 +144,6 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.solveExact = true;
         config.solveOver = true;
         config.transposeSquare = true;
-        config.transposeTall = true;
-        config.transposeWide = true;
 
         config.targets = new ArrayList<EvaluationTarget>();
 
