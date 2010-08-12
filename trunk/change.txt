@@ -1,3 +1,9 @@
+----- Version 0.8
+
+20XX/XX/XX
+
+- Can now truncate runtime data when creating plots.
+
 ----- Version 0.7
 
 2010/08/08

@@ -47,6 +47,11 @@ public class PlotRuntimeResultsXml {
     // should it display results to the screen
     boolean displayResults = true;
 
+    // only plot results more than this size
+    int minMatrixSize = 0;
+    // it will only plot results which are of this size or less
+    int maxMatrixSize = 0;
+
     public PlotRuntimeResultsXml( String dir ) {
         directory = new File(dir);
 
@@ -109,6 +114,8 @@ public class PlotRuntimeResultsXml {
 
             RuntimePlotData plotData = convertToPlotData(l,whichMetric);
 
+            truncatePlotData(plotData);
+
             String fileNameVar = directory.getPath()+"/plots/variability/"+key;
             String fileNameRel = directory.getPath()+"/plots/relative/"+key;
             String fileNameAbs = directory.getPath()+"/plots/absolute/"+key;
@@ -118,6 +125,38 @@ public class PlotRuntimeResultsXml {
             // TODO change key in the line below to plot name
             RuntimeResultPlotter.relativePlots(plotData, refType,null,fileNameRel,plotData.plotName,true,true);
             RuntimeResultPlotter.absolutePlots(plotData, fileNameAbs,plotData.plotName,true,false);
+        }
+    }
+
+    /**
+     * Removes data outside of the requested min and max matrix size
+     */
+    private void truncatePlotData(RuntimePlotData data ) {
+        if( maxMatrixSize == 0 )
+            return;
+
+        // find the new max matrix index
+        int off = -1;
+        int N = 0;
+        for( ; N < data.matrixSize.length; N++ ) {
+            if( off < 0 && data.matrixSize[N] >=  minMatrixSize ) {
+                off = N;
+            }
+            if( data.matrixSize[N] > maxMatrixSize )
+                break;
+        }
+
+        // truncate matrix size
+        int matrixSize[] = new int[N-off];
+        System.arraycopy(data.matrixSize,off,matrixSize,0,N-off);
+        data.matrixSize = matrixSize;
+
+        for( int i = 0; i < data.results.length; i++ ) {
+            double []r = data.results[i];
+            double []trunc = new double[N-off];
+
+            System.arraycopy(r,off,trunc,0,N-off);
+            data.results[i] = trunc;
         }
     }
 
@@ -204,6 +243,7 @@ public class PlotRuntimeResultsXml {
         System.out.println("--Metric=<?>                 : Changes the metric that is plotted.");
         System.out.println("                             : MAX,MIN,STDEV,MEDIAN,MEAN");
         System.out.println("--Display=<true|false>       : If true some results will be displayed.");
+        System.out.println("--Size=min:max               : Only plot data from matrix size min to max inclusive.");
         System.out.println();
         System.out.println("The last argument is the directory that contains the results.  If this is not specified");
         System.out.println("then the most recently modified directory is used.");
@@ -216,6 +256,9 @@ public class PlotRuntimeResultsXml {
         boolean displayResults = true;
 
         boolean failed = false;
+
+        int maxSize = 0;
+        int minSize = 0;
 
         for( int i = 0; i < args.length; i++ ) {
             String splits[] = args[i].split("=");
@@ -248,6 +291,13 @@ public class PlotRuntimeResultsXml {
                 } else {
                     throw new RuntimeException("Unknown metric: "+splits[1]);
                 }
+            } else if( flag.compareTo("Size") == 0 ) {
+                if( splits.length != 2 ) {failed = true; break;}
+                String rangeStr[] = splits[1].split(":");
+                if( rangeStr.length != 2 ) {failed = true; break;}
+                minSize = Integer.parseInt(rangeStr[0]);
+                maxSize = Integer.parseInt(rangeStr[1]);
+                System.out.println("Set plot min/max matrix size to: "+minSize+" "+maxSize);
             } else if( flag.compareTo("Display") ==0 ) {
                 if( splits.length != 2 ) {failed = true; break;}
                 displayResults = Boolean.parseBoolean(splits[1]);
@@ -273,6 +323,8 @@ public class PlotRuntimeResultsXml {
 
         p.plotNativeLibraries = plotNative;
         p.displayResults = displayResults;
+        p.minMatrixSize = minSize;
+        p.maxMatrixSize = maxSize;
         p.plot(metric);
     }
 }
