@@ -14,7 +14,7 @@ Comments:
     * Was a test to see if some mult performance difference was because of row-major/column-major design decision.
   * EJML, ojAlgo, UJMP updated.
   * Both UJMP and JBlas are run on a 32 JVM since there is an issue with running them in 64bit JVM
-    * There are no results for matrices of size 5000 or greater for UJMP and JBlas because the 32bit VM can't allocate enough memory.
+    * There are no results for matrices of size 2000 or greater for UJMP and JBlas because the 32bit VM can't allocate enough memory.
 
 Links to the results:
   * [#Pure_Java_Libraries Pure Java Results]
