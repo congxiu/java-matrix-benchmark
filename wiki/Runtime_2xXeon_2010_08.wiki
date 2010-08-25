@@ -55,8 +55,7 @@ These results show the performance of libraries that have code written entirely 
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/scale.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/multTranB.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/tranSq.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/tranWide.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/tranTall.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/tran.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/invSymmPosDef.png ||
 
 ==Java: Solving Linear Systems==
@@ -77,8 +76,7 @@ These results show the performance of libraries that either use pure Java or cal
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/scale.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/multTranB.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/tranSq.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/tranTall.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/tranWide.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/tran.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2010_08.attach/native/invSymmPosDef.png ||
 
 
