@@ -3,10 +3,6 @@
 Comments:
 
   * <font size="4"> RESULTS SKIP OVER VERY SMALL MATRICES AND START AT SIZE 10 </font>
-    * Plots look very different from other results
-  * Thanks to Anders Peterson for running the benchmark on his machine.
-
-
   * Fixed a bug where overhead was being measured.
     * Did not change results significantly since last benchmark because an earlier change reduced overhead so much. 
     * Explains some strange results seen a while ago.
@@ -18,9 +14,7 @@ Comments:
     * mult ab favors column-major libraries.
     * Was a test to see if some mult performance difference was because of row-major/column-major design decision.
   * EJML, ojAlgo, UJMP updated.
-  * Both UJMP and JBlas are run on a 32 JVM since there is an issue with running them in 64bit JVM
-    * There are no results for matrices of size 2000 or greater for UJMP and JBlas because the 32bit VM can't allocate enough memory.
-    * Yes I realize the 64bit and 32bit VM are not the same version.  That was a mistake but the results are highly unlikely to change if corrected.
+  * Thanks to Anders Peterson for running the benchmark on his machine.
 
 Links to the results:
   * [#Pure_Java_Libraries Pure Java Results]
