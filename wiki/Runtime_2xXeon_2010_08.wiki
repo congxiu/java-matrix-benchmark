@@ -6,9 +6,6 @@ Comments:
   * Fixed a bug where overhead was being measured.
     * Did not change results significantly since last benchmark because an earlier change reduced overhead so much. 
     * Explains some strange results seen a while ago.
-  * To see how different libraries handle memory caches differently three different matrix shapes are transposed.
-    * Tall, Wide, Square.
-    * In the future all but square will be turned off by default.
   * Changed mult a^T^b to  ab^T^
     * This was done to favor libraries with row-major matrices and specially built operator.
     * mult ab favors column-major libraries.
