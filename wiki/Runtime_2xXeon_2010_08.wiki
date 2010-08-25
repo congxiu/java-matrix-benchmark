@@ -2,7 +2,7 @@
 
 Comments:
 
-  * <font size="4"> RESULTS SKIP OVER VERY SMALL MATRICES AND START AT SIZE 10 </font size="4">
+  * <font size="4"> RESULTS SKIP OVER VERY SMALL MATRICES AND START AT SIZE 10 </font>
     * Plots look very different from other results
   * Thanks to Anders Peterson for running the benchmark on his machine.
 
