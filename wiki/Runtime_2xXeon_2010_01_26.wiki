@@ -1,4 +1,4 @@
-#summary Benchmark results for 2 Quad-Core Xeon MaxOS 64bit
+#summary Benchmark results for 2 Quad-Core Xeon MacOS X 64bit
 #labels Deprecated
 
 Links to the results:
