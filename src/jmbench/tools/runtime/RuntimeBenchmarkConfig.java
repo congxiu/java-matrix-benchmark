@@ -89,7 +89,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
     // specifies a fixed amount of memory that is to be allocated to the slave.
     // if set to zero then the memory will be dynamically allocated
     // memory here is in megabytes
-    public int memoryFixed;
+    public int memoryTrial;
 
     // if memory is dynamically allocated this specifies how much is allocated
     public int memorySlaveBase;
@@ -118,7 +118,7 @@ public class RuntimeBenchmarkConfig implements Serializable {
         config.numBlocks = 5;
         config.trialTime = 3000;
         config.maxTrialTime = 600000;
-        config.memoryFixed = 0;
+        config.memoryTrial = 0;
         config.memorySlaveBase = 20;
         config.memorySlaveScale = 1;
         config.randizeOrder = true;
@@ -386,12 +386,12 @@ public class RuntimeBenchmarkConfig implements Serializable {
         this.maxTrialTime = maxTrialTime;
     }
 
-    public int getMemoryFixed() {
-        return memoryFixed;
+    public int getMemoryTrial() {
+        return memoryTrial;
     }
 
-    public void setMemoryFixed(int memoryFixed) {
-        this.memoryFixed = memoryFixed;
+    public void setMemoryTrial(int memoryTrial) {
+        this.memoryTrial = memoryTrial;
     }
 
     public boolean isSanityCheck() {

@@ -157,7 +157,7 @@ public class RuntimeEvaluationTest extends EvaluationTest {
 //            System.out.println("  in seconds "+(elapsedTime/1e9));
             if( elapsedTime > goalDuration*0.9 )  {
                 estimatedTrials = (long)Math.ceil(goalDuration * (double)numTrials / (double)elapsedTime);
-//                System.out.println("  elpasedTime = "+elapsedTime);
+//                System.out.println("  elapsedTime = "+elapsedTime);
                 return compileResults((double)numTrials/(elapsedTime/1e9));
             } else {  // 0.2 seconds
                 // if enough time has elapsed use a linear model to predict how many trials it will take
