@@ -289,7 +289,7 @@ public class RuntimeBenchmarkLibrary {
     }
 
     private List<RuntimeResults> evaluateCase( RuntimeEvaluationCase e , long seed , int indexDimen) {
-        if( config.memoryFixed == 0 ) {
+        if( config.memoryTrial == 0 ) {
             return evaluateCaseDynamic(e,seed,indexDimen);
         } else {
             return evaluateCaseFixedMemory(e,seed,indexDimen);
@@ -364,7 +364,7 @@ public class RuntimeBenchmarkLibrary {
 
         int matrixSize = e.getDimens()[indexDimen];
 
-        tools.setOverrideMemory(config.memoryFixed);
+        tools.setOverrideMemory(config.memoryTrial);
 
         EvaluatorSlave.Results r = callRunTest(e, test, matrixSize);
 

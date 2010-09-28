@@ -132,14 +132,19 @@ public class RuntimeBenchmarkMaster {
         System.out.println("  --TrailTime=<ms>         |  The minimum amount of time spent in each trial.  Typical is 3000.");
         System.out.println("  --MaxTime=<ms>           |  Maximum number of milliseconds it can spend in a single test.  Typical is 300000.");
         System.out.println("  --Resume=<directory>     |  It will resume an unfinished benchmark at the specified directory.");
-        System.out.println("  --FixedMemory=<MB>       |  Use a fixed amount of memory in each trial.  In megabytes.");
+        System.out.println("  --Memory=<MB>            |  Sets the amount of memory allocated to java for each trial in megabytes.  This number should be");
+        System.out.println("                           |  as large as possible with out exceeding the amount of physical memory on the system.  If zero is specified");
+        System.out.println("                           |  then the memory is dynamically determined.  It is recommended that a fixed amount be used.");
+        System.out.println("                           |  specified since the dynamic algorithm will slow down the benchmark and has some known issues.");
         System.out.println("  --SanityCheck=<boolean>  |  Should it check the output for correctness?  Adds time and memory.");
         System.out.println();
-        System.out.println("If no options are specified then a default configuration will be used and the results" +
+        System.out.println("The only option which must be specified is \"FixedMemory\".  If no other options are specified " +
+                "then a default configuration will be used and the results" +
                 "will be saved to a directory in results with the name of the current system time in milliseconds.");
     }
 
     public static void main( String args[] ) throws IOException, InterruptedException {
+        boolean memorySpecified = false;
         boolean failed = false;
 
         RuntimeBenchmarkConfig config = RuntimeBenchmarkConfig.createAllConfig();
@@ -198,10 +203,14 @@ public class RuntimeBenchmarkMaster {
                 config = UtilXmlSerialization.deserializeXml(splits[1]+"/config.xml");
                 master.performBenchmark(config);
                 return;
-            } else if( flag.compareTo("FixedMemory") == 0 ) {
+            } else if( flag.compareTo("Memory") == 0 ) {
                 if( splits.length != 2 ) {failed = true; break;}
-                config.memoryFixed = Integer.parseInt(splits[1]);
-                System.out.println("Memory used in each test will be "+config.memoryFixed+" (MB).");
+                memorySpecified = true;
+                config.memoryTrial = Integer.parseInt(splits[1]);
+                if( config.memoryTrial == 0 )
+                    System.out.println("Memory used will be dynamically determined. NOT RECOMMENDED.");
+                else
+                    System.out.println("Memory used in each test will be "+config.memoryTrial +" (MB).");
             } else if( flag.compareTo("SanityCheck") == 0 ) {
                 if( splits.length != 2 ) {failed = true; break;}
                 config.sanityCheck = Boolean.parseBoolean(splits[1]);
@@ -214,7 +223,9 @@ public class RuntimeBenchmarkMaster {
         }
         System.out.println("\n** Done parsing command line **\n");
 
-        if( !failed ) {
+        if( !memorySpecified ) {
+            System.out.println("The amount of memory must be specified using \"--Memory=<MB>\"!");
+        } else if( !failed ) {
             RuntimeBenchmarkMaster master = new RuntimeBenchmarkMaster();
             master.performBenchmark(config);
         } else {
