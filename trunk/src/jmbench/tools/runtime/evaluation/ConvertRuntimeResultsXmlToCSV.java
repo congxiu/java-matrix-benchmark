@@ -109,8 +109,6 @@ public class ConvertRuntimeResultsXmlToCSV {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-
-
         }
     }
 

@@ -19,6 +19,9 @@
 
 package jmbench.tools.runtime.evaluation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Data structure that contains information about a runtime performance plot.
@@ -27,36 +30,49 @@ package jmbench.tools.runtime.evaluation;
  */
 public class RuntimePlotData {
 
+    // The name of the plot.  Typically this is the operation being evaluated
     public String plotName;
+    // size of the matrices evaluated (x-axis)
     public int matrixSize[];
 
-    public double[][] results;
+    // results for each library
+    public List<SourceResults> libraries = new ArrayList<SourceResults>();
 
-    public String labels[];
-
-    public int[] plotLineType;
-
-    public RuntimePlotData( int matrixSize[] , int numLibraries ) {
+    public RuntimePlotData( int matrixSize[] ) {
         this.matrixSize = matrixSize;
+    }
 
-        results = new double[ numLibraries ][];
-        for( int i = 0; i < numLibraries; i++ ) {
-            results[i] = new double[ matrixSize.length ];
-            for( int j = 0; j < matrixSize.length; j++ ) {
-                results[i][j] = Double.NaN;
-            }
-        }
+    public void addLibrary( String label , double[] results , int plotLineType ) {
+        SourceResults s = new SourceResults();
+        s.plotLineType = plotLineType;
+        s.label = label;
+        s.results = results;
 
-        labels = new String[ numLibraries ];
-        plotLineType = new int[ numLibraries ];
+        this.libraries.add(s);
     }
 
     public int findLibrary(String refLib) {
-        for( int i = 0; i < labels.length; i++ ) {
-            if( refLib.compareTo(labels[i]) == 0 )
-                return i;
+        int index = 0;
+        for( SourceResults s : libraries) {
+            if( s.label.compareTo(refLib) == 0)
+                return index;
+            index++;
         }
 
         return -1;
+    }
+
+    public static class SourceResults
+    {
+        int plotLineType;
+        String label;
+        double[] results;
+
+        public double getResult( int index ) {
+            if( results.length <= index )
+                return Double.NaN;
+
+            return results[index];
+        }
     }
 }

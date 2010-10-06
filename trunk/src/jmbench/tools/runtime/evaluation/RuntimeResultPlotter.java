@@ -106,11 +106,10 @@ public class RuntimeResultPlotter {
             fileName = opName;
         }
 
-
-        for( int libIndex = 0; libIndex < data.labels.length; libIndex++ ) {
-
+        for( RuntimePlotData.SourceResults s : data.libraries) {
             for( int i = 0; i < numMatrixSizes; i++ ) {
-                double libResult = data.results[libIndex][i];
+                double libResult = s.getResult(i);
+                
                 if( !Double.isNaN(libResult) ) {
                     results[i] = 1.0/libResult;
                 } else {
@@ -118,8 +117,8 @@ public class RuntimeResultPlotter {
                 }
             }
 
-            splot.addResults(matDimen,results,data.labels[libIndex],numMatrixSizes,
-                    data.plotLineType[libIndex]);
+            splot.addResults(matDimen,results,s.label,numMatrixSizes,
+                    s.plotLineType);
         }
 
         if( savePDF )
@@ -156,9 +155,9 @@ public class RuntimeResultPlotter {
 
         computeReferenceValues(data, referenceType, refIndex, numMatrixSizes, refValue);
 
-        for( int libIndex = 0; libIndex < data.labels.length; libIndex++ ) {
+        for( RuntimePlotData.SourceResults s : data.libraries) {
             for( int i = 0; i < numMatrixSizes; i++ ) {
-                double libResult = data.results[libIndex][i];
+                double libResult = s.getResult(i);
 
                 if( !Double.isNaN(libResult) ) {
                     results[i] = libResult/refValue[i];
@@ -167,8 +166,7 @@ public class RuntimeResultPlotter {
                 }
             }
 
-            splot.addResults(matDimen,results,data.labels[libIndex],numMatrixSizes,
-                    data.plotLineType[libIndex]);
+            splot.addResults(matDimen,results,s.label,numMatrixSizes, s.plotLineType);
         }
         
         if( savePDF )
@@ -227,14 +225,14 @@ public class RuntimeResultPlotter {
                                              Reference referenceType )
     {
         if( referenceType == Reference.LIBRARY ) {
-            return data.results[refIndex][matrixSize];
+            return data.libraries.get(refIndex).results[matrixSize];
         }
 
         List<Double> results = new ArrayList<Double>();
 
         // get results from each library at this matrix size
-        for( int i = 0; i < data.labels.length; i++ ) {
-            double r = data.results[i][matrixSize];
+        for( int i = 0; i < data.libraries.size(); i++ ) {
+            double r = data.libraries.get(i).getResult(matrixSize);
 
             if( Double.isNaN(r) || Double.isInfinite(r)) {
                 continue;

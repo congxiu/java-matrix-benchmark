@@ -100,21 +100,24 @@ public class PlotRuntimeResultsCsv {
             matrixSize[i] = Integer.parseInt(data.get(i)[0]);
         }
 
+        // TODO check to see if this is totally hosed after some changes in October
         // convert results from strings to numbers
-        RuntimePlotData ret = new RuntimePlotData(matrixSize,libs.length-1);
+        RuntimePlotData ret = new RuntimePlotData(matrixSize);
 
         for( int i = 0; i < libs.length-1; i++ ) {
-            ret.labels[i] = libs[i+1];
-            ret.plotLineType[i] = Integer.parseInt(libIds[i]);
-        }
 
-        for( int i = 0; i < matrixSize.length; i++ ) {
-            String[] d = data.get(i);
+            double results[] = new double[ matrixSize.length ];
 
-            for( int j = 0; j < ret.labels.length; j++ ) {
-                ret.results[j][i] = Double.parseDouble(d[j+1]);
+            for( int indexResults = 0; indexResults < matrixSize.length; indexResults++ ) {
+                String[] d = data.get(i);
+
+                results[indexResults] = Double.parseDouble(d[indexResults+1]);
             }
+
+            ret.addLibrary(libs[i+1],results,Integer.parseInt(libIds[i]));
         }
+
+
 
         return ret;
     }
