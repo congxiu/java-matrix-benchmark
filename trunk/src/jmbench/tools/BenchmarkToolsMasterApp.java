@@ -22,6 +22,7 @@ package jmbench.tools;
 import jmbench.tools.memory.MemoryBenchmark;
 import jmbench.tools.runtime.RuntimeBenchmarkMaster;
 import jmbench.tools.runtime.evaluation.CheckForErrorsInResultsXml;
+import jmbench.tools.runtime.evaluation.ComparePlatformResultsXml;
 import jmbench.tools.runtime.evaluation.PlotRuntimeResultsXml;
 import jmbench.tools.stability.StabilityBenchmark;
 
@@ -48,6 +49,7 @@ public class BenchmarkToolsMasterApp {
         System.out.println("  memory             Runs the memory benchmark.");
         System.out.println("  checkRuntime       Outputs the runtime sanity check results.");
         System.out.println("  plotRuntime        Generates plots from runtime results.");
+        System.out.println("  compareRuntime   Compares runtime performance for a single library across different platforms.");
         System.out.println("  displayStability   Prints out tables showing stability results.");
         System.out.println();
         System.out.println("For example to run the runtime benchmark type:");
@@ -80,6 +82,8 @@ public class BenchmarkToolsMasterApp {
             CheckForErrorsInResultsXml.main(pruned);    
         } else if( tool.compareToIgnoreCase("plotRuntime") == 0) {
             PlotRuntimeResultsXml.main(pruned);
+        } else if( tool.compareToIgnoreCase("compareRuntime") == 0 ) {
+            ComparePlatformResultsXml.main(pruned);
         } else if( tool.compareToIgnoreCase("displayStability") == 0) {
             System.out.println("Not supported yet "+tool);
         } else {

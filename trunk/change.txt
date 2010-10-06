@@ -3,6 +3,7 @@
 20XX/XX/XX
 
 - Can now truncate runtime data when creating plots.
+- Added a tool for comparing results from a library across different results directories.
 
 ----- Version 0.7
 
