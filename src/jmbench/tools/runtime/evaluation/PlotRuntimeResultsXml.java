@@ -52,6 +52,11 @@ public class PlotRuntimeResultsXml {
     // it will only plot results which are of this size or less
     int maxMatrixSize = 0;
 
+    /**
+     * Plots results from XML contained in the specified directory.
+     *
+     * @param dir Directory containing the results.
+     */
     public PlotRuntimeResultsXml( String dir ) {
         directory = new File(dir);
 
@@ -94,7 +99,6 @@ public class PlotRuntimeResultsXml {
                             continue;
                         }
 
-
                         List l;
                         if( opMap.containsKey(stripName) ) {
                             l = opMap.get(stripName);
@@ -109,16 +113,20 @@ public class PlotRuntimeResultsXml {
 
         }
 
+        createPlots(minMatrixSize,maxMatrixSize,directory,whichMetric, opMap);
+    }
+
+    public static void createPlots( int minMatrixSize , int maxMatrixSize , File outputDirectory , int whichMetric, Map<String, List> opMap) {
         for( String key : opMap.keySet() ) {
             List<OperationResults> l = opMap.get(key);
 
             RuntimePlotData plotData = convertToPlotData(l,whichMetric);
 
-            truncatePlotData(plotData);
+            truncatePlotData(minMatrixSize,maxMatrixSize,plotData);
 
-            String fileNameVar = directory.getPath()+"/plots/variability/"+key;
-            String fileNameRel = directory.getPath()+"/plots/relative/"+key;
-            String fileNameAbs = directory.getPath()+"/plots/absolute/"+key;
+            String fileNameVar = outputDirectory.getPath()+"/plots/variability/"+key;
+            String fileNameRel = outputDirectory.getPath()+"/plots/relative/"+key;
+            String fileNameAbs = outputDirectory.getPath()+"/plots/absolute/"+key;
 
             RuntimeResultPlotter.Reference refType = RuntimeResultPlotter.Reference.MAX;
             RuntimeResultPlotter.variabilityPlots(l, fileNameVar,true,false);
@@ -131,7 +139,7 @@ public class PlotRuntimeResultsXml {
     /**
      * Removes data outside of the requested min and max matrix size
      */
-    private void truncatePlotData(RuntimePlotData data ) {
+    public static void truncatePlotData( int minMatrixSize , int maxMatrixSize , RuntimePlotData data ) {
         if( maxMatrixSize == 0 )
             return;
 
@@ -151,38 +159,37 @@ public class PlotRuntimeResultsXml {
         System.arraycopy(data.matrixSize,off,matrixSize,0,N-off);
         data.matrixSize = matrixSize;
 
-        for( int i = 0; i < data.results.length; i++ ) {
-            double []r = data.results[i];
+//        for( int i = 0; i < data.results.size(); i++ ) {
+        for( RuntimePlotData.SourceResults s : data.libraries) {
+            double []r = s.results;
             double []trunc = new double[N-off];
 
             System.arraycopy(r,off,trunc,0,N-off);
-            data.results[i] = trunc;
+            s.results = trunc;
         }
     }
 
-    private RuntimePlotData convertToPlotData( List<OperationResults> results , int whichMetric ) {
+    public static RuntimePlotData convertToPlotData( List<OperationResults> results , int whichMetric ) {
         OperationResults a = results.get(0);
 
-        RuntimePlotData ret = new RuntimePlotData(a.matDimen,results.size());
+        RuntimePlotData ret = new RuntimePlotData(a.matDimen);
 
         ret.plotName = a.getOpName();
 
         for( int i = 0; i < results.size(); i++ ) {
             a = results.get(i);
-            ret.labels[i] = a.getLibrary().getPlotName();
-            ret.plotLineType[i] = a.getLibrary().getPlotLineType();
 
-            double r[] = ret.results[i];
+            double r[] = new double[ a.matDimen.length ];
 
-            int n = a.getMatDimen().length;
-            if( r.length < n )
-                n = r.length;
-
-            for( int j = 0; j < n; j++ ) {
+            for( int j = 0; j < r.length; j++ ) {
                 RuntimeEvaluationMetrics m = a.getMetrics()[j];
                 if( m != null )
                     r[j] = m.getMetric(whichMetric);
+                else
+                    r[j] = Double.NaN;
             }
+
+            ret.addLibrary(a.getLibrary().getPlotName(),r,a.getLibrary().getPlotLineType());
         }
 
         return ret;
