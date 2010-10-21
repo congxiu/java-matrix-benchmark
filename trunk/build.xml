@@ -3,8 +3,8 @@
     <!--<property name="java.compilor" value="/opt/jdk1.7.0/bin/javac"/>-->
     <!--<property name="java.vm" value="/opt/jdk1.7.0/bin/java"/>-->
 
-    <property name="java.compilor" value="/opt/jdk/bin/javac"/>
-    <property name="java.vm" value="/opt/jdk/bin/java"/>
+    <property name="java.compilor" value="/opt/jdk/latest/bin/javac"/>
+    <property name="java.vm" value="/opt/jdk/latest/bin/java"/>
 
     <!--<property name="java.compilor" value="javac"/>-->
     <!--<property name="java.vm" value="java"/>-->

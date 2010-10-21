@@ -39,7 +39,7 @@ public class SejmlAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.SEJML.getVersionName();
+            return MatrixLibrary.SEJML.getNameWithVersion();
         }
     }
 

@@ -48,7 +48,7 @@ public class OjAlgoStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.OJALGO.getVersionName();
+            return MatrixLibrary.OJALGO.getNameWithVersion();
         }
     }
 

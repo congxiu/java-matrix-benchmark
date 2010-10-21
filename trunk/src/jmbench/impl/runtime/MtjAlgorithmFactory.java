@@ -40,7 +40,7 @@ public class MtjAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.MTJ.getVersionName();
+            return MatrixLibrary.MTJ.getNameWithVersion();
         }
     }
 

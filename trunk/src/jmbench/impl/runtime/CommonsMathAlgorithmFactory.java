@@ -39,7 +39,7 @@ public class CommonsMathAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.CM.getVersionName();
+            return MatrixLibrary.CM.getNameWithVersion();
         }
     }
 

@@ -4,6 +4,9 @@
 
 - Can now truncate runtime data when creating plots.
 - Added a tool for comparing results from a library across different results directories.
+- To make it more future proof EvaluationTarget now refers to the libraries name instead of MatrixLibrary directly.
+- Can now query the library itself at runtime to determine its version
+- When resuming a trial it no longer overwrites the old log file and instead creates a new one.
 
 ----- Version 0.7
 

@@ -19,6 +19,7 @@
 
 package jmbench.tools.runtime;
 
+import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.EvaluationTarget;
 import jmbench.tools.SystemInfo;
@@ -73,7 +74,10 @@ public class RuntimeBenchmarkMaster {
 
         for( EvaluationTarget desc : libs ) {
 
-            String libOutputDir = directorySave+"/"+desc.getLib().getSaveDirName();
+            MatrixLibrary lib = MatrixLibrary.lookup(desc.getLibName());
+            lib.addVersionInfo( desc );
+
+            String libOutputDir = directorySave+"/"+lib.getSaveDirName();
 
             // save the description so that where this came from can be easily extracted
             try {
@@ -87,7 +91,7 @@ public class RuntimeBenchmarkMaster {
             RuntimePerformanceFactory l = desc.loadAlgorithmFactory();
 
             RuntimeBenchmarkLibrary benchmark = new RuntimeBenchmarkLibrary(libOutputDir,l,
-                    desc.getJarFiles(),desc.getLib(),
+                    desc.getJarFiles(),lib,
                     config);
 
             try {
@@ -146,6 +150,7 @@ public class RuntimeBenchmarkMaster {
     public static void main( String args[] ) throws IOException, InterruptedException {
         boolean memorySpecified = false;
         boolean failed = false;
+        boolean configFileSpecified = false;
 
         RuntimeBenchmarkConfig config = RuntimeBenchmarkConfig.createAllConfig();
 
@@ -164,7 +169,8 @@ public class RuntimeBenchmarkMaster {
             flag = flag.substring(2);
 
             if( flag.compareTo("Config") == 0 ) {
-                if( splits.length != 2 || args.length != 1 ) {failed = true; break;}
+                if( splits.length != 2 ) {failed = true; break;}
+                configFileSpecified = true;
                 System.out.println("Loading config: "+splits[1]);
                 config = UtilXmlSerialization.deserializeXml(splits[1]);
             } else if( flag.compareTo("Size") == 0 ) {
@@ -223,13 +229,15 @@ public class RuntimeBenchmarkMaster {
         }
         System.out.println("\n** Done parsing command line **\n");
 
-        if( !memorySpecified ) {
-            System.out.println("The amount of memory must be specified using \"--Memory=<MB>\"!");
-        } else if( !failed ) {
-            RuntimeBenchmarkMaster master = new RuntimeBenchmarkMaster();
-            master.performBenchmark(config);
-        } else {
+        if( failed ) {
             printHelp();
+        } else {
+            if( !configFileSpecified && !memorySpecified ) {
+                System.out.println("The amount of memory must be specified using \"--Memory=<MB>\"!");
+            } else {
+                RuntimeBenchmarkMaster master = new RuntimeBenchmarkMaster();
+                master.performBenchmark(config);
+            }
         }
     }
 }

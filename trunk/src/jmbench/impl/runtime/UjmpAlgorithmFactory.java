@@ -26,7 +26,6 @@ import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
-import org.ejml.ops.CommonOps;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.MatrixFactory;
 import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
@@ -56,7 +55,7 @@ public class UjmpAlgorithmFactory implements RuntimePerformanceFactory {
     private static abstract class MyInterface implements AlgorithmInterface {
 		@Override
 		public String getName() {
-			return MatrixLibrary.UJMP.getVersionName();
+			return MatrixLibrary.UJMP.getNameWithVersion();
 		}
 	}
 

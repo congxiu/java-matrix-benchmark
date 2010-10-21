@@ -43,7 +43,7 @@ public class EjmlAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.EJML.getVersionName();
+            return MatrixLibrary.EJML.getNameWithVersion();
         }
     }
 

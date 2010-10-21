@@ -75,9 +75,6 @@
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
-    <excludeFromCompile>
-      <file url="file://$PROJECT_DIR$/../../ejml/trunk/test/org/ejml/alg/dense/decomposition/eig/symm/TestSymmetricQrAlgorithm.java" />
-    </excludeFromCompile>
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -380,7 +377,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../../ejml/trunk/ejml.iml" filepath="$PROJECT_DIR$/../../ejml/trunk/ejml.iml" />
       <module fileurl="file://$PROJECT_DIR$/jmatbench.iml" filepath="$PROJECT_DIR$/jmatbench.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../java/libpjajava/libpja.iml" filepath="$PROJECT_DIR$/../../java/libpjajava/libpja.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../libpjajava/libpja.iml" filepath="$PROJECT_DIR$/../../libpjajava/libpja.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
@@ -446,17 +443,37 @@
             </SvnBranchConfiguration>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/../../java/libpjajava">
-          <value>
-            <SvnBranchConfiguration>
-              <option name="trunkUrl" value="" />
-            </SvnBranchConfiguration>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$">
           <value>
             <SvnBranchConfiguration>
               <option name="trunkUrl" value="svn+ssh://127.0.0.1/opt/repos/math/jmatbench/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../libpjajava">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchMap">
+                <map>
+                  <entry key="svn+ssh://10.0.0.3/opt/repos/libpjajava/branches">
+                    <value>
+                      <list />
+                    </value>
+                  </entry>
+                  <entry key="svn+ssh://10.0.0.3/opt/repos/libpjajava/tags">
+                    <value>
+                      <list />
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="branchUrls">
+                <list>
+                  <option value="svn+ssh://10.0.0.3/opt/repos/libpjajava/branches" />
+                  <option value="svn+ssh://10.0.0.3/opt/repos/libpjajava/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="svn+ssh://10.0.0.3/opt/repos/libpjajava/trunk" />
             </SvnBranchConfiguration>
           </value>
         </entry>

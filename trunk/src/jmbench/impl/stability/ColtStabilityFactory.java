@@ -49,7 +49,7 @@ public class ColtStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.COLT.getVersionName();
+            return MatrixLibrary.COLT.getNameWithVersion();
         }
     }
 

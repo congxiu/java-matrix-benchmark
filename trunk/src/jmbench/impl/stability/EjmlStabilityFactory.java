@@ -46,7 +46,7 @@ public class EjmlStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.EJML.getVersionName();
+            return MatrixLibrary.EJML.getNameWithVersion();
         }
     }
 

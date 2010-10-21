@@ -40,7 +40,7 @@ public class JamaAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.JAMA.getVersionName();
+            return MatrixLibrary.JAMA.getNameWithVersion();
         }
     }
 

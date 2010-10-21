@@ -242,7 +242,7 @@ public class StabilityBenchmarkLibrary {
                 continue;
             }
 
-            System.out.println(libInfo.getVersionName()+" :  Processing op: "+op.getTestName());
+            System.out.println(libInfo.getNameWithVersion()+" :  Processing op: "+op.getTestName());
 
             StabilityTrialResults results = evaluateOperation(op);
 

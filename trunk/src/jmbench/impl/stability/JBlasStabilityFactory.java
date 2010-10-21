@@ -45,7 +45,7 @@ public class JBlasStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.JBLAS.getVersionName();
+            return MatrixLibrary.JBLAS.getNameWithVersion();
         }
     }
 

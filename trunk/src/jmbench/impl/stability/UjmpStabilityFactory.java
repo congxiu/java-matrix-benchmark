@@ -45,7 +45,7 @@ public class UjmpStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.UJMP.getVersionName();
+            return MatrixLibrary.UJMP.getNameWithVersion();
         }
     }
 
