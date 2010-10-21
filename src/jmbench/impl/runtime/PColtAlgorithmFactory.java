@@ -59,7 +59,7 @@ public class PColtAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.PCOLT.getVersionName();
+            return MatrixLibrary.PCOLT.getNameWithVersion();
         }
     }
 

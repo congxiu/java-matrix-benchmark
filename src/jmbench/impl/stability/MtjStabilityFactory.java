@@ -44,7 +44,7 @@ public class MtjStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.MTJ.getVersionName();
+            return MatrixLibrary.MTJ.getNameWithVersion();
         }
     }
 

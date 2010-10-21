@@ -41,8 +41,12 @@ import java.util.List;
  */
 public class EvaluationTarget implements Serializable {
 
-    private MatrixLibrary lib;
+    private String libName;
     private String factoryPath;
+
+    // this is determined at runtime
+    private String version;
+    private String modificationData;
 
     private transient List<String> jarFiles;
 
@@ -53,7 +57,14 @@ public class EvaluationTarget implements Serializable {
     public EvaluationTarget( MatrixLibrary lib,
                              String factoryPath )
     {
-        this.lib = lib;
+        this.libName = lib.getPlotName();
+        this.factoryPath = factoryPath;
+    }
+
+    public EvaluationTarget( String libName,
+                             String factoryPath )
+    {
+        this.libName = libName;
         this.factoryPath = factoryPath;
     }
 
@@ -61,6 +72,8 @@ public class EvaluationTarget implements Serializable {
      * Returns a list of jars that need to be added to the classpath.
      */
     private void loadJarNames() {
+
+        MatrixLibrary lib = MatrixLibrary.lookup(libName);
 
         if( lib.libraryDirName == null )
             return;
@@ -158,12 +171,12 @@ public class EvaluationTarget implements Serializable {
         }
     }
 
-    public MatrixLibrary getLib() {
-        return lib;
+    public String getLibName() {
+        return libName;
     }
 
-    public void setLib(MatrixLibrary lib) {
-        this.lib = lib;
+    public void setLibName(String libName) {
+        this.libName = libName;
     }
 
     public String getFactoryPath() {
@@ -173,6 +186,23 @@ public class EvaluationTarget implements Serializable {
     public void setFactoryPath(String factoryPath) {
         this.factoryPath = factoryPath;
     }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getModificationData() {
+        return modificationData;
+    }
+
+    public void setModificationData(String modificationData) {
+        this.modificationData = modificationData;
+    }
 }
+
 
 

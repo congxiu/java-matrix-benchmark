@@ -44,7 +44,7 @@ public class CommonsMathStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.CM.getVersionName();
+            return MatrixLibrary.CM.getNameWithVersion();
         }
     }
 

@@ -45,7 +45,7 @@ public class JamaStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.JAMA.getVersionName();
+            return MatrixLibrary.JAMA.getNameWithVersion();
         }
     }
 

@@ -19,6 +19,7 @@
 
 package jmbench.tools.memory;
 
+import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.tools.EvaluationTarget;
 import jmbench.tools.SystemInfo;
@@ -99,7 +100,8 @@ public class MemoryBenchmark {
     {
         for( EvaluationTarget desc : libs ) {
             try {
-                String outputFile = directorySave+"/"+desc.getLib().getLibraryDirName()+".xml";
+                MatrixLibrary lib = MatrixLibrary.lookup(desc.getLibName());
+                String outputFile = directorySave+"/"+lib.getLibraryDirName()+".xml";
                 UtilXmlSerialization.serializeXml(desc,outputFile);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);

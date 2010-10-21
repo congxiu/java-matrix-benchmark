@@ -19,6 +19,7 @@
 
 package jmbench.tools.runtime.evaluation;
 
+import jmbench.impl.MatrixLibrary;
 import jmbench.tools.EvaluationTarget;
 import jmbench.tools.runtime.OperationResults;
 import jmbench.tools.runtime.RuntimeEvaluationMetrics;
@@ -209,7 +210,9 @@ public class PlotRuntimeResultsXml {
             return false;
         }
 
-        return !(target.getLib().isNativeCode() && !plotNativeLibraries);
+        MatrixLibrary lib = MatrixLibrary.lookup(target.getLibName());
+
+        return !(lib.isNativeCode() && !plotNativeLibraries);
     }
 
     /**

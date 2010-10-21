@@ -104,7 +104,7 @@ public class MemoryBenchmarkLibrary {
         while( !activeTasks.isEmpty() ) {
             Task task = activeTasks.get( rand.nextInt(activeTasks.size()));
 
-            System.out.println(libInfo.getVersionName()+" operation "+task.results.nameOp);
+            System.out.println(libInfo.getNameWithVersion()+" operation "+task.results.nameOp);
 
             long mem = findMinimumMemory(task);
 

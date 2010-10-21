@@ -19,6 +19,7 @@
 
 package jmbench.tools.stability;
 
+import jmbench.impl.MatrixLibrary;
 import jmbench.interfaces.StabilityFactory;
 import jmbench.tools.EvaluationTarget;
 import jmbench.tools.SystemInfo;
@@ -96,7 +97,8 @@ public class StabilityBenchmark {
     {
         for( EvaluationTarget desc : libs ) {
             try {
-                String outputFile = directorySave+"/"+desc.getLib().getLibraryDirName()+".xml";
+                MatrixLibrary lib = MatrixLibrary.lookup(desc.getLibName());
+                String outputFile = directorySave+"/"+lib.getLibraryDirName()+".xml";
                 UtilXmlSerialization.serializeXml(desc,outputFile);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
@@ -112,8 +114,8 @@ public class StabilityBenchmark {
         for( EvaluationTarget desc : libs ) {
 //            if( desc.getLib() != MatrixLibrary.JAMA )
 //                continue;
-
-            String libOutputDir = directorySave+"/"+dirSize+"/"+desc.getLib().getLibraryDirName();
+            MatrixLibrary lib = MatrixLibrary.lookup(desc.getLibName());
+            String libOutputDir = directorySave+"/"+dirSize+"/"+lib.getLibraryDirName();
 
             // run the benchmark
             StabilityFactory l = desc.loadAlgorithmFactory();

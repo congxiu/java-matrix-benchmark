@@ -47,7 +47,7 @@ public class ColtAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.COLT.getVersionName();
+            return MatrixLibrary.COLT.getNameWithVersion();
         }
     }
 

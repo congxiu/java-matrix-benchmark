@@ -435,7 +435,7 @@ public class OjAlgoAlgorithmFactory implements RuntimePerformanceFactory {
     private static abstract class MyInterface implements AlgorithmInterface {
 
         public String getName() {
-            return MatrixLibrary.OJALGO.getVersionName();
+            return MatrixLibrary.OJALGO.getNameWithVersion();
         }
     }
 

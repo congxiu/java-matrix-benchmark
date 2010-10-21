@@ -48,7 +48,7 @@ public class ParallelColtStabilityFactory implements StabilityFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.PCOLT.getVersionName();
+            return MatrixLibrary.PCOLT.getNameWithVersion();
         }
     }
 

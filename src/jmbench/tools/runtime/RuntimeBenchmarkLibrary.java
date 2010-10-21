@@ -28,10 +28,7 @@ import jmbench.tools.EvaluatorSlave;
 import jmbench.tools.TestResults;
 import pja.util.UtilXmlSerialization;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -202,7 +199,17 @@ public class RuntimeBenchmarkLibrary {
      */
     private void setupLog() {
         try {
-            logStream = new PrintStream(directorySave+"/log.txt");
+            for( int i = 0; i < 1000; i++ ) {
+                String fileName = String.format("%s/log%d.txt",directorySave,i);
+                File f = new File(fileName);
+                if( f.exists() )
+                    continue;
+                FileOutputStream out = new FileOutputStream(f,true);
+                logStream = new PrintStream(out);
+                break;
+            }
+
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -229,7 +236,7 @@ public class RuntimeBenchmarkLibrary {
 
         RuntimeEvaluationMetrics score[] = state.score;
 
-        System.out.println("#### "+libraryType.getVersionName()+"  op "+e.getOpName()+"  Size "+matDimen[state.matrixIndex]+"  block "+state.blockIndex+"  ####");
+        System.out.println("#### "+libraryType.getNameWithVersion()+"  op "+e.getOpName()+"  Size "+matDimen[state.matrixIndex]+"  block "+state.blockIndex+"  ####");
 
         OperationResults r = computeResults(e, state.matrixIndex , randSeed[state.blockIndex] , score , state.results);
 

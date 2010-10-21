@@ -26,7 +26,6 @@ import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.RuntimePerformanceFactory;
 import jmbench.tools.runtime.generator.ScaleGenerator;
 import org.ejml.data.DenseMatrix64F;
-import org.ejml.ops.CommonOps;
 import org.jblas.Decompose;
 import org.jblas.DoubleMatrix;
 import org.jblas.Eigen;
@@ -42,7 +41,7 @@ public class JBlasAlgorithmFactory implements RuntimePerformanceFactory {
     {
         @Override
         public String getName() {
-            return MatrixLibrary.JBLAS.getVersionName();
+            return MatrixLibrary.JBLAS.getNameWithVersion();
         }
     }
 
