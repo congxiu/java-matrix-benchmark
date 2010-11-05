@@ -98,7 +98,7 @@ public class PlotMemoryResultsXml {
         return opMap;
     }
 
-    private void plotResults(  Map<String, List> opMap ) {
+    private void plotResults( Map<String, List> opMap ) {
         MemoryRelativeBarPlot plot = new MemoryRelativeBarPlot("Library Memory Usage");
 
         for( String key : opMap.keySet() ) {
