@@ -52,20 +52,17 @@ public class MemoryConfig {
     // maximum amount of time it allows for any test
     public long maxTestTimeMilli;
 
-    // number of times it repeats an operation within a test
-    public int numCycles;
-
     // how many times should it repeat each test
     public int numTrials;
 
-    // desired accuracy of the result
-    public long accuracy;
+    // how much memory should it allocate to the test process in megabytes
+    public long memoryMinMB;
+    public long memoryMaxMB;
 
     // number of rows/cols of tested matrices
-    public int matrixSizeSmall;
-    public int matrixSizeLarge;
+    public int matrixSize;
 
-    // ops that it tessts
+    // ops that it tests
     public boolean mult;
     public boolean add;
     public boolean solveLinear;
@@ -91,12 +88,11 @@ public class MemoryConfig {
 
         ret.seed = 234234;
 
-        ret.maxTestTimeMilli = 5*60*1000;
-        ret.numCycles = 1;
-        ret.numTrials = 1;
-        ret.accuracy = 2;
-        ret.matrixSizeSmall = 1000;
-        ret.matrixSizeLarge = 1500;
+        ret.maxTestTimeMilli = 15*60*1000;
+        ret.numTrials = 5;
+        ret.memoryMinMB = 256;
+        ret.memoryMaxMB = 1024;
+        ret.matrixSize = 2000;//2000;
 
         ret.mult = true;
         ret.add = true;

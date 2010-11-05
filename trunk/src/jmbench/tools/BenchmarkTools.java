@@ -38,7 +38,7 @@ public class BenchmarkTools {
     int requestID= new Random().nextInt();
     // how many MC trials should the slave perform
     int numTrials = 1;
-    // if not zero it will allocate this much memory
+    // if not zero it will allocate this much memory (MB)
     long overrideMemory = 0;
     // amount of memory it always adds in megs
     long baseMemory = 10;
@@ -328,6 +328,7 @@ public class BenchmarkTools {
         // close the IO streams
         input.close();
         error.close();
+        pr.getOutputStream().close();
 
         // delete temporary files
         cleanup();

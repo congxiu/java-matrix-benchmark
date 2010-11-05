@@ -23,8 +23,6 @@ import jmbench.impl.MatrixLibrary;
 import jmbench.impl.memory.EjmlMemoryFactory;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
-import jmbench.tools.BenchmarkTools;
-import jmbench.tools.EvaluatorSlave;
 import pja.util.UtilXmlSerialization;
 
 import java.io.File;
@@ -45,7 +43,7 @@ public class MemoryBenchmarkLibrary {
     MatrixLibrary libInfo;
     MemoryConfig config;
 
-    BenchmarkTools tool = new BenchmarkTools();
+    MemoryBenchmarkTools tool = new MemoryBenchmarkTools();
 
     List<Task> activeTasks = new ArrayList<Task>();
 
@@ -68,22 +66,22 @@ public class MemoryBenchmarkLibrary {
         String libraryName = factory.getLibraryInfo().getPlotName();
 
         if( config.add )
-            addOperation(config, factory.add(), "add", libraryName, 3 , config.matrixSizeLarge);
+            addOperation(config, factory.add(), "add", libraryName, 3 , config.matrixSize);
 
         if( config.mult )
-            addOperation(config, factory.mult(), "mult", libraryName, 3 , config.matrixSizeLarge);
+            addOperation(config, factory.mult(), "mult", libraryName, 3 , config.matrixSize);
 
         if( config.solveLinear )
-            addOperation(config, factory.solveEq(), "solveLinear", libraryName, 3 , config.matrixSizeLarge);
+            addOperation(config, factory.solveEq(), "solveLinear", libraryName, 3 , config.matrixSize);
 
         if( config.solveLS )
-            addOperation(config, factory.solveLS(), "solveLS", libraryName,3 , config.matrixSizeLarge);
+            addOperation(config, factory.solveLS(), "solveLS", libraryName,3 , config.matrixSize);
 
         if( config.svd )
-            addOperation(config, factory.svd(), "svd", libraryName,3 , config.matrixSizeSmall);
+            addOperation(config, factory.svd(), "svd", libraryName,3 , config.matrixSize);
 
         if( config.eig )
-            addOperation(config, factory.eig(), "eig", libraryName,3 , config.matrixSizeSmall);
+            addOperation(config, factory.eig(), "eig", libraryName,3 , config.matrixSize);
 
         if( directorySave != null ) {
             setupOutputDirectory();
@@ -106,18 +104,23 @@ public class MemoryBenchmarkLibrary {
 
             System.out.println(libInfo.getNameWithVersion()+" operation "+task.results.nameOp);
 
-            long mem = findMinimumMemory(task);
-
             boolean remove = false;
 
-            if( mem > 0 ) {
+            long mem = findMemory(task);
+
+            // if it has a memory result, save it no matter what
+            if( mem <= 0 ) {
+                logStream.println("Bad memory "+mem+" operation "+task.results.nameOp);
+            } else if( tool.isFailed() ) {
+                System.out.println("Failed!");
+                logStream.println("FAILED: operation "+task.results.nameOp);
+                remove = true;
+            } else {
                 task.results.results.add(mem);
-                System.out.println("  memory: "+mem);
+                System.out.println("  memory: "+(mem/1024)+" (KB)");
                 if( task.results.results.size() >= config.numTrials ) {
                     remove = true;
                 }
-            } else {
-                remove = true;
             }
 
             saveResults(task.results);
@@ -126,6 +129,8 @@ public class MemoryBenchmarkLibrary {
                 activeTasks.remove(task);
             }
         }
+
+        logStream.close();
     }
 
     private void setupOutputDirectory() {
@@ -165,79 +170,16 @@ public class MemoryBenchmarkLibrary {
         }
     }
 
-    public long findMinimumMemory( Task task )
+    public long findMemory( Task task )
     {
-        // lower bound for memory
-        long lowerMem=0;
-        // upper bound for memory
-        long upperMem=Long.MAX_VALUE;
-        // what is currently being tested
-        long testPoint = (8*task.matrixSize*task.matrixSize/1024/1024)*task.memoryScale;
+        tool.setFrozenDefaultTime(task.timeout);
+        tool.setMemory(config.memoryMinMB,config.memoryMaxMB);
 
-        int numFroze = 0;
+        MemoryTest test = new MemoryTest();
+        test.setup(task.op,1,task.matrixSize);
+        test.setRandomSeed(config.seed);
 
-
-        while( upperMem - lowerMem > config.accuracy ) {
-            tool.setFrozenDefaultTime(task.timeout);
-            tool.setOverrideMemory(testPoint);
-
-            MemoryTest test = new MemoryTest();
-            test.setup(task.op,config.numCycles,task.matrixSize);
-            test.setRandomSeed(config.seed);
-
-            EvaluatorSlave.Results results = tool.runTest(test);
-
-            if( results == null ) {
-                System.out.println("Returned NULL");
-                return -1;
-            }
-
-            if( results.failed == null ) {
-//                System.out.println("  Result: "+testPoint);
-                upperMem = testPoint;
-                MemoryTest.Results r = (MemoryTest.Results)results.getResults().get(0);
-
-                // now that it knows how long it should take adjust the time out time
-                if( r.elapsedTime*3 < task.timeout) {
-                    task.timeout = r.elapsedTime*3;
-                }
-
-            } else if( results.failed == EvaluatorSlave.FailReason.OUT_OF_MEMORY ) {
-//                System.out.println("  Ran out of memory: "+testPoint);
-                lowerMem = testPoint;
-            } else if( results.failed == EvaluatorSlave.FailReason.FROZEN ) {
-//                System.out.println("  Froze: "+testPoint);
-                lowerMem = testPoint;
-                numFroze++;
-                // if it hasn't found an upper limit and keeps on timing out
-                // the max time is probably too sort
-                if( upperMem == Long.MAX_VALUE && numFroze >= 2) {
-                    task.results.error = results.failed;
-                    System.out.println("FROZEN FATAL ERROR");
-                    return -1;
-                }
-            } else {
-                System.out.println("FATAL ERROR: "+results.failed);
-                task.results.error = results.failed;
-                task.results.errorMessage = results.detailedError;
-                return -1;
-            }
-
-            long prevTestPoint = testPoint;
-
-            if( upperMem == Long.MAX_VALUE ) {
-                testPoint *= 2;
-            } else {
-                testPoint = (upperMem+lowerMem)/2;
-            }
-
-            if( prevTestPoint < testPoint )
-                System.out.print("+");
-            else
-                System.out.print("-");
-        }
-
-        return (upperMem+lowerMem)/2;
+        return tool.runTest(test);
     }
 
     private static class Task {
