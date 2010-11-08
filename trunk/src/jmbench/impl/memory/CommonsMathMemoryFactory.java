@@ -20,12 +20,12 @@
 package jmbench.impl.memory;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.CommonsMathBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
 import org.apache.commons.math.linear.*;
 import org.apache.commons.math.util.MathUtils;
-
-import java.util.Random;
 
 
 /**
@@ -37,6 +37,16 @@ public class CommonsMathMemoryFactory implements MemoryFactory {
     @Override
     public MatrixLibrary getLibraryInfo() {
         return MatrixLibrary.CM;
+    }
+
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(MatrixUtils.createRealMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new CommonsMathBenchmarkMatrix( (RealMatrix)matrix );
     }
 
     private static abstract class MyInterface implements MemoryProcessorInterface
@@ -55,18 +65,11 @@ public class CommonsMathMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
-            RealMatrix B = MatrixUtils.createRealMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix A = inputs[0].getOriginal();
+            RealMatrix B = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.setEntry(i,j,rand.nextDouble());
-                    B.setEntry(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 A.multiply(B);
             }
         }
@@ -80,18 +83,11 @@ public class CommonsMathMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
-            RealMatrix B = MatrixUtils.createRealMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix A = inputs[0].getOriginal();
+            RealMatrix B = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.setEntry(i,j,rand.nextDouble());
-                    B.setEntry(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 A.add(B);
             }
         }
@@ -105,18 +101,11 @@ public class CommonsMathMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
-            RealMatrix y = MatrixUtils.createRealMatrix(size,1);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix A = inputs[0].getOriginal();
+            RealMatrix y = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.setEntry(i,j,rand.nextDouble());
-                }
-                y.setEntry(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 LUDecomposition lu = new LUDecompositionImpl(A);
                 lu.getSolver().solve(y);
             }
@@ -132,21 +121,11 @@ public class CommonsMathMemoryFactory implements MemoryFactory {
     public static class SolveLS extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix A = inputs[0].getOriginal();
+            RealMatrix y = inputs[1].getOriginal();
 
-            RealMatrix A = MatrixUtils.createRealMatrix(numRows,numCols);
-            RealMatrix y = MatrixUtils.createRealMatrix(numRows,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.setEntry(i,j,rand.nextDouble());
-                }
-                y.setEntry(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 QRDecomposition qr = new QRDecompositionImpl(A);
                 qr.getSolver().solve(y);
             }
@@ -161,23 +140,19 @@ public class CommonsMathMemoryFactory implements MemoryFactory {
     public static class SVD extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-            RealMatrix A = MatrixUtils.createRealMatrix(numRows,numCols);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix A = inputs[0].getOriginal();
 
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.setEntry(i,j,rand.nextDouble());
-                }
-            }
-            for( int i = 0; i < numCycles; i++ ) {
+            RealMatrix U = null, S = null, V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 org.apache.commons.math.linear.SingularValueDecomposition svd = new SingularValueDecompositionImpl(A);
                 // need to call this functions so that it performs the full decomposition
-                RealMatrix U = svd.getU();
-                RealMatrix S = svd.getS();
-                RealMatrix V = svd.getV();
+                U = svd.getU();
+                S = svd.getS();
+                V = svd.getV();
             }
+            if( U == null || S == null || V == null )
+                throw new RuntimeException("There is a null");
         }
     }
 
@@ -189,22 +164,18 @@ public class CommonsMathMemoryFactory implements MemoryFactory {
     public static class Eig extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            RealMatrix A = MatrixUtils.createRealMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            RealMatrix A = inputs[0].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.setEntry(i,j,rand.nextDouble());
-                    A.setEntry(j,i,A.getEntry(i,j));
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            RealMatrix V=null,D=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 EigenDecompositionImpl eig = new EigenDecompositionImpl(A, MathUtils.SAFE_MIN);
                 // need to do this so that it computes the complete eigen vector
-                RealMatrix V = eig.getV();
-                RealMatrix D = eig.getD();
+                V = eig.getV();
+                D = eig.getD();
             }
+            if( D == null || V == null)
+                throw new RuntimeException("There is a null") ;
         }
     }
 }

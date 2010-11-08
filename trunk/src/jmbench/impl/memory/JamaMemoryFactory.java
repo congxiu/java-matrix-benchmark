@@ -23,10 +23,10 @@ import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.JavaBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
-
-import java.util.Random;
 
 
 /**
@@ -49,6 +49,16 @@ public class JamaMemoryFactory implements MemoryFactory {
     }
 
     @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(new Matrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new JavaBenchmarkMatrix((Matrix)matrix);
+    }
+
+    @Override
     public MemoryProcessorInterface mult() {
         return new Mult();
     }
@@ -56,19 +66,12 @@ public class JamaMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            Matrix A = new Matrix(size,size);
-            Matrix B = new Matrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix A = inputs[0].getOriginal();
+            Matrix B = inputs[1].getOriginal();
             Matrix C;
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ){
+            for( int i = 0; i < numTrials; i++ ){
                 C = A.times(B);
             }
         }
@@ -82,18 +85,12 @@ public class JamaMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            Matrix A = new Matrix(size,size);
-            Matrix B = new Matrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix A = inputs[0].getOriginal();
+            Matrix B = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
 
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.plus(B);
         }
     }
@@ -106,18 +103,11 @@ public class JamaMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            Matrix A = new Matrix(size,size);
-            Matrix y = new Matrix(size,1);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix A = inputs[0].getOriginal();
+            Matrix y = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y);
         }
     }
@@ -130,21 +120,11 @@ public class JamaMemoryFactory implements MemoryFactory {
     public static class SolveLS extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix A = inputs[0].getOriginal();
+            Matrix y = inputs[1].getOriginal();
 
-            Matrix A = new Matrix(numRows,numCols);
-            Matrix y = new Matrix(numRows,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y);
         }
     }
@@ -157,24 +137,19 @@ public class JamaMemoryFactory implements MemoryFactory {
     public static class SVD extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-            Matrix A = new Matrix(numRows,numCols);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix A = inputs[0].getOriginal();
 
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            Matrix S=null,U=null,V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition svd = A.svd();
 
-                Matrix S = svd.getS();
-                Matrix U = svd.getU();
-                Matrix V = svd.getV();
+                S = svd.getS();
+                U = svd.getU();
+                V = svd.getV();
             }
+            if( U == null || S == null || V == null )
+                throw new RuntimeException("There is a null");
         }
     }
 
@@ -186,22 +161,18 @@ public class JamaMemoryFactory implements MemoryFactory {
     public static class Eig extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            Matrix A = new Matrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            Matrix A = inputs[0].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    A.set(j,i,A.get(i,j));
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            Matrix D=null,V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 EigenvalueDecomposition eig = A.eig();
 
-                Matrix D = eig.getD();
-                Matrix V = eig.getV();
+                D = eig.getD();
+                V = eig.getV();
             }
+            if( D == null || V == null)
+                throw new RuntimeException("There is a null") ;
         }
     }
 }

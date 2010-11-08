@@ -25,10 +25,10 @@ import cern.colt.matrix.linalg.Algebra;
 import cern.colt.matrix.linalg.EigenvalueDecomposition;
 import cern.colt.matrix.linalg.SingularValueDecomposition;
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.ColtBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
-
-import java.util.Random;
 
 
 /**
@@ -42,12 +42,16 @@ public class ColtMemoryFactory implements MemoryFactory {
         return MatrixLibrary.COLT;
     }
 
-    private static abstract class MyInterface implements MemoryProcessorInterface
-    {
-//        @Override
-//        public String getName() {
-//            return MatrixLibrary.EJML.getVersionName();
-//        }
+    @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        DenseDoubleMatrix2D mat = new DenseDoubleMatrix2D(numRows,numCols);
+
+        return wrap(mat);
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new ColtBenchmarkMatrix((DenseDoubleMatrix2D)matrix);
     }
 
     @Override
@@ -55,23 +59,16 @@ public class ColtMemoryFactory implements MemoryFactory {
         return new Mult();
     }
 
-    public static class Mult extends MyInterface
+    public static class Mult implements MemoryProcessorInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
-            DenseDoubleMatrix2D B = new DenseDoubleMatrix2D(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D B = inputs[1].getOriginal();
 
             Algebra alg = new Algebra();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 DoubleMatrix2D C = alg.mult(A,B);
             }
         }
@@ -82,22 +79,15 @@ public class ColtMemoryFactory implements MemoryFactory {
         return new Add();
     }
 
-    public static class Add extends MyInterface
+    public static class Add implements MemoryProcessorInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
-            DenseDoubleMatrix2D B = new DenseDoubleMatrix2D(size,size);
-            DenseDoubleMatrix2D C = new DenseDoubleMatrix2D(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D B = inputs[1].getOriginal();
+            DenseDoubleMatrix2D C = new DenseDoubleMatrix2D(A.rows(),A.columns());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 C.assign(A);
                 C.assign(B, cern.jet.math.Functions.plus);
             }
@@ -109,23 +99,16 @@ public class ColtMemoryFactory implements MemoryFactory {
         return new SolveLinear();
     }
 
-    public static class SolveLinear extends MyInterface
+    public static class SolveLinear implements MemoryProcessorInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
-            DenseDoubleMatrix2D y = new DenseDoubleMatrix2D(size,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D y = inputs[1].getOriginal();
 
             Algebra alg = new Algebra();
 
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 alg.solve(A,y);
         }
     }
@@ -135,26 +118,16 @@ public class ColtMemoryFactory implements MemoryFactory {
         return new SolveLS();
     }
 
-    public static class SolveLS extends MyInterface
+    public static class SolveLS implements MemoryProcessorInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-
-            DenseDoubleMatrix2D A = new DenseDoubleMatrix2D(numRows,numCols);
-            DenseDoubleMatrix2D y = new DenseDoubleMatrix2D(numRows,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D y = inputs[1].getOriginal();
 
             Algebra alg = new Algebra();
 
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 alg.solve(A,y);
         }
     }
@@ -164,25 +137,21 @@ public class ColtMemoryFactory implements MemoryFactory {
         return new SVD();
     }
 
-    public static class SVD extends MyInterface
+    public static class SVD implements MemoryProcessorInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-            DenseDoubleMatrix2D A = new DenseDoubleMatrix2D(numRows,numCols);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
 
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-            }
-            for( int i = 0; i < numCycles; i++ ) {
+            DoubleMatrix2D U=null,S=null,V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 SingularValueDecomposition s = new SingularValueDecomposition(A);
-                DoubleMatrix2D U = s.getU();
-                DoubleMatrix2D S = s.getS();
-                DoubleMatrix2D V = s.getV();
+                U = s.getU();
+                S = s.getS();
+                V = s.getV();
             }
+            if( U == null || S == null || V == null)
+                throw new RuntimeException("There is a null") ;
         }
     }
 
@@ -191,25 +160,21 @@ public class ColtMemoryFactory implements MemoryFactory {
         return new Eig();
     }
 
-    public static class Eig extends MyInterface
+    public static class Eig implements MemoryProcessorInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    A.set(j,i,A.get(i,j));
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            DoubleMatrix2D D=null, V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 EigenvalueDecomposition eig = new EigenvalueDecomposition(A);
 
-                DoubleMatrix2D D = eig.getD();
-                DoubleMatrix2D V = eig.getV();
+                D = eig.getD();
+                V = eig.getV();
             }
+            if( D == null || V == null)
+                throw new RuntimeException("There is a null") ;
         }
     }
 }

@@ -26,10 +26,10 @@ import cern.colt.matrix.tdouble.algo.decomposition.DenseDoubleSingularValueDecom
 import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import cern.jet.math.tdouble.DoubleFunctions;
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.PColtBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
-
-import java.util.Random;
 
 
 /**
@@ -52,6 +52,16 @@ public class PColtMemoryFactory implements MemoryFactory {
     }
 
     @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(new DenseDoubleMatrix2D(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new PColtBenchmarkMatrix((DoubleMatrix2D)matrix);
+    }
+
+    @Override
     public MemoryProcessorInterface mult() {
         return new Mult();
     }
@@ -59,20 +69,13 @@ public class PColtMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
-            DoubleMatrix2D B = new DenseDoubleMatrix2D(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix2D A = inputs[0].getOriginal();
+            DoubleMatrix2D B = inputs[1].getOriginal();
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 alg.mult(A,B);
             }
         }
@@ -86,19 +89,12 @@ public class PColtMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
-            DoubleMatrix2D B = new DenseDoubleMatrix2D(size,size);
-            DoubleMatrix2D C = new DenseDoubleMatrix2D(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix2D A = inputs[0].getOriginal();
+            DoubleMatrix2D B = inputs[1].getOriginal();
+            DoubleMatrix2D C = new DenseDoubleMatrix2D(A.rows(),A.columns());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 C.assign(A);
                 C.assign(B, DoubleFunctions.plus);
             }
@@ -113,20 +109,13 @@ public class PColtMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
-            DoubleMatrix2D y = new DenseDoubleMatrix2D(size,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix2D A = inputs[0].getOriginal();
+            DoubleMatrix2D y = inputs[1].getOriginal();
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 alg.solve(A,y);
         }
     }
@@ -139,23 +128,13 @@ public class PColtMemoryFactory implements MemoryFactory {
     public static class SolveLS extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-
-            DoubleMatrix2D A = new DenseDoubleMatrix2D(numRows,numCols);
-            DoubleMatrix2D y = new DenseDoubleMatrix2D(numRows,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix2D A = inputs[0].getOriginal();
+            DoubleMatrix2D y = inputs[1].getOriginal();
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 alg.solve(A,y);
         }
     }
@@ -168,25 +147,20 @@ public class PColtMemoryFactory implements MemoryFactory {
     public static class SVD extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-            DoubleMatrix2D A = new DenseDoubleMatrix2D(numRows,numCols);
-
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix2D A = inputs[0].getOriginal();
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            for( int i = 0; i < numCycles; i++ ) {
+            DoubleMatrix2D U=null,V=null,S=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 DenseDoubleSingularValueDecomposition s = alg.svd(A);
-                DoubleMatrix2D U = s.getU();
-                DoubleMatrix2D S = s.getS();
-                DoubleMatrix2D V = s.getV();
+                U = s.getU();
+                S = s.getS();
+                V = s.getV();
             }
+            if( U == null || S == null || V == null )
+                throw new RuntimeException("There is a null");
         }
     }
 
@@ -198,24 +172,20 @@ public class PColtMemoryFactory implements MemoryFactory {
     public static class Eig extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix2D A = new DenseDoubleMatrix2D(size,size);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    A.set(j,i,A.get(i,j));
-                }
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix2D A = inputs[0].getOriginal();
 
             DenseDoubleAlgebra alg = new DenseDoubleAlgebra();
 
-            for( int i = 0; i < numCycles; i++ ) {
+            DoubleMatrix2D D=null,V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 DenseDoubleEigenvalueDecomposition eig = alg.eig(A);
 
-                DoubleMatrix2D D = eig.getD();
-                DoubleMatrix2D V = eig.getV();
+                D = eig.getD();
+                V = eig.getV();
             }
+            if( D == null || V == null)
+                throw new RuntimeException("There is a null") ;
         }
     }
 }

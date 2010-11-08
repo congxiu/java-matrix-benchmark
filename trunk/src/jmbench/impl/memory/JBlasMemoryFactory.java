@@ -20,13 +20,13 @@
 package jmbench.impl.memory;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.JBlasBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
 import org.jblas.DoubleMatrix;
 import org.jblas.Eigen;
 import org.jblas.Solve;
-
-import java.util.Random;
 
 
 /**
@@ -49,6 +49,16 @@ public class JBlasMemoryFactory implements MemoryFactory {
     }
 
     @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(new DoubleMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new JBlasBenchmarkMatrix((DoubleMatrix)matrix);
+    }
+
+    @Override
     public MemoryProcessorInterface mult() {
         return new Mult();
     }
@@ -56,18 +66,11 @@ public class JBlasMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix A = new DoubleMatrix(size,size);
-            DoubleMatrix B = new DoubleMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix A = inputs[0].getOriginal();
+            DoubleMatrix B = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.put(i,j,rand.nextDouble());
-                    B.put(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.mmul(B);
         }
     }
@@ -80,18 +83,11 @@ public class JBlasMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix A = new DoubleMatrix(size,size);
-            DoubleMatrix B = new DoubleMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix A = inputs[0].getOriginal();
+            DoubleMatrix B = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.put(i,j,rand.nextDouble());
-                    B.put(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.add(B);
         }
     }
@@ -104,18 +100,11 @@ public class JBlasMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix A = new DoubleMatrix(size,size);
-            DoubleMatrix y = new DoubleMatrix(size,1);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix A = inputs[0].getOriginal();
+            DoubleMatrix y = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.put(i,j,rand.nextDouble());
-                }
-                y.put(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 Solve.solve(A,y);
         }
     }
@@ -139,19 +128,15 @@ public class JBlasMemoryFactory implements MemoryFactory {
     public static class Eig extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DoubleMatrix A = new DoubleMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DoubleMatrix A = inputs[0].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.put(i,j,rand.nextDouble());
-                    A.put(j,i,A.get(i,j));
-                }
+            DoubleMatrix[] e = null;
+            for( int i = 0; i < numTrials; i++ ) {
+                e = Eigen.symmetricEigenvectors(A);
             }
-            
-            for( int i = 0; i < numCycles; i++ ) {
-                Eigen.symmetricEigenvectors(A);
-            }
+            if( e == null )
+                throw new RuntimeException("there is a null");
         }
     }
 }

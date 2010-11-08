@@ -20,6 +20,7 @@
 package jmbench.tools.memory;
 
 import jmbench.tools.EvaluationTest;
+import jmbench.tools.EvaluatorSlave;
 import pja.util.UtilXmlSerialization;
 
 import java.io.*;
@@ -33,7 +34,19 @@ import java.util.Random;
  *
  * @author Peter Abeles
  */
+// TODO use proc/status
+    // todo implement child pause
+    // todo make it selectable if it should check proc or use ps
 public class MemoryBenchmarkTools {
+
+    // how often the size is sampled
+    long samplePeriod = 20;
+
+    // how long the child process should pause for at the end
+    // this allows for the peak memory usage to be read before it dies
+    // time is specified in milliseconds.
+    long childPauseTimeMS = samplePeriod*3;
+
 
     // used to ID stale results
     int requestID= new Random().nextInt();
@@ -63,6 +76,8 @@ public class MemoryBenchmarkTools {
 
     // arguments passed to slave jvm
     String []params;
+
+    MemoryConfig.SampleType sampleType;
 
     public MemoryBenchmarkTools(){}
 
@@ -126,6 +141,7 @@ public class MemoryBenchmarkTools {
 
             if( processID < 0 ) {
                 System.out.println("Get Process ID failed");
+                errorStream.println("  get process ID failed.");
                 return -1;
             }
 
@@ -172,9 +188,8 @@ public class MemoryBenchmarkTools {
             if( input.ready() ) {
                 printInputBuffer(input);
             } else {
-                Thread.sleep(250);
+                Thread.sleep(samplePeriod);
             }
-
 
             try {
                 // exit value throws an exception is the process has yet to stop
@@ -198,8 +213,23 @@ public class MemoryBenchmarkTools {
         return frozen;
     }
 
-    public static long getMemoryForPid( long PID ) {
+    public long getMemoryForPid( long PID ) {
+        switch( sampleType ) {
+            case PROC:
+                return getMemoryForPid_PROC(PID);
+
+            case PS:
+                return getMemoryForPid_PS(PID);
+
+            default:
+                throw new RuntimeException("Unknown sample type "+sampleType);
+        }
+
+    }
+
+    public static long getMemoryForPid_PS( long PID ) {
         StringBuffer buff = new StringBuffer();
+        String textPID = ""+PID;
 
         try {
             Process pr = Runtime.getRuntime().exec("ps -eo pid,rss");
@@ -208,40 +238,90 @@ public class MemoryBenchmarkTools {
                 return -1;
 
             // find the ID
-            String curr = null;
+            StringBuffer word = new StringBuffer(50);
             boolean found = false;
 
             String text = buff.toString();
+
+            int wordIndex = 0;
 
             for( int i = 0; i < text.length(); i++ ) {
                 char c = text.charAt(i);
 
                 if( c == ' ' || c == '\n') {
+                    boolean newWord = word.length() != 0;
+
                     if( found ) {
-                       if( curr != null ) {
-                           return Long.parseLong(curr);
+                       if( newWord ) {
+                           return Long.parseLong(word.toString())*1024; // RSS is in kilobytes, convert to bytes
                        }
                     } else {
-                        if( curr != null && curr.compareTo(""+PID) == 0 ) {
+                        if( newWord && wordIndex == 0 && word.toString().compareTo(textPID) == 0 ) {
                             found = true;
                         }
-                        curr = null;
+                        word.delete(0,word.length());
+                    }
+                    if( newWord ) {
+                        if( c == '\n' )
+                            wordIndex = 0;
+                        else
+                            wordIndex++;
                     }
                 } else {
-                   if( curr == null ) {
-                       curr = Character.toString(c);
-                   } else {
-                       curr += c;
-                   }
+                    word.append(c);
                 }
             }
             return -1;
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static long getMemoryForPid_PROC( long PID ) {
+        String textPID = ""+PID;
+
+        BufferedReader input = null;
+        long size = -1;
+        try {
+            input = new BufferedReader(new FileReader("/proc/"+textPID+"/status"));
+
+            while( true ) {
+                String line = input.readLine();
+
+                if( line == null )
+                    break;
+
+                if( line.length() > 10 && line.charAt(0) == 'V' && line.charAt(1) == 'm' &&
+                        line.charAt(2) == 'H' && line.charAt(3) == 'W' && line.charAt(4) == 'M' &&
+                        line.charAt(5) == ':') {
+                    int begin = 6;
+                    int end = line.length()-1;
+                    for( ; begin < end; begin++ ) {
+                        char c = line.charAt(begin);
+                        if( c != ' ' && c != '\t')
+                            break;
+                    }
+                    for( end = begin+1; end < line.length(); end++ ) {
+                        char c = line.charAt(end);
+                        if( c == ' ' || c == '\t' || c == '\n')
+                            break;
+                    }
+                    String sizeStr = line.substring(begin,end);
+                    size = Long.decode(sizeStr)*1024;
+                    break;
+                }
+            }
+
+            input.close();
+        } catch (FileNotFoundException e) {
+            return -1;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return size;
     }
 
     /**
@@ -322,8 +402,7 @@ public class MemoryBenchmarkTools {
             try {
                 // exit value throws an exception is the process has yet to stop
                 pr.exitValue();
-                if( pr.waitFor() != 0 )
-                    worked = false;
+                pr.waitFor();
                 break;
             } catch( IllegalThreadStateException e) {
                 // check to see if the process is frozen
@@ -419,6 +498,20 @@ public class MemoryBenchmarkTools {
             if( exitVal != 0 ) {
                 errorStream.println("None 0 exit value returned by the slave. val = "+exitVal);
                 failed = true;
+            } else {
+                EvaluatorSlave.Results results = UtilXmlSerialization.deserializeXml("slave_results.xml");
+
+                // make sure these results are not stale
+                if( results.getRequestID() != requestID ) {
+                    errorStream.println("Stale request ID");
+                    failed = true;
+                } else if( results.failed != null ) {
+                    errorStream.println("Failed! "+results.failed);
+                    errorStream.println(results.detailedError);
+                    System.out.println("Failed! "+results.failed);
+                    System.out.println(results.detailedError);
+                    failed = true;
+                }
             }
         } else {
             errorStream.println("BenchmarkTools: Killing a frozen slave.");

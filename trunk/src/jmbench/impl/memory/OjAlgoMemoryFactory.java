@@ -20,14 +20,15 @@
 package jmbench.impl.memory;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.OjAlgoBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
 import org.ojalgo.function.implementation.PrimitiveFunction;
 import org.ojalgo.matrix.decomposition.*;
+import org.ojalgo.matrix.store.MatrixStore;
 import org.ojalgo.matrix.store.PhysicalStore;
 import org.ojalgo.matrix.store.PrimitiveDenseStore;
-
-import java.util.Random;
 
 
 /**
@@ -50,6 +51,16 @@ public class OjAlgoMemoryFactory implements MemoryFactory {
     }
 
     @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(PrimitiveDenseStore.FACTORY.makeZero(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new OjAlgoBenchmarkMatrix((PhysicalStore)matrix);
+    }
+
+    @Override
     public MemoryProcessorInterface mult() {
         return new Mult();
     }
@@ -57,19 +68,12 @@ public class OjAlgoMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
-            PhysicalStore B = PrimitiveDenseStore.FACTORY.makeZero(size,size);
-            PhysicalStore C = PrimitiveDenseStore.FACTORY.makeZero(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            PhysicalStore A = inputs[0].getOriginal();
+            PhysicalStore B = inputs[1].getOriginal();
+            PhysicalStore C = PrimitiveDenseStore.FACTORY.makeZero(A.getRowDim(),B.getColDim());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 C.fillByMultiplying(A, B);
         }
     }
@@ -82,19 +86,12 @@ public class OjAlgoMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
-            PhysicalStore B = PrimitiveDenseStore.FACTORY.makeZero(size,size);
-            PhysicalStore C = PrimitiveDenseStore.FACTORY.makeZero(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            PhysicalStore A = inputs[0].getOriginal();
+            PhysicalStore B = inputs[1].getOriginal();
+            PhysicalStore C = PrimitiveDenseStore.FACTORY.makeZero(A.getRowDim(),A.getColDim());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 C.fillMatching(A, PrimitiveFunction.ADD, B);
         }
     }
@@ -107,20 +104,13 @@ public class OjAlgoMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
-            PhysicalStore y = PrimitiveDenseStore.FACTORY.makeZero(size,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            PhysicalStore A = inputs[0].getOriginal();
+            PhysicalStore y = inputs[1].getOriginal();
 
             final LU<Double> lu = LUDecomposition.makePrimitive();
 
-            for( int i = 0; i < numCycles; i++ ){
+            for( int i = 0; i < numTrials; i++ ){
                 lu.compute(A);
                 lu.solve(y);
             }
@@ -135,23 +125,13 @@ public class OjAlgoMemoryFactory implements MemoryFactory {
     public static class SolveLS extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-
-            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(numRows,numCols);
-            PhysicalStore y = PrimitiveDenseStore.FACTORY.makeZero(numRows,1);
-
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            PhysicalStore A = inputs[0].getOriginal();
+            PhysicalStore y = inputs[1].getOriginal();
 
             final QR<Double> qr = QRDecomposition.makePrimitive();
 
-            for( int i = 0; i < numCycles; i++ ){
+            for( int i = 0; i < numTrials; i++ ){
                 qr.compute(A);
                 qr.solve(y);
             }
@@ -166,27 +146,22 @@ public class OjAlgoMemoryFactory implements MemoryFactory {
     public static class SVD extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(numRows,numCols);
-
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            PhysicalStore A = inputs[0].getOriginal();
 
             final SingularValue<Double> svd = SingularValueDecomposition.makePrimitive();
 
-            for( int i = 0; i < numCycles; i++ ) {
+            MatrixStore<Double> U=null,S=null,V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 if (!svd.compute(A)) {
                     throw new RuntimeException("Decomposition failed");
                 }
-                svd.getQ1();
-                svd.getD();
-                svd.getQ2();
+                U=svd.getQ1();
+                S=svd.getD();
+                V=svd.getQ2();
             }
+            if( U == null || S == null || V == null )
+                throw new RuntimeException("There is a null");
         }
     }
 
@@ -198,25 +173,21 @@ public class OjAlgoMemoryFactory implements MemoryFactory {
     public static class Eig extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            PhysicalStore A = PrimitiveDenseStore.FACTORY.makeZero(size,size);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    A.set(j,i,A.get(i,j));
-                }
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            PhysicalStore A = inputs[0].getOriginal();
 
             final Eigenvalue<Double> eig = EigenvalueDecomposition.makePrimitive();
 
-            for( int i = 0; i < numCycles; i++ ) {
+            MatrixStore<Double> D=null,V=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 if (!eig.computeSymmetric(A)) {
                     throw new RuntimeException("Decomposition failed");
                 }
-                eig.getD();
-                eig.getV();
+                D=eig.getD();
+                V=eig.getV();
             }
+            if( D == null || V == null)
+                throw new RuntimeException("There is a null") ;
         }
     }
 }
