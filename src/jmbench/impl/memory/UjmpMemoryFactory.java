@@ -20,11 +20,12 @@
 package jmbench.impl.memory;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.UjmpBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
+import org.ujmp.core.Matrix;
 import org.ujmp.core.doublematrix.DenseDoubleMatrix2D;
-
-import java.util.Random;
 
 
 /**
@@ -47,6 +48,16 @@ public class UjmpMemoryFactory implements MemoryFactory {
     }
 
     @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap( DenseDoubleMatrix2D.factory.zeros(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new UjmpBenchmarkMatrix((Matrix)matrix);
+    }
+
+    @Override
     public MemoryProcessorInterface mult() {
         return new Mult();
     }
@@ -54,19 +65,12 @@ public class UjmpMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = DenseDoubleMatrix2D.factory.zeros(size,size);
-            DenseDoubleMatrix2D B = DenseDoubleMatrix2D.factory.zeros(size,size);
-            DenseDoubleMatrix2D C = DenseDoubleMatrix2D.factory.zeros(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D B = inputs[1].getOriginal();
+            DenseDoubleMatrix2D C = DenseDoubleMatrix2D.factory.zeros(A.getRowCount(),B.getColumnCount());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.setDouble(rand.nextDouble(),i,j);
-                    B.setDouble(rand.nextDouble(),i,j);
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 DenseDoubleMatrix2D.mtimes.calc(A, B, C);
         }
     }
@@ -79,19 +83,12 @@ public class UjmpMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = DenseDoubleMatrix2D.factory.zeros(size,size);
-            DenseDoubleMatrix2D B = DenseDoubleMatrix2D.factory.zeros(size,size);
-            DenseDoubleMatrix2D C = DenseDoubleMatrix2D.factory.zeros(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D B = inputs[1].getOriginal();
+            DenseDoubleMatrix2D C = DenseDoubleMatrix2D.factory.zeros(A.getRowCount(),A.getColumnCount());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.setDouble(rand.nextDouble(),i,j);
-                    B.setDouble(rand.nextDouble(),i,j);
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 DenseDoubleMatrix2D.plusMatrix.calc(A, B, C);
         }
     }
@@ -104,18 +101,11 @@ public class UjmpMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = DenseDoubleMatrix2D.factory.zeros(size,size);
-            DenseDoubleMatrix2D y = DenseDoubleMatrix2D.factory.zeros(size,1);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D y = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.setDouble(rand.nextDouble(),i,j);
-                }
-                y.setDouble(rand.nextDouble(),i,0);
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y);
         }
     }
@@ -128,21 +118,11 @@ public class UjmpMemoryFactory implements MemoryFactory {
     public static class SolveLS extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
+            DenseDoubleMatrix2D y = inputs[1].getOriginal();
 
-            DenseDoubleMatrix2D A = DenseDoubleMatrix2D.factory.zeros(numRows,numCols);
-            DenseDoubleMatrix2D y = DenseDoubleMatrix2D.factory.zeros(numRows,1);
-
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.setDouble(rand.nextDouble(),i,j);
-                }
-                y.setDouble(rand.nextDouble(),i,0);
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y);
         }
     }
@@ -155,20 +135,15 @@ public class UjmpMemoryFactory implements MemoryFactory {
     public static class SVD extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-            DenseDoubleMatrix2D A = DenseDoubleMatrix2D.factory.zeros(numRows,numCols);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
 
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.setDouble(rand.nextDouble(),i,j);
-                }
+            org.ujmp.core.Matrix []T=null;
+            for( int i = 0; i < numTrials; i++ ) {
+                T = DenseDoubleMatrix2D.svd.calc(A);
             }
-
-            for( int i = 0; i < numCycles; i++ ) {
-                DenseDoubleMatrix2D.svd.calc(A);
-            }
+            if( T == null )
+                throw new RuntimeException("There is a null");
         }
     }
 
@@ -180,19 +155,15 @@ public class UjmpMemoryFactory implements MemoryFactory {
     public static class Eig extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseDoubleMatrix2D A = DenseDoubleMatrix2D.factory.zeros(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseDoubleMatrix2D A = inputs[0].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.setDouble(rand.nextDouble(),i,j);
-                    A.setDouble(A.getDouble(i,j),j,i);
-                }
+            org.ujmp.core.Matrix []T=null;
+            for( int i = 0; i < numTrials; i++ ) {
+                T = DenseDoubleMatrix2D.eig.calc(A);
             }
-
-            for( int i = 0; i < numCycles; i++ ) {
-                DenseDoubleMatrix2D.eig.calc(A);
-            }
+            if( T == null )
+                throw new RuntimeException("There is a null");
         }
     }
 }

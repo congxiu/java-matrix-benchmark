@@ -20,11 +20,11 @@
 package jmbench.impl.memory;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.SejmlBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
 import org.ejml.data.SimpleMatrix;
-
-import java.util.Random;
 
 
 /**
@@ -47,6 +47,16 @@ public class SejmlMemoryFactory implements MemoryFactory {
     }
 
     @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap( new SimpleMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new SejmlBenchmarkMatrix((SimpleMatrix)matrix);
+    }
+
+    @Override
     public MemoryProcessorInterface mult() {
         return new Mult();
     }
@@ -54,18 +64,11 @@ public class SejmlMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            SimpleMatrix A = new SimpleMatrix(size,size);
-            SimpleMatrix B = new SimpleMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix A = inputs[0].getOriginal();
+            SimpleMatrix B = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.mult(B);
         }
     }
@@ -78,18 +81,11 @@ public class SejmlMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            SimpleMatrix A = new SimpleMatrix(size,size);
-            SimpleMatrix B = new SimpleMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix A = inputs[0].getOriginal();
+            SimpleMatrix B = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.plus(B);
         }
     }
@@ -102,18 +98,11 @@ public class SejmlMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            SimpleMatrix A = new SimpleMatrix(size,size);
-            SimpleMatrix y = new SimpleMatrix(size,1);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix A = inputs[0].getOriginal();
+            SimpleMatrix y = inputs[1].getOriginal();
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y);
         }
     }
@@ -126,21 +115,11 @@ public class SejmlMemoryFactory implements MemoryFactory {
     public static class SolveLS extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            SimpleMatrix A = inputs[0].getOriginal();
+            SimpleMatrix y = inputs[1].getOriginal();
 
-            SimpleMatrix A = new SimpleMatrix(numRows,numCols);
-            SimpleMatrix y = new SimpleMatrix(numRows,1);
-
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y);
         }
     }

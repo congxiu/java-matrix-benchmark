@@ -66,15 +66,19 @@ public class MemoryBenchmark {
 
         long startTime = System.currentTimeMillis();
 
-        processLibraries(config.libraries,config);
+        System.out.print("Computing overhead ");
+        long overhead = new DetermineOverhead(config,10).computeOverhead();
+        System.out.println(overhead/1024+" KB");
+
+        processLibraries(config.libraries,config,overhead);
 
         long stopTime = System.currentTimeMillis();
 
         System.out.println("Finished Benchmark");
-        System.out.println("  elapsed time "+(stopTime-startTime)+" (ms)");
+        System.out.println("  elapsed time "+(stopTime-startTime)+" (ms) "+((stopTime-startTime)/(60*60*1000.0))+" hrs");
     }
 
-    private void processLibraries( List<EvaluationTarget> libs, MemoryConfig config ) {
+    private void processLibraries( List<EvaluationTarget> libs, MemoryConfig config , long overhead ) {
 
         saveLibraryDescriptions(libs);
 
@@ -84,7 +88,7 @@ public class MemoryBenchmark {
 
             String libOutputDir = directorySave+"/"+l.getLibraryInfo().getLibraryDirName();
 
-            MemoryBenchmarkLibrary bench = new MemoryBenchmarkLibrary(config,l,desc.getJarFiles(),libOutputDir);
+            MemoryBenchmarkLibrary bench = new MemoryBenchmarkLibrary(config,l,desc.getJarFiles(),libOutputDir,overhead);
 
             bench.process();
 

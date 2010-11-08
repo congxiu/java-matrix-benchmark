@@ -37,6 +37,7 @@ public class PlotMemoryResultsXml {
 
     File directory;
     boolean displayResults = true;
+    boolean plotFailed = false;
 
     public PlotMemoryResultsXml( String dir ) {
         directory = new File(dir);
@@ -82,6 +83,9 @@ public class PlotMemoryResultsXml {
                             continue;
                         }
 
+                        System.out.printf("%10.10s  %12s ",nameLevel0,r.getNameOp());
+                        r.printStatistics();
+
                         List l;
                         if( opMap.containsKey(stripName) ) {
                             l = opMap.get(stripName);
@@ -121,9 +125,11 @@ public class PlotMemoryResultsXml {
         long max = 0;
 
         for( MemoryResults m : l ) {
-            long d = m.getMinimumMemory();
-            if( d < Long.MAX_VALUE && max < d )
-                max = d;
+            if( plotFailed || m.numFailed == 0 ) {
+                long d = m.getScore(1.0);
+                if( d < Long.MAX_VALUE && max < d )
+                    max = d;
+            }
         }
 
         MemoryPlotData data = new MemoryPlotData();
@@ -131,13 +137,15 @@ public class PlotMemoryResultsXml {
         for( int i = 0; i < l.size(); i++ ) {
             MemoryResults m = l.get(i);
 
-            long val = m.getMinimumMemory();
+            if( plotFailed || m.numFailed == 0 ) {
+                long val = m.getScore(1.0);
 
-            if( val == Long.MAX_VALUE )
-                continue;
+                if( val == Long.MAX_VALUE || val == 0)
+                    continue;
 
-            data.libNames.add( m.getNameLibrary() );
-            data.memory.add( (double)val/(double)max );
+                data.libNames.add( m.getNameLibrary() );
+                data.memory.add( (double)val/(double)max );
+            }
         }
 
         return data;

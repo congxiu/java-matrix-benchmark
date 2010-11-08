@@ -17,49 +17,31 @@
  * along with JMatrixBenchmark.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package jmbench.interfaces;
+package jmbench.tools.memory;
 
-import java.io.Serializable;
-
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.MemoryProcessorInterface;
 
 /**
+ * A process that does nothing that is used to determine the system overhead of just launching
+ * a test.  It just waits until two seconds have passed.
+ *
  * @author Peter Abeles
  */
-public interface RuntimePerformanceFactory extends LibraryFactory , MatrixFactory , Serializable  {
+public class OverheadProcess implements MemoryProcessorInterface {
 
-    void configure();
+    @Override
+    public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+        synchronized( this ) {
+            long startTime = System.currentTimeMillis();
 
-    AlgorithmInterface chol();
+            while( startTime + 1000 >= System.currentTimeMillis() ) {
+                try {
+                    wait(500);
+                } catch (InterruptedException e) {
 
-    AlgorithmInterface lu();
-
-    AlgorithmInterface svd();
-
-    AlgorithmInterface qr();
-
-    AlgorithmInterface eigSymm();
-
-    // should it test against asymmetric matrices?
-//    AlgorithmInterface eigASymm();
-
-
-    AlgorithmInterface det();
-
-    AlgorithmInterface invert();
-
-    AlgorithmInterface invertSymmPosDef();
-
-    AlgorithmInterface add();
-
-    AlgorithmInterface mult();
-
-    AlgorithmInterface multTransB();
-
-    AlgorithmInterface scale();
-
-    AlgorithmInterface solveExact();
-
-    AlgorithmInterface solveOver();
-
-    AlgorithmInterface transpose();
+                }
+            }
+        }
+    }
 }

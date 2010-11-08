@@ -20,14 +20,12 @@
 package jmbench.tools.runtime.generator;
 
 import jmbench.interfaces.BenchmarkMatrix;
-import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.interfaces.MatrixFactory;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.data.SimpleMatrix;
-import org.ejml.ops.CommonOps;
-import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
 
@@ -44,7 +42,7 @@ public class SolveEqGenerator implements InputOutputGenerator {
     DenseMatrix64F B;
 
     @Override
-    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+    public BenchmarkMatrix[] createInputs( MatrixFactory factory , Random rand ,
                                            boolean checkResults , int size ) {
         BenchmarkMatrix[] inputs = new  BenchmarkMatrix[2];
 

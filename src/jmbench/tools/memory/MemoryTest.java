@@ -19,9 +19,12 @@
 
 package jmbench.tools.memory;
 
+import jmbench.interfaces.BenchmarkMatrix;
+import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
 import jmbench.tools.EvaluationTest;
 import jmbench.tools.TestResults;
+import jmbench.tools.runtime.InputOutputGenerator;
 
 import java.util.Random;
 
@@ -31,11 +34,16 @@ import java.util.Random;
  */
 public class MemoryTest extends EvaluationTest {
 
+    MemoryFactory factory;
+    InputOutputGenerator gen;
     MemoryProcessorInterface op;
     int N;
     int size;
 
-    public void setup( MemoryProcessorInterface op , int N , int size ) {
+    public void setup( MemoryFactory factory , InputOutputGenerator gen , 
+                       MemoryProcessorInterface op , int N , int size ) {
+        this.factory = factory;
+        this.gen = gen;
         this.op = op;
         this.N = N;
         this.size = size;
@@ -67,9 +75,38 @@ public class MemoryTest extends EvaluationTest {
     public TestResults evaluate() {
         Random rand = new Random(randomSeed);
 
+        BenchmarkMatrix []inputs = gen != null ? gen.createInputs(factory,rand,false,size) : null;
+        BenchmarkMatrix []outputs = gen != null ? new BenchmarkMatrix[ gen.numOutputs() ] : null;
+
+
+        double mod[] = null;
+
+        if( gen != null ) {
+            mod = new double[ inputs.length ];
+            for( int i = 0; i < inputs.length; i++ ) {
+                mod[i] = inputs[i].get(0,0);
+            }
+        }
+
         long start = System.currentTimeMillis();
-        op.process(size,N,rand);
+        op.process(inputs,outputs,N);
         long stop= System.currentTimeMillis();
+
+        if( gen != null ) {
+            for( int i = 0; i < inputs.length; i++ ) {
+                if( mod[i] != inputs[i].get(0,0) )
+                    throw new RuntimeException("Input modified! Input "+i);
+            }
+        }
+
+        // pause it for a bit so if its sampling the max it has a time to catch it before
+        // the application exits
+        synchronized (this){
+            try {
+                wait(300);
+            } catch (InterruptedException e) {
+            }
+        }
 
         return new Results(stop-start);
     }
@@ -117,5 +154,21 @@ public class MemoryTest extends EvaluationTest {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public MemoryFactory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(MemoryFactory factory) {
+        this.factory = factory;
+    }
+
+    public InputOutputGenerator getGen() {
+        return gen;
+    }
+
+    public void setGen(InputOutputGenerator gen) {
+        this.gen = gen;
     }
 }

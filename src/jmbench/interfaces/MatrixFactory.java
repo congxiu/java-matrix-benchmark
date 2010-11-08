@@ -19,47 +19,11 @@
 
 package jmbench.interfaces;
 
-import java.io.Serializable;
-
-
 /**
  * @author Peter Abeles
  */
-public interface RuntimePerformanceFactory extends LibraryFactory , MatrixFactory , Serializable  {
+public interface MatrixFactory {
+    BenchmarkMatrix create( int numRows , int numCols );
 
-    void configure();
-
-    AlgorithmInterface chol();
-
-    AlgorithmInterface lu();
-
-    AlgorithmInterface svd();
-
-    AlgorithmInterface qr();
-
-    AlgorithmInterface eigSymm();
-
-    // should it test against asymmetric matrices?
-//    AlgorithmInterface eigASymm();
-
-
-    AlgorithmInterface det();
-
-    AlgorithmInterface invert();
-
-    AlgorithmInterface invertSymmPosDef();
-
-    AlgorithmInterface add();
-
-    AlgorithmInterface mult();
-
-    AlgorithmInterface multTransB();
-
-    AlgorithmInterface scale();
-
-    AlgorithmInterface solveExact();
-
-    AlgorithmInterface solveOver();
-
-    AlgorithmInterface transpose();
+    BenchmarkMatrix wrap( Object matrix );
 }

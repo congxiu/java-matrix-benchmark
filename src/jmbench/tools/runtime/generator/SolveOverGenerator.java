@@ -20,21 +20,17 @@
 package jmbench.tools.runtime.generator;
 
 import jmbench.interfaces.BenchmarkMatrix;
-import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.interfaces.MatrixFactory;
 import jmbench.misc.RandomizeMatrices;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
-import jmbench.tools.stability.StabilityBenchmark;
 import org.ejml.data.DenseMatrix64F;
-import org.ejml.data.SimpleMatrix;
 import org.ejml.ops.CommonOps;
 import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
 
-import static jmbench.misc.RandomizeMatrices.convertToBm;
-import static jmbench.misc.RandomizeMatrices.convertToEjml;
-import static jmbench.misc.RandomizeMatrices.randomize;
+import static jmbench.misc.RandomizeMatrices.*;
 
 
 /**
@@ -44,9 +40,9 @@ public class SolveOverGenerator implements InputOutputGenerator {
     DenseMatrix64F X;
 
     @Override
-    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+    public BenchmarkMatrix[] createInputs( MatrixFactory factory , Random rand ,
                                            boolean checkResults , int size ) {
-        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[3];
+        BenchmarkMatrix[] inputs = new  BenchmarkMatrix[2];
 
         inputs[0] = factory.create(3*size,size);  // A
         inputs[1] = factory.create(3*size,1);     // B

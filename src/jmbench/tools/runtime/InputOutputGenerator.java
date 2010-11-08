@@ -20,9 +20,8 @@
 package jmbench.tools.runtime;
 
 import jmbench.interfaces.BenchmarkMatrix;
-import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.interfaces.MatrixFactory;
 import jmbench.tools.OutputError;
-import org.ejml.data.DenseMatrix64F;
 
 import java.util.Random;
 
@@ -45,10 +44,10 @@ public interface InputOutputGenerator {
      * @param rand Random number generator used to create the matrices.
      * @param checkResults If the results will be checked.  If false less memory is needed.
      * @param size how big the matrices should be.
-     * 
+     *
      * @return List of input matrices.
      */
-    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand , 
+    public BenchmarkMatrix[] createInputs( MatrixFactory factory , Random rand , 
                                            boolean checkResults , int size );
     
     /**

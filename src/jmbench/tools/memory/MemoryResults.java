@@ -23,6 +23,7 @@ import jmbench.tools.EvaluatorSlave;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -37,21 +38,28 @@ public class MemoryResults implements Serializable {
     String errorMessage;
 
     List<Long> results = new ArrayList<Long>();
+    int numFailed;
 
     public MemoryResults() {
-
+        Collections.sort(results);
     }
 
-    public long getMinimumMemory() {
-        long min = Long.MAX_VALUE;
+    public void printStatistics() {
+        Collections.sort(results);
 
-        for( long l : results ) {
-            if( l < min ) {
-                min = l;
-            }
-        }
+        long min = results.get(0);
+        long max = results.get(results.size()-1);
+        System.out.printf(" max %6.2f  spread %5.2f\n",(max/1024/1024.0),(100.0*(max-min)/min));
+    }
 
-        return min;
+    public long getScore( double frac ) {
+        Collections.sort(results);
+
+        int index = (int)(frac*results.size());
+        if( index >= 1 )
+            index = results.size()-1;
+
+        return results.get( index );
     }
 
     public String getNameLibrary() {
@@ -92,5 +100,13 @@ public class MemoryResults implements Serializable {
 
     public void setResults(List<Long> results) {
         this.results = results;
+    }
+
+    public int getNumFailed() {
+        return numFailed;
+    }
+
+    public void setNumFailed(int numFailed) {
+        this.numFailed = numFailed;
     }
 }

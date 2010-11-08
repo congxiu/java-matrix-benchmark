@@ -19,13 +19,10 @@
 
 package jmbench.interfaces;
 
-import java.util.Random;
-
-
 /**
  * @author Peter Abeles
  */
 public interface MemoryProcessorInterface {
 
-    public void process( int size , int numCycles , Random rand );
+    public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials);
 }

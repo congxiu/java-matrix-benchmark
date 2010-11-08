@@ -70,6 +70,23 @@ public class MemoryConfig {
     public boolean svd;
     public boolean eig;
 
+    public SampleType memorySampleType;
+
+    /**
+     * Different ways that memory is sampled
+     */
+    public static enum SampleType
+    {
+        /**
+         * Use the unix command 'ps' to get memory usage
+         */
+        PS,
+        /**
+         * Use the /proc/PID/status to get the maximum memory usage.  Less standardized
+         * than PS, but more accurate
+         */
+        PROC
+    }
 
     public static MemoryConfig createDefault() {
         MemoryConfig ret = new MemoryConfig();
@@ -88,11 +105,12 @@ public class MemoryConfig {
 
         ret.seed = 234234;
 
-        ret.maxTestTimeMilli = 15*60*1000;
+        ret.maxTestTimeMilli = 20*60*1000;
         ret.numTrials = 5;
         ret.memoryMinMB = 256;
         ret.memoryMaxMB = 1024;
-        ret.matrixSize = 2000;//2000;
+        ret.matrixSize = 2000;
+        ret.memorySampleType = SampleType.PROC;
 
         ret.mult = true;
         ret.add = true;
@@ -103,5 +121,117 @@ public class MemoryConfig {
 
 
         return ret;
+    }
+
+    public List<EvaluationTarget> getLibraries() {
+        return libraries;
+    }
+
+    public void setLibraries(List<EvaluationTarget> libraries) {
+        this.libraries = libraries;
+    }
+
+    public long getMaxTestTimeMilli() {
+        return maxTestTimeMilli;
+    }
+
+    public void setMaxTestTimeMilli(long maxTestTimeMilli) {
+        this.maxTestTimeMilli = maxTestTimeMilli;
+    }
+
+    public int getNumTrials() {
+        return numTrials;
+    }
+
+    public void setNumTrials(int numTrials) {
+        this.numTrials = numTrials;
+    }
+
+    public long getMemoryMinMB() {
+        return memoryMinMB;
+    }
+
+    public void setMemoryMinMB(long memoryMinMB) {
+        this.memoryMinMB = memoryMinMB;
+    }
+
+    public long getMemoryMaxMB() {
+        return memoryMaxMB;
+    }
+
+    public void setMemoryMaxMB(long memoryMaxMB) {
+        this.memoryMaxMB = memoryMaxMB;
+    }
+
+    public int getMatrixSize() {
+        return matrixSize;
+    }
+
+    public void setMatrixSize(int matrixSize) {
+        this.matrixSize = matrixSize;
+    }
+
+    public boolean isMult() {
+        return mult;
+    }
+
+    public void setMult(boolean mult) {
+        this.mult = mult;
+    }
+
+    public boolean isAdd() {
+        return add;
+    }
+
+    public void setAdd(boolean add) {
+        this.add = add;
+    }
+
+    public boolean isSolveLinear() {
+        return solveLinear;
+    }
+
+    public void setSolveLinear(boolean solveLinear) {
+        this.solveLinear = solveLinear;
+    }
+
+    public boolean isSolveLS() {
+        return solveLS;
+    }
+
+    public void setSolveLS(boolean solveLS) {
+        this.solveLS = solveLS;
+    }
+
+    public boolean isSvd() {
+        return svd;
+    }
+
+    public void setSvd(boolean svd) {
+        this.svd = svd;
+    }
+
+    public boolean isEig() {
+        return eig;
+    }
+
+    public void setEig(boolean eig) {
+        this.eig = eig;
+    }
+
+    public SampleType getMemorySampleType() {
+        return memorySampleType;
+    }
+
+    public void setMemorySampleType(SampleType memorySampleType) {
+        this.memorySampleType = memorySampleType;
+    }
+
+    public long getSeed() {
+        return seed;
+    }
+
+    public void setSeed(long seed) {
+        this.seed = seed;
     }
 }

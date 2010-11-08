@@ -20,13 +20,12 @@
 package jmbench.tools.runtime.generator;
 
 import jmbench.interfaces.BenchmarkMatrix;
-import jmbench.interfaces.RuntimePerformanceFactory;
+import jmbench.interfaces.MatrixFactory;
 import jmbench.misc.RandomizeMatrices;
 import jmbench.tools.OutputError;
 import jmbench.tools.runtime.InputOutputGenerator;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.MatrixFeatures;
-import org.ejml.ops.RandomMatrices;
 
 import java.util.Random;
 
@@ -39,7 +38,7 @@ public class InvertGenerator implements InputOutputGenerator {
     DenseMatrix64F A;
 
     @Override
-    public BenchmarkMatrix[] createInputs( RuntimePerformanceFactory factory , Random rand ,
+    public BenchmarkMatrix[] createInputs( MatrixFactory factory , Random rand ,
                                            boolean checkResults , int size ) {
         BenchmarkMatrix[] inputs = new  BenchmarkMatrix[1];
 

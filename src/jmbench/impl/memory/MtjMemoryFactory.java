@@ -20,13 +20,13 @@
 package jmbench.impl.memory;
 
 import jmbench.impl.MatrixLibrary;
+import jmbench.impl.wrapper.MtjBenchmarkMatrix;
+import jmbench.interfaces.BenchmarkMatrix;
 import jmbench.interfaces.MemoryFactory;
 import jmbench.interfaces.MemoryProcessorInterface;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.EVD;
 import no.uib.cipr.matrix.NotConvergedException;
-
-import java.util.Random;
 
 
 /**
@@ -45,6 +45,16 @@ public class MtjMemoryFactory implements MemoryFactory {
     }
 
     @Override
+    public BenchmarkMatrix create(int numRows, int numCols) {
+        return wrap(new DenseMatrix(numRows,numCols));
+    }
+
+    @Override
+    public BenchmarkMatrix wrap(Object matrix) {
+        return new MtjBenchmarkMatrix((DenseMatrix)matrix);
+    }
+
+    @Override
     public MemoryProcessorInterface mult() {
         return new Mult();
     }
@@ -52,19 +62,12 @@ public class MtjMemoryFactory implements MemoryFactory {
     public static class Mult extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseMatrix A = new DenseMatrix(size,size);
-            DenseMatrix B = new DenseMatrix(size,size);
-            DenseMatrix C = new DenseMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix A = inputs[0].getOriginal();
+            DenseMatrix B = inputs[1].getOriginal();
+            DenseMatrix C = new DenseMatrix(A.numRows(),B.numColumns());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ){
+            for( int i = 0; i < numTrials; i++ ){
                 A.mult(B,C);
             }
         }
@@ -78,19 +81,12 @@ public class MtjMemoryFactory implements MemoryFactory {
     public static class Add extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseMatrix A = new DenseMatrix(size,size);
-            DenseMatrix B = new DenseMatrix(size,size);
-            DenseMatrix C = new DenseMatrix(size,size);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix A = inputs[0].getOriginal();
+            DenseMatrix B = inputs[1].getOriginal();
+            DenseMatrix C = new DenseMatrix(A.numRows(),A.numColumns());
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    B.set(i,j,rand.nextDouble());
-                }
-            }
-
-            for( int i = 0; i < numCycles; i++ ) {
+            for( int i = 0; i < numTrials; i++ ) {
                 C.set(A);
                 C.add(B);
             }
@@ -105,19 +101,12 @@ public class MtjMemoryFactory implements MemoryFactory {
     public static class SolveLinear extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseMatrix A = new DenseMatrix(size,size);
-            DenseMatrix y = new DenseMatrix(size,1);
-            DenseMatrix x = new DenseMatrix(size,1);
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix A = inputs[0].getOriginal();
+            DenseMatrix y = inputs[1].getOriginal();
+            DenseMatrix x = new DenseMatrix(A.numColumns(),1);
 
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y,x);
         }
     }
@@ -130,22 +119,12 @@ public class MtjMemoryFactory implements MemoryFactory {
     public static class SolveLS extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix A = inputs[0].getOriginal();
+            DenseMatrix y = inputs[1].getOriginal();
+            DenseMatrix x = new DenseMatrix(A.numColumns(),1);
 
-            DenseMatrix A = new DenseMatrix(numRows,numCols);
-            DenseMatrix y = new DenseMatrix(numRows,1);
-            DenseMatrix x = new DenseMatrix(numCols,1);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = 0; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-                y.set(i,0,rand.nextDouble());
-            }
-
-            for( int i = 0; i < numCycles; i++ )
+            for( int i = 0; i < numTrials; i++ )
                 A.solve(y,x);
         }
     }
@@ -158,32 +137,28 @@ public class MtjMemoryFactory implements MemoryFactory {
     public static class SVD extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            int numRows = size*2;
-            int numCols = size;
-            DenseMatrix A = new DenseMatrix(numRows,numCols);
-
-            for( int i = 0; i < numRows; i++ ) {
-                for( int j = 0; j < numCols; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                }
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix A = inputs[0].getOriginal();
 
             no.uib.cipr.matrix.SVD svd = new no.uib.cipr.matrix.SVD(A.numRows(),A.numColumns());
             DenseMatrix tmp = new DenseMatrix(A);
 
-            for( int i = 0; i < numCycles; i++ ) {
+            DenseMatrix U=null,V=null;
+            double []S=null;
+            for( int i = 0; i < numTrials; i++ ) {
                 try {
                     // the input matrix is over written
                     tmp.set(A);
                     no.uib.cipr.matrix.SVD s = svd.factor(tmp);
-                    s.getU();
-                    s.getS();
-                    s.getVt();
+                    U=s.getU();
+                    S=s.getS();
+                    V=s.getVt();
                 } catch (NotConvergedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            if( U == null || S == null || V == null )
+                throw new RuntimeException("There is a null");
         }
     }
 
@@ -195,30 +170,27 @@ public class MtjMemoryFactory implements MemoryFactory {
     public static class Eig extends MyInterface
     {
         @Override
-        public void process(int size, int numCycles, Random rand) {
-            DenseMatrix A = new DenseMatrix(size,size);
-
-            for( int i = 0; i < size; i++ ) {
-                for( int j = i; j < size; j++ ) {
-                    A.set(i,j,rand.nextDouble());
-                    A.set(j,i,A.get(i,j));
-                }
-            }
+        public void process(BenchmarkMatrix[] inputs, BenchmarkMatrix[] outputs, long numTrials) {
+            DenseMatrix A = inputs[0].getOriginal();
 
             no.uib.cipr.matrix.EVD eig = new no.uib.cipr.matrix.EVD(A.numRows());
             DenseMatrix tmp = new DenseMatrix(A);
 
-            for( int i = 0; i < numCycles; i++ ) {
+            DenseMatrix v1=null;
+            double v2[]= null;
+            for( int i = 0; i < numTrials; i++ ) {
                 try {
                     // the input matrix is over written
                     tmp.set(A);
                     EVD e = eig.factor(tmp);
-                    e.getRightEigenvectors();
-                    e.getRealEigenvalues();
+                    v1=e.getRightEigenvectors();
+                    v2=e.getRealEigenvalues();
                 } catch (NotConvergedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            if( v1 == null || v2 == null)
+                throw new RuntimeException("There is a null") ;
         }
     }
 }

@@ -21,6 +21,8 @@ package jmbench.interfaces;
 
 import jmbench.impl.MatrixLibrary;
 
+import java.io.Serializable;
+
 
 /**
  * Memory tests see how much memory it takes a library to perform the specified operation. For
@@ -29,7 +31,7 @@ import jmbench.impl.MatrixLibrary;
  *
  * @author Peter Abeles
  */
-public interface MemoryFactory extends LibraryFactory {
+public interface MemoryFactory extends LibraryFactory, MatrixFactory, Serializable {
 
     public MatrixLibrary getLibraryInfo();
 
