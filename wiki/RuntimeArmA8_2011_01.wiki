@@ -1,0 +1,53 @@
+#summary Benchmark results for ARM Cortex-A8 Linux
+
+Comments:
+
+  * A quick run using mostly the libraries from August 2010 but with slightly newer versions of OjAlgo and EJML
+  * No native code was run since nothing had hard precompiled
+
+Links to the results:
+  * [#Pure_Java_Libraries Pure Java Results]
+    * [#Java:_Basic_Operation_Results Basic Operations]
+    * [#Java:_Solving_Linear_Systems Solving Linear Systems]
+    * [#Java:_Matrix_Decompositions Matrix Decompositions]
+
+=Test Environment =
+
+Test Environment:
+|| Date || 2011.18.01 ||
+|| OS   || Linux 32bit Kernel 2.6.32 ||
+|| CPU  || OMAP 3530 ARM Cortex-A8 - 720 MHz - 1 cores ||
+|| JVM  || Java HotSpot(TM) 64-Bit Client VM 1.6.0_21 ||
+|| Memory || 256 MB ||
+|| Benchmark || 0.8 pre ||
+
+Tested Libraries:
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.1     ||
+|| EJML ||  0.15 pre          ||
+|| Jama || 1.0.2           ||
+|| MTJ || 0.9.12           || 
+|| OjAlgo || 29.31          || 
+|| Parallel Colt || 0.9.4  ||
+|| UJMP || 0.2.5 with 3rd party ||
+
+= Pure Java Libraries =
+
+These results show the performance of libraries that have code written entirely in Java.
+
+==Java: Basic Operation Results==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/multTranB.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/tranSq.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/tranWide.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/tranTall.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/invSymmPosDef.png ||
+
+==Java: Solving Linear Systems==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/solveOver.png||
+
+==Java: Matrix Decompositions==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/EigSymm.png ||
