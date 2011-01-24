@@ -41,7 +41,6 @@ These results show the performance of libraries that have code written entirely 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/scale.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/multTranB.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/tranSq.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/tranWide.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/tranTall.png ||
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeArmA8_2011_01.attach/invSymmPosDef.png ||
 
 ==Java: Solving Linear Systems==
