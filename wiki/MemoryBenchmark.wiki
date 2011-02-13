@@ -22,6 +22,7 @@ For each test a new JVM is spawned and a large amount of memory is allocated to 
 
 By changing the JVM's heap size the GC is forced to free memory sooner, allowing the minimum memory usage to be measured.  The JVM's overhead is measured in the beginning by running the procedure mentioned above with no library or operation being called.  This is done several times. The reported memory used to create the plots for each library is the minimum amount observed minus overhead.
 
+Matrices of the same size are used for operations.  If possible square matrices are used, if a rectangular matrix is required the the reported size is the size of the smallest side.  Each operation is tested several times and the variability across all these trials is recorded.
 
 = Old Procedures =
 
