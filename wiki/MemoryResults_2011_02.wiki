@@ -7,6 +7,10 @@
    * Samples /proc/PID/status
    * Adjusts Java heap size to force garbage collector to purge memory
 
+= Results =
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/plot_memory.jpg
+
 = Test Setup =
 
 Test environment:
@@ -28,7 +32,3 @@ Tested Libraries:
 || Parallel Colt || 0.9.4  || ||
 || UJMP || 0.2.5           || Native + Java ||
 || UJMP-J || 0.2.5         || Just Java ||
-
-= Results =
-
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/plot_memory.jpg
