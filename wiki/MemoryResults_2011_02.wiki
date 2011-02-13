@@ -17,16 +17,17 @@ Test environment:
 || Benchmark || 0.8 ||
 
 Tested Libraries:
-|| Name || Version         ||
-|| Colt ||  1.2            ||
-|| Commons Math || 2.1     ||
-|| EJML ||  0.16        ||
-|| Jama || 1.0.2           ||
-|| JBlas || 1.2.0          ||
-|| MTJ || 0.9.13           || 
-|| OjAlgo || 29.44          || 
-|| Parallel Colt || 0.9.4  ||
-|| UJMP || 0.2.5 ||
+|| Name || Version         || ||
+|| Colt ||  1.2            || ||
+|| Commons Math || 2.1     || ||
+|| EJML ||  0.16           || ||
+|| Jama || 1.0.2           || ||
+|| JBlas || 1.2.0          || ||
+|| MTJ || 0.9.13           || ||
+|| OjAlgo || 29.44         || || 
+|| Parallel Colt || 0.9.4  || ||
+|| UJMP || 0.2.5           || Native + Java ||
+|| UJMP-J || 0.2.5         || Just Java ||
 
 = Results =
 
