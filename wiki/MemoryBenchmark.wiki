@@ -1,40 +1,35 @@
 #summary Summary of memory usage benchmark.
 
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/plot_memory.jpg
+Plot showing relative memory usage for each library in different mathematical operations.
+
 = Introduction =
 
-How much memory a library uses can be a significant factor, especially when dealing with larger matrices.  It is often the case that faster algorithms require more memory to cache results or to make a concurrent algorithm faster.  If a library requires so much memory that it cannot run on your system then it simply cannot be used.
+Less memory is used to accomplish a task the better.  Computers only have a limited amount of physical memory and if that amount is exceeded then the task can not be completed.  Often times memory usage is traded for speed and data abstraction.  How different libraries manage memory can vary widely.
+
+Measuring the amount of memory each library uses in Java is not a trivial task.  Even when the exact same code is called it can very depending on the run.  Garbage collectors (GC) might decide to postpone freeing memory for performance reasons.  What is attempted to be measured is the minimum amount of memory required by each library to accomplish some task. 
+
+At the top of this page is an example of a relative memory usage plot.  For each operation how much memory is used by each library relative to each other is shown.  Taller bars indicate that more memory was used relative to other libraries.
+
+To run the benchmark, use the following command:
+{{{
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/plot_memory.jpg
+}}}
 
 = Procedure =
 
-Several operations are tested in each library. For each test a new virtual machine is created with a different amount of memory.  The amount of memory is specified using -Xms and -Xmx flags.  Most of the time if there is not enough memory an out of memory exception is thrown.  If there is just barely enough memory then the operation will take an excessive amount of time to finish.  In the later case a time out is used to detect it and is treated as if an out of memory exception was thrown.
+For each test a new JVM is spawned and a large amount of memory is allocated to the JVM using -Xms and -Xmx.  Memory usage for monitored using "/proc/PID/status", while operating system (OS) specific this allowed the max memory usage to be measured by the OS, producing better and more stable results.  After memory has been measured once using this procedure, the same test is performed again.  However, this time the amount of memory allocated to JVM is amount which was measured previously.  This is repeated until memory usage converges or out of memory errors are thrown.  
 
-The benchmark determines how much memory is required by performing a binary search.  This is done until it converges to within 2 MB of the minimum required memory.  The results are then saved and it moves on to the next operation/library to test.
-
-The size of the matrix being processed by each library varies by operation.  Some operations are much slower than others so they process small matrices.  In general it is desirable to test this with as large of a matrix as possible since that's when memory efficiency is in general more important.
-
-= Running =
-
-Best way to run the benchmark is from the command line.  You need to first compile benchmark_app.jar using ant.  Then type "java -jar build/jar/benchmark_app.jar memory" from the appropriate directory and you should see something like:
-
-{{{
-pja@silent:~/projects/jmatbench/trunk$ java -jar build/jar/benchmark_app.jar memory
-Colt 1.2 operation solveLinear
--+++++  memory: 50
-Colt 1.2 operation eig
-+-+-+-  memory: 33
-Colt 1.2 operation mult
-+--+-++  memory: 68
-Colt 1.2 operation svd
-++
-Master is still alive: Wed Apr 28 07:59:17 EDT 2010
-
-Master is still alive: Wed Apr 28 08:00:17 EDT 2010
--
-}}}
-
-= Results =
-
-Results are shown in a bar chart, see below. Only relative memory is shown since different operations use different sized matrices.
+The JVM's overhead is measured in the beginning by running the procedure mentioned above with no library or operation being called.  This is done several times. The reported memory used to create the plots for each library is the minimum amount observed minus overhead.
 
 
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2010_04.attach/plot_memory.jpg
+= Old Procedures =
+
+*THIS IS NOT HOW MEMORY IS MEASURED ANY MORE*
+
+For historical purposes (and to prevent people from suggesting this technique in the future) the following is a description of how memory was initially measured.
+
+For each test a new virtual machine is created with a different amount of memory.  The amount of memory is specified using -Xms and -Xmx flags.  Most of the time if there is not enough memory an out of memory exception is thrown.  If there is just barely enough memory then the operation will take an excessive amount of time to finish.  In the later case a time out is used to detect it and is treated as if an out of memory exception was thrown.
+
+The problem with this approach is that all the libraries seemed to converge to within the same block of memory.  Libraries that were known to use more memory by design didn't take up any extra memory.
+
