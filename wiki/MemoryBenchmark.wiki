@@ -7,7 +7,7 @@ Plot showing relative memory usage for each library in different mathematical op
 
 Less memory is used to accomplish a task the better.  Computers only have a limited amount of physical memory and if that amount is exceeded then the task can not be completed.  Often times memory usage is traded for speed and data abstraction.  How different libraries manage memory can vary widely.
 
-Measuring the amount of memory each library uses in Java is not a trivial task.  Even when the exact same code is called it can very depending on the run.  Garbage collectors (GC) might decide to postpone freeing memory for performance reasons.  What is attempted to be measured is the minimum amount of memory required by each library to accomplish some task. 
+Measuring the amount of memory each library uses in Java is not a trivial task.  Even when the exact same code is called it can vary depending on the run.  Garbage collectors (GC) might decide to postpone freeing memory for performance reasons. Memory usage can vary with time, making how often it is sampled important.  What this benchmark is attempts to measure is the minimum amount of memory required by each library to accomplish some task. 
 
 At the top of this page is an example of a relative memory usage plot.  For each operation how much memory is used by each library relative to each other is shown.  Taller bars indicate that more memory was used relative to other libraries.
 
@@ -20,7 +20,7 @@ http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attac
 
 For each test a new JVM is spawned and a large amount of memory is allocated to the JVM using -Xms and -Xmx.  Memory usage for monitored using "/proc/PID/status", while operating system (OS) specific this allowed the max memory usage to be measured by the OS, producing better and more stable results.  After memory has been measured once using this procedure, the same test is performed again.  However, this time the amount of memory allocated to JVM is amount which was measured previously.  This is repeated until memory usage converges or out of memory errors are thrown.  
 
-The JVM's overhead is measured in the beginning by running the procedure mentioned above with no library or operation being called.  This is done several times. The reported memory used to create the plots for each library is the minimum amount observed minus overhead.
+By changing the JVM's heap size the GC is forced to free memory sooner, allowing the minimum memory usage to be measured.  The JVM's overhead is measured in the beginning by running the procedure mentioned above with no library or operation being called.  This is done several times. The reported memory used to create the plots for each library is the minimum amount observed minus overhead.
 
 
 = Old Procedures =
@@ -32,4 +32,3 @@ For historical purposes (and to prevent people from suggesting this technique in
 For each test a new virtual machine is created with a different amount of memory.  The amount of memory is specified using -Xms and -Xmx flags.  Most of the time if there is not enough memory an out of memory exception is thrown.  If there is just barely enough memory then the operation will take an excessive amount of time to finish.  In the later case a time out is used to detect it and is treated as if an out of memory exception was thrown.
 
 The problem with this approach is that all the libraries seemed to converge to within the same block of memory.  Libraries that were known to use more memory by design didn't take up any extra memory.
-
