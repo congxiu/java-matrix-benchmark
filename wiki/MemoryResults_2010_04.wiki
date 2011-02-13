@@ -1,4 +1,5 @@
 #summary Memory Benchmark Results as of April 2010
+#labels Deprecated
 
 = Comments =
  * First memory benchmark
