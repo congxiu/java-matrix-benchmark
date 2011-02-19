@@ -2,20 +2,22 @@
 
 = Comments =
  * Uses completely different techniques to measure memory
- * Previous results were innacurate
+ * Previous results were inaccurate
  * Measurement is done using OS specific technique
    * Samples /proc/PID/status
    * Adjusts Java heap size to force garbage collector to purge memory
 
 = Results =
 
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/plot_memory.jpg
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/1000.jpg
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/2000.jpg
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/3000.jpg
 
 = Test Setup =
 
 Test environment:
-|| Date || 2010 / 02 / 13 ||
-|| Java Version ||Java HotSpot(TM) 64-Bit Server VM 1.6.0_22 ||
+|| Date || 2010 / 02 / 19 ||
+|| Java Version ||Java HotSpot(TM) 64-Bit Server VM 1.6.0_23 ||
 || OS || Ubuntu 10.10 ||
 || CPU || Quad Core 6600 (4 cores) ||
 || Benchmark || 0.8 ||
@@ -30,5 +32,5 @@ Tested Libraries:
 || MTJ || 0.9.13           || ||
 || OjAlgo || 29.44         || || 
 || Parallel Colt || 0.9.4  || ||
-|| UJMP || 0.2.5           || Native + Java ||
-|| UJMP-J || 0.2.5         || Just Java ||
+|| UJMP || 0.2.5           || 3rd Party w/Native ||
+|| UJMP-J || 0.2.5         || 3rd Party only Java||
