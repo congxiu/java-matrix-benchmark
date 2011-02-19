@@ -68,6 +68,8 @@ http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2011_02.att
 
 These results show the performance of libraries that either use pure Java or calls to native libraries.
 
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2011_02.attach/native/summary.png
+
 ==Java: Basic Operation Results==
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2011_02.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2011_02.attach/native/scale.png ||
