@@ -9,9 +9,9 @@
 
 = Results =
 
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/1000.jpg
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/2000.jpg
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/3000.jpg
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/1000.png
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/2000.png
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/3000.png
 
 = Test Setup =
 
