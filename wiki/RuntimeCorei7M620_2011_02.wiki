@@ -21,7 +21,8 @@ Links to the results:
 
 Test Environment:
 || Date || 2011.02.23 ||
-|| OS   || Ubuntu 10.10 ||
+|| OS   || Ubuntu 10.10 64bit ||
+|| Kernel || 2.6.35-25 ||
 || CPU  || Core i7 M 620 2.67 GHz - 2 cores - 4 threads ||
 || RAM || 8194 MB ||
 || CPU Cache || 4096 KB ||
