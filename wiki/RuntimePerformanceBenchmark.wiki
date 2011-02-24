@@ -13,7 +13,9 @@ Summary box-and-whisker plots are an attempt to generalize the performance of en
 Weighted results are shown to place a heavier emphasis on operations that are more computationally expensive.  This is justified because slower operations are often the bottle neck in an application.  The weight is computed using the following procedure:
   # For each matrix size find SLOWEST_BY_SIZE: the runtime of the operation whose fastest library has the longest processing time.
   # For each operation in each matrix size compute N_OP:
-     N_OP = MAX_SAMPLES*(fastest library runtime) / SLOWEST_BY_SIZE
+{{{    
+N_OP = MAX_SAMPLES*(fastest library runtime) / SLOWEST_BY_SIZE
+}}}
   # Then for each operation in each library add its runtime performance to the bin N_OP times.
 
 MAX_SAMPLES is arbitrarily set to 100.  For example: if EJML ran at 75% of the speed of the fastest library for addition for a matrix of size 10 and addition took 12% of the time to complete compared to the slowest operation for a matrix of size 10, then 0.75 would be added to EJML's bin 12 times.  The distribution of each library's bin are what the bar and whiskers plot is computed from.
