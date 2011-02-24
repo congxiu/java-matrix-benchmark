@@ -6,13 +6,18 @@ The following contains old results so one can see how a library evolved as well 
 
 = Runtime Performance =
 
-== Intel 2 Quad-Core Intel Xeon ===
+== Intel Core i7 M620 ==
+
+|| Date || Benchmark ||
+|| 2011.02 || [RuntimeCorei7M620_2011_02] ||
+
+== Intel 2 Quad-Core Intel Xeon ==
 
 || Date || Benchmark ||
 || 2010.01.26 || [Runtime_2xXeon_2010_01_26] ||
 || 2010.08.20 || [Runtime_2xXeon_2010_08] ||
 
-== Intel Q9400 Quad Core ===
+== Intel Q9400 Quad Core ==
 
 || Date || Benchmark ||
 || 2009.11.30 || [BenchmarkQ9400] ||
