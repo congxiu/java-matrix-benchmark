@@ -28,6 +28,11 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.05.14 || [RuntimeQ9400_2010_05] ||
 || 2010.08    || [RuntimeQ9400_2010_08] ||
 
+== Intel Q6600 Quad Core ==
+
+|| Date || Benchmark ||
+|| 2011.02 || [RuntimeQ6600_2011_02] ||
+
 == Intel Pentium M 1.7 GHz ==
 
 || Date || Benchmark ||
