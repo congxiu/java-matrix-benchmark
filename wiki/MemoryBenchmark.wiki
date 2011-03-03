@@ -5,7 +5,7 @@ Plot showing relative memory usage for each library in different mathematical op
 
 = Introduction =
 
-Less memory is used to accomplish a task the better.  Computers only have a limited amount of physical memory and if that amount is exceeded then the task can not be completed.  Often times memory usage is traded for speed and data abstraction.  How different libraries manage memory can vary widely.
+Less memory is used to accomplish a task the better.  When dealing with larger matrices it is not uncommon for a problem to become memory limited.  Often times memory usage is traded for speed and data abstraction.  What might allow a library to run faster can make it unusable for other problems by using up too much memory.
 
 Measuring the amount of memory each library uses in Java is not a trivial task.  Even when the exact same code is called it can vary depending on the run.  Garbage collectors (GC) might decide to postpone freeing memory for performance reasons. Memory usage can vary with time, making how often it is sampled important.  What this benchmark is attempts to measure is the minimum amount of memory required by each library to accomplish some task. 
 
@@ -18,7 +18,7 @@ http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attac
 
 = Procedure =
 
-For each test a new JVM is spawned and a large amount of memory is allocated to the JVM using -Xms and -Xmx.  Memory usage for monitored using "/proc/PID/status", while operating system (OS) specific this allowed the max memory usage to be measured by the OS, producing better and more stable results.  After memory has been measured once using this procedure, the same test is performed again.  However, this time the amount of memory allocated to JVM is amount which was measured previously.  This is repeated until memory usage converges or out of memory errors are thrown.  
+For each test a new JVM is spawned and a large amount of memory is allocated to the JVM using -Xms and -Xmx.  Memory usage is monitored using "/proc/PID/status". While this approach is operating system (OS) specific. it produces better an more accurate results than an easier cross platform strategy used before.  After memory has been measured once using this procedure, the same test is performed again.  However, this time the amount of memory allocated to JVM is amount which was measured previously.  This is repeated until memory usage converges or out of memory errors are thrown.  
 
 By changing the JVM's heap size the GC is forced to free memory sooner, allowing the minimum memory usage to be measured.  The JVM's overhead is measured in the beginning by running the procedure mentioned above with no library or operation being called.  This is done several times. The reported memory used to create the plots for each library is the minimum amount observed minus overhead.
 
