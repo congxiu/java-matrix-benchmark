@@ -22,11 +22,11 @@ Links to the results:
 || JVM || Java HotSpot(TM) 64-Bit Server VM 1.6.0_17 ||
 
 Test Environment:
-|| Date || 2011.08.20 ||
+|| Date || 2011.07.20 ||
 || OS   || MacOS 10.6.8 64bit  ||
 || CPU  || 2 Quad-Core Intel Xeon - 8 cores (16 hyperthreads) ||
-|| RAM || ?? ||
-|| CPU Cache || ?? ||
+|| RAM || 12GB ||
+|| CPU Cache || 8MB L3, 256kB L2, 32kB ||
 || JVM  || Java HotSpot(TM) 64-Bit Server 1.6.0_26 ||
 || Benchmark || 0.8 ||
 
@@ -38,7 +38,7 @@ Tested Libraries:
 || Jama || 1.0.2           || ||
 || JBlas || 1.2.0          || ||
 || MTJ || 0.9.13           || ||
-|| OjAlgo || 29.59         || || 
+|| OjAlgo || 30.x         || || 
 || Parallel Colt || 0.9.4  || ||
 || UJMP || 0.2.5           || 3rd Party w/Native ||
 || UJMP-J || 0.2.5         || 3rd Party only Java||
