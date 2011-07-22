@@ -16,7 +16,7 @@ The following contains old results so one can see how a library evolved as well 
 || Date || Benchmark ||
 || 2010.01.26 || [Runtime_2xXeon_2010_01_26] ||
 || 2010.08.20 || [Runtime_2xXeon_2010_08] ||
-|| 2011.08.20 || [Runtime_2xXeon_2011_08] ||
+|| 2011.07.20 || [Runtime_2xXeon_2011_07] ||
 
 == Intel Q9400 Quad Core ==
 
