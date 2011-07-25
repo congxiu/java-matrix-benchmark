@@ -6,6 +6,7 @@ Comments:
   * Changed JBlAS symmetric positive definite inverse
   * Changed MTJ Symmetric EVD
   * The newer version of JBlAS significantly slower than the previous version, which is why UJMP runs faster than JBlAS even though it is calling JBLAS.
+  * Benchmark performed by Anders Peterson
 
 Links to the results:
   * [#Pure_Java_Libraries Pure Java Results]
