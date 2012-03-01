@@ -9,6 +9,7 @@ Quick Links:
 
   * Updated Commons Math, ojAlgo, EJML
   * Added la4j
+    * Still a young library and has more stability issues than other libraries
 
 = Test Setup =
 
@@ -20,17 +21,17 @@ Test environment:
 || Benchmark || 0.9  ||
 
 Tested Libraries:
-|| Name || Version         || ||
-|| Colt ||  1.2            || ||
-|| Commons Math || 2.2     || ||
-|| EJML ||  0.18           || ||
-|| Jama || 1.0.2           || ||
-|| JBlas || 1.2.0          || ||
-|| la4j || 0.2.0           || ||
-|| MTJ || 0.9.13           || ||
-|| OjAlgo || 31.10         || || 
-|| Parallel Colt || 0.9.4  || ||
-|| UJMP || 0.2.5           || ||
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.2     ||
+|| EJML ||  0.18           ||
+|| Jama || 1.0.2           ||
+|| JBlas || 1.2.0          ||
+|| la4j || 0.2.0           ||
+|| MTJ || 0.9.13           ||
+|| OjAlgo || 31.10         || 
+|| Parallel Colt || 0.9.4  ||
+|| UJMP || 0.2.5           ||
 
 Test Configuration
 ||  || Min || Max ||
