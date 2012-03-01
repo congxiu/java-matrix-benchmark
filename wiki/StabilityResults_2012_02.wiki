@@ -7,7 +7,8 @@ Quick Links:
 
 = Comments =
 
-  * Updated several libraries
+  * Updated Commons Math, ojAlgo, EJML
+  * Added la4j
 
 = Test Setup =
 
@@ -389,4 +390,3 @@ Test Configuration
 <TR><TH>la4j</TH><TH colspan="8"> TIMED OUT </TH><TH colspan="8"> TIMED OUT </TH></TR>
 <TR><TH>JBLAS</TH><TD>1.0e+307</TD><TD>1.0e+307</TD><TD>1.0e+307</TD><TD></TD><TD> 100.0%</TD><TD></TD><TD></TD><TD></TD><TD>1.0e-314</TD><TD>1.0e-314</TD><TD>1.0e-314</TD><TD></TD><TD></TD><TD></TD><TD> 100.0%</TD><TD></TD></TR>
 </TABLE>
-
