@@ -5,7 +5,6 @@ Comments:
   * Updated, CommonsMath, ojAlgo, EJML, UJMP
   * Only the pure java version of UJMP from the website is used.  Before the author provided a custom version.
   * Added la4j to the benchmark
-    * Has some stability issues, look at the stability benchmark
 
 Links to the results:
   * [#Pure_Java_Libraries Pure Java Results]
