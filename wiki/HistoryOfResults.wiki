@@ -10,6 +10,7 @@ The following contains old results so one can see how a library evolved as well 
 
 || Date || Benchmark ||
 || 2011.02 || [RuntimeCorei7M620_2011_02] ||
+|| 2012.02 || [RuntimeCorei7M620_2012_02] ||
 
 == Intel 2 Quad-Core Intel Xeon ==
 
