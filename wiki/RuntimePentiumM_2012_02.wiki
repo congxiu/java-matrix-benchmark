@@ -1,0 +1,99 @@
+#summary Benchmark results for an Intel Core i7M620 Processor on 64bit Linux
+
+Comments:
+
+  * Updated, CommonsMath, ojAlgo, EJML, UJMP
+  * Only the pure java version of UJMP from the website is used.  Before the author provided a custom version.
+  * Added la4j to the benchmark
+
+Links to the results:
+  * [#Summary_Results Summary Results]
+  * [#Pure_Java_Libraries Pure Java Results]
+    * [#Java:_Basic_Operation_Results Basic Operations]
+    * [#Java:_Solving_Linear_Systems Solving Linear Systems]
+    * [#Java:_Matrix_Decompositions Matrix Decompositions]
+  * [#Mixed_Java_and_Native_Libraries Java and Native Results]
+    * [#Mixed:_Basic_Operation_Results Basic Operations]
+    * [#Mixed:_Solving_Linear_Systems Solving Linear Systems]
+    * [#Mixed:_Matrix_Decompositions Matrix Decompositions]
+
+<g:plusone size="medium"></g:plusone>
+
+=Test Environment =
+
+Test Environment:
+|| Date || 2012 / 02 ||
+|| OS   || Mint 11 32bit ||
+|| Kernel || 2.6.38-8 ||
+|| CPU  || PentiumM 1.7 GHz - 1 core ||
+|| RAM || 1024 MB ||
+|| L1 Cache || 1024 KB ||
+|| JVM  || Java HotSpot(TM) 64-Bit Server 1.6.0_31 ||
+|| Benchmark || 0.9 ||
+
+Tested Libraries:
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.2     ||
+|| EJML ||  0.18           ||
+|| Jama || 1.0.2           ||
+|| JBlas || 1.2.0          ||
+|| la4j || 0.2.0           ||
+|| MTJ || 0.9.13           ||
+|| OjAlgo || 31.10         || 
+|| Parallel Colt || 0.9.4  ||
+|| UJMP || 0.2.5           ||
+
+
+= Summary Results =
+
+Summary results are a weighted average of the relative runtime results across all operations shown using a box and whisker plot.  For each library there are three bars that show the results across a different range of matrix sizes.  The red bar shows results across all sizes, blue only large matrices, and green only small.  The two summary plots below show results for first pure Java libraries, and then for a combination of pure Java and libraries which use the JNI to invoke native code.
+
+==Pure Java Libraries==
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/summary.png
+
+== Mixed Java and Native ==
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/summary.png
+
+= Pure Java Libraries =
+
+These results show the performance of libraries that have code written entirely in Java.
+
+==Java: Basic Operation Results==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/multTranB.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/tranSq.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/invSymmPosDef.png ||
+
+==Java: Solving Linear Systems==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/solveOver.png||
+
+==Java: Matrix Decompositions==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/EigSymm.png ||
+
+
+----
+= Mixed Java and Native Libraries =
+
+These results show the performance of libraries that either use pure Java or calls to native libraries.
+
+==Java: Basic Operation Results==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/multTranB.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/tranSq.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/invSymmPosDef.png ||
+
+
+==Java: Solving Linear Systems==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/solveOver.png||
+
+==Java: Matrix Decompositions==
+
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimePentiumM_2012_02.attach/native/EigSymm.png ||
