@@ -7,6 +7,7 @@ Comments:
   * Added la4j to the benchmark
 
 Links to the results:
+  * [#Summary_Results Summary Results]
   * [#Pure_Java_Libraries Pure Java Results]
     * [#Java:_Basic_Operation_Results Basic Operations]
     * [#Java:_Solving_Linear_Systems Solving Linear Systems]
@@ -15,6 +16,8 @@ Links to the results:
     * [#Mixed:_Basic_Operation_Results Basic Operations]
     * [#Mixed:_Solving_Linear_Systems Solving Linear Systems]
     * [#Mixed:_Matrix_Decompositions Matrix Decompositions]
+
+<g:plusone size="medium"></g:plusone>
 
 =Test Environment =
 
@@ -42,11 +45,21 @@ Tested Libraries:
 || UJMP || 0.2.5           ||
 
 
+= Summary Results =
+
+Summary results are a weighted average of the relative runtime results across all operations shown using a box and whisker plot.  For each library there are three bars that show the results across a different range of matrix sizes.  The red bar shows results across all sizes, blue only large matrices, and green only small.  The two summary plots below show results for first pure Java libraries, and then for a combination of pure Java and libraries which use the JNI to invoke native code.
+
+==Pure Java Libraries==
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7M620_2012_02.attach/summary.png
+
+== Mixed Java and Native ==
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7M620_2012_02.attach/native/summary.png
+
 = Pure Java Libraries =
 
 These results show the performance of libraries that have code written entirely in Java.
-
-http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7M620_2012_02.attach/summary.png
 
 ==Java: Basic Operation Results==
 
@@ -68,8 +81,6 @@ http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7M620_2012_02.a
 = Mixed Java and Native Libraries =
 
 These results show the performance of libraries that either use pure Java or calls to native libraries.
-
-http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7M620_2012_02.attach/native/summary.png
 
 ==Java: Basic Operation Results==
 
