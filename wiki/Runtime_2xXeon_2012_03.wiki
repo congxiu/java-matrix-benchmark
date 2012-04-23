@@ -2,13 +2,12 @@
 
 Comments:
 
-  * Updated several libraries
-  * Changed JBlAS symmetric positive definite inverse
-  * Changed MTJ Symmetric EVD
-  * The newer version of JBlAS significantly slower than the previous version, which is why UJMP runs faster than JBlAS even though it is calling JBLAS.
-  * Benchmark performed by Anders Peterson
+  * Updated, CommonsMath, ojAlgo, EJML, UJMP
+  * Only the pure java version of UJMP from the website is used.  Before the author provided a custom version.
+  * Added la4j to the benchmark
 
 Links to the results:
+  * [#Summary_Results Summary Results]
   * [#Pure_Java_Libraries Pure Java Results]
     * [#Java:_Basic_Operation_Results Basic Operations]
     * [#Java:_Solving_Linear_Systems Solving Linear Systems]
@@ -18,52 +17,64 @@ Links to the results:
     * [#Mixed:_Solving_Linear_Systems Solving Linear Systems]
     * [#Mixed:_Matrix_Decompositions Matrix Decompositions]
 
+<g:plusone size="medium"></g:plusone>
+
 =Test Environment =
 
 || JVM || Java HotSpot(TM) 64-Bit Server VM 1.6.0_17 ||
 
 Test Environment:
-|| Date || 2011.07.20 ||
-|| OS   || MacOS 10.6.8 64bit  ||
+|| Date || 2012.03 ||
+|| OS   || MacOS 10.7.3 64bit  ||
 || CPU  || 2 Quad-Core Intel Xeon - 8 cores (16 hyperthreads) ||
 || RAM || 12GB ||
 || CPU Cache || 8MB L3, 256kB L2, 32kB ||
-|| JVM  || Java HotSpot(TM) 64-Bit Server 1.6.0_26 ||
+|| JVM  || Java HotSpot(TM) 64-Bit Server 1.6.0_29 ||
 || Benchmark || 0.8 ||
 
 Tested Libraries:
-|| Name || Version         || ||
-|| Colt ||  1.2            || ||
-|| Commons Math || 2.1     || ||
-|| EJML ||  0.16           || ||
-|| Jama || 1.0.2           || ||
-|| JBlas || 1.2.0          || ||
-|| MTJ || 0.9.13           || ||
-|| OjAlgo || 30.x         || || 
-|| Parallel Colt || 0.9.4  || ||
-|| UJMP || 0.2.5           || 3rd Party w/Native ||
-|| UJMP-J || 0.2.5         || 3rd Party only Java||
+|| Name || Version         ||
+|| Colt ||  1.2            ||
+|| Commons Math || 2.2     ||
+|| EJML ||  0.18           ||
+|| Jama || 1.0.2           ||
+|| JBlas || 1.2.0          ||
+|| la4j || 0.2.0           ||
+|| MTJ || 0.9.13           ||
+|| OjAlgo || 31.12         || 
+|| Parallel Colt || 0.9.4  ||
+|| UJMP || 0.2.5           ||
+
+= Summary Results =
+
+Summary results are a weighted average of the relative runtime results across all operations shown using a box and whisker plot.  For each library there are three bars that show the results across a different range of matrix sizes.  The red bar shows results across all sizes, blue only large matrices, and green only small.  The two summary plots below show results for first pure Java libraries, and then for a combination of pure Java and libraries which use the JNI to invoke native code.
+
+==Pure Java Libraries==
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/summary.png
+
+== Mixed Java and Native ==
+
+http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/summary.png
 
 = Pure Java Libraries =
 
 These results show the performance of libraries that have code written entirely in Java.
 
-http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/summary.png
-
 ==Java: Basic Operation Results==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/scale.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/multTranB.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/tranSq.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/invSymmPosDef.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/multTranB.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/tranSq.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/invSymmPosDef.png ||
 
 ==Java: Solving Linear Systems==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/solveOver.png||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/solveOver.png||
 
 ==Java: Matrix Decompositions==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/EigSymm.png ||
 
 
 ----
@@ -71,20 +82,18 @@ http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.atta
 
 These results show the performance of libraries that either use pure Java or calls to native libraries.
 
-http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/summary.png
-
 ==Java: Basic Operation Results==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/scale.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/multTranB.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/tranSq.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/invSymmPosDef.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/scale.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/multTranB.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/tranSq.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/invSymmPosDef.png ||
 
 
 ==Java: Solving Linear Systems==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/solveOver.png||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/solveOver.png||
 
 ==Java: Matrix Decompositions==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2011_07.attach/native/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/Runtime_2xXeon_2012_03.attach/native/EigSymm.png ||
