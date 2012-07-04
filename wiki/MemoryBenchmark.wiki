@@ -1,11 +1,11 @@
 #summary Summary of memory usage benchmark.
 
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/plot_memory.jpg
-Plot showing relative memory usage for each library in different mathematical operations.
+http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/3000.png
+<p align=center>*Plot showing relative memory usage for each library in different mathematical operations.*</p>
 
 = Introduction =
 
-Less memory is used to accomplish a task the better.  When dealing with larger matrices it is not uncommon for a problem to become memory limited.  Often times memory usage is traded for speed and data abstraction.  What might allow a library to run faster can make it unusable for other problems by using up too much memory.
+As the size of a matrix grows how memory efficient a library is becomes more and more important.  For many problems (e.g. machine learning or data mining) the problems can be so large that they exceed the total memory available in the computer.  Often times memory usage is traded for speed and data abstraction.  What might allow a library to run faster can make it unusable for other problems by using up too much memory.
 
 Measuring the amount of memory each library uses in Java is not a trivial task.  Even when the exact same code is called it can vary depending on the run.  Garbage collectors (GC) might decide to postpone freeing memory for performance reasons. Memory usage can vary with time, making how often it is sampled important.  What this benchmark is attempts to measure is the minimum amount of memory required by each library to accomplish some task. 
 
@@ -13,7 +13,7 @@ At the top of this page is an example of a relative memory usage plot.  For each
 
 To run the benchmark, use the following command:
 {{{
-http://java-matrix-benchmark.googlecode.com/svn/wiki/MemoryResults_2011_02.attach/plot_memory.jpg
+java -jar build/jar/benchmark_app.jar memory
 }}}
 
 = Procedure =
