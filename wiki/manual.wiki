@@ -10,7 +10,7 @@ To build JMatBench first the source code must be acquired from either the SVN re
 
 The following is a command line example in linux:
 {{{
-$ ant app
+$ ant
 Buildfile: build.xml
 
 compile:
