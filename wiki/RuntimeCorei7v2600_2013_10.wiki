@@ -64,17 +64,17 @@ These results show the performance of libraries that have code written entirely 
 ==Java: Basic Operation Results==
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/scale.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/multTranB.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/tranSq.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/invSymmPosDef.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/multTransB.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/det.png|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/transpose.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/invert.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/invertSymmPosDef.png ||
 
 ==Java: Solving Linear Systems==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/solveOver.png||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/solveExact.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/solveOver.png||
 
 ==Java: Matrix Decompositions==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/eigSymm.png ||
 
 
 ----
@@ -85,15 +85,15 @@ These results show the performance of libraries that either use pure Java or cal
 ==Java: Basic Operation Results==
 
 || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/add.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/scale.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/multTranB.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/tranSq.png ||
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/inv.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/invSymmPosDef.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/mult.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/multTransB.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/det.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/transpose.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/invert.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/invertSymmPosDef.png ||
 
 
 ==Java: Solving Linear Systems==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/solveEq.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/solveOver.png||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/solveExact.png ||http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/solveOver.png||
 
 ==Java: Matrix Decompositions==
 
-|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/EigSymm.png ||
+|| http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/svd.png || http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/eigSymm.png ||
