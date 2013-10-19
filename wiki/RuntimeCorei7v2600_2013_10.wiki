@@ -1,10 +1,10 @@
-#summary Benchmark results for an Intel Core i7M620 Processor on 64bit Linux
+#summary Benchmark results for an Intel Core i7-2600 Processor on 64bit Linux
 
 Comments:
 
   * Updated: MTJ, la4j, JBlas, CommonsMath, ojAlgo, EJML, UJMP, Jama
   * MTJ now includes a native version and has many internal changes
-  * Summary results now define a small matrix 10 instead of 4
+  * Summary results now define a small matrix as having a width/height of 10 instead of 4
 
 Links to the results:
   * [#Summary_Results Summary Results]
