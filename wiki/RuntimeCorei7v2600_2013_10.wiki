@@ -4,6 +4,7 @@ Comments:
 
   * Updated: MTJ, la4j, JBlas, CommonsMath, ojAlgo, EJML, UJMP, Jama
   * MTJ now includes a native version and has many internal changes
+  * Removed UJMP-Native since the version on the website doesn't contain native code apparently
   * Summary results now define a small matrix as having a width/height of 10 instead of 4
 
 Links to the results:
