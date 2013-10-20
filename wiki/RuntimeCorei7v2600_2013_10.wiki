@@ -50,11 +50,11 @@ Tested Libraries:
 
 Summary results are a weighted average of the relative runtime results across all operations shown using a box and whisker plot.  For each library there are three bars that show the results across a different range of matrix sizes.  The red bar shows results across all sizes, blue only large matrices, and green only small.  The two summary plots below show results for first pure Java libraries, and then for a combination of pure Java and libraries which use the JNI to invoke native code.
 
-==Pure Java Libraries==
+==Pure Java Summary Results==
 
 http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/summary.png
 
-== Mixed Java and Native ==
+== Mixed Java and Native Summary Results ==
 
 http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/native/summary.png
 
