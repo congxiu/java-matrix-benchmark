@@ -6,6 +6,11 @@ The following contains old results so one can see how a library evolved as well 
 
 = Runtime Performance =
 
+== Intel Core i7-2600 ==
+
+|| Date || Benchmark ||
+|| 2013.10 || [RuntimeCorei7v2600_2013_10] ||
+
 == Intel Core i7 M620 ==
 
 || Date || Benchmark ||
@@ -55,6 +60,7 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.04.27 || [MemoryResults_2010_04] ||
 || 2011.02.13 || [MemoryResults_2011_02] ||
 || 2012.02    || [MemoryResults_2012_02] ||
+|| 2013.10    || [MemoryResults_2013_10] ||
 
 = Stability Performance =
 
@@ -68,3 +74,4 @@ The following contains old results so one can see how a library evolved as well 
 || 2010.08    || [StabilityResults_2010_08] ||
 || 2011.02    || [StabilityResults_2011_02] ||
 || 2012.02    || [StabilityResults_2012_02] ||
+|| 2013.10    || [StabilityResults_2013_10] ||
