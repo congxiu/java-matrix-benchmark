@@ -50,7 +50,9 @@ Tested Libraries:
 
 = Summary Results =
 
-Summary results are a weighted average of the relative runtime results across all operations shown using a box and whisker plot.  For each library there are three bars that show the results across a different range of matrix sizes.  The red bar shows results across all sizes, blue only large matrices, and green only small.  The two summary plots below show results for first pure Java libraries, and then for a combination of pure Java and libraries which use the JNI to invoke native code.
+The following results are a weighted sum across all operations within each matrix size.  Operations which take longer will have more weight.  If a library could not finish an operation it is simply omitted from its score calculation.  
+
+A library which does not finish slow operations but finishes fast operations could appear to be faster than it is.  JAMA's and other libraries results are inflated for large matrix sizes because of this.  Suggestions on how to handle this problem are welcome.
 
 ==Pure Java Summary Results==
 
