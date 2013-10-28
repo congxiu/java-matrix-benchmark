@@ -50,9 +50,7 @@ Tested Libraries:
 
 = Summary Results =
 
-The following results are a weighted sum across all operations within each matrix size.  Operations which take longer will have more weight.  If a library could not finish an operation it is simply omitted from its score calculation.  
-
-A library which does not finish slow operations but finishes fast operations could appear to be faster than it is.  JAMA's and other libraries results are inflated for large matrix sizes because of this.  Suggestions on how to handle this problem are welcome.
+The following results are a weighted sum across all operations within each matrix size.  Operations which take longer will have more weight.  If a library could not finish an operation then it's score is set to zero.  An artifact of this approach is that libraries which ran out of memory during an expensive opeartion are significantly penalized.
 
 ==Pure Java Summary Results==
 
