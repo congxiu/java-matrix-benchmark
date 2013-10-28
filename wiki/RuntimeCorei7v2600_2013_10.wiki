@@ -50,7 +50,7 @@ Tested Libraries:
 
 = Summary Results =
 
-The following results are a weighted sum across all operations within each matrix size.  Operations which take longer will have more weight.  If a library could not finish an operation then it's score is set to zero.  _An artifact of this approach is that libraries which do not support an expensive operation or run out of memory are significantly penalized._
+The following results are a weighted sum across all operations within each matrix size.  Operations which take longer will have more weight.  If a library could not finish an operation then it's score is set to zero.  _An artifact of this approach is that libraries which do not support an expensive operation, barely time out, or run out of memory are significantly penalized.  Results around matrix size of 10k become erratic due to just mentioned issues._
 
 ==Pure Java Summary Results==
 
