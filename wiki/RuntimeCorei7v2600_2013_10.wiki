@@ -54,6 +54,8 @@ The following results are a weighted sum across all operations within each matri
 
 _An artifact of "could not finish" approach is that libraries which do not support an expensive operation, barely time out, or run out of memory are significantly penalized.  Results around the matrix size of 10k become erratic due to this issue._
 
+*NOTE* The weight is computed from the amount of time the fastest library takes to complete.  Which is why the results change a bit from Java to Java + Native.
+
 ==Pure Java Summary Results==
 
 http://java-matrix-benchmark.googlecode.com/svn/wiki/RuntimeCorei7v2600_2013_10.attach/summary.png
